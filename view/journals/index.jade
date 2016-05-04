@@ -1,0 +1,26 @@
+//
+   Created by Obscurity on 2016/5/2.
+
+extends ../layout/layout
+
+block content
+    - for (var i = 0; i < journals.length; i++)
+        .row.journal
+            a.journal-title(href=journals[i].link)= journals[i].name
+            .journal-info= journals[i].updated_at + '　阅读(' + journals[i].read_count + ')　评论(' + journals[i].comment_count + ')'
+            .journal-content= journals[i].content
+    .text-center
+        ul.pagination
+            if pagination.current_index > 1
+                li
+                    a(href="/journals?page=" + (pagination.current_index - 1)) &laquo; 上一页
+            - for(var i = (1 > pagination.current_index - 2 ? 1 : pagination.current_index - 2); i <= (pagination.total_page < pagination.current_index + 2 ? pagination.total_page : pagination.current_index + 2); i++)
+                if i == pagination.current_index
+                    li.active
+                        a(href="/journals?page=" + i)= i
+                else
+                    li
+                        a(href="/journals?page=" + i)= i
+            if pagination.current_index < pagination.total_page
+                li
+                    a(href="/journals?page=" + (pagination.current_index + 1)) 下一页 &raquo;

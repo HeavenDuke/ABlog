@@ -1,0 +1,18 @@
+//
+   Created by Obscurity on 2016/5/2.
+
+extends ../layout/layout
+
+block content
+    form(role="form" action="/journals", method="POST")
+        .row
+            br
+            .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                .form-group
+                    input.form-control(name="title" placeholder="请在此输入日志标题" maxlength=30 required)
+        .row
+            .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                textarea.form-control(name="content" rows=20 placeholder="请在此输入日志正文" maxlength=100000 required)
+        .row.text-center
+            br
+            button.button.button-pill.button-primary(type="submit") 提交

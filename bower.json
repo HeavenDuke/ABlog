@@ -1,0 +1,25 @@
+{
+  "name": "Backend",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "DoubleDeckers <seer_buaasoft2015@163.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "bootstrap": "~3.3.0",
+    "fontawesome": "~4.5.0",
+    "Buttons": "~2.0.0"
+  }
+}

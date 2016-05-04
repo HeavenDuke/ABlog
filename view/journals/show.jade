@@ -1,0 +1,17 @@
+//
+   Created by Obscurity on 2016/5/2.
+
+extends ../layout/layout
+
+block content
+    .row
+        br
+        .col-lg-8.col-md-8.col-sm-8.col-xs-8
+            .journal-title= journal.title
+            .journal-info= journal.updated_at + '　阅读(' + journal.read_count + ')'
+        .col-lg-4.col-md-4.col-sm-4.col-xs-4
+            a.button.button-primary.button-pill.pull-right(href="/journals") 返回日志列表
+
+    .row
+        .col-lg-12.col-md-12.col-sm-12.col-xs-12
+            #journal-content.journal-content= journal.content

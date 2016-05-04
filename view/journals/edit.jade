@@ -4,7 +4,7 @@
 extends ../layout/layout
 
 block content
-    form(role="form" action=journal.link, method="POST")
+    form(role="form" action="/journals/" + journal._id, method="POST")
         input.hidden(name="_method", value="PUT")
         .row
             br

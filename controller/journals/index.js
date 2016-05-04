@@ -60,20 +60,8 @@ var index = function *(next) {
 };
 
 var show = function *(next) {
-    var constructContent = function () {
-        var result = "";
-        var element = "<p> Consider a supervised learning problem where we have access to labeled training examples (x(i),y(i)). Neural networks give a way of defining a complex, non-linear form of hypotheses hW,b(x), with parameters W,b that we can fit to our data. </p>";
-        for(var i = 0; i < 12; i++) {
-            result += element;
-        }
-        return result;
-    };
-    var journal = {
-        title: "测试标题",
-        content: constructContent(),
-        updated_at: "2016-01-01 01:01:01",
-        read_count: 10
-    };
+    var Journal = global.database.models.journal;
+    var journal = yield Journal.findById(this.params.journal_id);
     this.render('./journals/show',{"title":"koa demo", journal: journal}, true);
 };
 
@@ -82,41 +70,34 @@ var init = function *(next) {
 };
 
 var create = function *(next) {
-    var journal = {
-        title: this.request.body.title,
-        content: this.request.body.content
-    };
-    this.redirect("/journals");
+    var Journal = global.database.models.journal;
+    var journal = new Journal();
+    journal.title = "测试标题";
+    journal.content = "<h4>这是一个测试</h4>"
+    journal.save();
+    this.redirect(this.app.url("journals-detail", {journal_id: journal._id}));
 };
 
 var edit = function *(next) {
-    var constructContent = function () {
-        var result = "";
-        var element = "<p> Consider a supervised learning problem where we have access to labeled training examples (x(i),y(i)). Neural networks give a way of defining a complex, non-linear form of hypotheses hW,b(x), with parameters W,b that we can fit to our data. </p>";
-        for(var i = 0; i < 12; i++) {
-            result += element;
-        }
-        return result;
-    };
-    var journal = {
-        link: this.app.url('journals-update', {journal_id: this.params.journal_id}),
-        title: "测试标题",
-        content: constructContent()
-    };
+    var Journal = global.database.models.journal;
+    var journal = yield Journal.findById(this.params.journal_id);
     this.render('./journals/edit',{"title":"koa demo", journal: journal}, true);
 };
 
 var update = function *(next) {
-    var journal = {
-        journal_id: this.params.journal_id,
-        title: this.request.body.title,
-        content: this.request.body.content
-    };
-    this.redirect(this.app.url('journals-update', {journal_id: journal.journal_id}));
+    var Journal = global.database.models.journal;
+    var journal = yield Journal.findById(this.params.journal_id);
+    journal.title = this.request.body.title;
+    journal.content = this.request.body.content;
+    journal.save();
+    this.redirect(this.app.url('journals-update', {journal_id: journal._id}));
 };
 
 var destroy = function *(next) {
-
+    var Journal = global.database.models.journal;
+    var journal = yield Journal.findById(this.params.journal_id);
+    journal.remove();
+    this.redirect(this.app.url('journals-list'));
 };
 
 module.exports = {

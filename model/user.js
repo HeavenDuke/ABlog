@@ -29,7 +29,7 @@ user.encasePassword = function (plain) {
     var alphabet = "1234567890qwertyuiopasdfghjklzxcvbnm";
     var nonce_str = "";
     var randomBit = 8;
-    var method = method;
+    var method = 'md5';
     for(var i = 0; i < randomBit; i++) {
         nonce_str += alphabet.charAt(generateRandom(alphabet));
     }

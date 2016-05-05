@@ -16,12 +16,32 @@ var edit = function *(next) {
 };
 
 var update = function *(next) {
-
+    var User = global.database.models.user;
+    var user = yield User.findById(this.session.user._id);
+    var passwordSet = {
+        previous: this.request.body.password,
+        new: this.request.body.new_password,
+        confirm: this.request.body.confirm_password
+    };
+    var validateTwoPassword = function (password, confirm) {
+        return password == confirm;
+    }
+    if (user.validatePassword(passwordSet.previous) && validateTwoPassword(passwordSet.new, passwordSet.confirm)) {
+        user.password = user.encasePassword(passwordSet.new);
+        user.save();
+        this.redirect('/user/edit');
+    }
+    else {
+        this.redirect('/user/edit');
+    }
 };
 
 var loginAction = function *(next) {
     var writeUserInfo = function (session, user) {
-        session.user = user;
+        session.user = {
+            _id: user._id,
+            username: user.username
+        };
     };
     if (this.session.user) {
         this.redirect('/');

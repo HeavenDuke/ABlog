@@ -18,7 +18,11 @@ module.exports = function(root) {
         //静态文件所在的目录
         "staticDir": path.join(__dirname,'..', 'public'),
 
-        mongodb: 'mongodb://localhost:27017/ablog'
+        "mongodb": 'mongodb://localhost:27017/ablog',
+
+        "pagination": {
+            "journal": 5
+        }
     };
 
     //当NODE_ENV环境变量值为local时

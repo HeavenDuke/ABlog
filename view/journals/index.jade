@@ -4,10 +4,15 @@
 extends ../layout/layout
 
 block content
+    .row.journal
+        h4.pull-left 日志列表
+        if current_user != null
+            a.button.button-primary.button-pill.pull-right(href="/journals/new") 写日志
+    .divider
     - for (var i = 0; i < journals.length; i++)
         .row.journal
-            a.journal-title(href=journals[i].link)= journals[i].name
-            .journal-info= journals[i].updated_at + '　阅读(' + journals[i].read_count + ')　评论(' + journals[i].comment_count + ')'
+            a.journal-title(href="/journals/" + journals[i]._id)= journals[i].title
+            .journal-info= journals[i].updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journals[i].read_count + ')'
             .journal-content= journals[i].content
     .text-center
         ul.pagination

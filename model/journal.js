@@ -4,8 +4,6 @@
 
 var journal = {};
 
-module.exports = journal;
-
 journal.Schema = {
     title: {
         type: String,
@@ -41,3 +39,4 @@ journal.link = function(router, _id) {
     router.url('journals-detail', {journal_id: _id})
 };
 
+module.exports = journal;

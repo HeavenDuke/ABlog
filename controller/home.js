@@ -3,7 +3,6 @@
  */
 
 var index = function *(next) {
-    console.log(123);
     this.redirect('/journals');
 };
 

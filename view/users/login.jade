@@ -4,4 +4,22 @@
 extends ../layout/layout
 
 block content
-    h1 Login Page
+    .container
+        .row
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4
+                br
+                br
+                br
+                .text-center
+                    h4 登录
+                form(role="form" action="/user/login" method="POST")
+                    .form-group
+                        label(for="username") 账户名
+                        input.form-control#username(type="text" name="username" required)
+                    .form-group
+                        label(for="password") 密码
+                        input.form-control#password(type="password" name="password" required)
+                    .text-center
+                        button(type="submit").button.button-primary.button-pill 登录
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4

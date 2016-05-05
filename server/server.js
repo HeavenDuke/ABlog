@@ -4,6 +4,7 @@
 
 var debug = require('debug')('ablog');
 var koa = require('koa');
+var flash = require('koa-flash');
 //配置文件
 var config = require('../config/config')(__dirname);
 //log记录
@@ -36,9 +37,13 @@ Server.prototype.start = function () {
         format: 'YYYY-MM-DD-[{category}][.log]'
     });
 
+
+
     var port = this.opts.port || 3000;
 
     this.use(session(this));
+    this.keys = ['heavenduke'];
+    this.use(flash());
 
     this.context.logger = logger;
 
@@ -67,6 +72,8 @@ Server.prototype.start = function () {
     this.use(router(this));
 
     appRouter(this);
+
+
 
     this.on('error', function(err, ctx) {
         if (process.env.NODE_ENV != 'test') {

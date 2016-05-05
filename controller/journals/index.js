@@ -5,75 +5,34 @@
 var Router = require('koa-router');
 
 var index = function *(next) {
-    var journals = [
-        {
-            id: 123,
-            link: this.app.url('journals-detail', {journal_id: 123}),
-            name: "青梅雪",
-            read_count: 10,
-            comment_count: 10,
-            updated_at: "2016-01-01 01:01:01",
-            content: "木匣轻启，乐声鸣响，女孩长袖凌风，揽过月色，跳起舞来。“你也来呀。”她脚下画着圆，来到男孩身旁。男孩端坐在石头上，岿然不动。“你跳，我看着。”他的眼睛紧随女孩的舞步。"
-        },
-        {
-            id: "123",
-            link: this.app.url('journals-detail', {journal_id: 123}),
-            name: "青梅雪",
-            read_count: 10,
-            comment_count: 10,
-            updated_at: "2016-01-01 01:01:01",
-            content: "木匣轻启，乐声鸣响，女孩长袖凌风，揽过月色，跳起舞来。“你也来呀。”她脚下画着圆，来到男孩身旁。男孩端坐在石头上，岿然不动。“你跳，我看着。”他的眼睛紧随女孩的舞步。"
-        },
-        {
-            id: "123",
-            link: this.app.url('journals-detail', {journal_id: 123}),
-            name: "青梅雪",
-            read_count: 10,
-            comment_count: 10,
-            updated_at: "2016-01-01 01:01:01",
-            content: "木匣轻启，乐声鸣响，女孩长袖凌风，揽过月色，跳起舞来。“你也来呀。”她脚下画着圆，来到男孩身旁。男孩端坐在石头上，岿然不动。“你跳，我看着。”他的眼睛紧随女孩的舞步。"
-        },
-        {
-            id: "123",
-            link: this.app.url('journals-detail', {journal_id: 123}),
-            name: "青梅雪",
-            read_count: 10,
-            comment_count: 10,
-            updated_at: "2016-01-01 01:01:01",
-            content: "木匣轻启，乐声鸣响，女孩长袖凌风，揽过月色，跳起舞来。“你也来呀。”她脚下画着圆，来到男孩身旁。男孩端坐在石头上，岿然不动。“你跳，我看着。”他的眼睛紧随女孩的舞步。"
-        },
-        {
-            id: "123",
-            link: this.app.url('journals-detail', {journal_id: 123}),
-            name: "青梅雪",
-            read_count: 10,
-            comment_count: 10,
-            updated_at: "2016-01-01 01:01:01",
-            content: "木匣轻启，乐声鸣响，女孩长袖凌风，揽过月色，跳起舞来。“你也来呀。”她脚下画着圆，来到男孩身旁。男孩端坐在石头上，岿然不动。“你跳，我看着。”他的眼睛紧随女孩的舞步。"
-        }
-    ];
+    var Journal = global.database.models.journal;
+    var total_journal_count = yield Journal.count({});
+    var total_page = Math.ceil(total_journal_count / global.conf.pagination.journal);
+    var current_page_index = parseInt(this.request.query.page) == 0 || isNaN(parseInt(this.request.query.page)) ? 1 : parseInt(this.request.query.page);
+    var offset = (current_page_index - 1) * global.conf.pagination.journal;
+    var journals = yield Journal.find({}).sort({"updated_at": -1}).skip(offset).limit(global.conf.pagination.journal);
     var pagination = {
-        total_page: 10,
-        current_index: parseInt(this.request.query.page) == 0 ? 1 : parseInt(this.request.query.page)
+        total_page: total_page,
+        current_index: current_page_index
     };
-    this.render('./journals/index',{"title":"文章列表", journals: journals, pagination: pagination}, true);
+    this.render('./journals/index',{"title":"文章列表", current_user: this.session.user, journals: journals, pagination: pagination}, true);
 };
 
 var show = function *(next) {
     var Journal = global.database.models.journal;
     var journal = yield Journal.findById(this.params.journal_id);
-    this.render('./journals/show',{"title":"koa demo", journal: journal}, true);
+    this.render('./journals/show',{"title":"koa demo", journal: journal, current_user: this.session.user}, true);
 };
 
 var init = function *(next) {
-    this.render('./journals/new',{"title":"koa demo"}, true);
+    this.render('./journals/new',{"title":"koa demo", current_user: this.session.user}, true);
 };
 
 var create = function *(next) {
     var Journal = global.database.models.journal;
     var journal = new Journal();
-    journal.title = "测试标题";
-    journal.content = "<h4>这是一个测试</h4>"
+    journal.title = this.request.body.title;
+    journal.content = this.request.body.content;
     journal.save();
     this.redirect(this.app.url("journals-detail", {journal_id: journal._id}));
 };
@@ -81,7 +40,7 @@ var create = function *(next) {
 var edit = function *(next) {
     var Journal = global.database.models.journal;
     var journal = yield Journal.findById(this.params.journal_id);
-    this.render('./journals/edit',{"title":"koa demo", journal: journal}, true);
+    this.render('./journals/edit',{"title":"koa demo", journal: journal, current_user: this.session.user}, true);
 };
 
 var update = function *(next) {

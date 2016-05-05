@@ -36,7 +36,6 @@ user.encasePassword = function (plain) {
     var encrypter = crypto.createHash(method);
     encrypter.update(nonce_str + plain);
     var encrypted = encrypter.digest('hex').toUpperCase();
-    console.log(encrypted);
     return method + '$' + nonce_str + '$' + encrypted;
 };
 
@@ -45,7 +44,6 @@ user.parsePassword = function () {
 };
 
 user.validatePassword = function (plain) {
-    console.log(this);
     var passwordSet = this.parsePassword();
     var method = passwordSet[0];
     var nonce_str = passwordSet[1];

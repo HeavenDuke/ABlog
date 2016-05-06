@@ -22,6 +22,10 @@ module.exports = function(root) {
 
         "pagination": {
             "journal": 5
+        },
+
+        "preview": {
+            "journal": 200
         }
     };
 

@@ -107,7 +107,8 @@ Server.prototype.initGlobalVariables = function() {
     global.database = require('../model').loader;
     global.utils = {
         markdown: require('markdown').markdown,
-        html2plain: require('html2plaintext')
+        html2plain: require('html2plaintext'),
+        journalPreview: require('../libs/journalPreview')
     };
 };
 

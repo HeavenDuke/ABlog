@@ -21,6 +21,11 @@ var index = function *(next) {
 var show = function *(next) {
     var Journal = global.database.models.journal;
     var journal = yield Journal.findById(this.params.journal_id);
+    if (!this.session.already_read) {
+        journal.read_count += 1;
+        journal.save();
+        this.session.already_read = true;
+    }
     this.render('./journals/show',{"title":"koa demo", journal: journal, current_user: this.session.user}, true);
 };
 

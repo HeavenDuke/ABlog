@@ -9,23 +9,29 @@ block content
         if current_user != null
             a.button.button-primary.button-pill.pull-right(href="/journals/new") 写日志
     .divider
-    - for (var i = 0; i < journals.length; i++)
-        .row.journal
-            a.journal-title(href="/journals/" + journals[i]._id)= journals[i].title
-            .journal-info= journals[i].updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journals[i].read_count + ')'
-            .journal-content= global.utils.html2plain(global.utils.markdown.toHTML(journals[i].content, 'Maruku'))
-    .text-center
-        ul.pagination
-            if pagination.current_index > 1
-                li
-                    a(href="/journals?page=" + (pagination.current_index - 1)) &laquo; 上一页
-            - for(var i = (1 > pagination.current_index - 2 ? 1 : pagination.current_index - 2); i <= (pagination.total_page < pagination.current_index + 2 ? pagination.total_page : pagination.current_index + 2); i++)
-                if i == pagination.current_index
-                    li.active
-                        a(href="/journals?page=" + i)= i
-                else
+    if journals.length == 0
+        .row.text-center
+            .vertical-center
+                h1 主人很懒
+                h1 什么也没有写_(:з」∠)_
+    else
+        - for (var i = 0; i < journals.length; i++)
+            .row.journal
+                a.journal-title(href="/journals/" + journals[i]._id)= journals[i].title
+                .journal-info= journals[i].updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journals[i].read_count + ')'
+                .journal-content= global.utils.journalPreview(global.utils.html2plain(global.utils.markdown.toHTML(journals[i].content, 'Maruku')), global.conf.preview.journal)
+        .row.text-center
+            ul.pagination
+                if pagination.current_index > 1
                     li
-                        a(href="/journals?page=" + i)= i
-            if pagination.current_index < pagination.total_page
-                li
-                    a(href="/journals?page=" + (pagination.current_index + 1)) 下一页 &raquo;
+                        a(href="/journals?page=" + (pagination.current_index - 1)) &laquo; 上一页
+                - for(var i = (1 > pagination.current_index - 2 ? 1 : pagination.current_index - 2); i <= (pagination.total_page < pagination.current_index + 2 ? pagination.total_page : pagination.current_index + 2); i++)
+                    if i == pagination.current_index
+                        li.active
+                            a(href="/journals?page=" + i)= i
+                    else
+                        li
+                            a(href="/journals?page=" + i)= i
+                if pagination.current_index < pagination.total_page
+                    li
+                        a(href="/journals?page=" + (pagination.current_index + 1)) 下一页 &raquo;

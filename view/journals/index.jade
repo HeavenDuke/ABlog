@@ -13,7 +13,7 @@ block content
         .row.journal
             a.journal-title(href="/journals/" + journals[i]._id)= journals[i].title
             .journal-info= journals[i].updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journals[i].read_count + ')'
-            .journal-content= journals[i].content
+            .journal-content= global.utils.html2plain(global.utils.markdown.toHTML(journals[i].content, 'Maruku'))
     .text-center
         ul.pagination
             if pagination.current_index > 1

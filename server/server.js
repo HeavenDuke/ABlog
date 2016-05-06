@@ -105,6 +105,10 @@ Server.prototype.config = function() {};
 Server.prototype.initGlobalVariables = function() {
     global.conf = this.opts;
     global.database = require('../model').loader;
+    global.utils = {
+        markdown: require('markdown').markdown,
+        html2plain: require('html2plaintext')
+    };
 };
 
 module.exports = Server;

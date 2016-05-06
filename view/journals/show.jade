@@ -20,4 +20,4 @@ block content
 
     .row.journal
         .col-lg-12.col-md-12.col-sm-12.col-xs-12
-            #journal-content.journal-content= journal.content
+            #journal-content.journal-content= global.utils.markdown.toHTML(journal.content, 'Maruku')

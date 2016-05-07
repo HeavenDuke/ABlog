@@ -25,7 +25,7 @@ UserSchema.methods.validatePassword = User.validatePassword;
 database.models.journal = mongoose.model("journal", JournalSchema);
 database.models.user = mongoose.model("user", UserSchema);
 
-if (process.env.winner == 'true') {
+if (process.env.INIT_ADMIN == 'true') {
     seed.init(database);
 }
 

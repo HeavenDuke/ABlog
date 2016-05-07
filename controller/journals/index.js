@@ -18,11 +18,18 @@ var index = function *(next) {
 
 var show = function *(next) {
     var Journal = global.database.models.journal;
-    var journal = yield Journal.findById(this.params.journal_id);
-    if (!this.session.already_read) {
+    var setReadSession = function (session, journal_id) {
+        console.log(session);
+        if (!session.read_history) {
+            session.read_history = {};
+        }
         journal.read_count += 1;
         journal.save();
-        this.session.already_read = true;
+        session.read_history[journal_id] = true;
+    };
+    var journal = yield Journal.findById(this.params.journal_id);
+    if (!this.session.read_history || !this.session.read_history[journal._id]) {
+        setReadSession(this.session, journal._id);
     }
     this.render('./journals/show',{"title":journal.title, journal: journal, current_user: this.session.user}, true);
 };

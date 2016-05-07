@@ -2,8 +2,6 @@
  * Created by Obscurity on 2016/3/20.
  */
 
-var Router = require('koa-router');
-
 var index = function *(next) {
     var Journal = global.database.models.journal;
     var total_journal_count = yield Journal.count({});
@@ -15,7 +13,7 @@ var index = function *(next) {
         total_page: total_page,
         current_index: current_page_index
     };
-    this.render('./journals/index',{"title":"文章列表", current_user: this.session.user, journals: journals, pagination: pagination}, true);
+    this.render('./journals/index',{"title":"日志列表", current_user: this.session.user, journals: journals, pagination: pagination}, true);
 };
 
 var show = function *(next) {
@@ -26,11 +24,11 @@ var show = function *(next) {
         journal.save();
         this.session.already_read = true;
     }
-    this.render('./journals/show',{"title":"koa demo", journal: journal, current_user: this.session.user}, true);
+    this.render('./journals/show',{"title":journal.title, journal: journal, current_user: this.session.user}, true);
 };
 
 var init = function *(next) {
-    this.render('./journals/new',{"title":"koa demo", current_user: this.session.user}, true);
+    this.render('./journals/new',{"title":"写日志", current_user: this.session.user}, true);
 };
 
 var create = function *(next) {
@@ -45,7 +43,7 @@ var create = function *(next) {
 var edit = function *(next) {
     var Journal = global.database.models.journal;
     var journal = yield Journal.findById(this.params.journal_id);
-    this.render('./journals/edit',{"title":"koa demo", journal: journal, current_user: this.session.user}, true);
+    this.render('./journals/edit',{"title": "编辑日志", journal: journal, current_user: this.session.user}, true);
 };
 
 var update = function *(next) {

@@ -7,12 +7,12 @@ var loginView = function *(next) {
         this.redirect('/');
     }
     else {
-        this.render('./users/login', {"title": "koa demo", current_user: this.session.user}, true);
+        this.render('./users/login', {"title": "管理员登录", current_user: this.session.user}, true);
     }
 };
 
 var edit = function *(next) {
-    this.render('./users/edit',{"title":"koa demo", current_user: this.session.user}, true);
+    this.render('./users/edit',{"title":"修改密码", current_user: this.session.user}, true);
 };
 
 var update = function *(next) {

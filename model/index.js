@@ -11,6 +11,8 @@ var database = {
     models: {}
 };
 
+var seed = require('./seed');
+
 var Journal = require('./journal');
 var User = require('./user');
 var JournalSchema = new Schema(Journal.Schema, Journal.collection);
@@ -22,6 +24,10 @@ UserSchema.methods.validatePassword = User.validatePassword;
 
 database.models.journal = mongoose.model("journal", JournalSchema);
 database.models.user = mongoose.model("user", UserSchema);
+
+if (process.env.winner == 'true') {
+    seed.init(database);
+}
 
 module.exports = {
     loader:database

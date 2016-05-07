@@ -15,6 +15,11 @@ journal.Schema = {
         default: 0,
         min: 0
     },
+    placed_top: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     content: {
         type: String,
         required: true
@@ -37,6 +42,10 @@ journal.collection = {
 
 journal.link = function(router, _id) {
     router.url('journals-detail', {journal_id: _id})
+};
+
+journal.title_top = function() {
+    return '[置顶]' + this.title;
 };
 
 module.exports = journal;

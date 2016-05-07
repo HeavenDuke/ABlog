@@ -15,4 +15,7 @@ block content
                 textarea.form-control(name="content" rows=20 placeholder="请在此输入日志正文" maxlength=100000 required)
         .row.text-center
             br
+            .checkbox
+                input(name="placed_top" type="checkbox")
+                label 是否置顶
             button.button.button-pill.button-primary(type="submit") 提交

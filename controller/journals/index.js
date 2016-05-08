@@ -4,11 +4,17 @@
 
 var index = function *(next) {
     var Journal = global.database.models.journal;
+    var journal_per_page = global.conf.pagination.journal;
     var total_journal_count = yield Journal.count({});
-    var total_page = Math.ceil(total_journal_count / global.conf.pagination.journal);
+    var topped_journal_count = yield Journal.count({"placed_top": true});
+    var total_page = Math.ceil(total_journal_count / journal_per_page);
     var current_page_index = parseInt(this.request.query.page) == 0 || isNaN(parseInt(this.request.query.page)) ? 1 : parseInt(this.request.query.page);
     var offset = (current_page_index - 1) * global.conf.pagination.journal;
-    var journals = yield Journal.find({}).sort({"updated_at": -1}).skip(offset).limit(global.conf.pagination.journal);
+    var journals = yield Journal.find({placed_top: true}).sort({updated_at: -1}).skip(offset).limit(journal_per_page);
+    if (journals.length < journal_per_page) {
+        var journals_not_topped = yield Journal.find({placed_top: false}).sort({updated_at: -1}).skip(offset > topped_journal_count ? offset - topped_journal_count : 0).limit(journal_per_page - journals.length);
+        journals = journals.concat(journals_not_topped);
+    }
     var pagination = {
         total_page: total_page,
         current_index: current_page_index
@@ -18,11 +24,18 @@ var index = function *(next) {
 
 var show = function *(next) {
     var Journal = global.database.models.journal;
-    var journal = yield Journal.findById(this.params.journal_id);
-    if (!this.session.already_read) {
+    var setReadSession = function (session, journal_id) {
+        console.log(session);
+        if (!session.read_history) {
+            session.read_history = {};
+        }
         journal.read_count += 1;
         journal.save();
-        this.session.already_read = true;
+        session.read_history[journal_id] = true;
+    };
+    var journal = yield Journal.findById(this.params.journal_id);
+    if (!this.session.read_history || !this.session.read_history[journal._id]) {
+        setReadSession(this.session, journal._id);
     }
     this.render('./journals/show',{"title":journal.title, journal: journal, current_user: this.session.user}, true);
 };
@@ -36,6 +49,7 @@ var create = function *(next) {
     var journal = new Journal();
     journal.title = this.request.body.title;
     journal.content = this.request.body.content;
+    journal.placed_top = !(!this.request.body.placed_top);
     journal.save();
     this.redirect(this.app.url("journals-detail", {journal_id: journal._id}));
 };
@@ -51,6 +65,7 @@ var update = function *(next) {
     var journal = yield Journal.findById(this.params.journal_id);
     journal.title = this.request.body.title;
     journal.content = this.request.body.content;
+    journal.placed_top = !(!this.request.body.placed_top);
     journal.save();
     this.redirect(this.app.url('journals-update', {journal_id: journal._id}));
 };

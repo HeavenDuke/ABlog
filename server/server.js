@@ -70,22 +70,29 @@ Server.prototype.start = function () {
     this.use(staticCache(path.join(staticDir, 'fonts')));
     this.use(staticCache(path.join(staticDir, 'bower_components')));
 
+    this.use(function *(next) {
+        try{
+            yield* next;
+        } catch(e) {
+            if (process.env.NODE_ENV != 'test') {
+                console.log(e.message);
+                console.log(e);
+                logger.error(e);
+            }
+            this.render('./error');
+        }
+    });
+
     this.use(router(this));
 
     appRouter(this);
 
-
-
-    this.on('error', function(err, ctx) {
-        if (process.env.NODE_ENV != 'test') {
-            console.log(err.message);
-            console.log(err);
-            logger.error(err);
-        }
-    });
-
     this.listen(port);
 
+    this.on('error', function (err, ctx) {
+
+    });
+    
     console.log('listening on port %s',config.port);
 };
 
@@ -94,7 +101,7 @@ Server.prototype.connectDb = function () {
         server: {
             poolSize: 12,
             socketOptions: {
-                keepAlice: 1
+                keepAlive: 1
             }
         }
     });

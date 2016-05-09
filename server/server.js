@@ -10,7 +10,7 @@ var config = require('../config/config')(__dirname);
 //log记录
 var Logger = require('mini-logger');
 var onerror = require('koa-onerror');
-var override = require('koa-override')
+var override = require('koamethodoverride')
 var koaJade = require('koa-jade');
 var session = require('koa-session');
 var bodyParser = require('koa-bodyparser');

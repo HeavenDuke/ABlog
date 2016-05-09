@@ -33,8 +33,11 @@
             var journal_previewer = $("#journal_previewer");
             var journal_previewer_content = $("#journal_previewer_content");
             myCodeMirror.save();
-            var journal_raw_content = marked(rawEditor.val(), "Maruku");
+            var journal_raw_content = marked(rawEditor.val());
             journal_previewer_content.html(journal_raw_content);
+            journal_previewer_content.children('pre').each(function() {
+                hljs.highlightBlock(this);
+            });
         });
     }
 

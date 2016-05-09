@@ -22,7 +22,7 @@ journal.Schema = {
     },
     content: {
         type: String,
-        required: true
+        required: false
     },
     updated_at: {
         type: Date,

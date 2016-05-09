@@ -25,7 +25,6 @@ var index = function *(next) {
 var show = function *(next) {
     var Journal = global.database.models.journal;
     var setReadSession = function (session, journal_id) {
-        console.log(session);
         if (!session.read_history) {
             session.read_history = {};
         }
@@ -48,7 +47,7 @@ var create = function *(next) {
     var Journal = global.database.models.journal;
     var journal = new Journal();
     journal.title = this.request.body.title;
-    journal.content = this.request.body.content;
+    journal.content = !this.request.body.content ? "" : this.request.body.content;
     journal.placed_top = !(!this.request.body.placed_top);
     journal.save();
     this.redirect(this.app.url("journals-detail", {journal_id: journal._id}));
@@ -64,7 +63,7 @@ var update = function *(next) {
     var Journal = global.database.models.journal;
     var journal = yield Journal.findById(this.params.journal_id);
     journal.title = this.request.body.title;
-    journal.content = this.request.body.content;
+    journal.content = !this.request.body.content ? "" : this.request.body.content;
     journal.placed_top = !(!this.request.body.placed_top);
     journal.save();
     this.redirect(this.app.url('journals-update', {journal_id: journal._id}));

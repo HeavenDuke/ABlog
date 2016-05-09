@@ -19,6 +19,7 @@ var marked = require('marked');
 //路由
 var router = require('koa-router');
 var validator = require('koa-validator');
+var highlighter = require('highlight');
 
 var appRouter = require('../router');
 var path = require('path');

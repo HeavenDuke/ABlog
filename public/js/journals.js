@@ -7,6 +7,9 @@
     var prepare_journal_detail = function () {
         var journal_content_container = $("#journal-content");
         journal_content_container.html(journal_content_container.text());
+        $('pre code').each(function() {
+            hljs.highlightBlock(this);
+        });
     };
 
     var prepare_journal_previewer = function () {

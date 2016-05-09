@@ -1,5 +1,5 @@
 {
-  "name": "Backend",
+  "name": "ablog",
   "description": "",
   "main": "app.js",
   "authors": [
@@ -21,6 +21,7 @@
     "bootstrap": "~3.3.0",
     "fontawesome": "~4.5.0",
     "Buttons": "~2.0.0",
-    "CodeMirror": "latest"
+    "CodeMirror": "latest",
+    "highlightjs": "^9.2.0"
   }
 }

@@ -4,24 +4,26 @@
 extends ../layout/layout
 
 block content
-    .row.journal
-        br
-        .col-lg-8.col-md-8.col-sm-8.col-xs-8
-            .journal-title= journal.title
-            .journal-info= journal.updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journal.read_count + ')'
-                if current_user != null
-                    span &nbsp;
-                    a(href="/journals/" + journal._id + '/edit') 编辑
-                    span &nbsp;
-                    a(href="/journals/" + journal._id + '?_method=delete') 删除
-        .col-lg-4.col-md-4.col-sm-4.col-xs-4
-            span.pull-right
+    .container
+        .wrapper
+            .row.journal
+                br
+                .col-lg-8.col-md-8.col-sm-8.col-xs-8
+                    .journal-title= journal.title
+                    .journal-info= journal.updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journal.read_count + ')'
+                        if current_user != null
+                            span &nbsp;
+                            a(href="/journals/" + journal._id + '/edit') 编辑
+                            span &nbsp;
+                            a(href="/journals/" + journal._id + '?_method=delete') 删除
+                .col-lg-4.col-md-4.col-sm-4.col-xs-4
+                    span.pull-right
+                        a.button.button-primary.button-pill(href="/journals") 返回日志列表
+
+            .row.journal
+                .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                    #journal-content.journal-content= global.utils.markdown.toHTML(journal.content, 'Maruku')
+
+            .row.text-center
                 a.button.button-primary.button-pill(href="/journals") 返回日志列表
-
-    .row.journal
-        .col-lg-12.col-md-12.col-sm-12.col-xs-12
-            #journal-content.journal-content= global.utils.markdown.toHTML(journal.content, 'Maruku')
-
-    .row.text-center
-        a.button.button-primary.button-pill(href="/journals") 返回日志列表
-        hr
+                hr

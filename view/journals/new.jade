@@ -4,18 +4,23 @@
 extends ../layout/layout
 
 block content
-    form(role="form" action="/journals", method="POST")
-        .row
-            br
-            .col-lg-12.col-md-12.col-sm-12.col-xs-12
-                .form-group
-                    input.form-control(name="title" placeholder="请在此输入日志标题" maxlength=30 required)
-        .row
-            .col-lg-12.col-md-12.col-sm-12.col-xs-12
-                textarea.form-control(name="content" rows=20 placeholder="请在此输入日志正文" maxlength=100000 required)
-        .row.text-center
-            br
-            .checkbox
-                input(name="placed_top" type="checkbox")
-                label 是否置顶
-            button.button.button-pill.button-primary(type="submit") 提交
+    .container
+        .wrapper
+            form(role="form" action="/journals", method="POST")
+                .row
+                    br
+                    .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                        .form-group
+                            input.form-control(name="title" placeholder="请在此输入日志标题" maxlength=30 required)
+                .row
+                    .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                        textarea.form-control(name="content" rows=20 placeholder="请在此输入日志正文" maxlength=100000 required)
+                .row.text-center
+                    br
+                    .checkbox
+                        input(name="placed_top" type="checkbox")
+                        label 是否置顶
+                    .text-center
+                        button.button.button-pill.button-primary(type="submit") 提交
+                        button#journal_previewer_entry.button.button-pill(type="button" data-toggle="modal" data-target="#journal_previewer") 预览
+    include ./preview

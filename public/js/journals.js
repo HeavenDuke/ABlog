@@ -10,11 +10,27 @@
     };
 
     var prepare_journal_previewer = function () {
+        var rawEditor = $("#journal_content_input");
+        var myCodeMirror = CodeMirror.fromTextArea(rawEditor[0], {
+            value: rawEditor.val(),
+            lineNumbers: true,
+            mode: "gfm",
+            matchBrackets: true,
+            lineWrapping: true,
+            tabSize: 4,
+            theme: "default",
+            keyMap: "sublime",
+            extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"},
+            autoCloseBrackets: true,
+            smartIndent: true,
+            showCursorWhenSelecting: true
+        });
         var journal_previewer_entry = $("#journal_previewer_entry");
         journal_previewer_entry.on("click", function () {
             var journal_previewer = $("#journal_previewer");
             var journal_previewer_content = $("#journal_previewer_content");
-            var journal_raw_content = markdown.toHTML($("textarea[name='content']").val(), "Maruku");
+            myCodeMirror.save();
+            var journal_raw_content = markdown.toHTML(rawEditor.val(), "Maruku");
             journal_previewer_content.html(journal_raw_content);
         });
     }

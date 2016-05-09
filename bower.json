@@ -20,6 +20,7 @@
     "jquery": "~2.2.0",
     "bootstrap": "~3.3.0",
     "fontawesome": "~4.5.0",
-    "Buttons": "~2.0.0"
+    "Buttons": "~2.0.0",
+    "CodeMirror": "latest"
   }
 }

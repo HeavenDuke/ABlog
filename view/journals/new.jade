@@ -14,7 +14,7 @@ block content
                             input.form-control(name="title" placeholder="请在此输入日志标题" maxlength=30 required)
                 .row
                     .col-lg-12.col-md-12.col-sm-12.col-xs-12
-                        textarea.form-control(name="content" rows=20 placeholder="请在此输入日志正文" maxlength=100000 required)
+                        textarea#journal_content_input.hidden.form-control(name="content" rows=20 placeholder="请在此输入日志正文" maxlength=100000 required)
                 .row.text-center
                     br
                     .checkbox

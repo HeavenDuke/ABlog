@@ -34,3 +34,6 @@ node_modules
 
 # idea configuration directory
 .idea
+
+# bower directory
+public/bower_components

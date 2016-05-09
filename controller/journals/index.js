@@ -65,6 +65,7 @@ var update = function *(next) {
     journal.title = this.request.body.title;
     journal.content = !this.request.body.content ? "" : this.request.body.content;
     journal.placed_top = !(!this.request.body.placed_top);
+    journal.updated_at = Date.now();
     journal.save();
     this.redirect(this.app.url('journals-update', {journal_id: journal._id}));
 };

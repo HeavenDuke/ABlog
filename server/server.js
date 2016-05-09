@@ -15,6 +15,7 @@ var koaJade = require('koa-jade');
 var session = require('koa-session');
 var bodyParser = require('koa-bodyparser');
 var staticCache = require('koa-static-cache');
+var marked = require('marked');
 //路由
 var router = require('koa-router');
 var validator = require('koa-validator');
@@ -114,10 +115,20 @@ Server.prototype.initGlobalVariables = function() {
     global.conf = this.opts;
     global.database = require('../model').loader;
     global.utils = {
-        markdown: require('markdown').markdown,
+        markdown: marked,
         html2plain: require('html2plaintext'),
         journalPreview: require('../libs/journalPreview')
     };
+    global.utils.markdown.setOptions({
+        renderer: new marked.Renderer(),
+        gfm: true,
+        tables: true,
+        breaks: false,
+        pedantic: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: false
+    });
 };
 
 module.exports = Server;

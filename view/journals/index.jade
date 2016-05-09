@@ -21,7 +21,7 @@ block content
                     .row.journal
                         a.journal-title(href="/journals/" + journals[i]._id)= journals[i].placed_top ? journals[i].title_top() : journals[i].title
                         .journal-info= journals[i].updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journals[i].read_count + ')'
-                        .journal-content= global.utils.journalPreview(global.utils.html2plain(global.utils.markdown.toHTML(journals[i].content, 'Maruku')), global.conf.preview.journal)
+                        .journal-content= global.utils.journalPreview(global.utils.html2plain(global.utils.markdown.marked(journals[i].content)), global.conf.preview.journal)
                 .row.text-center
                     ul.pagination
                         if pagination.current_index > 1

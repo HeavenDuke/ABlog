@@ -40,7 +40,6 @@
             prepare_journal_previewer();
         }
         else if (window.location.href.match(/\/journals\/new/) != null) {
-            console.log(2222)
             prepare_journal_previewer();
         }
         else if (window.location.href.match(/\/journals\/\w+/) != null) {

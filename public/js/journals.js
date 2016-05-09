@@ -35,6 +35,7 @@
             myCodeMirror.save();
             var journal_raw_content = marked(rawEditor.val());
             journal_previewer_content.html(journal_raw_content);
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, journal_raw_content]);
             journal_previewer_content.children('pre').each(function() {
                 hljs.highlightBlock(this);
             });

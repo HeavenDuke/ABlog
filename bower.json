@@ -22,6 +22,7 @@
     "fontawesome": "~4.5.0",
     "Buttons": "~2.0.0",
     "CodeMirror": "latest",
-    "highlightjs": "^9.2.0"
+    "highlightjs": "^9.2.0",
+    "AdminLTE": "adminlte#^2.3.3"
   }
 }

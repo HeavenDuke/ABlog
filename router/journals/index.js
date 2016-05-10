@@ -3,6 +3,8 @@
  */
 
 var journalsController = require('../../controller').journal;
+var commentRouter = require('./comments');
+var likesRouter = require('./likes');
 var authentication = require('../../middlewares/authentication');
 
 module.exports = function(app) {
@@ -20,5 +22,9 @@ module.exports = function(app) {
     app.put('journals-update', '/journals/:journal_id', authentication, journalsController.update);
 
     app.del('journals-destroy', '/journals/:journal_id', authentication, journalsController.destroy);
+
+    commentRouter(app);
+
+    likesRouter(app);
 
 };

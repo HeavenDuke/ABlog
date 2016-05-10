@@ -1,0 +1,12 @@
+//
+   Created by Obscurity on 2016/5/11.
+
+.box-footer.box-comments
+    .comment-header 评论列表
+    - for(var index in comments)
+        .box-comment
+            img.img-circle.img-sm(src="/img/head.png")
+            .comment-text
+                .username 匿名用户
+                span.text-muted.pull-right= comments[index].created_at.format("yyyy年MM月dd日 hh:mm:ss")
+                = comments[index].content

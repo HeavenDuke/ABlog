@@ -4,9 +4,9 @@
 
 var crypto = require('crypto');
 
-var user = {};
+var User = {};
 
-user.Schema = {
+User.Schema = {
     username: {
         type: String,
         required: true
@@ -17,11 +17,11 @@ user.Schema = {
     }
 };
 
-user.collection = {
+User.collection = {
     collection: 'Users'
 };
 
-user.encasePassword = function (plain) {
+User.encasePassword = function (plain) {
     var generateRandom = function (alphabet) {
         var index = Math.floor((Math.random() * alphabet.length));
         return alphabet.charAt(index);
@@ -39,11 +39,11 @@ user.encasePassword = function (plain) {
     return method + '$' + nonce_str + '$' + encrypted;
 };
 
-user.parsePassword = function () {
+User.parsePassword = function () {
     return this.password.split("$");
 };
 
-user.validatePassword = function (plain) {
+User.validatePassword = function (plain) {
     var passwordSet = this.parsePassword();
     var method = passwordSet[0];
     var nonce_str = passwordSet[1];
@@ -54,4 +54,4 @@ user.validatePassword = function (plain) {
     return correct_password == encrypted;
 }
 
-module.exports = user;
+module.exports = User;

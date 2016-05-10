@@ -67,6 +67,7 @@ Server.prototype.start = function () {
     var staticDir = config.staticDir;
     this.use(staticCache(staticDir));
     this.use(staticCache(path.join(staticDir, 'js')));
+    this.use(staticCache(path.join(staticDir, 'img')));
     this.use(staticCache(path.join(staticDir, 'css')));
     this.use(staticCache(path.join(staticDir, 'fonts')));
     this.use(staticCache(path.join(staticDir, 'bower_components')));

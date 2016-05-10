@@ -24,6 +24,7 @@ var index = function *(next) {
 
 var show = function *(next) {
     var Journal = global.database.models.journal;
+    var Comment = global.database.models.comment;
     var setReadSession = function (session, journal_id) {
         if (!session.read_history) {
             session.read_history = {};
@@ -36,7 +37,8 @@ var show = function *(next) {
     if (!this.session.read_history || !this.session.read_history[journal._id]) {
         setReadSession(this.session, journal._id);
     }
-    this.render('./journals/show',{"title":journal.title, journal: journal, current_user: this.session.user}, true);
+    var comments = yield Comment.find({journal_id: journal._id}).sort({updated_at: -1});
+    this.render('./journals/show',{"title":journal.title, journal: journal, comments: comments, current_user: this.session.user}, true);
 };
 
 var init = function *(next) {
@@ -85,5 +87,7 @@ module.exports = {
     edit: edit,
     update: update,
     destroy: destroy,
-    categories: require('./categories')
+    categories: require('./categories'),
+    comments: require('./comments'),
+    likes: require('./likes')
 };

@@ -2,9 +2,9 @@
  * Created by heavenduke on 16-5-5.
  */
 
-var journal = {};
+var Journal = {};
 
-journal.Schema = {
+Journal.Schema = {
     title: {
         type: String,
         required: true
@@ -24,6 +24,16 @@ journal.Schema = {
         type: String,
         required: false
     },
+    likes_count: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    dislikes_count: {
+        type: Number,
+        required: true,
+        default: 0
+    },
     updated_at: {
         type: Date,
         required: true,
@@ -36,16 +46,16 @@ journal.Schema = {
     }
 };
 
-journal.collection = {
+Journal.collection = {
     collection: 'Journals'
 };
 
-journal.link = function(router, _id) {
+Journal.link = function(router, _id) {
     router.url('journals-detail', {journal_id: _id})
 };
 
-journal.title_top = function() {
+Journal.title_top = function() {
     return '[置顶]' + this.title;
 };
 
-module.exports = journal;
+module.exports = Journal;

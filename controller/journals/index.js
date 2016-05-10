@@ -74,7 +74,9 @@ var update = function *(next) {
 
 var destroy = function *(next) {
     var Journal = global.database.models.journal;
+    var Comment = global.database.models.comment;
     var journal = yield Journal.findById(this.params.journal_id);
+    yield Comment.remove({journal_id: journal._id});
     journal.remove();
     this.redirect(this.app.url('journals-list'));
 };

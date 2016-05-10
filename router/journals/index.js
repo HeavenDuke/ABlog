@@ -9,19 +9,24 @@ var authentication = require('../../middlewares/authentication');
 
 module.exports = function(app) {
 
-    app.get('journals-list', '/journals', journalsController.index);
+    var current_module = function *(next) {
+        this.current_module = "journal";
+        yield next;
+    }
 
-    app.get('journals-new', '/journals/new', authentication, journalsController.init);
+    app.get('journals-list', '/journals', current_module, journalsController.index);
 
-    app.get('journals-detail', '/journals/:journal_id', journalsController.show);
+    app.get('journals-new', '/journals/new', current_module, authentication, journalsController.init);
 
-    app.get('journals-edit', '/journals/:journal_id/edit', authentication, journalsController.edit);
+    app.get('journals-detail', '/journals/:journal_id', current_module, journalsController.show);
 
-    app.post('journals-create', '/journals', authentication, journalsController.create);
+    app.get('journals-edit', '/journals/:journal_id/edit', current_module, authentication, journalsController.edit);
 
-    app.put('journals-update', '/journals/:journal_id', authentication, journalsController.update);
+    app.post('journals-create', '/journals', current_module, authentication, journalsController.create);
 
-    app.del('journals-destroy', '/journals/:journal_id', authentication, journalsController.destroy);
+    app.put('journals-update', '/journals/:journal_id', current_module, authentication, journalsController.update);
+
+    app.del('journals-destroy', '/journals/:journal_id', current_module, authentication, journalsController.destroy);
 
     commentRouter(app);
 

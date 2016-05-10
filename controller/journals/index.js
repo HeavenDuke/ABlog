@@ -19,7 +19,7 @@ var index = function *(next) {
         total_page: total_page,
         current_index: current_page_index
     };
-    this.render('./journals/index',{"title":"日志列表", current_user: this.session.user, journals: journals, pagination: pagination}, true);
+    this.render('./journals/index',{"title":"日志列表", current_user: this.session.user, journals: journals, pagination: pagination, current_module: this.current_module}, true);
 };
 
 var show = function *(next) {
@@ -38,7 +38,7 @@ var show = function *(next) {
         setReadSession(this.session, journal._id);
     }
     var comments = yield Comment.find({journal_id: journal._id}).sort({updated_at: -1});
-    this.render('./journals/show',{"title":journal.title, journal: journal, comments: comments, current_user: this.session.user}, true);
+    this.render('./journals/show',{"title":journal.title, journal: journal, comments: comments, current_user: this.session.user, current_module: this.current_module}, true);
 };
 
 var init = function *(next) {
@@ -58,7 +58,7 @@ var create = function *(next) {
 var edit = function *(next) {
     var Journal = global.database.models.journal;
     var journal = yield Journal.findById(this.params.journal_id);
-    this.render('./journals/edit',{"title": "编辑日志", journal: journal, current_user: this.session.user}, true);
+    this.render('./journals/edit',{"title": "编辑日志", journal: journal, current_user: this.session.user, current_module: this.current_module}, true);
 };
 
 var update = function *(next) {

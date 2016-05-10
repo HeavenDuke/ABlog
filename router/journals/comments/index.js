@@ -5,7 +5,7 @@
 var commentsController = require('../../../controller').journal.comments;
 var authentication = require('../../../middlewares/authentication');
 
-module.exports = function(app) {
+module.exports = function(app, middlewares) {
 
     app.post('comment-create', '/journals/:journal_id/comments', commentsController.create);
 

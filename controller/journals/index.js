@@ -4,6 +4,7 @@
 
 var index = function *(next) {
     var Journal = global.database.models.journal;
+    var Comment = global.database.models.comment;
     var journal_per_page = global.conf.pagination.journal;
     var total_journal_count = yield Journal.count({});
     var topped_journal_count = yield Journal.count({"placed_top": true});
@@ -14,6 +15,9 @@ var index = function *(next) {
     if (journals.length < journal_per_page) {
         var journals_not_topped = yield Journal.find({placed_top: false}).sort({updated_at: -1}).skip(offset > topped_journal_count ? offset - topped_journal_count : 0).limit(journal_per_page - journals.length);
         journals = journals.concat(journals_not_topped);
+    }
+    for(var index in journals) {
+        journals[index].comment_counts = yield Comment.count({journal_id: journals[index]._id});
     }
     var pagination = {
         total_page: total_page,

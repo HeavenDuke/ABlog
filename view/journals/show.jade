@@ -13,7 +13,7 @@ block content
                             .user-block
                                 img.img-circle(src="/favicon.ico" alt="Owner Image")
                                 span.username HeavenDuke
-                                span.description= journal.updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journal.read_count + ')'
+                                span.description= journal.updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journal.read_count + ')　评论(' + comments.length + ')'
                     .col-lg-4.col-md-6.col-sm-6
                         .text-center
                             a.btn.btn-app(href="/journals")

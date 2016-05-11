@@ -4,9 +4,10 @@
 
 exports.index = function *() {
     var Diary = global.database.models.diary;
+    console.log(this.session)
     var diaries = yield Diary.find({}).sort({recorded_at: -1});
     if (!this.request.query.remote) {
-        this.render('diaries/index', {title: "日记", current_user: this.session.user, diaries: diaries});
+        this.render('diaries/index', {title: "每日小记", current_user: this.session.user, diaries: diaries, current_module: this.current_module});
     }
     else {
         this.body = {diaries: diaries};

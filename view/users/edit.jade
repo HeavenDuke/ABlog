@@ -5,27 +5,24 @@ extends ../layout/layout
 
 block content
     .container
-        .wrapper
-            .container
-                .row
-                    .col-lg-4.col-md-4.col-sm-4.col-xs-4
-                    .col-lg-4.col-md-4.col-sm-4.col-xs-4
-                        br
-                        br
-                        br
-                        .text-center
-                            h4 修改个人信息
-                        form(role="form" action="/user" method="POST")
-                            input.hidden(name="_method" value="put")
-                            .form-group
-                                label(for="password") 原密码
-                                input.form-control#password(type="password" name="password" required)
-                            .form-group
-                                label(for="new_password") 新密码
-                                input.form-control#new_password(type="password" name="new_password" required)
-                            .form-group
-                                label(for="confirm_password") 确认密码
-                                input.form-control#confirm_password(type="password" name="confirm_password" required)
-                            .text-center
-                                button(type="submit").button.button-primary.button-pill 登录
-                    .col-lg-4.col-md-4.col-sm-4.col-xs-4
+        .row
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4
+                br
+                br
+                br
+                .text-center
+                    h4 修改个人信息
+                form(role="form" action="/user" method="POST")
+                    input.hidden(name="_method" value="put")
+                    .form-group
+                        label(for="password") 原密码
+                        input.form-control#password(type="password" name="password" required)
+                    .form-group
+                        label(for="new_password") 新密码
+                        input.form-control#new_password(type="password" name="new_password" required)
+                    .form-group
+                        label(for="confirm_password") 确认密码
+                        input.form-control#confirm_password(type="password" name="confirm_password" required)
+                    .text-center
+                        button(type="submit").button.button-primary.button-pill 登录

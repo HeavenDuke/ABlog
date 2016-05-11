@@ -17,7 +17,7 @@
             container: document.getElementsByClassName('OwO')[0],
             target: document.getElementsByTagName('textarea')[0],
             position: 'down',
-            api: "/vendors/OwO/OwO.json",
+            api: "/OwO/OwO.json",
             width: '100%',
             maxHeight: '250px'
         });

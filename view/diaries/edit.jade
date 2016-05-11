@@ -1,0 +1,23 @@
+//
+   Created by Obscurity on 2016/5/12.
+
+#edit_diary_modal.modal.fade
+    .modal-dialog
+        .modal-content
+            form#update_diary_form(action="/diaries?_method=put" method="POST")
+                .modal-header
+                    button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
+                    h4.modal-title 我的日记
+                .modal-body
+                    .form-group
+                        label 标题:
+                        input#update_diary_brief.form-control(name="brief" type="text" placeholder="先简单做个概述吧~" maxlength=30)
+                    .form-group
+                        label 日期
+                        input#update_diary_date.form-control(name="recorded_date" type="date" placeholder="请设置日期")
+                    .form-group
+                        label 内容:
+                        textarea#update_diary_content.form-control(name="content" rows="5" maxlength=500 placeholder="今天怎样呀")
+                .modal-footer
+                    button.button.button-pill.button-small(type="button" aria-hidden="true" data-dismiss="modal") 取消
+                    button.button.button-pill.button-primary.button-small(type="submit") 更新

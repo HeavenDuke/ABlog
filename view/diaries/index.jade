@@ -1,0 +1,49 @@
+//
+   Created by Obscurity on 2016/5/11.
+
+extends ../layout/layout
+
+block content
+    .container
+        .row.diary
+            .col-lg-12.col-md-12
+                .box.box-widget
+                    .box-header.with-border
+                        .box-header.with-border
+                            h3.box-title 每日小记
+                            span.pull-right
+                                button.button.button-pill.button-primary(type="button" data-toggle="modal" data-target="#new_diary_modal") 写日记
+                        .box-body
+                            ul.timeline
+                                li
+                                    i.fa.fa-clock-o.bg-gray
+                                    .timeline-item
+                                        .timeline-body 在未来，一切都还会继续...
+                                - var colors = ["red", "blue", "green", "yellow", "maroon", "aqua", "purple"];
+                                if diaries.length == 0
+                                    li
+                                        i.fa.fa-clock-o.bg-gray
+                                        .timeline-item
+                                            .timeline-body 现在，这里还是一片空虚...
+                                - for(var index in diaries)
+                                    li.time-label
+                                        - var diary = diaries[index];
+                                        - var color = colors[Math.randint(0, colors.length - 1)]
+                                        span(id=diary._id + "_date" date=diary.recorded_date.format("yyyy-MM-dd") class="bg-" + color)= diary.recorded_date.format("yyyy年MM月dd日")
+                                    li
+                                        i(class="fa fa-user bg-" + color)
+                                        .timeline-item
+                                            span.time
+                                                i.fa.fa-clock-o= "　" + diary.recorded_at.format("yyyy年MM月dd日 hh:mm:ss")
+                                            h3.timeline-header(id=diary._id + "_brief")= diary.brief
+                                            .timeline-body(id=diary._id + "_content")= diary.content
+                                            .timeline-footer
+                                                if current_user
+                                                    a.btn.btn-xs.btn-warning(diary_id=diary._id data-toggle="modal" data-target="#edit_diary_modal") 编辑
+                                                    a.btn.btn-xs.btn-danger(href="/diaries/" + diary._id + "?_method=delete" style="margin-left: 10px;") 删除
+                                li
+                                    i.fa.fa-clock-o.bg-gray
+                                    .timeline-item
+                                        .timeline-body 过去，一切从这里开始
+    include ./new
+    include ./edit

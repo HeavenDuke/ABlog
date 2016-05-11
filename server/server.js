@@ -66,6 +66,7 @@ Server.prototype.start = function () {
     //静态文件cache
     var staticDir = config.staticDir;
     this.use(staticCache(staticDir));
+    this.use(staticCache(path.join(staticDir, 'vendors')));
     this.use(staticCache(path.join(staticDir, 'js')));
     this.use(staticCache(path.join(staticDir, 'img')));
     this.use(staticCache(path.join(staticDir, 'css')));

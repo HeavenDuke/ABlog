@@ -10,6 +10,17 @@
         $('pre code').each(function() {
             hljs.highlightBlock(this);
         });
+
+
+        var owo = new OwO({
+            logo: 'OωO表情',
+            container: document.getElementsByClassName('OwO')[0],
+            target: document.getElementsByTagName('textarea')[0],
+            position: 'down',
+            api: "/vendors/OwO/demo/OwO.json",
+            width: '100%',
+            maxHeight: '250px'
+        });
     };
 
     var prepare_journal_previewer = function () {

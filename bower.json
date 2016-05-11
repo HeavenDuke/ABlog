@@ -23,6 +23,7 @@
     "Buttons": "~2.0.0",
     "CodeMirror": "latest",
     "highlightjs": "^9.2.0",
-    "AdminLTE": "adminlte#^2.3.3"
+    "AdminLTE": "adminlte#^2.3.3",
+    "jquery-emojiarea": "^0.2.0"
   }
 }

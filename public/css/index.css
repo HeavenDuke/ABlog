@@ -1,0 +1,154 @@
+/*首页头像和封面*/
+
+
+.ablog-header{
+    height: 233px;
+    /*border-radius: 6px;*/
+    overflow: hidden;
+
+}
+.ablog-header .ablog-header-left{
+    height: 100%;
+    padding:0;
+}
+
+.ablog-header .ablog-header-left .left-bkg .bkg-filter
+{
+    background: rgba(255,255,255,0.4);
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.ablog-header .ablog-header-left .left-bkg .bkg-img
+{
+    z-index: 1;
+    top: 0;
+    left: 0;
+    position: absolute;
+    height: 100%;
+    width:100%;
+    background-repeat: no-repeat;
+    -webkit-filter: blur(20px);
+    -moz-filter: blur(20px);
+    -ms-filter: blur(20px);
+    filter: blur(20px);
+    overflow: hidden;
+}
+
+.ablog-header .ablog-header-left .left-content {
+    padding-top: 50px;
+    display: table-cell;
+    width: 100%;
+    position: relative;
+    z-index: 3;
+    padding-left:30px;
+}
+
+.left-content .head-img
+{
+    display: table-cell;
+}
+
+.left-content .head-img img
+{
+    height: 80px;
+    width:80px;
+    border-radius: 40px;
+}
+
+
+.left-content .info-detail
+{
+    font-size: 18px;
+    display: table-cell;
+    padding-left:20px;
+    padding-right:20px;
+
+}
+
+.left-content .info-detail .info-detail-name
+{
+    font-size: 18px;
+    position: relative;
+    top:-10px;
+    /*height:20px;*/
+    /*display: block;*/
+}
+.left-content .info-detail .info-detail-name span{
+    font-size: 25px;
+}
+.left-content .info-detail .info-detail-name a{
+
+}
+
+.left-content .info-detail .info-detail-motto
+{
+    font-size: 12px;
+    /*height:14px;*/
+    /*display:block;*/
+    position: relative;
+    top:-5px;
+    /*max-width: 200px;*/
+    color:#555;
+}
+
+
+.ablog-header .ablog-header-right-img
+{
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+/*首页标签*/
+.ablog-tags
+{
+    padding:20px;
+    border:1px solid #e7e7e7;
+    border-top:none;
+}
+.ablog-tags .label{
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+.ablog-tags .label:not(:last-child)
+{
+    margin-right:20px;
+    /*display: inline-block;*/
+}
+
+.ablog-section
+{
+    margin: 5px 0;
+    border:1px solid #e7e7e7;
+    padding:20px;
+    padding-bottom: 0;
+}
+
+.ablog-section .ablog-list
+{
+    /*border-left: 1px solid #e7e7e7;*/
+    padding-top: 5px;
+    height: 100%;
+    margin-bottom: 20px;
+}
+
+.ablog-section .ablog-list .well{
+    border: none;
+    /*border-radius: 0;*/
+    border-left: 1px solid #e7e7e7;
+}
+
+.ablog-section .ablog-timeline
+{
+    border-left: 1px solid #e7e7e7;
+    padding-top: 5px;
+    margin-bottom: 20px;
+    padding-bottom:20px;
+}

@@ -13,5 +13,9 @@ exports.create = function *(next) {
 };
 
 exports.destroy = function *(next) {
-
+    var Comment = global.database.models.comment;
+    var comment = yield Comment.findById(this.params.comment_id);
+    var journalId = comment.journal_id;
+    comment.remove();
+    this.redirect("/journals/" + journalId);
 };

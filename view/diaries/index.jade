@@ -11,8 +11,9 @@ block content
                     .box-header.with-border
                         .box-header.with-border
                             h3.box-title 每日小记
-                            span.pull-right
-                                button.button.button-pill.button-primary(type="button" data-toggle="modal" data-target="#new_diary_modal") 写日记
+                            if current_user
+                                span.pull-right
+                                    button.button.button-pill.button-primary(type="button" data-toggle="modal" data-target="#new_diary_modal") 写日记
                         .box-body
                             ul.timeline
                                 li

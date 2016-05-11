@@ -14,18 +14,23 @@ block content
                                 img.img-circle(src="/favicon.ico" alt="Owner Image")
                                 span.username HeavenDuke
                                 span.description= journal.updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journal.read_count + ')　评论(' + comments.length + ')'
-                    .col-lg-4.col-md-6.col-sm-6
-                        .text-center
-                            a.btn.btn-app(href="/journals")
-                                i.fa.fa-reply
-                                | 返回
-                            if current_user != null
+                    if current_user
+                        .col-lg-4.col-md-6.col-sm-6
+                            .text-center
+                                a.btn.btn-app(href="/journals")
+                                    i.fa.fa-reply
+                                    | 返回
                                 a.btn.btn-app(href="/journals/" + journal._id + '?_method=delete')
                                     i.fa.fa-trash
                                     | 删除
                                 a.btn.btn-app(href="/journals/" + journal._id + '/edit')
                                     i.fa.fa-pencil
                                     | 编辑
+                    else
+                        .col-lg-4.col-md-6.col-sm-6
+                            a.btn.btn-app.pull-right(href="/journals")
+                                i.fa.fa-reply
+                                | 返回
                 .box-body
                     #journal-content.journal-content= global.utils.markdown(journal.content)
                     include ./likes/new

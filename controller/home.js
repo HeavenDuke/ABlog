@@ -3,7 +3,7 @@
  */
 
 var index = function *(next) {
-    this.render('index', {title: "HeavenDuke的博客", current_user: this.session.current_user});
+    this.render('index', {title: "HeavenDuke的博客", current_user: this.session.user});
 };
 
 module.exports = {

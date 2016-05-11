@@ -41,7 +41,7 @@ var show = function *(next) {
     if (!this.session.read_history || !this.session.read_history[journal._id]) {
         setReadSession(this.session, journal._id);
     }
-    var comments = yield Comment.find({journal_id: journal._id}).sort({updated_at: -1});
+    var comments = yield Comment.find({journal_id: journal._id}).sort({created_at: 1});
     this.render('./journals/show',{"title":journal.title, journal: journal, comments: comments, current_user: this.session.user, current_module: this.current_module}, true);
 };
 

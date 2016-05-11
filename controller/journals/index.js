@@ -23,7 +23,7 @@ var index = function *(next) {
         total_page: total_page,
         current_index: current_page_index
     };
-    this.render('./journals/index',{"title":"日志列表", current_user: this.session.user, journals: journals, pagination: pagination, current_module: this.current_module}, true);
+    this.render('./journals/index',{"title":"博客列表", current_user: this.session.user, journals: journals, pagination: pagination, current_module: this.current_module}, true);
 };
 
 var show = function *(next) {
@@ -46,7 +46,7 @@ var show = function *(next) {
 };
 
 var init = function *(next) {
-    this.render('./journals/new',{"title":"写日志", current_user: this.session.user}, true);
+    this.render('./journals/new',{"title":"写博客", current_user: this.session.user}, true);
 };
 
 var create = function *(next) {
@@ -62,7 +62,7 @@ var create = function *(next) {
 var edit = function *(next) {
     var Journal = global.database.models.journal;
     var journal = yield Journal.findById(this.params.journal_id);
-    this.render('./journals/edit',{"title": "编辑日志", journal: journal, current_user: this.session.user, current_module: this.current_module}, true);
+    this.render('./journals/edit',{"title": "编辑博客", journal: journal, current_user: this.session.user, current_module: this.current_module}, true);
 };
 
 var update = function *(next) {

@@ -26,19 +26,24 @@ html
         script(type="text/javascript" src="/CodeMirror/mode/clike/clike.js")
         script(type="text/javascript" src="/highlightjs/highlight.pack.js")
         script(type="text/javascript" src="/CodeMirror/keymap/sublime.js")
-        script(type="text/javascript" src="/AdminLTE/dist/js/app.min.js")
+        script(type="text/javascript" src="/vendors/AdminLTE/dist/js/app.min.js")
         link(rel="stylesheet" type="text/css" href="/fontawesome/css/font-awesome.min.css")
         link(rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.min.css")
         link(rel="stylesheet" type="text/css" href="/Buttons/css/buttons.min.css")
         link(rel="stylesheet" type="text/css" href="/journals.css")
+        link(rel="stylesheet" type="text/css" href="/diaries.css")
         link(rel="stylesheet" type="text/css" href="/theme.css")
         link(rel="stylesheet" type="text/css" href="/highlightjs/styles/github.css")
         link(rel="stylesheet" type="text/css" href="/CodeMirror/lib/codemirror.css")
-        link(rel="stylesheet" type="text/css" href="/AdminLTE/dist/css/AdminLTE.min.css")
+        link(rel="stylesheet" type="text/css" href="/vendors/AdminLTE/dist/css/skins/_all-skins.css")
+        link(rel="stylesheet" type="text/css" href="/vendors/AdminLTE/dist/css/AdminLTE.min.css")
         link(rel="stylesheet" type="text/css" href="/vendors/OwO/OwO.min.css")
-    body
-        include ./header
-        block content
-        include ./footer
+    body.skin-blue.layout-top-nav
+        .wrapper
+            include ./header
+            .content-wrapper(style="background: white;")
+                block content
+            include ./footer
         script(type="text/javascript" src="/vendors/OwO/OwO.min.js")
         script(type="text/javascript" src="/journals.js")
+        script(type="text/javascript" src="/diaries.js")

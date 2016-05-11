@@ -6,9 +6,9 @@ extends ../layout/layout
 block content
     .container
         .row.journal
-            h4.pull-left 日志列表
+            h4.pull-left 博客列表
             if current_user != null
-                a.button.button-primary.button-pill.pull-right(href="/journals/new") 写日志
+                a.button.button-primary.button-pill.pull-right(href="/journals/new") 写博客
         .divider
         if journals.length == 0
             .row.text-center

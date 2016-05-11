@@ -12,7 +12,7 @@ module.exports = function(app) {
     var current_module = function *(next) {
         this.current_module = "journal";
         yield next;
-    }
+    };
 
     app.get('journals-list', '/journals', current_module, journalsController.index);
 

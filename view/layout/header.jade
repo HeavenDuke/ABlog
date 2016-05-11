@@ -1,17 +1,17 @@
-.container
-    nav.navbar.navbar-default.navbar-static-top(role='navigation')
+.main-header
+    nav.navbar.navbar-static-top(role='navigation')
         .container
             .navbar-header
-                button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar-collapse')
-                    span.sr-only 切换导航
-                    span.icon-bar
-                    span.icon-bar
-                    span.icon-bar
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar-collapse' aria-expanded="true")
+                    i.fa.fa-bars
                 a.navbar-brand(href='/') HeavenDuke的博客
             #navbar-collapse.collapse.navbar-collapse
                 ul.nav.navbar-nav
                     li(class=current_module == "journal" ? "active" : "")
-                        a(href='/journals') 日志
+                        a(href='/journals') 博文
+                ul.nav.navbar-nav
+                    li(class=current_module == "diary" ? "active" : "")
+                        a(href='/diaries') 日记
                 if (current_user == null)
                     ul.nav.navbar-nav.pull-right
                         li
@@ -19,9 +19,9 @@
                  else
                      ul.nav.navbar-nav.pull-right
                          li.dropdown
-                            a.dropdown-toggle(href="#" data-toggle="dropdown") 我的账户
-                                b.caret
-                            ul.dropdown-menu
+                            a.dropdown-toggle(href="#" data-toggle="dropdown" aria-expanded="true") 我的账户
+                                span.caret
+                            ul.dropdown-menu(role="menu")
                                 li
                                     a(href="/user/edit") 修改信息
                                 li

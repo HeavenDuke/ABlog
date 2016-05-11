@@ -112,6 +112,11 @@ Server.prototype.connectDb = function () {
 
 Server.prototype.config = function() {};
 
+Server.prototype.initUtils = function () {
+    var dateUtils = require('../libs/date');
+    var randomUtils = require('../libs/random');
+};
+
 Server.prototype.initGlobalVariables = function() {
     global.conf = this.opts;
     global.database = require('../model').loader;

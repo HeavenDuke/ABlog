@@ -3,8 +3,9 @@
 
 .box-footer
     form(role="form" action="/journals/" + journal._id + "/comments", method="POST")
-        .form-group
-            label 发表评论:
-            textarea.form-control(name="content" rows=8 placeholder= (comments.length == 0 ? "还没有人评论哦，来踩沙发？" : "请输入您的评论~") maxlength=1000)
+        //.form-group
+        label 发表评论:
+        .OwO
+        textarea#comment_input.form-control(name="content" rows=8 placeholder= (comments.length == 0 ? "还没有人评论哦，来踩沙发？" : "请输入您的评论~") maxlength=1000)
         .text-center(style="margin-top: 10px;")
             button.button.button-primary.button-pill(type="submit") 评论

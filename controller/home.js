@@ -3,7 +3,7 @@
  */
 
 var index = function *(next) {
-    this.redirect('/journals');
+    this.render('index', {title: "HeavenDuke的博客", current_user: this.session.current_user});
 };
 
 module.exports = {

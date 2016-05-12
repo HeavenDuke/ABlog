@@ -26,6 +26,12 @@ JournalSchema.methods.title_top = Journal.title_top;
 UserSchema.methods.encasePassword = User.encasePassword;
 UserSchema.methods.parsePassword = User.parsePassword;
 UserSchema.methods.validatePassword = User.validatePassword;
+DiarySchema.methods.mood_to_color = Diary.mood_to_color;
+DiarySchema.methods.translate_mood = Diary.translate_mood;
+DiarySchema.methods.tag_to_icon = Diary.tag_to_icon;
+DiarySchema.methods.translate_tag = Diary.translate_tag;
+DiarySchema.statics.mood_list = Diary.mood_list;
+DiarySchema.statics.tag_list = Diary.tag_list;
 
 database.models.journal = mongoose.model("journal", JournalSchema);
 database.models.user = mongoose.model("user", UserSchema);

@@ -20,28 +20,30 @@ block content
                                     i.fa.fa-clock-o.bg-gray
                                     .timeline-item
                                         .timeline-body 在未来，一切都还会继续...
-                                - var colors = ["red", "blue", "green", "yellow", "maroon", "aqua", "purple"];
                                 if diaries.length == 0
                                     li
                                         i.fa.fa-clock-o.bg-gray
                                         .timeline-item
                                             .timeline-body 现在，这里还是一片空虚...
+                                - last_diary_date = ""
                                 - for(var index in diaries)
-                                    li.time-label
-                                        - var diary = diaries[index];
-                                        - var color = colors[Math.randint(0, colors.length - 1)]
-                                        span(id=diary._id + "_date" date=diary.recorded_date.format("yyyy-MM-dd") class="bg-" + color)= diary.recorded_date.format("yyyy年MM月dd日")
+                                    if diaries[index].recorded_date.format("yyyy-MM-dd") != last_diary_date
+                                        - last_diary_date = diaries[index].recorded_date.format("yyyy-MM-dd")
+                                        li.time-label
+                                            span.bg-green= diaries[index].recorded_date.format("yyyy年MM月dd日")
                                     li
-                                        i(class="fa fa-user bg-" + color)
+                                        i(id=diaries[index]._id + "_tag" tag=diaries[index].tag class="fa " + diaries[index].tag_to_icon() + " " + diaries[index].mood_to_color())
                                         .timeline-item
                                             span.time
-                                                i.fa.fa-clock-o= "　" + diary.recorded_at.format("yyyy年MM月dd日 hh:mm:ss")
-                                            h3.timeline-header(id=diary._id + "_brief")= diary.brief
-                                            .timeline-body(id=diary._id + "_content")= diary.content
+                                                .hidden(id=diaries[index]._id + "_date" date=diaries[index].recorded_date.format("yyyy-MM-dd"))
+                                                .hidden(id=diaries[index]._id + "_mood" mood=diaries[index].mood)
+                                                i.fa.fa-clock-o= "　" + diaries[index].recorded_at.format("yyyy年MM月dd日 hh:mm:ss")
+                                            h3.timeline-header(id=diaries[index]._id + "_brief")= diaries[index].brief
+                                            .timeline-body(id=diaries[index]._id + "_content")= diaries[index].content
                                             .timeline-footer
                                                 if current_user
-                                                    a.btn.btn-xs.btn-warning(diary_id=diary._id data-toggle="modal" data-target="#edit_diary_modal") 编辑
-                                                    a.btn.btn-xs.btn-danger(href="/diaries/" + diary._id + "?_method=delete" style="margin-left: 10px;") 删除
+                                                    a.btn.btn-xs.btn-warning(diary_id=diaries[index]._id data-toggle="modal" data-target="#edit_diary_modal") 编辑
+                                                    a.btn.btn-xs.btn-danger(href="/diaries/" + diaries[index]._id + "?_method=delete" style="margin-left: 10px;") 删除
                                 li
                                     i.fa.fa-clock-o.bg-gray
                                     .timeline-item

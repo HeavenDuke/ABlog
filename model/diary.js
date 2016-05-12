@@ -95,7 +95,7 @@ Diary.tag_list = function () {
         "learning": {translation: "学习", icon: "fa-lightbulb-o"},
         "social": {translation: "社交", icon: "fa-comments-o"},
         "society": {translation: "社会", icon: "fa-transgender-alt"},
-        "plan": {translation: "社会", icon: "fa-calendar"}
+        "plan": {translation: "计划", icon: "fa-calendar"}
     };
 };
 
@@ -111,7 +111,8 @@ Diary.translate_tag = function () {
         "travel": "出游",
         "learning": "学习",
         "social": "社交",
-        "society": "社会"
+        "society": "社会",
+        "plan": "计划"
     };
     return hash_table[this.tag];
 }

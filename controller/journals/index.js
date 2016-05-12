@@ -17,7 +17,8 @@ var index = function *(next) {
         journals = journals.concat(journals_not_topped);
     }
     for(var index in journals) {
-        journals[index].comment_counts = yield Comment.count({journal_id: journals[index]._id});
+        journals[index].comment_count = yield Comment.count({journal_id: journals[index]._id});
+        journals[index].save();
     }
     var pagination = {
         total_page: total_page,

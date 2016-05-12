@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/5/2.
  */
 
-var database = require('../model').loader;
+var database = require('../index').loader;
 
 var init = function () {
 
@@ -23,7 +23,7 @@ var init = function () {
     }
 
     var mongoose = require('mongoose');
-    mongoose.connect(require('../config/config')().mongodb);
+    mongoose.connect(require('../../config/config')().mongodb);
     initUser();
     initDiary();
     console.log('finish deploying database seed.');

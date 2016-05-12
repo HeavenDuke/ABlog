@@ -15,6 +15,12 @@ Journal.Schema = {
         default: 0,
         min: 0
     },
+    comment_count: {
+        type: Number,
+        required: true,
+        default: 0,
+        min: 0
+    },
     placed_top: {
         type: Boolean,
         required: true,

@@ -9,6 +9,16 @@ Diary.Schema = {
         type: String,
         required: true
     },
+    mood: {
+        type: String,
+        required: true,
+        default: "happy"
+    },
+    tag: {
+        type: String,
+        required: true,
+        default: 'coding'
+    },
     content: {
         type: String,
         required: true

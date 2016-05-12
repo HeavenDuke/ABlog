@@ -16,10 +16,6 @@ var index = function *(next) {
         var journals_not_topped = yield Journal.find({placed_top: false}).sort({updated_at: -1}).skip(offset > topped_journal_count ? offset - topped_journal_count : 0).limit(journal_per_page - journals.length);
         journals = journals.concat(journals_not_topped);
     }
-    for(var index in journals) {
-        journals[index].comment_count = yield Comment.count({journal_id: journals[index]._id});
-        journals[index].save();
-    }
     var pagination = {
         total_page: total_page,
         current_index: current_page_index

@@ -87,6 +87,7 @@ Diary.tag_list = function () {
         "everything": {translation: "不明", icon: "fa-user"},
         "read": {translation: "读书", icon: "fa-book"},
         "movie": {translation: "电影", icon: "fa-film"},
+        "animation": {translation: "动漫", icon: "fa-photo"},
         "music": {translation: "音乐", icon: "fa-music"},
         "coding": {translation: "代码", icon: "fa-code-fork"},
         "academy": {translation: "学术", icon: "fa-university"},

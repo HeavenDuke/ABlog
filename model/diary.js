@@ -112,7 +112,8 @@ Diary.translate_tag = function () {
         "learning": "学习",
         "social": "社交",
         "society": "社会",
-        "plan": "计划"
+        "plan": "计划",
+        "animation": "动漫"
     };
     return hash_table[this.tag];
 }
@@ -130,7 +131,8 @@ Diary.tag_to_icon = function () {
         "learning": "fa-lightbulb-o",
         "social": "fa-comments-o",
         "society": "fa-transgender-alt",
-        "plan": "fa-calendar"
+        "plan": "fa-calendar",
+        "animation": "fa-photo"
     };
     return hash_table[this.tag];
 };

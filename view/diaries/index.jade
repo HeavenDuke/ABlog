@@ -37,7 +37,7 @@ block content
                                             span.time
                                                 .hidden(id=diaries[index]._id + "_date" date=diaries[index].recorded_date.format("yyyy-MM-dd"))
                                                 .hidden(id=diaries[index]._id + "_mood" mood=diaries[index].mood)
-                                                i.fa.fa-clock-o= "　" + diaries[index].recorded_at.format("yyyy年MM月dd日 hh:mm:ss")
+                                                //i.fa.fa-clock-o= "　" + diaries[index].recorded_at.format("yyyy年MM月dd日 hh:mm:ss")
                                             h3.timeline-header(id=diaries[index]._id + "_brief")= diaries[index].brief
                                             .timeline-body(id=diaries[index]._id + "_content")= diaries[index].content
                                             .timeline-footer

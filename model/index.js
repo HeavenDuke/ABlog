@@ -32,6 +32,7 @@ DiarySchema.methods.tag_to_icon = Diary.tag_to_icon;
 DiarySchema.methods.translate_tag = Diary.translate_tag;
 DiarySchema.statics.mood_list = Diary.mood_list;
 DiarySchema.statics.tag_list = Diary.tag_list;
+DiarySchema.statics.get_thumb_image = Diary.get_thumb_image;
 
 database.models.journal = mongoose.model("journal", JournalSchema);
 database.models.user = mongoose.model("user", UserSchema);

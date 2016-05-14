@@ -143,4 +143,9 @@ Diary.tag_to_icon = function () {
     return hash_table[this.tag];
 };
 
+Diary.get_thumb_image = function (image_path) {
+    var dotIndex = image_path.lastIndexOf(".");
+    return image_path.substring(0, dotIndex) + "_thumb." + image_path.substring(dotIndex + 1);
+};
+
 module.exports = Diary;

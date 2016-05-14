@@ -22,8 +22,8 @@
             $("#update_diary_form").attr("action", "/diaries/" + diary_id + "?_method=put");
         });
         all_thumbs.on('click', function() {
-            var src = $(this).attr('src');
-            $("#previewer_content").attr('src', src);
+            var full_src = $(this).attr('full_src');
+            $("#previewer_content").attr('src', full_src);
             $("#image_previewer").modal("show");
         });
     };

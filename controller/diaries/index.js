@@ -15,31 +15,6 @@ function get_thumb_path(image_path) {
 exports.index = function *() {
     var Diary = global.database.models.diary;
     var diaries = yield Diary.find({}).sort({recorded_date: -1});
-    diaries.forEach(function(diary) {
-        diary.images.forEach(function(image) {
-            var image_path = path.join(global.conf.staticDir, "uploads", image);
-            if(!fs.existsSync(get_thumb_path(image_path))) {
-                gm(image_path).size(function (err, size) {
-                    if (err) {
-                        console.log(err);
-                    }
-                    else {
-                        var thumb_height = 150;
-                        var scale = size.height / thumb_height;
-                        var thumb_width = size.width / scale;
-                        gm(image_path).resize(thumb_width, thumb_height).write(get_thumb_path(image_path), function(err) {
-                            if (err) {
-                                console.log(err);
-                            }
-                            else {
-                                console.log("success");
-                            }
-                        });
-                    }
-                });
-            }
-        });
-    });
     if (!this.request.query.remote) {
         this.render('diaries/index', {title: "每日小记", current_user: this.session.user, diaries: diaries, Diary: Diary, current_module: this.current_module, mood_list: Diary.mood_list(), tag_list: Diary.tag_list()});
     }

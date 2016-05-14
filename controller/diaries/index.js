@@ -67,15 +67,17 @@ exports.update = function *() {
         }
         return image;
     });
-    previous_paths.map(function (image_path) {
-        fs.unlink(path.join(global.conf.staticDir, "uploads", image_path), null);
-    });
+    if (!(files.images.length == 1 && files.images[0].type == "application/octet-stream")) {
+        previous_paths.map(function (image_path) {
+            fs.unlink(path.join(global.conf.staticDir, "uploads", image_path), null);
+        });
+        diary.images = image_paths;
+    }
     diary.brief = fields.brief;
     diary.content = fields.content;
     diary.mood = fields.mood;
     diary.tag = fields.tag;
     diary.recorded_date = new Date(fields.recorded_date);
-    diary.images = image_paths;
     diary.save();
     this.redirect('/diaries');
 };

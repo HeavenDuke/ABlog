@@ -24,7 +24,6 @@ var validator = require('koa-validator');
 var appRouter = require('../router');
 var path = require('path');
 var mongoose = require('mongoose');
-var koaBody = require('koa-body');
 
 function Server(option) {
     this.opts = option || {};
@@ -67,8 +66,6 @@ Server.prototype.start = function () {
 
     //静态文件cache
     var staticDir = config.staticDir;
-
-    this.use(koaBody({multipart: true, formidable: {uploadDir: path.join(staticDir, 'uploads'), keepExtensions: true, hash: "sha1"}}));
 
     this.use(koaStatic(path.join(staticDir, 'uploads')));
 

@@ -4,6 +4,7 @@
 
 .image_thumb {
     height: 150px;
+    cursor: pointer;
 }
 
 .image_previewer {

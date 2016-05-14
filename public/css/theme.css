@@ -21,7 +21,7 @@ body {
 }
 
 @media screen and (max-width: 768px){
-    #body-container{
+    .container{
         padding-right: 0;
         padding-left: 0;
     }

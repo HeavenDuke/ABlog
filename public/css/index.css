@@ -2,6 +2,7 @@
 
 
 .ablog-header{
+    margin-top:10px;
     height: 233px;
     /*border-radius: 6px;*/
     overflow: hidden;
@@ -145,7 +146,7 @@
     border-left: 1px solid #e7e7e7;
 }
 
-.ablog-section .ablog-timeline
+.ablog-timeline
 {
     border-left: 1px solid #e7e7e7;
     padding-top: 5px;

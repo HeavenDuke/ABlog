@@ -2,6 +2,7 @@
  * Created by heavenduke on 16-5-5.
  */
 
+var Tag = require('./tag');
 var Journal = {};
 
 Journal.Schema = {
@@ -10,6 +11,12 @@ Journal.Schema = {
         required: true
     },
     read_count: {
+        type: Number,
+        required: true,
+        default: 0,
+        min: 0
+    },
+    comment_count: {
         type: Number,
         required: true,
         default: 0,
@@ -43,7 +50,12 @@ Journal.Schema = {
         type: Date,
         required: true,
         default: Date.now
-    }
+    },
+    category_id: {
+        type: require('mongoose').Schema.ObjectId,
+        required: false
+    },
+    tags: [Tag]
 };
 
 Journal.collection = {

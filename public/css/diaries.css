@@ -1,0 +1,17 @@
+.diary {
+    margin: 2%;
+}
+
+.image_thumb {
+    height: 150px;
+    cursor: pointer;
+}
+
+.image_previewer {
+    max-height: 100%;
+}
+
+.image_previewer_content {
+    max-height: 100%;
+    max-width: 100%;
+}

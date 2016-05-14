@@ -10,11 +10,12 @@ var config = require('../config/config')(__dirname);
 //log记录
 var Logger = require('mini-logger');
 var onerror = require('koa-onerror');
-var override = require('koamethodoverride')
+var override = require('koamethodoverride');
 var koaJade = require('koa-jade');
 var session = require('koa-session');
 var bodyParser = require('koa-bodyparser');
 var staticCache = require('koa-static-cache');
+var koaStatic = require('koa-static');
 var marked = require('marked');
 //路由
 var router = require('koa-router');
@@ -65,7 +66,12 @@ Server.prototype.start = function () {
 
     //静态文件cache
     var staticDir = config.staticDir;
+
+    this.use(koaStatic(path.join(staticDir, 'uploads')));
+
     this.use(staticCache(staticDir));
+    this.use(staticCache(path.join(staticDir, 'vendors')));
+    this.use(staticCache(path.join(staticDir, 'uploads')));
     this.use(staticCache(path.join(staticDir, 'js')));
     this.use(staticCache(path.join(staticDir, 'img')));
     this.use(staticCache(path.join(staticDir, 'css')));
@@ -111,6 +117,11 @@ Server.prototype.connectDb = function () {
 
 
 Server.prototype.config = function() {};
+
+Server.prototype.initUtils = function () {
+    var dateUtils = require('../libs/date');
+    var randomUtils = require('../libs/random');
+};
 
 Server.prototype.initGlobalVariables = function() {
     global.conf = this.opts;

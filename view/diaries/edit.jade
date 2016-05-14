@@ -1,0 +1,39 @@
+//
+   Created by Obscurity on 2016/5/12.
+
+#edit_diary_modal.modal.fade
+    .modal-dialog
+        .modal-content
+            form#update_diary_form(action="/diaries?_method=put" method="POST" enctype="multipart/form-data")
+                .modal-header
+                    button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
+                    h4.modal-title 我的日记
+                .modal-body
+                    .form-group
+                        label 标题:
+                        input#update_diary_brief.form-control(name="brief" type="text" placeholder="先简单做个概述吧~" maxlength=30)
+                    .form-group
+                        label 日期
+                        input#update_diary_date.form-control(name="recorded_date" type="date" placeholder="请设置日期")
+                    .form-group
+                        .col-lg-6.col-md-6.col-sm-6.col-xs-6
+                            label 心情:
+                            select#update_diary_mood.form-control(name="mood" required)
+                                option(selected) 请选择您的心情
+                                - for(var key in mood_list)
+                                    option(value=key)= mood_list[key].translation
+                        .col-lg-6.col-md-6.col-sm-6.col-xs-6
+                            label 标签:
+                            select#update_diary_tag.form-control(name="tag" required)
+                                option(selected) 请选择标签
+                                - for(var key in tag_list)
+                                    option(value=key)= tag_list[key].translation
+                    .form-group
+                        label 内容:
+                        textarea#update_diary_content.form-control(name="content" rows="5" maxlength=500 placeholder="今天怎样呀")
+                    .form-group
+                        label 上传图片:
+                        input.form-control(name="images" type="file" multiple="multiple")
+                .modal-footer
+                    button.button.button-pill.button-small(type="button" aria-hidden="true" data-dismiss="modal") 取消
+                    button.button.button-pill.button-primary.button-small(type="submit") 更新

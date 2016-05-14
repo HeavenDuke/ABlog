@@ -6,9 +6,9 @@ extends ../layout/layout
 block content
     .container
         .row.journal
-            h4.pull-left 日志列表
+            h4.pull-left 博客列表
             if current_user != null
-                a.button.button-primary.button-pill.pull-right(href="/journals/new") 写日志
+                a.button.button-primary.button-pill.pull-right(href="/journals/new") 写博客
         .divider
         if journals.length == 0
             .row.text-center
@@ -18,7 +18,7 @@ block content
             - for (var i = 0; i < journals.length; i++)
                 .row.journal
                     a.journal-title(href="/journals/" + journals[i]._id)= journals[i].placed_top ? journals[i].title_top() : journals[i].title
-                    .journal-info= journals[i].updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journals[i].read_count + ')　评论(' + journals[i].comment_counts + ')'
+                    .journal-info= journals[i].updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journals[i].read_count + ')　评论(' + journals[i].comment_count + ')'
                     .journal-content= global.utils.journalPreview(global.utils.html2plain(global.utils.markdown(journals[i].content)), global.conf.preview.journal)
             .row.text-center
                 ul.pagination
@@ -35,3 +35,4 @@ block content
                     if pagination.current_index < pagination.total_page
                         li
                             a(href="/journals?page=" + (pagination.current_index + 1)) 下一页 &raquo;
+    include ./reference

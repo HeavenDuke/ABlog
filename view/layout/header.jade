@@ -1,27 +1,28 @@
-nav.navbar.navbar-default.navbar-static-top(role='navigation', style='border-width: 1px;margin-bottom: 5px;background-color: #fff;')
-    .container
-        .navbar-header
-            button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar-collapse', style="margin-top: 3px;")
-                span.sr-only 切换导航
-                span.icon-bar
-                span.icon-bar
-                span.icon-bar
-            a.navbar-brand(href='/') HeavenDuke的博客
-        #navbar-collapse.collapse.navbar-collapse
-            ul.nav.navbar-nav
-                li(class=current_module == "journal" ? "active" : "")
-                    a(href='/journals') 日志
-            if (current_user == null)
-                ul.nav.navbar-nav.navbar-right(style='margin-right: 15px;')
-                    li
-                        a(href='/user/login') 登录
-             else
-                 ul.nav.navbar-nav.pull-right
-                     li.dropdown
-                        a.dropdown-toggle(href="#" data-toggle="dropdown") 我的账户
-                            b.caret
-                        ul.dropdown-menu
-                            li
-                                a(href="/user/edit") 修改信息
-                            li
-                                a(href="/user?_method=delete") 登出
+.main-header
+    nav.navbar.navbar-static-top(role='navigation')
+        .container
+            .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar-collapse' aria-expanded="true")
+                    i.fa.fa-bars
+                a.navbar-brand(href='/') HeavenDuke的博客
+            #navbar-collapse.collapse.navbar-collapse
+                ul.nav.navbar-nav
+                    li(class=current_module == "journal" ? "active" : "")
+                        a(href='/journals') 博文
+                ul.nav.navbar-nav
+                    li(class=current_module == "diary" ? "active" : "")
+                        a(href='/diaries') 日记
+                if (current_user == null)
+                    ul.nav.navbar-nav.pull-right
+                        li
+                            a(href='/user/login') 登录
+                 else
+                     ul.nav.navbar-nav.pull-right
+                         li.dropdown
+                            a.dropdown-toggle(href="#" data-toggle="dropdown" aria-expanded="true") 我的账户
+                                span.caret
+                            ul.dropdown-menu(role="menu")
+                                li
+                                    a(href="/user/edit") 修改信息
+                                li
+                                    a(href="/user?_method=delete") 登出

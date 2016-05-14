@@ -10,11 +10,12 @@ var config = require('../config/config')(__dirname);
 //log记录
 var Logger = require('mini-logger');
 var onerror = require('koa-onerror');
-var override = require('koamethodoverride')
+var override = require('koamethodoverride');
 var koaJade = require('koa-jade');
 var session = require('koa-session');
 var bodyParser = require('koa-bodyparser');
 var staticCache = require('koa-static-cache');
+var koaStatic = require('koa-static');
 var marked = require('marked');
 //路由
 var router = require('koa-router');
@@ -23,6 +24,7 @@ var validator = require('koa-validator');
 var appRouter = require('../router');
 var path = require('path');
 var mongoose = require('mongoose');
+var koaBody = require('koa-body');
 
 function Server(option) {
     this.opts = option || {};
@@ -65,8 +67,14 @@ Server.prototype.start = function () {
 
     //静态文件cache
     var staticDir = config.staticDir;
+
+    this.use(koaBody({multipart: true, formidable: {uploadDir: path.join(staticDir, 'uploads'), keepExtensions: true, hash: "sha1"}}));
+
+    this.use(koaStatic(path.join(staticDir, 'uploads')));
+
     this.use(staticCache(staticDir));
     this.use(staticCache(path.join(staticDir, 'vendors')));
+    this.use(staticCache(path.join(staticDir, 'uploads')));
     this.use(staticCache(path.join(staticDir, 'js')));
     this.use(staticCache(path.join(staticDir, 'img')));
     this.use(staticCache(path.join(staticDir, 'css')));

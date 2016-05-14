@@ -5,6 +5,7 @@
 var diariesController = require('../../controller').diary;
 var authentication = require('../../middlewares/authentication');
 
+
 module.exports = function(app) {
 
     var current_module = function *(next) {

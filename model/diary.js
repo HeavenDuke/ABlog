@@ -37,6 +37,11 @@ Diary.Schema = {
         type: Date,
         required: true,
         default: Date.now
+    },
+    images: {
+        type: Array,
+        required: false,
+        default: []
     }
 };
 

@@ -6,6 +6,7 @@
 
     var prepare_diary_page = function () {
         var diary_edit_form_entry = $("a[data-target='#edit_diary_modal']");
+        var all_thumbs = $(".image_thumb");
         diary_edit_form_entry.on('click', function() {
             var diary_id = $(this).attr('diary_id');
             var brief = $("#" + diary_id + "_brief").text().trim();
@@ -19,6 +20,11 @@
             $("#update_diary_mood").val(mood);
             $("#update_diary_tag").val(tag);
             $("#update_diary_form").attr("action", "/diaries/" + diary_id + "?_method=put");
+        });
+        all_thumbs.on('click', function() {
+            var src = $(this).attr('src');
+            $("#previewer_content").attr('src', src);
+            $("#image_previewer").modal("show");
         });
     };
 

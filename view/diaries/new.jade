@@ -4,7 +4,7 @@
 #new_diary_modal.modal.fade
     .modal-dialog
         .modal-content
-            form(action="/diaries" method="POST")
+            form(action="/diaries" method="POST" enctype="multipart/form-data")
                 .modal-header
                     button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
                     h4.modal-title 新日记
@@ -31,6 +31,9 @@
                     .form-group
                         label 内容:
                         textarea.form-control(name="content" rows="5" maxlength=500 placeholder="今天怎样呀" required)
+                    .form-group
+                        label 上传图片:
+                        input.form-control(name="images" type="file" multiple="multiple")
                 .modal-footer.text-center
                     button.button.button-pill.button-small(type="button" aria-hidden="true" data-dismiss="modal") 取消
                     button.button.button-pill.button-primary.button-small(type="submit") 发表

@@ -40,6 +40,10 @@ block content
                                                 //i.fa.fa-clock-o= "　" + diaries[index].recorded_at.format("yyyy年MM月dd日 hh:mm:ss")
                                             h3.timeline-header(id=diaries[index]._id + "_brief")= diaries[index].brief
                                             .timeline-body(id=diaries[index]._id + "_content")= diaries[index].content
+                                            if diaries[index].images.length != 0
+                                                .timeline-body
+                                                    - for(var img_index in diaries[index].images)
+                                                        img.margin.image_thumb(src="/" + diaries[index].images[img_index])
                                             .timeline-footer
                                                 if current_user
                                                     a.btn.btn-xs.btn-warning(diary_id=diaries[index]._id data-toggle="modal" data-target="#edit_diary_modal") 编辑
@@ -51,3 +55,4 @@ block content
     include ./new
     include ./edit
     include ./reference
+    include ./preview

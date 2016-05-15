@@ -14,7 +14,7 @@ function get_thumb_path(image_path) {
 
 exports.index = function *() {
     var Diary = global.database.models.diary;
-    var diaries = yield Diary.find({}).sort({recorded_date: -1});
+    var diaries = yield Diary.find({}).sort({recorded_date: -1, recorded_at: 1});
     if (!this.request.query.remote) {
         this.render('diaries/index', {title: "每日小记", current_user: this.session.user, diaries: diaries, Diary: Diary, current_module: this.current_module, mood_list: Diary.mood_list(), tag_list: Diary.tag_list()});
     }
@@ -44,9 +44,8 @@ exports.create = function *() {
                     var thumb_height = 150;
                     var scale = size.height / thumb_height;
                     var thumb_width = size.width / scale;
-                    gm(image.path).resize(thumb_width, thumb_height).write(get_thumb_path(image.path), function(err) {
+                    gm(image.path).resizeExact(thumb_width, thumb_height).write(get_thumb_path(image.path), function(err) {
                         if (err) {
-                            console.log(err);
                         }
                         else {
                             console.log("success");
@@ -93,7 +92,7 @@ exports.update = function *() {
                     var thumb_height = 150;
                     var scale = size.height / thumb_height;
                     var thumb_width = size.width / scale;
-                    gm(image.path).resize(thumb_width, thumb_height).write(get_thumb_path(image.path), function(err) {
+                    gm(image.path).resizeExact(thumb_width, thumb_height).write(get_thumb_path(image.path), function(err) {
                         if (err) {
                             console.log(err);
                         }

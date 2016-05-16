@@ -28,7 +28,12 @@ VisitRecord.collection = {
 };
 
 VisitRecord.ignore_minute = function (date) {
-    return new Date(date.format('yyyy/MM/dd hh'));
+    var ignored_date = new Date(date.format('yyyy-MM-dd hh:00:00'));
+    var year = ignored_date.getFullYear();
+    var month = ignored_date.getMonth();
+    var day = ignored_date.getDate();
+    var hour = ignored_date.getHours();
+    return Date.UTC(year, month, day, hour);
 };
 
 module.exports = VisitRecord;

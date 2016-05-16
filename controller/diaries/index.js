@@ -42,9 +42,19 @@ exports.create = function *() {
                 }
                 else {
                     var thumb_height = 150;
-                    var scale = size.height / thumb_height;
-                    var thumb_width = size.width / scale;
-                    gm(image.path).resizeExact(thumb_width, thumb_height).write(get_thumb_path(image.path), function(err) {
+                    var thumb_scale = size.height / thumb_height;
+                    var thumb_width = size.width / thumb_scale;
+                    var raw_height = 960;
+                    var raw_scale = size.height / raw_height;
+                    var raw_width = size.width / raw_scale;
+                    gm(image.path).resize(raw_height, raw_width).autoOrient().write(image.path, function(err) {
+                        if (err) {
+                        }
+                        else {
+                            console.log("success");
+                        }
+                    });
+                    gm(image.path).resize(thumb_width, thumb_height).autoOrient().write(get_thumb_path(image.path), function(err) {
                         if (err) {
                         }
                         else {
@@ -92,7 +102,17 @@ exports.update = function *() {
                     var thumb_height = 150;
                     var scale = size.height / thumb_height;
                     var thumb_width = size.width / scale;
-                    gm(image.path).resizeExact(thumb_width, thumb_height).write(get_thumb_path(image.path), function(err) {
+                    var raw_height = 960;
+                    var raw_scale = size.height / raw_height;
+                    var raw_width = size.width / raw_scale;
+                    gm(image.path).resize(raw_height, raw_width).autoOrient().write(image.path, function(err) {
+                        if (err) {
+                        }
+                        else {
+                            console.log("success");
+                        }
+                    });
+                    gm(image.path).resize(thumb_width, thumb_height).autoOrient().write(get_thumb_path(image.path), function(err) {
                         if (err) {
                             console.log(err);
                         }

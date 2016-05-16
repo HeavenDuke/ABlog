@@ -8,10 +8,10 @@
 }
 
 .image_previewer {
-    max-height: 100%;
+    width: 60%;
 }
 
 .image_previewer_content {
-    max-height: 100%;
     max-width: 100%;
+    max-height: 100%;
 }

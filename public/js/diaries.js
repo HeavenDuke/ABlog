@@ -4,9 +4,8 @@
 
 (function() {
 
-    var prepare_diary_page = function () {
+    var prepare_diary_form = function () {
         var diary_edit_form_entry = $("a[data-target='#edit_diary_modal']");
-        var all_thumbs = $(".image_thumb");
         diary_edit_form_entry.on('click', function() {
             var diary_id = $(this).attr('diary_id');
             var brief = $("#" + diary_id + "_brief").text().trim();
@@ -21,11 +20,20 @@
             $("#update_diary_tag").val(tag);
             $("#update_diary_form").attr("action", "/diaries/" + diary_id + "?_method=put");
         });
+    };
+
+    var prepare_diary_previewer = function () {
+        var all_thumbs = $(".image_thumb");
         all_thumbs.on('click', function() {
             var full_src = $(this).attr('full_src');
             $("#previewer_content").attr('src', full_src);
             $("#image_previewer").modal("show");
         });
+    };
+
+    var prepare_diary_page = function () {
+        prepare_diary_form();
+        prepare_diary_previewer();
     };
 
     $(document).on('ready', function () {

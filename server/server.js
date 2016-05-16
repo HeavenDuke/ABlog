@@ -119,8 +119,8 @@ Server.prototype.connectDb = function () {
 Server.prototype.config = function() {};
 
 Server.prototype.initUtils = function () {
-    var dateUtils = require('../libs/date');
-    var randomUtils = require('../libs/random');
+    require('../libs/date')();
+    require('../libs/random')();
 };
 
 Server.prototype.initGlobalVariables = function() {

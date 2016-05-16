@@ -6,9 +6,11 @@ var projectRouter = require('./projects');
 var journalRouter = require('./journals');
 var diaryRouter = require('./diaries');
 
+var visit_recorder = require('../middlewares/visit_recorder');
+
 module.exports = function(app){
     //首页
-    app.get('home', '/',controller.home.index);
+    app.get('home', '/', visit_recorder, controller.home.index);
 
     userRouter(app);
     contestRouter(app);

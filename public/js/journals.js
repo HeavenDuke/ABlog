@@ -14,7 +14,7 @@
         var owo = new OwO({
             logo: 'OωO表情',
             container: document.getElementsByClassName('OwO')[0],
-            target: document.getElementsByTagName('textarea')[0],
+            target: document.getElementById('comment_input'),
             position: 'down',
             api: "/OwO/OwO.json",
             width: '100%',

@@ -15,19 +15,20 @@
                 .username 匿名用户
                 span.text-muted.pull-right= comments[index].created_at.format("yyyy年MM月dd日 hh:mm:ss")
                 = comments[index].content
-        .box-comment
-            .box-footer.box-comments(style="margin-left: 20px;")
-                - var replies = comments[index].replies;
-                - for(var index_r in replies)
-                    .box-comment
-                        img.img-circle.img-sm(src="/img/head.png")
-                        .comment-text
-                            .username 匿名用户
-                            span.text-muted.pull-right= replies[index_r].created_at.format("yyyy年MM月dd日 hh:mm:ss")
-                            = replies[index_r].content
-            .box-comments
-                form(action="/journals/" + journal._id + "/comments/" + comments[index]._id + "/replies" method="POST").margin
-                    .form-group
-                        label 回复
-                        textarea.form-control(name="content" placeholder="请输入您的回复~")
-                    button.button.button-block.button-small.button-primary 提交
+        - var replies = comments[index].replies;
+        if replies.length != 0
+            .box-comment
+                .box-footer.box-comments(style="margin-left: 20px;")
+                    - for(var index_r in replies)
+                        .box-comment
+                            img.img-circle.img-sm(src="/img/head.png")
+                            .comment-text
+                                .username 匿名用户
+                                span.text-muted.pull-right= replies[index_r].created_at.format("yyyy年MM月dd日 hh:mm:ss")
+                                = replies[index_r].content
+        .box-comments
+            form(action="/journals/" + journal._id + "/comments/" + comments[index]._id + "/replies" method="POST").margin
+                .form-group
+                    label 回复
+                    textarea.form-control(name="content" placeholder="请输入您的回复~")
+                button.button.button-block.button-small.button-primary 提交

@@ -11,7 +11,6 @@
             hljs.highlightBlock(this);
         });
 
-
         var owo = new OwO({
             logo: 'OωO表情',
             container: document.getElementsByClassName('OwO')[0],
@@ -20,6 +19,12 @@
             api: "/OwO/OwO.json",
             width: '100%',
             maxHeight: '250px'
+        });
+
+        $("a[id$='_reply_entry']").on('click', function () {
+            var entry_id = $(this).attr('id');
+            var comment_id = entry_id.substring(0, entry_id.indexOf("_reply_entry"));
+            $("#" + comment_id + "_reply_container").slideToggle();
         });
     };
 

@@ -7,7 +7,10 @@
         .box-comment
             img.img-circle.img-sm(src="/img/head.png")
             if current_user != null
+                a.pull-right(href="#" style="margin-right: 10px;") 回复
                 a.pull-right(href="/journals/" + journal._id + "/comments/" + comments[index]._id + "?_method=delete") 删除
+            else
+                a.pull-right(href="#") 回复
             .comment-text
                 .username 匿名用户
                 span.text-muted.pull-right= comments[index].created_at.format("yyyy年MM月dd日 hh:mm:ss")

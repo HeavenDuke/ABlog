@@ -27,3 +27,5 @@ exports.destroy = function *(next) {
     journal.save();
     this.redirect("/journals/" + journalId);
 };
+
+exports.replies = require('./replies');

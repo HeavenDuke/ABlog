@@ -17,7 +17,8 @@ Comment.Schema = {
     journal_id: {
         type: require('mongoose').Schema.ObjectId,
         ref: "Journals"
-    }
+    },
+    replies: [require('./reply').Schema]
 };
 
 Comment.collection = {

@@ -26,9 +26,18 @@
                                 .username 匿名用户
                                 span.text-muted.pull-right= replies[index_r].created_at.format("yyyy年MM月dd日 hh:mm:ss")
                                 = replies[index_r].content
-        .box-comments
-            form(action="/journals/" + journal._id + "/comments/" + comments[index]._id + "/replies" method="POST").margin
-                .form-group
-                    label 回复
-                    textarea.form-control(name="content" placeholder="请输入您的回复~")
-                button.button.button-block.button-small.button-primary 提交
+                    .box-comment
+                        form(action="/journals/" + journal._id + "/comments/" + comments[index]._id + "/replies" method="POST").margin
+                            .form-group
+                                label 回复
+                                textarea.form-control(name="content" placeholder="请输入您的回复~")
+                            button.button.button-block.button-small.button-primary 提交
+        else
+            .box-comment
+                .box-footer.box-comments(style="margin-left: 20px;")
+                    .box-comment
+                        form(action="/journals/" + journal._id + "/comments/" + comments[index]._id + "/replies" method="POST").margin
+                            .form-group
+                                label 回复
+                                textarea.form-control(name="content" placeholder="请输入您的回复~")
+                            button.button.button-block.button-small.button-primary 提交

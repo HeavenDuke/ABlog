@@ -11,22 +11,40 @@
             hljs.highlightBlock(this);
         });
 
-        var owo = new OwO({
-            logo: 'OωO表情',
-            container: document.getElementsByClassName('OwO')[0],
-            target: document.getElementById('comment_input'),
-            position: 'down',
-            api: "/OwO/OwO.json",
-            width: '100%',
-            maxHeight: '250px'
-        });
+        var owos = $("div[class$='OwO']");
+        for(var i = 0; i < owos.length; i++) {
+            var comment_id = $(owos[i]).attr("comment_id");
+            var reply_owo = null;
+            if (comment_id) {
+                reply_owo = new OwO({
+                    logo: 'OωO表情',
+                    container: owos[i],
+                    target: document.getElementById(comment_id + "_comment_reply"),
+                    position: 'down',
+                    api: "/OwO/OwO.json",
+                    width: '100%',
+                    maxHeight: '250px'
+                });
+            }
+            else {
+                reply_owo = new OwO({
+                    logo: 'OωO表情',
+                    container: owos[i],
+                    target: document.getElementById('comment_input'),
+                    position: 'down',
+                    api: "/OwO/OwO.json",
+                    width: '100%',
+                    maxHeight: '250px'
+                });
+            }
+        }
 
         $("a[id$='_reply_entry']").on('click', function () {
             var entry_id = $(this).attr('id');
             var toggle_hash = {
                 "回复": "收起",
                 "收起": "回复"
-            }
+            };
             $(this).text(toggle_hash[$(this).text().trim()]);
             var comment_id = entry_id.substring(0, entry_id.indexOf("_reply_entry"));
             $("#" + comment_id + "_reply_container").slideToggle();
@@ -61,7 +79,7 @@
                 hljs.highlightBlock(this);
             });
         });
-    }
+    };
 
     $(document).on('ready', function () {
         if (window.location.href.match(/\/journals\/\w+\/edit/) != null) {

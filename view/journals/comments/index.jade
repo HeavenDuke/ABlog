@@ -30,7 +30,8 @@
                         form(action="/journals/" + journal._id + "/comments/" + comments[index]._id + "/replies" method="POST").margin
                             .form-group
                                 label 回复
-                                textarea.form-control(name="content" placeholder="请输入您的回复~")
+                                .OwO(comment_id=comments[index].id)
+                                textarea.form-control(name="content" id=comments[index].id + "_comment_reply" placeholder="请输入您的回复~")
                             button.button.button-block.button-small.button-primary 提交
         else
             .box-comment(id=comments[index]._id + "_reply_container" style="display: none;")
@@ -39,5 +40,6 @@
                         form(action="/journals/" + journal._id + "/comments/" + comments[index]._id + "/replies" method="POST").margin
                             .form-group
                                 label 回复
-                                textarea.form-control(name="content" placeholder="请输入您的回复~")
+                                .OwO(comment_id=comments[index].id)
+                                textarea.form-control(name="content" id=comments[index].id + "_comment_reply" placeholder="请输入您的回复~")
                             button.button.button-block.button-small.button-primary 提交

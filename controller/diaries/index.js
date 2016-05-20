@@ -67,7 +67,7 @@ exports.create = function *() {
             image_paths.push(image_path);
         }
         else {
-            fs.unlink(image.path, null);
+            fs.unlink(image.path, function (){});
         }
         return image;
     });
@@ -126,7 +126,7 @@ exports.update = function *() {
             image_paths.push(image_path);
         }
         else {
-            fs.unlink(image.path, null);
+            fs.unlink(image.path, function (){});
         }
         return image;
     });

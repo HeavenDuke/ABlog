@@ -4,14 +4,14 @@
 
 (function() {
 
-    var diaries = [];
+    var diaries = {};
 
     var prepare_diary_form = function () {
         var diary_edit_form_entry = $("a[data-target='#edit_diary_modal']");
         diary_edit_form_entry.on('click', function() {
             var diary_id = $(this).attr('diary_id');
             var brief = $("#" + diary_id + "_brief").text().trim();
-            var content = $("#" + diary_id + "_content").text().trim();
+            var content = diaries[diary_id];
             var date = $("#" + diary_id + "_date").attr("date");
             var mood = $("#" + diary_id + "_mood").attr("mood");
             var tag = $("#" + diary_id + "_tag").attr("tag");
@@ -34,16 +34,22 @@
     };
 
     var prepare_diary_paragraphs = function () {
+
+        var diary_to_paragraph = function (diary) {
+            var split_content = diary.split("\n");
+            var result = "";
+            for(var index in split_content) {
+                result += "<p>" + split_content[index] + "</p>"
+            }
+            return result;
+        };
+
         var diaries_container = $("[id$='_content']");
         for(var i = 0; i < diaries_container.length; i++) {
             var id = $(diaries_container[i]).attr('id');
-            var diary = {
-                id: id.substring(0, id.indexOf('_content')),
-                content: $(diaries_container[i]).text()
-            };
-            console.log(diary);
-            $(diaries_container[i]).html(diary.content);
-            diaries.push(diary);
+            var content = $(diaries_container[i]).text();
+            $(diaries_container[i]).html(diary_to_paragraph(content));
+            diaries[id.substring(0, id.indexOf('_content'))] = content;
         }
     };
 

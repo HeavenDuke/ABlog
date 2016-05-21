@@ -15,7 +15,6 @@ function get_thumb_path(image_path) {
 exports.index = function *() {
     var Diary = global.database.models.diary;
     var diaries = yield Diary.find({}).sort({recorded_date: -1, recorded_at: -1});
-    console.log(diaries);
     if (!this.request.query.remote) {
         this.render('diaries/index', {title: "每日小记", current_user: this.session.user, diaries: diaries, Diary: Diary, current_module: this.current_module, mood_list: Diary.mood_list(), tag_list: Diary.tag_list()});
     }
@@ -75,6 +74,7 @@ exports.create = function *() {
     diary.mood = fields.mood;
     diary.tag = fields.tag;
     diary.content = fields.content;
+    diary.is_public = !!fields.is_public;
     diary.recorded_date = new Date(fields.recorded_date);
     diary.images = image_paths;
     diary.save();
@@ -141,6 +141,7 @@ exports.update = function *() {
     diary.content = fields.content;
     diary.mood = fields.mood;
     diary.tag = fields.tag;
+    diary.is_public = !!fields.is_public;
     diary.recorded_date = new Date(fields.recorded_date);
     diary.save();
     this.redirect('/diaries');

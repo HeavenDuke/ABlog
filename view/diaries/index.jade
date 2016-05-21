@@ -20,34 +20,39 @@ block content
                                     i.fa.fa-clock-o.bg-gray
                                     .timeline-item
                                         .timeline-body 在未来，一切都还会继续...
-                                if diaries.length == 0
+                                - last_diary_date = ""
+                                - var has_shown_diaries = false;
+                                - for(var index in diaries)
+                                    if diaries[index].is_public || current_user
+                                        - has_shown_diaries = true
+                                        if diaries[index].recorded_date.format("yyyy-MM-dd") != last_diary_date
+                                            - last_diary_date = diaries[index].recorded_date.format("yyyy-MM-dd")
+                                            li.time-label
+                                                span.bg-green= diaries[index].recorded_date.format("yyyy年MM月dd日")
+                                        li
+                                            i(id=diaries[index]._id + "_tag" tag=diaries[index].tag class="fa " + diaries[index].tag_to_icon() + " " + diaries[index].mood_to_color())
+                                            .timeline-item
+                                                span.time
+                                                    .hidden(id=diaries[index]._id + "_date" date=diaries[index].recorded_date.format("yyyy-MM-dd"))
+                                                    .hidden(id=diaries[index]._id + "_mood" mood=diaries[index].mood)
+                                                    .hidden(id=diaries[index]._id + "_publicity" publicity=diaries[index].is_public.toString())
+                                                    if !diaries[index].is_public
+                                                        i.fa.fa-clock-o= "　私密日记"
+                                                h3.timeline-header(id=diaries[index]._id + "_brief")= diaries[index].brief
+                                                .timeline-body(id=diaries[index]._id + "_content")= diaries[index].content
+                                                if diaries[index].images.length != 0
+                                                    .timeline-body
+                                                        - for(var img_index in diaries[index].images)
+                                                            img.margin.image_thumb(src=Diary.get_thumb_image("/" + diaries[index].images[img_index]) full_src="/" + diaries[index].images[img_index])
+                                                .timeline-footer
+                                                    if current_user
+                                                        a.btn.btn-xs.btn-warning(diary_id=diaries[index]._id data-toggle="modal" data-target="#edit_diary_modal") 编辑
+                                                        a.btn.btn-xs.btn-danger(href="/diaries/" + diaries[index]._id + "?_method=delete" style="margin-left: 10px;") 删除
+                                if !has_shown_diaries
                                     li
                                         i.fa.fa-clock-o.bg-gray
                                         .timeline-item
                                             .timeline-body 现在，这里还是一片空虚...
-                                - last_diary_date = ""
-                                - for(var index in diaries)
-                                    if diaries[index].recorded_date.format("yyyy-MM-dd") != last_diary_date
-                                        - last_diary_date = diaries[index].recorded_date.format("yyyy-MM-dd")
-                                        li.time-label
-                                            span.bg-green= diaries[index].recorded_date.format("yyyy年MM月dd日")
-                                    li
-                                        i(id=diaries[index]._id + "_tag" tag=diaries[index].tag class="fa " + diaries[index].tag_to_icon() + " " + diaries[index].mood_to_color())
-                                        .timeline-item
-                                            span.time
-                                                .hidden(id=diaries[index]._id + "_date" date=diaries[index].recorded_date.format("yyyy-MM-dd"))
-                                                .hidden(id=diaries[index]._id + "_mood" mood=diaries[index].mood)
-                                                //i.fa.fa-clock-o= "　" + diaries[index].recorded_at.format("yyyy年MM月dd日 hh:mm:ss")
-                                            h3.timeline-header(id=diaries[index]._id + "_brief")= diaries[index].brief
-                                            .timeline-body(id=diaries[index]._id + "_content")= diaries[index].content
-                                            if diaries[index].images.length != 0
-                                                .timeline-body
-                                                    - for(var img_index in diaries[index].images)
-                                                        img.margin.image_thumb(src=Diary.get_thumb_image("/" + diaries[index].images[img_index]) full_src="/" + diaries[index].images[img_index])
-                                            .timeline-footer
-                                                if current_user
-                                                    a.btn.btn-xs.btn-warning(diary_id=diaries[index]._id data-toggle="modal" data-target="#edit_diary_modal") 编辑
-                                                    a.btn.btn-xs.btn-danger(href="/diaries/" + diaries[index]._id + "?_method=delete" style="margin-left: 10px;") 删除
                                 li
                                     i.fa.fa-clock-o.bg-gray
                                     .timeline-item

@@ -60,7 +60,7 @@
             matchBrackets: true,
             lineWrapping: true,
             tabSize: 4,
-            theme: "default",
+            theme: "monokai",
             keyMap: "sublime",
             extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"},
             autoCloseBrackets: true,

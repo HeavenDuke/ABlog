@@ -15,11 +15,18 @@
             var date = $("#" + diary_id + "_date").attr("date");
             var mood = $("#" + diary_id + "_mood").attr("mood");
             var tag = $("#" + diary_id + "_tag").attr("tag");
+            var is_public = $("#" + diary_id + "_publicity").attr("publicity") == "true";
             $("#update_diary_brief").val(brief);
             $("#update_diary_content").val(content);
             $("#update_diary_date").attr("value", date);
             $("#update_diary_mood").val(mood);
             $("#update_diary_tag").val(tag);
+            if (is_public) {
+                $("#update_diary_publicity").attr("checked", "checked");
+            }
+            else {
+                $("#update_diary_publicity").removeAttr("checked");
+            }
             $("#update_diary_form").attr("action", "/diaries/" + diary_id + "?_method=put");
         });
     };

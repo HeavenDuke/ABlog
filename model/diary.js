@@ -9,6 +9,11 @@ Diary.Schema = {
         type: String,
         required: true
     },
+    is_public: {
+        type: Boolean,
+        required: true,
+        default: true
+    },
     mood: {
         type: String,
         required: true,

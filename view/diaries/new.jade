@@ -34,6 +34,10 @@
                     .form-group
                         label 上传图片:
                         input.form-control(name="images" type="file" multiple="multiple")
+                    .form-group.text-center
+                        .checkbox
+                            input(name="is_public" type="checkbox")
+                            label 是否公开
                 .modal-footer.text-center
                     button.button.button-pill.button-small(type="button" aria-hidden="true" data-dismiss="modal") 取消
                     button.button.button-pill.button-primary.button-small(type="submit") 发表

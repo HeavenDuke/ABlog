@@ -60,10 +60,19 @@
         }
     };
 
+    var prepare_diary_image = function () {
+        var images = $("img");
+        for(var i = 0; i < images.length; i++) {
+            var image = $(images[i]);
+            image.attr("src", image.attr("thumb_url"));
+        }
+    };
+
     var prepare_diary_page = function () {
         prepare_diary_form();
         prepare_diary_previewer();
         prepare_diary_paragraphs();
+        prepare_diary_image();
     };
 
     $(document).on('ready', function () {

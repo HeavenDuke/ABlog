@@ -16,9 +16,14 @@ block content
                     textarea#journal_content_input.hidden.form-control(name="content" rows=20 placeholder="请在此输入博客正文" maxlength=100000)
             .row.text-center
                 br
-                .checkbox
-                    input(name="placed_top" type="checkbox")
-                    label 是否置顶
+                .form-group
+                    .checkbox
+                        input(name="placed_top" type="checkbox")
+                        label 是否置顶
+                .form-group
+                    .checkbox
+                        input(name="is_public" type="checkbox")
+                        label 是否公开
                 .text-center
                     button#journal_submission_entry.button.button-pill.button-primary(type="submit") 提交
                     button#journal_previewer_entry.button.button-pill(style="margin-left: 10px;" type="button" data-toggle="modal" data-target="#journal_previewer") 预览

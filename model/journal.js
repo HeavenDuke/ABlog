@@ -16,6 +16,11 @@ Journal.Schema = {
         default: 0,
         min: 0
     },
+    is_public: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     comment_count: {
         type: Number,
         required: true,

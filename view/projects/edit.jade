@@ -1,3 +1,21 @@
 //
    Created by Obscurity on 2016/5/2.
 
+extends ../layout/layout
+
+block content
+    .container
+        .row.project
+            h1 编辑项目
+            form(action="/projects/" + project._id + "?_method=PUT" method="POST")
+                .form-group
+                    label 项目名称
+                    input.form-control(name="name" type="text" maxlength=30 value=project.name placeholder="请输入项目名称")
+                .form-group
+                    label 项目名称
+                    textarea.form-control(name="content" rows=8 placeholder="写写你的项目是怎样的吧~")= project.content
+                .text-center
+                    button.button.button-pill.button-primary(type="submit") 提交
+
+
+include ./reference

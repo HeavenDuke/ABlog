@@ -2,7 +2,6 @@
  * Created by heavenduke on 16-5-5.
  */
 
-var Tag = require('./tag');
 var Journal = {};
 
 Journal.Schema = {
@@ -59,8 +58,7 @@ Journal.Schema = {
     category_id: {
         type: require('mongoose').Schema.ObjectId,
         required: false
-    },
-    tags: [Tag]
+    }
 };
 
 Journal.collection = {

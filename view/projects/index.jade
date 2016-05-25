@@ -1,3 +1,19 @@
 //
    Created by Obscurity on 2016/5/2.
 
+extends ../layout/layout
+
+block content
+    .container
+        a.button.button-pill.button-primary(href="/projects/new") 新项目
+        .row.project
+            - for(var index in projects)
+                .box
+                    .box-header.with-border
+                        .box-title= projects[index].name
+                    .box-body= projects[index].content
+                    .box-footer
+                        a(href="/projects/" + projects[index]._id + "/edit") 编辑
+                        a(href="/projects/" + projects[index]._id + "?_method=delete") 删除
+
+include ./reference

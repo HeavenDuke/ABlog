@@ -12,6 +12,7 @@ var database = {
 };
 
 var Journal = require('./journal');
+var Project = require('./project');
 var User = require('./user');
 var Comment = require('./comment');
 var Diary = require('./diary');
@@ -22,6 +23,7 @@ var UserSchema = new Schema(User.Schema, User.collection);
 var CommentSchema = new Schema(Comment.Schema, Comment.collection);
 var DiarySchema = new Schema(Diary.Schema, Diary.collection);
 var VisitRecordSchema = new Schema(VisitRecord.Schema, VisitRecord.collection);
+var ProjectSchema = new Schema(Project.Schema, Project.collection);
 
 JournalSchema.methods.link = Journal.link;
 JournalSchema.methods.title_top = Journal.title_top;
@@ -42,7 +44,8 @@ database.models.user = mongoose.model("user", UserSchema);
 database.models.comment = mongoose.model('comment', CommentSchema);
 database.models.diary = mongoose.model('diary', DiarySchema);
 database.models.visit_record = mongoose.model('visit_record', VisitRecordSchema);
+database.models.project = mongoose.model('project', ProjectSchema);
 
 module.exports = {
-    loader:database
+    loader:　database
 };

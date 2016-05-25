@@ -12,6 +12,9 @@
                 ul.nav.navbar-nav
                     li(class=current_module == "diary" ? "active" : "")
                         a(href='/diaries') 日记
+                ul.nav.navbar-nav
+                    li(class=current_module == "project" ? "active" : "")
+                        a(onclick="alert('敬请期待')") 项目
                 if (current_user == null)
                     ul.nav.navbar-nav.pull-right
                         li

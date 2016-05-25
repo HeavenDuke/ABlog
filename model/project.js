@@ -3,6 +3,7 @@
  */
 
 var Project = {};
+var Progress = require('./progress');
 
 Project.Schema = {
     name: {
@@ -22,7 +23,8 @@ Project.Schema = {
         type: Date,
         required: true,
         default: Date.now
-    }
+    },
+    progress: [Progress]
 };
 
 Project.collection = {

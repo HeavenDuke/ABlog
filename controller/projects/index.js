@@ -8,6 +8,12 @@ var index = function *(next) {
     this.render('./projects/index',{"title":"项目列表", current_user: this.session.user, current_module: this.current_module, projects: projects}, true);
 };
 
+var show = function *(next) {
+    var Project = global.database.models.project;
+    var project = yield Project.findById(this.params.project_id);
+    this.render('./projects/show',{"title":project.name, current_user: this.session.user, current_module: this.current_module, project: project}, true);
+};
+
 var init = function *(next) {
     this.render('./projects/new',{"title":"新增项目", current_user: this.session.user, current_module: this.current_module}, true);
 };
@@ -45,6 +51,7 @@ var destroy = function *(next) {
 
 module.exports = {
     index: index,
+    show: show,
     init: init,
     create: create,
     edit: edit,

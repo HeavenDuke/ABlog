@@ -17,6 +17,8 @@ module.exports = function(app) {
 
     app.get("projects-new", '/projects/new', visit_recorder, authentication, current_module, projectssController.init);
 
+    app.get("projects-detail", '/projects/:project_id', visit_recorder, current_module, projectssController.show);
+
     app.get("projects-edit", '/projects/:project_id/edit', visit_recorder, authentication, current_module, projectssController.edit);
 
     app.post("projects-create", '/projects', visit_recorder, authentication, current_module, projectssController.create);

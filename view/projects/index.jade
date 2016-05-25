@@ -10,7 +10,8 @@ block content
             - for(var index in projects)
                 .box
                     .box-header.with-border
-                        .box-title= projects[index].name
+                        a(href="/projects/" + projects[index]._id)
+                            .box-title= projects[index].name
                     .box-body= projects[index].content
                     .box-footer
                         a(href="/projects/" + projects[index]._id + "/edit") 编辑

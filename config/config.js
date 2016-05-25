@@ -21,7 +21,7 @@ module.exports = function(root) {
         "mongodb": 'mongodb://localhost:27017/ablog',
 
         "pagination": {
-            "journal": 5
+            "journal": 6
         },
 
         "preview": {

@@ -7,7 +7,7 @@ block content
     .container
         .row.project
             h4.pull-left 我的项目
-            if current_user != null
+            if current_user
                 a.button.button-primary.button-pill.pull-right(href="/projects/new") 新项目
         .divider
         if projects.length == 0
@@ -24,9 +24,10 @@ block content
                                 .box-title= projects[i].name
                                 .direct-chat-timestamp= projects[i].started_at.format("yyyy年MM年dd日") + " ~ " + (projects[i].closed_at ? projects[i].closed_at.format("yyyy年MM年dd日"): "今")
                             .box-body.project-item.projects_introduction= projects[i].introduction
-                            .box-footer
-                                a.btn.btn-xs.btn-warning(href="/projects/" + projects[i]._id + "/edit") 编辑
-                                a.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + projects[i]._id + "?_method=delete") 删除
+                            if current_user
+                                .box-footer
+                                    a.btn.btn-xs.btn-warning(href="/projects/" + projects[i]._id + "/edit") 编辑
+                                    a.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + projects[i]._id + "?_method=delete") 删除
                     if projects[i + 1]
                         .col-lg-6.col-md-6
                             .box.box-solid
@@ -35,8 +36,9 @@ block content
                                     .box-title= projects[i + 1].name
                                     .direct-chat-timestamp= projects[i + 1].started_at.format("yyyy年MM年dd日") + " ~ " + (projects[i + 1].closed_at ? projects[i + 1].closed_at.format("yyyy年MM年dd日") : "今")
                                 .box-body.project-item.projects_introduction= projects[i + 1].introduction
-                                .box-footer
-                                    a.btn.btn-xs.btn-warning(href="/projects/" + projects[i + 1]._id + "/edit") 编辑
-                                    a.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + projects[i + 1]._id + "?_method=delete") 删除
+                                if current_user
+                                    .box-footer
+                                        a.btn.btn-xs.btn-warning(href="/projects/" + projects[i + 1]._id + "/edit") 编辑
+                                        a.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + projects[i + 1]._id + "?_method=delete") 删除
 
     include ./reference

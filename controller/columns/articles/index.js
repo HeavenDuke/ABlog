@@ -1,47 +1,6 @@
 /**
- * Created by Obscurity on 2016/3/20.
+ * Created by Obscurity on 2016/5/28.
  */
-
-var index = function *(next) {
-    var Journal = global.database.models.journal;
-    var journal_per_page = global.conf.pagination.journal;
-    var total_journal_count = null;
-    var topped_journal_count = null;
-    var current_page_index = null;
-    var total_page = null;
-    var offset = null;
-    var journals = null;
-    var journals_not_topped = null;
-    if (this.session.user) {
-        total_journal_count = yield Journal.count({});
-        topped_journal_count = yield Journal.count({"placed_top": true});
-        total_page = Math.ceil(total_journal_count / journal_per_page);
-        current_page_index = parseInt(this.request.query.page) == 0 || isNaN(parseInt(this.request.query.page)) ? 1 : parseInt(this.request.query.page);
-        offset = (current_page_index - 1) * global.conf.pagination.journal;
-        journals = yield Journal.find({placed_top: true}).sort({updated_at: -1}).skip(offset).limit(journal_per_page);
-        if (journals.length < journal_per_page) {
-            journals_not_topped = yield Journal.find({placed_top: false}).sort({updated_at: -1}).skip(offset > topped_journal_count ? offset - topped_journal_count : 0).limit(journal_per_page - journals.length);
-            journals = journals.concat(journals_not_topped);
-        }
-    }
-    else {
-        total_journal_count = yield Journal.count({is_public: true});
-        topped_journal_count = yield Journal.count({"placed_top": true, is_public: true});
-        total_page = Math.ceil(total_journal_count / journal_per_page);
-        current_page_index = parseInt(this.request.query.page) == 0 || isNaN(parseInt(this.request.query.page)) ? 1 : parseInt(this.request.query.page);
-        offset = (current_page_index - 1) * global.conf.pagination.journal;
-        journals = yield Journal.find({placed_top: true, is_public: true}).sort({updated_at: -1}).skip(offset).limit(journal_per_page);
-        if (journals.length < journal_per_page) {
-            journals_not_topped = yield Journal.find({placed_top: false, is_public: true}).sort({updated_at: -1}).skip(offset > topped_journal_count ? offset - topped_journal_count : 0).limit(journal_per_page - journals.length);
-            journals = journals.concat(journals_not_topped);
-        }
-    }
-    var pagination = {
-        total_page: total_page,
-        current_index: current_page_index
-    };
-    this.render('./journals/index',{"title":"博客列表", current_user: this.session.user, journals: journals, pagination: pagination, current_module: this.current_module}, true);
-};
 
 var show = function *(next) {
     var Journal = global.database.models.journal;
@@ -117,6 +76,5 @@ module.exports = {
     edit: edit,
     update: update,
     destroy: destroy,
-    comments: require('./comments'),
-    likes: require('./likes')
+    comments: require('./comments')
 };

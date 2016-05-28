@@ -10,7 +10,7 @@ Project.Schema = {
         type: String,
         required: true
     },
-    content: {
+    introduction: {
         type: String,
         required: false
     },
@@ -23,6 +23,15 @@ Project.Schema = {
         type: Date,
         required: true,
         default: Date.now
+    },
+    started_at: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+    closed_at: {
+        type: Date,
+        required: false
     },
     progress: [Progress]
 };

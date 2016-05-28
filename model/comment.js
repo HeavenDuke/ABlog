@@ -18,6 +18,10 @@ Comment.Schema = {
         type: require('mongoose').Schema.ObjectId,
         ref: "Journals"
     },
+    article_id: {
+        type: require('mongoose').Schema.ObjectId,
+        ref: "Articles"
+    },
     replies: [require('./reply').Schema]
 };
 

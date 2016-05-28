@@ -14,7 +14,10 @@
                         a(href='/diaries') 日记
                 ul.nav.navbar-nav
                     li(class=current_module == "project" ? "active" : "")
-                        a(onclick="alert('敬请期待')") 项目
+                        a(href='/projects') 项目
+                ul.nav.navbar-nav
+                    li(class=current_module == "column" ? "active" : "")
+                        a(onclick="alert('敬请期待')") 专栏
                 if (current_user == null)
                     ul.nav.navbar-nav.pull-right
                         li

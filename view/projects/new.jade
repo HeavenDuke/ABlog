@@ -6,15 +6,23 @@ extends ../layout/layout
 block content
     .container
         .row.project
-            h1 新增项目
             form(action="/projects" method="POST")
                 .form-group
                     label 项目名称
                     input.form-control(name="name" type="text" maxlength=30 placeholder="请输入项目名称")
+                .row
+                    .col-lg-6.col-md-6
+                        .form-group
+                            label 启动日期
+                            input.form-control(name="started_at" type="date" placeholder="请选择项目启动日期")
+                    .col-lg-6.col-md-6
+                        .form-group
+                            label 结束日期
+                            input.form-control(name="closed_at" type="date" placeholder="请选择项目结束日期")
                 .form-group
                     label 项目名称
-                    textarea.form-control(name="content" rows=8 placeholder="写写你的项目是怎样的吧~")
+                    textarea.form-control(name="introduction" rows=8 placeholder="写写你的项目是怎样的吧~")
                 .text-center
                     button.button.button-pill.button-primary(type="submit") 提交
 
-include ./reference
+    include ./reference

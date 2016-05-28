@@ -1,10 +1,11 @@
 /**
- * Created by heavenduke on 16-5-5.
+ * Created by Obscurity on 2016/5/28.
  */
 
-var Journal = {};
 
-Journal.Schema = {
+var Article = {};
+
+Article.Schema = {
     title: {
         type: String,
         required: true
@@ -15,16 +16,17 @@ Journal.Schema = {
         default: 0,
         min: 0
     },
-    is_public: {
-        type: Boolean,
-        required: true,
-        default: false
-    },
     comment_count: {
         type: Number,
         required: true,
         default: 0,
         min: 0
+    },
+    order: {
+        type: Number,
+        required: true,
+        default: 1,
+        min: 1
     },
     placed_top: {
         type: Boolean,
@@ -54,19 +56,15 @@ Journal.Schema = {
         type: Date,
         required: true,
         default: Date.now
+    },
+    column_id: {
+        type: require('mongoose').Schema.ObjectId,
+        required: false
     }
 };
 
-Journal.collection = {
-    collection: 'Journals'
+Article.collection = {
+    collection: 'Articles'
 };
 
-Journal.link = function(router, _id) {
-    router.url('journals-detail', {journal_id: _id})
-};
-
-Journal.title_top = function() {
-    return '[置顶]' + this.title;
-};
-
-module.exports = Journal;
+module.exports = Article;

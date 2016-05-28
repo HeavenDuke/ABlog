@@ -5,16 +5,38 @@ extends ../layout/layout
 
 block content
     .container
-        a.button.button-pill.button-primary(href="/projects/new") 新项目
         .row.project
-            - for(var index in projects)
-                .box
-                    .box-header.with-border
-                        a(href="/projects/" + projects[index]._id)
-                            .box-title= projects[index].name
-                    .box-body= projects[index].content
-                    .box-footer
-                        a(href="/projects/" + projects[index]._id + "/edit") 编辑
-                        a(href="/projects/" + projects[index]._id + "?_method=delete") 删除
+            h4.pull-left 我的项目
+            if current_user != null
+                a.button.button-primary.button-pill.pull-right(href="/projects/new") 新项目
+        .divider
+        if projects.length == 0
+            .row.text-center
+                h1 主人很弱
+                h1 什么项目都不会写_(:з」∠)_
+        else
+            - for(var i = 0; i < projects.length; i+= 2)
+                .row
+                    div(class=(projects[i + 1] ? "col-lg-6 col-md-6" : "col-lg-12 col-md-12"))
+                        .box.box-solid
+                            .box-header.with-border
+                                i.fa.fa-bug
+                                .box-title= projects[i].name
+                                .direct-chat-timestamp= projects[i].started_at.format("yyyy年MM年dd日") + " ~ " + (projects[i].closed_at ? projects[i].closed_at.format("yyyy年MM年dd日"): "今")
+                            .box-body.project-item.projects_introduction= projects[i].introduction
+                            .box-footer
+                                a.btn.btn-xs.btn-warning(href="/projects/" + projects[i]._id + "/edit") 编辑
+                                a.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + projects[i]._id + "?_method=delete") 删除
+                    if projects[i + 1]
+                        .col-lg-6.col-md-6
+                            .box.box-solid
+                                .box-header.with-border
+                                    i.fa.fa-bug
+                                    .box-title= projects[i + 1].name
+                                    .direct-chat-timestamp= projects[i + 1].started_at.format("yyyy年MM年dd日") + " ~ " + (projects[i + 1].closed_at ? projects[i + 1].closed_at.format("yyyy年MM年dd日") : "今")
+                                .box-body.project-item.projects_introduction= projects[i + 1].introduction
+                                .box-footer
+                                    a.btn.btn-xs.btn-warning(href="/projects/" + projects[i + 1]._id + "/edit") 编辑
+                                    a.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + projects[i + 1]._id + "?_method=delete") 删除
 
-include ./reference
+    include ./reference

@@ -17,6 +17,8 @@ var User = require('./user');
 var Comment = require('./comment');
 var Diary = require('./diary');
 var VisitRecord = require('./visit_record');
+var Column = require('./column');
+var Article = require('./article');
 
 var JournalSchema = new Schema(Journal.Schema, Journal.collection);
 var UserSchema = new Schema(User.Schema, User.collection);
@@ -24,6 +26,8 @@ var CommentSchema = new Schema(Comment.Schema, Comment.collection);
 var DiarySchema = new Schema(Diary.Schema, Diary.collection);
 var VisitRecordSchema = new Schema(VisitRecord.Schema, VisitRecord.collection);
 var ProjectSchema = new Schema(Project.Schema, Project.collection);
+var ColumnSchema = new Schema(Column.Schema, Column.collection);
+var ArticleSchema = new Schema(Article.Schema, Article.collection);
 
 JournalSchema.methods.link = Journal.link;
 JournalSchema.methods.title_top = Journal.title_top;
@@ -45,6 +49,8 @@ database.models.comment = mongoose.model('comment', CommentSchema);
 database.models.diary = mongoose.model('diary', DiarySchema);
 database.models.visit_record = mongoose.model('visit_record', VisitRecordSchema);
 database.models.project = mongoose.model('project', ProjectSchema);
+database.models.column = mongoose.model('column', ColumnSchema);
+database.models.article = mongoose.model('article', ArticleSchema);
 
 module.exports = {
     loader:　database

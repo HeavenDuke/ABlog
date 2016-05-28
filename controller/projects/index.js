@@ -4,7 +4,7 @@
 
 var index = function *(next) {
     var Project = global.database.models.project;
-    var projects = yield Project.find({});
+    var projects = yield Project.find({}).sort({"closed_at": -1});
     this.render('./projects/index',{"title":"项目列表", current_user: this.session.user, current_module: this.current_module, projects: projects}, true);
 };
 

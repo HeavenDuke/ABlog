@@ -9,7 +9,7 @@ Column.Schema = {
         type: String,
         required: true
     },
-    content: {
+    introduction: {
         type: String,
         required: false
     },

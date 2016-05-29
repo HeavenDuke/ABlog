@@ -28,4 +28,4 @@ exports.destroy = function *(next) {
     this.redirect(this.app.url("articles-detail", {column_id: this.params.column_id, article_id: this.params.article_id}));
 };
 
-exports.replies = require('./replies');
+exports.reply = require('./replies');

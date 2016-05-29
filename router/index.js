@@ -5,6 +5,7 @@ var paperRouter = require('./papers');
 var projectRouter = require('./projects');
 var journalRouter = require('./journals');
 var diaryRouter = require('./diaries');
+var columnRouter = require('./columns');
 
 var visit_recorder = require('../middlewares/visit_recorder');
 
@@ -18,4 +19,5 @@ module.exports = function(app){
     projectRouter(app);
     journalRouter(app);
     diaryRouter(app);
+    columnRouter(app);
 };

@@ -16,22 +16,11 @@ Article.Schema = {
         default: 0,
         min: 0
     },
-    comment_count: {
-        type: Number,
-        required: true,
-        default: 0,
-        min: 0
-    },
     order: {
         type: Number,
         required: true,
         default: 1,
         min: 1
-    },
-    placed_top: {
-        type: Boolean,
-        required: true,
-        default: false
     },
     content: {
         type: String,

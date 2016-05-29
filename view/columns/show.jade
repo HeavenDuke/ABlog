@@ -5,4 +5,57 @@ extends ../layout/layout
 
 block content
     .container
-        h1 专栏详情
+        .row.column
+            h4 专栏列表
+        .divider
+        .row
+            .col-lg-4.col-md-4.col-sm-4
+                table.table.table-bordered
+                    tr
+                        th 专栏目录
+                    tr
+                        td
+                            a(href="/columns")
+                                strong 专栏概要
+                    - for(var index in columns)
+                        tr
+                            td(class=(column._id.toString() == columns[index]._id.toString() ? "selected-column" : ""))
+                                a(href="/columns/" + columns[index]._id)
+                                    strong= columns[index].name
+                    tr
+                        td.text-center
+                            a.button.button-primary.button-pill.button-small(href="/columns/new") 添加专栏
+            .col-lg-8.col-md-8.col-sm-8
+                .box.box-solid
+                    .box-header.with-border
+                        .box-title
+                            h3
+                                i.fa.fa-book
+                                strong.margin= column.name
+                        a.pull-right.btn.btn-app(href="/columns/" + column._id + '/edit')
+                            i.fa.fa-pencil
+                            | 修改
+                        a.pull-right.btn.btn-app(href="/columns/" + column._id + "?_method=DELETE" style="margin-left: 10px;")
+                            i.fa.fa-trash
+                            | 删除
+                    .box-body
+                        #column-introduction= global.utils.markdown(column.introduction)
+                    .box-body
+                        h4 专栏文章：
+                        if articles.length != 0
+                            table.table
+                                - for(var index in articles)
+                                    tr
+                                        td(style="width: 15px;")
+                                            h4
+                                                strong= articles[index].order
+                                        td
+                                            h4
+                                                strong
+                                                    a(href="/columns/" + column._id + "/articles/" + articles[index]._id)= articles[index].title
+                        else
+                            h4
+                                strong 该专栏下还没有文章
+                    .box-footer.text-center
+                        a.button.button-primary.button-pill(href="/columns/" + column._id + '/articles/new') 添加专栏文章
+    include ./reference

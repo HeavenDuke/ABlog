@@ -1,3 +1,27 @@
 //
    Created by Obscurity on 2016/5/29.
 
+extends ../../layout/layout
+
+block content
+    .container
+        form(role="form" action="/columns/" + article.column_id + "/articles/" + article._id, method="POST")
+            input.hidden(name="_method", value="PUT")
+            .row
+                br
+                .col-lg-1.col-md-1.col-sm-1.col-xs1
+                    .form-group
+                        input.form-control(name="order" type="number" value = article.order placeholder="序号")
+                .col-lg-11.col-md-11.col-sm-11.col-xs-11
+                    .form-group
+                        input.form-control(name="title" placeholder="请在此输入博客标题" maxlength=30 value= article.title required)
+            .row
+                .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                    textarea#article_content_input.hidden.form-control(name="content" rows=20 placeholder="请在此输入文章正文" maxlength=100000)= article.content
+            .row.text-center
+                br
+                .text-center
+                    button.button.button-pill.button-primary(type="submit") 提交
+                    button#article_previewer_entry.button.button-pill(style="margin-left: 10px;" type="button" data-toggle="modal" data-target="#article_previewer") 预览
+    include ./preview
+    include ./reference

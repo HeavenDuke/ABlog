@@ -5,4 +5,51 @@ extends ../layout/layout
 
 block content
     .container
-        h1 专栏目录
+        .row.column
+            h4 专栏列表
+        .divider
+        .row
+            .col-lg-4.col-md-4.col-sm-4
+                table.table.table-bordered
+                    tr
+                        th 专栏目录
+                    tr
+                        td.selected-column
+                            a(href="/columns") 专栏概要
+                    - for(var index in columns)
+                        tr
+                            td
+                                a(href="/columns/" + columns[index]._id)= columns[index].name
+                    tr
+                        td.text-center
+                            a.button.button-primary.button-pill.button-small(href="/columns/new") 添加专栏
+            .col-lg-8.col-md-8.col-sm-8
+                .box.box-solid
+                    .box-header.with-border
+                        .box-title
+                            h4
+                                strong 这里是HeavenDuke的技术专栏
+                        .box-body
+                            p 专栏用于记录一些系列性的文章，主要内容包括但不限于：
+                            ul
+                                li 算法解题报告
+                                li 系列性学习笔记
+                                li 读书笔记
+                                li 参考书答案
+                                li 文档翻译
+                            p po主能力有限，文章中可能出现诸多错误。
+                            p 各位看官如果感觉对什么地方存在问题，还请在评论区不吝赐教，谢谢Orz
+                        .box-body
+                            h4
+                                strong 最近的一些专栏如下：
+                            if columns.length != 0
+                                table.table
+                                    - for(var index in columns)
+                                    tr
+                                        td
+                                            h4
+                                                strong
+                                                    a(href="/columns/" + columns[index]._id)= columns[index].name + "　(最近一次更新: " + columns[index].updated_at.format("yyyy年MM月dd日 hh:mm") + ")"
+                            else
+                                h4
+                                    strong 暂无专栏

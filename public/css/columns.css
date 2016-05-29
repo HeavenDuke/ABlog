@@ -1,0 +1,7 @@
+.column {
+    margin: 2%;
+}
+
+.selected-column {
+    background: #DDDDDD;
+}

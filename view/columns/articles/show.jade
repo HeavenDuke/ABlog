@@ -1,3 +1,39 @@
 //
    Created by Obscurity on 2016/5/29.
 
+extends ../../layout/layout
+
+block content
+    .container
+        .row.article
+            .box.box-widget
+                .box-header.with-border
+                    .col-lg-8.col-md-6.col-sm-6
+                        .article-title= article.title
+                        .user-block
+                            img.img-circle(src="/favicon.ico" alt="Owner Image")
+                            span.username HeavenDuke
+                            span.description= article.updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + article.read_count + ')　评论(' + comments.length + ')'
+                    if current_user
+                        .col-lg-4.col-md-6.col-sm-6
+                            .text-center
+                                a.btn.btn-app(href="/columns/" + article.column_id)
+                                    i.fa.fa-reply
+                                    | 返回
+                                a.btn.btn-app(href="/columns/" + article.column_id + "/articles/" + article._id + '?_method=delete')
+                                    i.fa.fa-trash
+                                    | 删除
+                                a.btn.btn-app(href="/columns/" + article.column_id + "/articles/" + article._id + '/edit')
+                                    i.fa.fa-pencil
+                                    | 编辑
+                    else
+                        .col-lg-4.col-md-6.col-sm-6
+                            a.btn.btn-app.pull-right(href="/columns/" + article.column_id)
+                                i.fa.fa-reply
+                                | 返回
+                .box-body
+                    #article-content.article-content= global.utils.markdown(article.content)
+                    include ./likes/new
+                include ./comments/index
+                include ./comments/new
+    include ./reference

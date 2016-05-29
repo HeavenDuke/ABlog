@@ -1,3 +1,45 @@
 //
-   Created by Obscurity on 2016/5/28.
+   Created by Obscurity on 2016/5/11.
 
+.box-footer.box-comments
+    .comment-header 评论列表
+    - for(var index in comments)
+        .box-comment
+            img.img-circle.img-sm(src="/img/head.png")
+            if current_user != null
+                a.pull-right(href="/columns/" + article.column_id + "/articles/" + article._id + "/comments/" + comments[index]._id + "?_method=delete") 删除
+                a.pull-right(id=comments[index]._id + "_reply_entry" style="margin-right: 10px; cursor: pointer;") 回复
+            else
+                a.pull-right(id=comments[index]._id + "_reply_entry" style="cursor: pointer;") 回复
+            .comment-text
+                .username 匿名用户
+                span.text-muted.pull-right= comments[index].created_at.format("yyyy年MM月dd日 hh:mm:ss")
+                = comments[index].content
+        - var replies = comments[index].replies;
+        if replies.length != 0
+            .box-comment
+                .box-footer.box-comments(style="margin-left: 20px;")
+                    - for(var index_r in replies)
+                        .box-comment
+                            img.img-circle.img-sm(src="/img/head.png")
+                            .comment-text
+                                .username 匿名用户
+                                span.text-muted.pull-right= replies[index_r].created_at.format("yyyy年MM月dd日 hh:mm:ss")
+                                = replies[index_r].content
+                    .box-comment(id=comments[index]._id + "_reply_container" style="display: none;")
+                        form(action="/columns/" + article.column_id + "/articles/" + article._id + "/comments/" + comments[index]._id + "/replies" method="POST").margin
+                            .form-group
+                                label 回复
+                                .OwO(comment_id=comments[index].id)
+                                textarea.form-control(name="content" id=comments[index].id + "_comment_reply" placeholder="请输入您的回复~")
+                            button.button.button-block.button-small.button-primary 提交
+        else
+            .box-comment(id=comments[index]._id + "_reply_container" style="display: none;")
+                .box-footer.box-comments(style="margin-left: 20px;")
+                    .box-comment
+                        form(action="/columns/" + article.column_id + "/articles/" + article._id + "/comments/" + comments[index]._id + "/replies" method="POST").margin
+                            .form-group
+                                label 回复
+                                .OwO(comment_id=comments[index].id)
+                                textarea.form-control(name="content" id=comments[index].id + "_comment_reply" placeholder="请输入您的回复~")
+                            button.button.button-block.button-small.button-primary 提交

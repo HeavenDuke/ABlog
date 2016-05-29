@@ -5,4 +5,19 @@ extends ../layout/layout
 
 block content
     .container
-        h1 编辑专栏信息
+        form(role="form" action="/columns/" + column._id, method="POST")
+            input.hidden(name="_method", value="PUT")
+            .row
+                br
+                .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                    .form-group
+                        input.form-control(name="name" placeholder="请在此输入专栏名称" maxlength=30 value=column.name required)
+            .row
+                .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                    textarea#column_content_input.hidden.form-control(name="introduction" rows=20 placeholder="请在此输入专栏描述" maxlength=100000)= column.introduction
+            .row.text-center
+                br
+                button.button.button-pill.button-primary(type="submit") 提交
+                button#column_previewer_entry.button.button-pill(style="margin-left: 10px;" type="button" data-toggle="modal" data-target="#column_previewer") 预览
+    include ./preview
+    include ./reference

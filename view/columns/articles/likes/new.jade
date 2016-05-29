@@ -1,0 +1,12 @@
+//
+   Created by Obscurity on 2016/5/11.
+    (href="/journals/" + journal._id + '/likes?_method=post&type=like')
+.text-center
+    span.text-center
+        a.btn.btn-app
+            i.fa.fa-thumbs-o-up
+            = article.likes_count + "顶"
+    span.text-center
+        a.btn.btn-app(style="margin-left: 20px;")
+            i.fa.fa-thumbs-o-down
+            = article.dislikes_count + "踩"

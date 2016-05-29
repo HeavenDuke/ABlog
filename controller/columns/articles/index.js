@@ -22,7 +22,9 @@ var show = function *(next) {
 };
 
 var init = function *(next) {
-    this.render('./columns/articles/new',{"title":"写专栏文章", current_user: this.session.user}, true);
+    var Column = global.database.models.column;
+    var column = yield Column.findById(this.params.column_id);
+    this.render('./columns/articles/new',{"title":"写专栏文章", current_user: this.session.user, column: column}, true);
 };
 
 var create = function *(next) {
@@ -30,6 +32,7 @@ var create = function *(next) {
     var article = new Article();
     article.title = this.request.body.title;
     article.order = this.request.body.order;
+    article.column_id = this.params.column_id;
     article.content = !this.request.body.content ? "" : this.request.body.content;
     article.save();
     this.redirect(this.app.url("articles-detail", {column_id: this.params.column_id, article_id: article._id}));
@@ -47,6 +50,7 @@ var update = function *(next) {
     article.title = this.request.body.title;
     article.content = !this.request.body.content ? "" : this.request.body.content;
     article.order = this.request.body.order;
+    article.column_id = this.params.column_id;
     article.updated_at = Date.now();
     article.save();
     this.redirect(this.app.url('articles-detail', {column_id: this.params.column_id, article_id: article._id}));

@@ -1,0 +1,26 @@
+.article {
+    margin: 2%;
+}
+
+.article-title {
+    font-size: 1.4em;
+    font-family: "Microsoft YaHei";
+}
+
+.article-info {
+    white-space:normal;
+}
+
+.article-content {
+    white-space:normal;
+    margin-top: 2%;
+}
+
+.article-previewer {
+    width: 80%;
+}
+
+.comment-header {
+    font-size: 1.2em;
+    font-family: "Microsoft YaHei";
+}

@@ -7,5 +7,5 @@ exports.create = function *(next) {
     var comment = yield Comment.findById(this.params.comment_id);
     comment.replies.push({content: this.request.body.content});
     comment.save();
-    this.redirect(this.app.url("article-detail", {column_id: this.params.column_id, article_id: this.params.article_id}));
+    this.redirect(this.app.url("articles-detail", {column_id: this.params.column_id, article_id: this.params.article_id}));
 };

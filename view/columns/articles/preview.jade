@@ -1,3 +1,14 @@
 //
    Created by Obscurity on 2016/5/29.
 
+#article_previewer.modal.fade(tabindex="-1" role="dialog" aria-hidden="true")
+    .modal-dialog.article-previewer
+        .modal-content
+            .modal-header
+                button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
+                h4.modal-title 文章预览
+            .modal-body#article_previewer_content
+            .modal-footer
+                .row.text-center
+                    button.button.button-primary.button-pill(data-dismiss="modal") 关闭
+

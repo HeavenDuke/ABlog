@@ -12,7 +12,7 @@ var show = function* (next) {
     var Column = global.database.models.column;
     var Article = global.database.models.article;
     var column = yield Column.findById(this.params.column_id);
-    var columns = yield Column.find({});
+    var columns = yield Column.find({}).sort({updated_at: -1});;
     var articles = yield Article.find({column_id: this.params.column_id}).sort({order: 1});
     this.render("./columns/show", {title: column.name, current_user: this.session.user, current_module: this.current_module, columns: columns, column: column, articles: articles});
 };

@@ -20,9 +20,10 @@ block content
                         tr
                             td
                                 a(href="/columns/" + columns[index]._id)= columns[index].name
-                    tr
-                        td.text-center
-                            a.button.button-primary.button-pill.button-small(href="/columns/new") 添加专栏
+                    if current_user
+                        tr
+                            td.text-center
+                                a.button.button-primary.button-pill.button-small(href="/columns/new") 添加专栏
             .col-lg-8.col-md-8.col-sm-8
                 .box.box-solid
                     .box-header.with-border

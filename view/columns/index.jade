@@ -46,11 +46,11 @@ block content
                             if columns.length != 0
                                 table.table
                                     - for(var index in columns)
-                                    tr
-                                        td
-                                            h4
-                                                strong
-                                                    a(href="/columns/" + columns[index]._id)= columns[index].name + "　(最近一次更新: " + columns[index].updated_at.format("yyyy年MM月dd日 hh:mm") + ")"
+                                        tr
+                                            td
+                                                h4
+                                                    strong
+                                                        a(href="/columns/" + columns[index]._id)= columns[index].name + "　(最近一次更新: " + columns[index].updated_at.format("yyyy年MM月dd日 hh:mm") + ")"
                             else
                                 h4
                                     strong 暂无专栏

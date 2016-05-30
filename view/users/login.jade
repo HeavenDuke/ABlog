@@ -14,6 +14,7 @@ block content
                 .text-center
                     h4 登录
                 form(role="form" action="/user/login" method="POST")
+                    input.hidden(name="redirect_url" value=redirect_url_after_login)
                     .form-group
                         label(for="username") 账户名
                         input.form-control#username(type="text" name="username" required)

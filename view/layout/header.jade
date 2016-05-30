@@ -21,7 +21,7 @@
                 if (current_user == null)
                     ul.nav.navbar-nav.pull-right
                         li
-                            a(href='/user/login') 登录
+                            a(href='/user/login' + (redirect_url ? ("?redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登录
                  else
                      ul.nav.navbar-nav.pull-right
                          li.dropdown
@@ -31,4 +31,4 @@
                                 li
                                     a(href="/user/edit") 修改信息
                                 li
-                                    a(href="/user?_method=delete") 登出
+                                    a(href="/user?_method=delete" + (redirect_url ? ("&redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登出

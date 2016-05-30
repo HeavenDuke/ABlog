@@ -18,13 +18,13 @@ var show = function *(next) {
         setReadSession(this.session, article);
     }
     var comments = yield Comment.find({article_id: article._id}).sort({created_at: 1});
-    this.render('./columns/articles/show',{"title":article.title, article: article, comments: comments, current_user: this.session.user, current_module: this.current_module}, true);
+    this.render('./columns/articles/show',{"title":article.title, article: article, comments: comments, current_user: this.session.user, current_module: this.current_module, redirect_url: this.request.url}, true);
 };
 
 var init = function *(next) {
     var Column = global.database.models.column;
     var column = yield Column.findById(this.params.column_id);
-    this.render('./columns/articles/new',{"title":"写专栏文章", current_user: this.session.user, column: column}, true);
+    this.render('./columns/articles/new',{"title":"写专栏文章", current_user: this.session.user, column: column, redirect_url: this.request.url}, true);
 };
 
 var create = function *(next) {
@@ -41,7 +41,7 @@ var create = function *(next) {
 var edit = function *(next) {
     var Article = global.database.models.article;
     var article = yield Article.findById(this.params.article_id);
-    this.render('./columns/articles/edit',{"title": "编辑博客", article: article, current_user: this.session.user, current_module: this.current_module}, true);
+    this.render('./columns/articles/edit',{"title": "编辑博客", article: article, current_user: this.session.user, current_module: this.current_module, redirect_url: this.request.url}, true);
 };
 
 var update = function *(next) {

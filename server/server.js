@@ -129,7 +129,8 @@ Server.prototype.initGlobalVariables = function() {
     global.utils = {
         markdown: marked,
         html2plain: require('html2plaintext'),
-        journalPreview: require('../libs/journalPreview')
+        journalPreview: require('../libs/journalPreview'),
+        urlEncoder: require('../libs/urlEncoder')
     };
     global.utils.markdown.setOptions({
         renderer: new marked.Renderer(),

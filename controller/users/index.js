@@ -7,7 +7,7 @@ var loginView = function *(next) {
         this.redirect('/');
     }
     else {
-        this.render('./users/login', {"title": "管理员登录", current_user: this.session.user}, true);
+        this.render('./users/login', {"title": "管理员登录", current_user: this.session.user, redirect_url_after_login: this.request.query.redirect_url}, true);
     }
 };
 
@@ -56,7 +56,7 @@ var loginAction = function *(next) {
     }
     else {
         writeUserInfo(this.session, user);
-        this.redirect('/');
+        this.redirect(this.request.body.redirect_url ? this.request.body.redirect_url : '/');
     }
 };
 
@@ -65,7 +65,7 @@ var logoutAction = function *(next) {
         delete session.user;
     };
     eraseUserInfo(this.session);
-    this.redirect('/');
+    this.redirect(this.request.query.redirect_url ? this.request.query.redirect_url : '/');
 };
 
 module.exports = {

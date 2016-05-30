@@ -22,9 +22,10 @@ block content
                             td(class=(column._id.toString() == columns[index]._id.toString() ? "selected-column" : ""))
                                 a(href="/columns/" + columns[index]._id)
                                     strong= columns[index].name
-                    tr
-                        td.text-center
-                            a.button.button-primary.button-pill.button-small(href="/columns/new") 添加专栏
+                    if current_user
+                        tr
+                            td.text-center
+                                a.button.button-primary.button-pill.button-small(href="/columns/new") 添加专栏
             .col-lg-8.col-md-8.col-sm-8
                 .box.box-solid
                     .box-header.with-border
@@ -32,12 +33,13 @@ block content
                             h3
                                 i.fa.fa-book
                                 strong.margin= column.name
-                        a.pull-right.btn.btn-app(href="/columns/" + column._id + '/edit')
-                            i.fa.fa-pencil
-                            | 修改
-                        a.pull-right.btn.btn-app(href="/columns/" + column._id + "?_method=DELETE" style="margin-left: 10px;")
-                            i.fa.fa-trash
-                            | 删除
+                        if current_user
+                            a.pull-right.btn.btn-app(href="/columns/" + column._id + '/edit')
+                                i.fa.fa-pencil
+                                | 修改
+                            a.pull-right.btn.btn-app(href="/columns/" + column._id + "?_method=DELETE" style="margin-left: 10px;")
+                                i.fa.fa-trash
+                                | 删除
                     .box-body
                         #column-introduction= global.utils.markdown(column.introduction)
                     .box-body
@@ -56,6 +58,7 @@ block content
                         else
                             h4
                                 strong 该专栏下还没有文章
-                    .box-footer.text-center
-                        a.button.button-primary.button-pill(href="/columns/" + column._id + '/articles/new') 添加专栏文章
+                    if current_user
+                        .box-footer.text-center
+                            a.button.button-primary.button-pill(href="/columns/" + column._id + '/articles/new') 添加专栏文章
     include ./reference

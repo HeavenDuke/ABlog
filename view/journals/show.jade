@@ -20,7 +20,7 @@ block content
                                 a.btn.btn-app(href="/journals")
                                     i.fa.fa-reply
                                     | 返回
-                                a.btn.btn-app(href="/journals/" + journal._id + '?_method=delete')
+                                a.delete-entry.btn.btn-app(href="/journals/" + journal._id + '?_method=delete')
                                     i.fa.fa-trash
                                     | 删除
                                 a.btn.btn-app(href="/journals/" + journal._id + '/edit')

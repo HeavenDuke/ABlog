@@ -47,7 +47,7 @@ block content
                                                 .timeline-footer
                                                     if current_user
                                                         a.btn.btn-xs.btn-warning(diary_id=diaries[index]._id data-toggle="modal" data-target="#edit_diary_modal") 编辑
-                                                        a.btn.btn-xs.btn-danger(href="/diaries/" + diaries[index]._id + "?_method=delete" style="margin-left: 10px;") 删除
+                                                        a.delete-entry.btn.btn-xs.btn-danger(href="/diaries/" + diaries[index]._id + "?_method=delete" style="margin-left: 10px;") 删除
                                 if !has_shown_diaries
                                     li
                                         i.fa.fa-clock-o.bg-gray

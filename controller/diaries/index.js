@@ -152,8 +152,8 @@ exports.destroy = function *() {
     var diary = yield Diary.findById(this.params.diary_id);
     var static_paths = diary.images;
     static_paths.map(function (image_path) {
-        fs.unlink(path.join(global.conf.staticDir,  "uploads", image_path), null);
-        fs.unlink(path.join(global.conf.staticDir, "uploads", get_thumb_path(image_path)), null);
+        fs.unlink(path.join(global.conf.staticDir,  "uploads", image_path), function () {});
+        fs.unlink(path.join(global.conf.staticDir, "uploads", get_thumb_path(image_path)), function () {});
     });
     diary.remove();
     this.redirect('/diaries');

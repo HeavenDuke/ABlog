@@ -27,7 +27,7 @@ block content
                             if current_user
                                 .box-footer
                                     a.btn.btn-xs.btn-warning(href="/projects/" + projects[i]._id + "/edit") 编辑
-                                    a.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + projects[i]._id + "?_method=delete") 删除
+                                    a.delete-entry.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + projects[i]._id + "?_method=delete") 删除
                     if projects[i + 1]
                         .col-lg-6.col-md-6
                             .box.box-solid
@@ -39,6 +39,6 @@ block content
                                 if current_user
                                     .box-footer
                                         a.btn.btn-xs.btn-warning(href="/projects/" + projects[i + 1]._id + "/edit") 编辑
-                                        a.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + projects[i + 1]._id + "?_method=delete") 删除
+                                        a.delete-entry.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + projects[i + 1]._id + "?_method=delete") 删除
 
     include ./reference

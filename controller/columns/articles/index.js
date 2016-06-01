@@ -24,7 +24,7 @@ var show = function *(next) {
 var init = function *(next) {
     var Column = global.database.models.column;
     var column = yield Column.findById(this.params.column_id);
-    this.render('./columns/articles/new',{"title":"写专栏文章", current_user: this.session.user, column: column, redirect_url: this.request.url}, true);
+    this.render('./columns/articles/new',{"title":"写专栏文章", current_module: this.current_module, current_user: this.session.user, column: column, redirect_url: this.request.url}, true);
 };
 
 var create = function *(next) {

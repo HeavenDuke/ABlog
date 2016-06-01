@@ -29,12 +29,16 @@ var init = function *(next) {
 
 var create = function *(next) {
     var Article = global.database.models.article;
+    var Column = global.database.models.column;
     var article = new Article();
+    var column = yield Column.findById(this.params.column_id);
     article.title = this.request.body.title;
     article.order = this.request.body.order;
     article.column_id = this.params.column_id;
     article.content = !this.request.body.content ? "" : this.request.body.content;
     article.save();
+    column.updated_at = Date.now();
+    column.save();
     this.redirect(this.app.url("articles-detail", {column_id: this.params.column_id, article_id: article._id}));
 };
 
@@ -46,13 +50,17 @@ var edit = function *(next) {
 
 var update = function *(next) {
     var Article = global.database.models.article;
+    var Column = global.database.models.column;
     var article = yield Article.findById(this.params.article_id);
+    var column = yield Column.findById(this.params.column_id);
     article.title = this.request.body.title;
     article.content = !this.request.body.content ? "" : this.request.body.content;
     article.order = this.request.body.order;
     article.column_id = this.params.column_id;
     article.updated_at = Date.now();
     article.save();
+    column.updated_at = Date.now();
+    column.save();
     this.redirect(this.app.url('articles-detail', {column_id: this.params.column_id, article_id: article._id}));
 };
 

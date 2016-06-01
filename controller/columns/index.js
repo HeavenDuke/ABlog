@@ -41,6 +41,7 @@ var update = function* (next) {
     var column = yield Column.findById(this.params.column_id);
     column.name = this.request.body.name;
     column.introduction = this.request.body.introduction;
+    column.updated_at = Date.now();
     column.save();
     this.redirect(this.app.url("columns-detail", {"column_id": column._id}));
 };

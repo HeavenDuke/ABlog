@@ -1,10 +1,10 @@
 module.exports = {
-    user: require('./users'),
-    journal: require('./journals'),
-    column: require('./columns'),
-    contest: require('./contests'),
-    paper: require('./papers'),
-    project: require('./projects'),
-    diary: require('./diaries'),
+    users: require('./users'),
+    journals: require('./journals'),
+    columns: require('./columns'),
+    contests: require('./contests'),
+    papers: require('./papers'),
+    projects: require('./projects'),
+    diaries: require('./diaries'),
     home: require('./home')
 };

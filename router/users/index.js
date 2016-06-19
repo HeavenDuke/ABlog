@@ -1,7 +1,7 @@
 /**
  * Created by Obscurity on 2016/3/20.
  */
-var userController = require('../../controller').user;
+var userController = require('../../controller').users;
 var authentication = require('../../middlewares/authentication');
 var visit_recorder = require('../../middlewares/visit_recorder');
 

@@ -24,3 +24,7 @@
     font-size: 1.2em;
     font-family: "Microsoft YaHei";
 }
+
+.selected-article {
+    background: #DDDDDD;
+}

@@ -14,11 +14,12 @@ var show = function *(next) {
         session.read_history[article._id] = true;
     };
     var article = yield Article.findById(this.params.article_id);
+    var articles = yield Article.find({column_id: this.params.column_id}).sort({order: 1});
     if (!this.session.read_history || !this.session.read_history[article._id]) {
         setReadSession(this.session, article);
     }
     var comments = yield Comment.find({article_id: article._id}).sort({created_at: 1});
-    this.render('./columns/articles/show',{"title":article.title, article: article, comments: comments, current_user: this.session.user, current_module: this.current_module, redirect_url: this.request.url}, true);
+    this.render('./columns/articles/show',{title: article.title, column_id: this.params.column_id, article: article, articles: articles, comments: comments, current_user: this.session.user, current_module: this.current_module, redirect_url: this.request.url}, true);
 };
 
 var init = function *(next) {
@@ -80,5 +81,5 @@ module.exports = {
     edit: edit,
     update: update,
     destroy: destroy,
-    comment: require('./comments')
+    comments: require('./comments')
 };

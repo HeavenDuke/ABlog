@@ -62,5 +62,5 @@ module.exports = {
     create: create,
     update: update,
     destroy: destroy,
-    article: require('./articles')
+    articles: require('./articles')
 };

@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/5/11.
  */
 
-var diariesController = require('../../controller').diary;
+var diariesController = require('../../controller').diaries;
 var authentication = require('../../middlewares/authentication');
 var koaBody = require('koa-body');
 var path = require('path');

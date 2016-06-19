@@ -20,6 +20,8 @@ var VisitRecord = require('./visit_record');
 var Column = require('./column');
 var Article = require('./article');
 
+mongoose.Promise = global.Promise;
+
 var JournalSchema = new Schema(Journal.Schema, Journal.collection);
 var UserSchema = new Schema(User.Schema, User.collection);
 var CommentSchema = new Schema(Comment.Schema, Comment.collection);

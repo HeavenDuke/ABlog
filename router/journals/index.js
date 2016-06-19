@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/3/20.
  */
 
-var journalsController = require('../../controller').journal;
+var journalsController = require('../../controller').journals;
 var commentRouter = require('./comments');
 var likesRouter = require('./likes');
 var authentication = require('../../middlewares/authentication');

@@ -3,7 +3,7 @@
  */
 
 
-var repliesController = require('../../../../../controller').column.article.comment.reply;
+var repliesController = require('../../../../../controller').columns.articles.comments.replies;
 var authentication = require('../../../../../middlewares/authentication');
 var visit_recorder = require('../../../../../middlewares/visit_recorder');
 

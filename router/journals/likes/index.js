@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/5/11.
  */
 
-var likesController = require("../../../controller").journal.likes;
+var likesController = require("../../../controller").journals.likes;
 var visit_recorder = require('../../../middlewares/visit_recorder');
 
 module.exports = function (app) {

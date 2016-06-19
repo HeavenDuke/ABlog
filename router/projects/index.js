@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/3/20.
  */
 
-var projectssController = require('../../controller').project;
+var projectssController = require('../../controller').projects;
 var authentication = require('../../middlewares/authentication');
 var visit_recorder = require('../../middlewares/visit_recorder');
 

@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/3/20.
  */
 
-var commentsController = require('../../../../controller').column.article.comment;
+var commentsController = require('../../../../controller').columns.articles.comments;
 var authentication = require('../../../../middlewares/authentication');
 var visit_recorder = require('../../../../middlewares/visit_recorder');
 var repliesRouter = require('./replies');

@@ -14,7 +14,7 @@ block content
                         tr
                             td(class=(article._id.toString() == articles[index]._id.toString() ? "selected-article" : ""))
                                 a(href="/columns/" + column_id + "/articles/" + articles[index]._id)
-                                    strong= articles[index].title
+                                    strong= articles[index].order + "　" + articles[index].title
             .col-lg-9.col-md-9.col-sm-9
                 .box.box-widget
                     .box-header.with-border

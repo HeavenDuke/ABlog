@@ -6,5 +6,8 @@ module.exports = function (input, limit) {
     var result = input.substr(0, limit);
     result = result.replace(/\$\$.*\$\$/g, "");
     result = result.replace(/\\\\\(.*\\\\\)/g, "");
+    result = result.replace(/\n/g, "");
+    result = result.replace(/\r/g, "");
+    result = result.replace(/\s/g, "");
     return result + "...";
 };

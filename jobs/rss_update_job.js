@@ -15,6 +15,7 @@ module.exports = function (callback) {
             result += channels[index];
         }
         result += '</rss>';
+        console.log(result);
         return result;
     }
 
@@ -50,10 +51,10 @@ module.exports = function (callback) {
     var articles_rss = [];
     var journals_rss = [];
     var rss_channels = [];
-    Journal.find({}, function (err, journals) {
+    Journal.find({is_public: true}, function (err, journals) {
         if (err) callback(err);
         journals.forEach(function(journal) {
-            journals_rss.push(getItemTemplate(journal.title, "http://www.heavenduke.com/journals/" + journal._id, journal.content.substr(0, Math.min(journal.content.length, 200))));
+            journals_rss.push(getItemTemplate(journal.title, "http://www.heavenduke.com/journals/" + journal._id, journal.title, 200));
         });
         Article.find({}, function(err, articles) {
             if (err) callback(err);
@@ -62,12 +63,13 @@ module.exports = function (callback) {
             articles.forEach(function(article) {
                 Column.findById(article.column_id, function (err, column) {
                     if (err) callback(err);
-                    articles_rss.push(getItemTemplate(article.title, "http://www.heavenduke.com/columns/" + column._id + "/articles/" + article._id, article.content.substr(0, Math.min(200, article.content.length)), column.name));
+                    articles_rss.push(getItemTemplate(article.title, "http://www.heavenduke.com/columns/" + column._id + "/articles/" + article._id, article.title, column.name));
                     counter++;
                     if (counter >= total_articles) {
                         rss_channels.push(getChannel("专栏", "http://www.heavenduke.com/columns", "HeavenDuke的专栏栏目，用来记录一些系统化的技术文章。", articles_rss));
                         rss_channels.push(getChannel("博文", "http://www.heavenduke.com/journals", "HeavenDuke的博文栏目，用来记录一些闲杂琐碎的技术文章。", journals_rss));
                         require('fs').writeFile(path.join(__dirname, "../", "public", "rss", "rss.xml"), getBaseTemplate(rss_channels), {
+                            flag: "w",
                             encoding: "UTF-8",
                             mode: 0o666
                         }, function (err) {

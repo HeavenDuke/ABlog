@@ -144,19 +144,5 @@ Server.prototype.initGlobalVariables = function() {
     });
 };
 
-Server.prototype.launchTasks = function () {
-    var schedule = require('node-schedule');
-    schedule.scheduleJob('*/10 * * * *', function () {
-        require('../jobs').RSSUpdateJob(function (err) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                console.log("rss updated");
-            }
-        });
-    });
-};
-
 module.exports = Server;
 

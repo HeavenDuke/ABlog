@@ -9,5 +9,3 @@ server.initGlobalVariables();
 server.initUtils();
 
 server.connectDb();
-
-server.launchTasks();

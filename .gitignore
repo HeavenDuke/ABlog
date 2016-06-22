@@ -40,3 +40,6 @@ public/bower_components
 
 # uploaded static directory
 public/uploads
+
+# rss info
+public/rss

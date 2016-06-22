@@ -146,7 +146,7 @@ Server.prototype.initGlobalVariables = function() {
 
 Server.prototype.launchTasks = function () {
     var schedule = require('node-schedule');
-    schedule.scheduleJob('0 0 * * *', function () {
+    schedule.scheduleJob('0 * * * *', function () {
         require('../jobs').RSSUpdateJob(function (err) {
             if (err) {
                 console.log(err);

@@ -32,12 +32,7 @@
     };
 
     var prepare_diary_previewer = function () {
-        var all_thumbs = $(".image_thumb");
-        all_thumbs.on('click', function() {
-            var full_src = $(this).attr('full_src');
-            $("#previewer_content").attr('src', full_src);
-            $("#image_previewer").modal("show");
-        });
+        console.log($("[id$='_gallery']"));
     };
 
     var prepare_diary_paragraphs = function () {

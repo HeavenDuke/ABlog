@@ -34,7 +34,9 @@
     var prepare_diary_previewer = function () {
         var galleries = $("[id$='_gallery']");
         for(var i = 0; i < galleries.length; i++) {
-            $(galleries[i]).lightGallery();
+            $(galleries[i]).lightGallery({
+                thumbnail: true
+            });
         }
     };
 

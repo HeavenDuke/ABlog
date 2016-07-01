@@ -13,6 +13,7 @@
     "co": "3.1.0",
     "co-urllib": "0.2.3",
     "debug": "2.0.0",
+    "es6-promisify": "^4.1.0",
     "gm": "^1.22.0",
     "html2plaintext": "^1.0.1",
     "koa": "1.2.0",

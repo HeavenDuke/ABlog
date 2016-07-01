@@ -3,8 +3,9 @@
  */
 
 var path = require('path');
-var fs = require("fs");
-var gm = require('gm').subClass({imageMagick: true});
+var promisify = require('es6-promisify');
+var gm = promisify(require('gm').subClass({imageMagick: true}));
+var fs = promisify(require("fs"));
 
 function get_thumb_path(image_path) {
     var dirname = path.dirname(image_path);
@@ -32,44 +33,27 @@ exports.create = function *() {
     if (!(files.images instanceof Array)) {
         files.images = [files.images];
     }
-    files.images.map(function (image) {
+
+    for(var i = 0; i < files.images.length; i++) {
+        var image = files.images[i];
         var image_path = path.basename(image.path);
         var allowed_mimes = ["image/jpeg", "image/bmp", "image/gif", "image/png"];
         if (allowed_mimes.indexOf(image.type) != -1) {
-            gm(image.path).size(function (err, size) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    var thumb_height = 150;
-                    var thumb_scale = size.height / thumb_height;
-                    var thumb_width = size.width / thumb_scale;
-                    var raw_height = 960;
-                    var raw_scale = size.height / raw_height;
-                    var raw_width = size.width / raw_scale;
-                    gm(image.path).resize(raw_height, raw_width).autoOrient().write(image.path, function(err) {
-                        if (err) {
-                        }
-                        else {
-                            console.log("success");
-                        }
-                    });
-                    gm(image.path).resize(thumb_width, thumb_height).autoOrient().write(get_thumb_path(image.path), function(err) {
-                        if (err) {
-                        }
-                        else {
-                            console.log("success");
-                        }
-                    });
-                }
-            });
+            var size = yield gm(image.path).size();
+            var thumb_height = 150;
+            var thumb_scale = size.height / thumb_height;
+            var thumb_width = size.width / thumb_scale;
+            var raw_height = 960;
+            var raw_scale = size.height / raw_height;
+            var raw_width = size.width / raw_scale;
+            var result = yield gm(image.path).resize(raw_height, raw_width).autoOrient().write(image.path);
+            result = yield gm(image.path).resize(thumb_width, thumb_height).autoOrient().write(get_thumb_path(image.path));
             image_paths.push(image_path);
         }
         else {
-            fs.unlink(image.path, function (){});
+            result = yield fs.unlink(image.path);
         }
-        return image;
-    });
+    }
     diary.brief = fields.brief;
     diary.mood = fields.mood;
     diary.tag = fields.tag;
@@ -91,49 +75,31 @@ exports.update = function *() {
     if (!(files.images instanceof Array)) {
         files.images = [files.images];
     }
-    files.images.map(function (image) {
+    for(var i = 0 ; i < files.images.length; i++) {
+        var image = files.images[i];
         var image_path = path.basename(image.path);
         var allowed_mimes = ["image/jpeg", "image/bmp", "image/gif", "image/png"];
         if (allowed_mimes.indexOf(image.type) != -1) {
-            gm(image.path).size(function (err, size) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    var thumb_height = 150;
-                    var scale = size.height / thumb_height;
-                    var thumb_width = size.width / scale;
-                    var raw_height = 960;
-                    var raw_scale = size.height / raw_height;
-                    var raw_width = size.width / raw_scale;
-                    gm(image.path).resize(raw_height, raw_width).autoOrient().write(image.path, function(err) {
-                        if (err) {
-                        }
-                        else {
-                            console.log("success");
-                        }
-                    });
-                    gm(image.path).resize(thumb_width, thumb_height).autoOrient().write(get_thumb_path(image.path), function(err) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        else {
-                            console.log("success");
-                        }
-                    });
-                }
-            });
+            var size = yield gm(image.path).size();
+            var thumb_height = 150;
+            var scale = size.height / thumb_height;
+            var thumb_width = size.width / scale;
+            var raw_height = 960;
+            var raw_scale = size.height / raw_height;
+            var raw_width = size.width / raw_scale;
+            var result = yield gm(image.path).resize(raw_height, raw_width).autoOrient().write(image.path);
+            result = yield gm(image.path).resize(thumb_width, thumb_height).autoOrient().write(get_thumb_path(image.path));
             image_paths.push(image_path);
         }
         else {
-            fs.unlink(image.path, function (){});
+            result = yield fs.unlink(image.path);
         }
-        return image;
-    });
+    }
     if (!(files.images.length == 1 && files.images[0].type == "application/octet-stream")) {
         previous_paths.map(function (image_path) {
-            fs.unlink(path.join(global.conf.staticDir, "uploads", image_path), null);
-            fs.unlink(path.join(global.conf.staticDir, "uploads", get_thumb_path(image_path)), null);
+            yield fs.unlink(path.join(global.conf.staticDir, "uploads", image_path));
+            yield fs.unlink(path.join(global.conf.staticDir, "uploads", get_thumb_path(image_path)));
+            return image_path;
         });
         diary.images = image_paths;
     }

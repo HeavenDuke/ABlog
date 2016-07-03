@@ -40,6 +40,32 @@
         }
     };
 
+    var prepare_diary_image_uploader = function () {
+        $('#image_creation_uploader').fileupload({
+            url: "/images?_method=POST",
+            dataType: 'json',
+            done: function (e, data) {
+                $.each(data.result.files, function (index, file) {
+                    $('<p/>').text(file.name).appendTo('#create_uploaded_files');
+                    var container = $("#image_creation_specifier");
+                    if (container.val() == "") {
+                        container.val(container.val() + file.name);
+                    }
+                    else {
+                        container.val(container.val() + "," + file.name);
+                    }
+                });
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#create_upload_progress .progress-bar').css(
+                    'width',
+                    progress + '%'
+                );
+            }
+        })
+    };
+
     var prepare_diary_paragraphs = function () {
 
         var diary_to_paragraph = function (diary) {
@@ -73,6 +99,7 @@
         prepare_diary_previewer();
         prepare_diary_paragraphs();
         prepare_diary_image();
+        prepare_diary_image_uploader();
     };
 
     $(document).on('ready', function () {

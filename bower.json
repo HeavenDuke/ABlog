@@ -23,6 +23,7 @@
     "Buttons": "~2.0.0",
     "CodeMirror": "latest",
     "highlightjs": "^9.2.0",
-    "lightgallery": "^1.2.19"
+    "lightgallery": "^1.2.19",
+    "blueimp-file-upload": "jQuery-File-Upload#^9.12.5"
   }
 }

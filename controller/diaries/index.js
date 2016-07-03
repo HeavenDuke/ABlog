@@ -24,47 +24,22 @@ exports.index = function *() {
     }
 };
 
-exports.create = function *() {
+exports.create = function *(next) {
     var Diary = global.database.models.diary;
-    var image_paths = [];
     var diary = new Diary();
-    var fields = this.request.body.fields;
-    var files = this.request.body.files;
-    if (!(files.images instanceof Array)) {
-        files.images = [files.images];
-    }
-    for(var i = 0; i < files.images.length; i++) {
-        var image = files.images[i];
-        var image_path = path.basename(image.path);
-        var allowed_mimes = ["image/jpeg", "image/bmp", "image/gif", "image/png"];
-        if (allowed_mimes.indexOf(image.type) != -1) {
-            var size = yield gm(image.path).sizeAsync();
-            var thumb_height = 150;
-            var thumb_scale = size.height / thumb_height;
-            var thumb_width = size.width / thumb_scale;
-            var raw_height = 960;
-            var raw_scale = size.height / raw_height;
-            var raw_width = size.width / raw_scale;
-            var result = yield gm(image.path).resize(raw_height, raw_width).autoOrient().writeAsync(image.path);
-            result = yield gm(image.path).resize(thumb_width, thumb_height).autoOrient().writeAsync(get_thumb_path(image.path));
-            image_paths.push(image_path);
-        }
-        else {
-            result = yield fs.unlinkAsync(image.path);
-        }
-    }
+    var fields = this.request.body;
     diary.brief = fields.brief;
     diary.mood = fields.mood;
     diary.tag = fields.tag;
     diary.content = fields.content;
     diary.is_public = !!fields.is_public;
     diary.recorded_date = new Date(fields.recorded_date);
-    diary.images = image_paths;
+    diary.images = fields.image_ids.split(",");
     diary.save();
     this.redirect('/diaries');
 };
 
-exports.update = function *() {
+exports.update = function *(next) {
     var Diary = global.database.models.diary;
     var image_paths = [];
     var diary = yield Diary.findById(this.params.diary_id);

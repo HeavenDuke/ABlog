@@ -41,42 +41,9 @@ exports.create = function *(next) {
 
 exports.update = function *(next) {
     var Diary = global.database.models.diary;
-    var image_paths = [];
     var diary = yield Diary.findById(this.params.diary_id);
     var previous_paths = diary.images;
-    var fields = this.request.body.fields;
-    var files = this.request.body.files;
-    if (!(files.images instanceof Array)) {
-        files.images = [files.images];
-    }
-    for(var i = 0 ; i < files.images.length; i++) {
-        var image = files.images[i];
-        var image_path = path.basename(image.path);
-        var allowed_mimes = ["image/jpeg", "image/bmp", "image/gif", "image/png"];
-        if (allowed_mimes.indexOf(image.type) != -1) {
-            var size = yield gm(image.path).sizeAsync();
-            var thumb_height = 150;
-            var scale = size.height / thumb_height;
-            var thumb_width = size.width / scale;
-            var raw_height = 960;
-            var raw_scale = size.height / raw_height;
-            var raw_width = size.width / raw_scale;
-            var result = yield gm(image.path).resize(raw_height, raw_width).autoOrient().writeAsync(image.path);
-            result = yield gm(image.path).resize(thumb_width, thumb_height).autoOrient().writeAsync(get_thumb_path(image.path));
-            image_paths.push(image_path);
-        }
-        else {
-            result = yield fs.unlinkAsync(image.path);
-        }
-    }
-    if (!(files.images.length == 1 && files.images[0].type == "application/octet-stream")) {
-        for(var i = 0; i < previous_paths.length; i++) {
-            var image_path = previous_paths[i];
-            yield fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", image_path));
-            yield fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", get_thumb_path(image_path)));
-        }
-        diary.images = image_paths;
-    }
+    var fields = this.request.body;
     diary.brief = fields.brief;
     diary.content = fields.content;
     diary.mood = fields.mood;

@@ -2,6 +2,7 @@
  * Created by heavenduke on 16-5-5.
  */
 
+global.Promise = require('bluebird');
 var debug = require('debug')('ablog');
 var koa = require('koa');
 var flash = require('koa-flash');

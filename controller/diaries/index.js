@@ -42,7 +42,6 @@ exports.create = function *(next) {
 exports.update = function *(next) {
     var Diary = global.database.models.diary;
     var diary = yield Diary.findById(this.params.diary_id);
-    var previous_paths = diary.images;
     var fields = this.request.body;
     diary.brief = fields.brief;
     diary.content = fields.content;
@@ -50,6 +49,7 @@ exports.update = function *(next) {
     diary.tag = fields.tag;
     diary.is_public = !!fields.is_public;
     diary.recorded_date = new Date(fields.recorded_date);
+    diary.images = JSON.parse(fields.image_ids);
     diary.save();
     this.redirect('/diaries');
 };

@@ -16,16 +16,24 @@
             var mood = $("#" + diary_id + "_mood").attr("mood");
             var tag = $("#" + diary_id + "_tag").attr("tag");
             var is_public = $("#" + diary_id + "_publicity").attr("publicity") == "true";
+            var image_container = $("#" + diary_id + "_images");
+            console.log(image_container.attr("images"));
+            var images = JSON.parse(image_container.attr("images"));
+            var thumbs = image_container.children();
             $("#update_diary_brief").val(brief);
             $("#update_diary_content").val(content);
             $("#update_diary_date").attr("value", date);
             $("#update_diary_mood").val(mood);
             $("#update_diary_tag").val(tag);
+            $("#image_update_specifier").val(JSON.stringify(images));
             if (is_public) {
                 $("#update_diary_publicity").attr("checked", "checked");
             }
             else {
                 $("#update_diary_publicity").removeAttr("checked");
+            }
+            for(var i = 0; i < images.length; i++) {
+                $('<a href="/' + images[i] + '"><img class="margin image_thumb" src="' + $(thumbs[i]).attr("thumb") + '"/></a>').appendTo('#update_uploaded_files');
             }
             $("#update_diary_form").attr("action", "/diaries/" + diary_id + "?_method=put");
         });
@@ -46,7 +54,7 @@
             dataType: 'json',
             done: function (e, data) {
                 $.each(data.result.files, function (index, file) {
-                    $('<p/>').text(file.name).appendTo('#create_uploaded_files');
+                    $('<a href="/' + file.name + '"><img class="margin image_thumb" src="' + file.thumbnailUrl + '"/></a>').appendTo('#create_uploaded_files');
                     var container = $("#image_creation_specifier");
                     if (container.val() == "") {
                         container.val(container.val() + file.name);
@@ -63,7 +71,28 @@
                     progress + '%'
                 );
             }
-        })
+        });
+
+        $('#image_update_uploader').fileupload({
+            url: "/images?_method=POST",
+            dataType: 'json',
+            done: function (e, data) {
+                $.each(data.result.files, function (index, file) {
+                    $('<a href="/' + file.name + '"><img class="margin image_thumb" src="' + file.thumbnailUrl + '"/></a>').appendTo('#update_uploaded_files');
+                    var container = $("#image_update_specifier");
+                    var image_list = JSON.parse(container.val());
+                    image_list.push(file.name);
+                    container.val(JSON.stringify(image_list));
+                });
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#update_upload_progress .progress-bar').css(
+                    'width',
+                    progress + '%'
+                );
+            }
+        });
     };
 
     var prepare_diary_paragraphs = function () {

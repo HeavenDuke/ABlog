@@ -32,8 +32,15 @@
                         label 内容:
                         textarea#update_diary_content.form-control(name="content" rows="5" maxlength=500 placeholder="今天怎样呀")
                     .form-group
-                        label 上传图片:
-                        input.form-control(name="images" type="file" multiple="multiple")
+                        span.btn.btn-success.fileinput-button
+                            i.fa.fa-plus
+                            span 请选择待上传的图片
+                            input#image_update_uploader.form-control(name="images" type="file" multiple="multiple")
+                    input.hidden#image_update_specifier(name="image_ids" type="text")
+                    .form-group
+                        #update_upload_progress.progress
+                            .progress-bar.progress-bar-success
+                        #update_uploaded_files
                     .form-group.text-center
                         .checkbox
                             input#update_diary_publicity(name="is_public" type="checkbox")

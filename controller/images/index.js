@@ -48,16 +48,6 @@ var create = function *(next) {
     this.body = {files: image_paths};
 };
 
-var destroy = function *(next) {
-    this.body = "image destroyed";
-};
-
-var bulkDestroy = function *(next) {
-    this.body = "bulk destroyed";
-};
-
 module.exports = {
-    create: create,
-    destroy: destroy,
-    bulkDestroy: bulkDestroy
+    create: create
 };

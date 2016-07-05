@@ -56,12 +56,9 @@
                 $.each(data.result.files, function (index, file) {
                     $('<a href="/' + file.name + '"><img class="margin image_thumb" src="' + file.thumbnailUrl + '"/></a>').appendTo('#create_uploaded_files');
                     var container = $("#image_creation_specifier");
-                    if (container.val() == "") {
-                        container.val(container.val() + file.name);
-                    }
-                    else {
-                        container.val(container.val() + "," + file.name);
-                    }
+                    var image_ids = JSON.parse(container.val());
+                    image_ids.push(file.name);
+                    container.val(JSON.stringify(image_ids));
                 });
             },
             progressall: function (e, data) {

@@ -34,7 +34,7 @@ exports.create = function *(next) {
     diary.content = fields.content;
     diary.is_public = !!fields.is_public;
     diary.recorded_date = new Date(fields.recorded_date);
-    diary.images = fields.image_ids.split(",");
+    diary.images = JSON.parse(fields.image_ids);
     diary.save();
     this.redirect('/diaries');
 };

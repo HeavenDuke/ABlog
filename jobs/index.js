@@ -3,5 +3,6 @@
  */
 
 module.exports = {
-    RSSUpdateJob: require('./rss_update_job')
+    RSSUpdateJob: require('./rss_update_job'),
+    RemoveRedundantImageJob: require('./remove_redundant_image_job')
 };

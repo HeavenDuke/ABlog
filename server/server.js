@@ -157,6 +157,16 @@ Server.prototype.launchTasks = function () {
             }
         });
     });
+    schedule.scheduleJob('0 * * * *', function () {
+        require('../jobs').RemoveRedundantImageJob(function (err) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("redundant images removed");
+            }
+        });
+    });
 };
 
 module.exports = Server;

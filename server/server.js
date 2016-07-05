@@ -25,6 +25,13 @@ var validator = require('koa-validator');
 var appRouter = require('../router');
 var path = require('path');
 var mongoose = require('mongoose');
+var https = require('https');
+var fs = require('fs');
+
+var http_options = {
+    key:  fs.readFileSync('/home/ubuntu/privatekey.pem'),  //带路径的文件名，注意两个文件不要写反了
+    cert:fs.readFileSync('/home/ubuntu/certificate.pem')
+};
 
 function Server(option) {
     this.opts = option || {};
@@ -100,7 +107,9 @@ Server.prototype.start = function () {
 
     appRouter(this);
 
-    this.listen(port);
+    https.createServer(http_options, this.callback()).listen(port);
+
+    //this.listen(port);
 
     this.on('error', function (err, ctx) {
 

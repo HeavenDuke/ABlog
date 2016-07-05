@@ -60,7 +60,11 @@ Server.prototype.start = function () {
         app: this
     });
 
-    this.use(bodyParser());
+    this.use(bodyParser({
+        formLimit: "100mb",
+        jsonLimit: "100mb",
+        textLimit: "100mb"
+    }));
     this.use(override());
 
     this.use(validator());

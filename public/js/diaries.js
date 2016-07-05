@@ -17,7 +17,6 @@
             var tag = $("#" + diary_id + "_tag").attr("tag");
             var is_public = $("#" + diary_id + "_publicity").attr("publicity") == "true";
             var image_container = $("#" + diary_id + "_images");
-            console.log(image_container.attr("images"));
             var images = JSON.parse(image_container.attr("images"));
             var thumbs = image_container.children();
             $("#update_diary_brief").val(brief);
@@ -25,19 +24,41 @@
             $("#update_diary_date").attr("value", date);
             $("#update_diary_mood").val(mood);
             $("#update_diary_tag").val(tag);
-            $("#image_update_specifier").val(JSON.stringify(images));
+            var image_form_container = $("#image_update_specifier");
+            image_form_container.val(JSON.stringify(images));
             if (is_public) {
                 $("#update_diary_publicity").attr("checked", "checked");
             }
             else {
                 $("#update_diary_publicity").removeAttr("checked");
             }
+            $("#update_uploaded_files").empty();
             for(var i = 0; i < images.length; i++) {
-                $('<a href="/' + images[i] + '"><img class="margin image_thumb" src="' + $(thumbs[i]).attr("thumb") + '"/></a>').appendTo('#update_uploaded_files');
+                var image_previewer = $('<a filename="' + images[i] + '" href="#"><img class="margin image_thumb" src="' + $(thumbs[i]).attr("thumb") + '"/></a>');
+                image_previewer.appendTo('#update_uploaded_files');
+                image_previewer.on('click', function () {
+                    confirm_delete_local_image($(this), image_form_container);
+                });
             }
             $("#update_diary_form").attr("action", "/diaries/" + diary_id + "?_method=put");
         });
     };
+
+    var confirm_delete_local_image = function (trigger, inputs_container) {
+        var double_check = confirm('确认要删除该照片吗？');
+        if (double_check) {
+            var filename = trigger.attr('filename');
+            var images = JSON.parse(inputs_container.val());
+            for (var i = 0; i < images.length; i++) {
+                if (images[i] == filename) {
+                    images.splice(i, 1);
+                    break;
+                }
+            }
+            inputs_container.val(JSON.stringify(images));
+            trigger.remove();
+        }
+    }
 
     var prepare_diary_previewer = function () {
         var galleries = $("[id$='_gallery']");
@@ -54,11 +75,17 @@
             dataType: 'json',
             done: function (e, data) {
                 $.each(data.result.files, function (index, file) {
-                    $('<a href="/' + file.name + '"><img class="margin image_thumb" src="' + file.thumbnailUrl + '"/></a>').appendTo('#create_uploaded_files');
                     var container = $("#image_creation_specifier");
                     var image_ids = JSON.parse(container.val());
                     image_ids.push(file.name);
                     container.val(JSON.stringify(image_ids));
+
+                    var previewer = $('<a filename = "' + file.name + '" href="#"><img class="margin image_thumb" src="' + file.thumbnailUrl + '"/></a>');
+                    previewer.appendTo('#create_uploaded_files');
+                    previewer.on('click', function () {
+                        confirm_delete_local_image($(this), container);
+                    });
+
                 });
             },
             progressall: function (e, data) {
@@ -75,11 +102,16 @@
             dataType: 'json',
             done: function (e, data) {
                 $.each(data.result.files, function (index, file) {
-                    $('<a href="/' + file.name + '"><img class="margin image_thumb" src="' + file.thumbnailUrl + '"/></a>').appendTo('#update_uploaded_files');
                     var container = $("#image_update_specifier");
                     var image_list = JSON.parse(container.val());
                     image_list.push(file.name);
                     container.val(JSON.stringify(image_list));
+
+                    var previewer = $('<a filename = "' + file.name + '" href="#"><img class="margin image_thumb" src="' + file.thumbnailUrl + '"/></a>');
+                    previewer.appendTo('#update_uploaded_files');
+                    previewer.on('click', function () {
+                        confirm_delete_local_image($(this), container);
+                    });
                 });
             },
             progressall: function (e, data) {

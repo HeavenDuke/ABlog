@@ -1,0 +1,21 @@
+//
+   Created by heavenduke on 16-7-7.
+
+extends ../layout/layout
+
+block specified_ref
+    link(rel="stylesheet" type="text/css" href="/writings.css")
+    link(rel="stylesheet" type="text/css" href="/theme.css")
+    link(rel="stylesheet" type="text/css" href="/index.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/skins/_all-skins.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/AdminLTE.min.css")
+    link(rel="stylesheet" type="text/css" href="/fullcalendar/dist/fullcalendar.min.css")
+
+block content
+    .container
+        .row.writing
+            h4.pull-left 我的每日码字统计
+        #record
+
+    include ./edit.jade
+    include ./reference.jade

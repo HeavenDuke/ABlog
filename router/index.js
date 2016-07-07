@@ -7,6 +7,7 @@ var journalRouter = require('./journals');
 var diaryRouter = require('./diaries');
 var columnRouter = require('./columns');
 var rssRouter = require('./rss');
+var writingRouter = require('./writings');
 var imageRouter = require('./images');
 
 var visit_recorder = require('../middlewares/visit_recorder');
@@ -24,4 +25,5 @@ module.exports = function(app){
     columnRouter(app);
     rssRouter(app);
     imageRouter(app);
+    writingRouter(app);
 };

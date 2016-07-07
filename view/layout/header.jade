@@ -23,6 +23,9 @@
                         li
                             a(href='/user/login' + (redirect_url ? ("?redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登录
                  else
+                     ul.nav.navbar-nav
+                         li(class=current_module == "writing" ? "active" : "")
+                             a(href='/writings') 码字
                      ul.nav.navbar-nav.pull-right
                          li.dropdown
                             a.dropdown-toggle(href="#" data-toggle="dropdown" aria-expanded="true") 我的账户

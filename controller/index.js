@@ -8,5 +8,6 @@ module.exports = {
     diaries: require('./diaries'),
     rss: require('./rss'),
     images: require('./images'),
+    writings: require('./writings'),
     home: require('./home')
 };

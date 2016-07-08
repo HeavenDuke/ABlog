@@ -3,7 +3,7 @@
  */
 
 var index = function *(next) {
-    this.render('writings/index', {current_module: this.current_module, current_user: this.session.user})
+    this.render('writings/index', {title: "每日码字统计", current_module: this.current_module, current_user: this.session.user})
 };
 
 var update = function *(next) {

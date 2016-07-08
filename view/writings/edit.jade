@@ -1,3 +1,18 @@
 //
    Created by heavenduke on 16-7-7.
 
+#edit_record_modal.modal.fade
+    .modal-dialog
+        .modal-content
+            form#update_record_form(action="/writings?_method=put" method="POST")
+                .modal-header
+                    button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
+                    h4.modal-title#record_date_title
+                .modal-body
+                    .form-group
+                        label 字数:
+                        input.form-control(name="count" type="number" placeholder="主人写了多少字呀~")
+                    input.hidden#record_date.form-control(name="date" type="date")
+                .modal-footer
+                    button.button.button-pill.button-small(type="button" aria-hidden="true" data-dismiss="modal") 取消
+                    button.button.button-pill.button-primary.button-small(type="submit") 更新

@@ -14,6 +14,8 @@ module.exports = function(app) {
     };
     
     app.get('writings-index', '/writings', visit_recorder, authentication, current_module, writings_controller.index);
+
+    app.get('writings-show', '/writings/:date', visit_recorder, authentication, current_module, writings_controller.show);
     
     app.put('writings-update', '/writings', visit_recorder, authentication, current_module, writings_controller.update);
     

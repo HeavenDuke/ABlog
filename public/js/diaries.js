@@ -58,7 +58,7 @@
             inputs_container.val(JSON.stringify(images));
             trigger.remove();
         }
-    }
+    };
 
     var prepare_diary_previewer = function () {
         var galleries = $("[id$='_gallery']");
@@ -154,9 +154,9 @@
 
     var prepare_diary_page = function () {
         prepare_diary_form();
-        prepare_diary_previewer();
         prepare_diary_paragraphs();
         prepare_diary_image();
+        prepare_diary_previewer();
         prepare_diary_image_uploader();
     };
 

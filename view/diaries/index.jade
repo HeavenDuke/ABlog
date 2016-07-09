@@ -57,7 +57,7 @@ block content
                                                         div(id=diaries[index]._id + "_gallery")
                                                             - for(var img_index in diaries[index].images)
                                                                 a(href="/" + diaries[index].images[img_index])
-                                                                    img.margin.image_thumb(src=Diary.get_thumb_image("/" + diaries[index].images[img_index]))
+                                                                    img.margin.image_thumb(thumb_url=Diary.get_thumb_image("/" + diaries[index].images[img_index]))
                                                 .timeline-footer
                                                     if current_user
                                                         a.btn.btn-xs.btn-warning(diary_id=diaries[index]._id data-toggle="modal" data-target="#edit_diary_modal") 编辑

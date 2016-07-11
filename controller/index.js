@@ -9,5 +9,6 @@ module.exports = {
     rss: require('./rss'),
     images: require('./images'),
     writings: require('./writings'),
+    notifications: require('./notifications'),
     home: require('./home')
 };

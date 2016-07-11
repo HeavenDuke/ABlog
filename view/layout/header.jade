@@ -26,12 +26,28 @@
                      ul.nav.navbar-nav
                          li(class=current_module == "writing" ? "active" : "")
                              a(href='/writings') 码字
-                     ul.nav.navbar-nav.pull-right
-                         li.dropdown
-                            a.dropdown-toggle(href="#" data-toggle="dropdown" aria-expanded="true") 我的账户
-                                span.caret
-                            ul.dropdown-menu(role="menu")
-                                li
-                                    a(href="/user/edit") 修改信息
-                                li
-                                    a(href="/user?_method=delete" + (redirect_url ? ("&redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登出
+                     .navbar-custom-menu
+                         ul.nav.navbar-nav.pull-right
+                             li.dropdown.messages-menu
+                                 a.dropdown-toggle(href="#" data-toggle="dropdown" aria-expanded="false")
+                                     i.fa.fa-envelope-o
+                                     span.label.label-success#notification_counter
+                                 ul.dropdown-menu
+                                     li.header#notification_intro 暂无新评论
+                                     li
+                                        ul.menu#notification_container
+                             li.dropdown.user-menu
+                                 a.dropdown-toggle(href="#" data-toggle="dropdown" area-expanded="false")
+                                     img.user-image(src="/favicon.ico")
+                                     span.hidden-xs HeavenDuke
+                                 ul.dropdown-menu
+                                     li.user-header
+                                        img.img-circle(src="/favicon.ico")
+                                        p HeavenDuke - Coder
+                                            small Beyond Infinity
+                                     li.user-footer
+                                        .pull-left
+                                            a.btn.btn-default.btn-flat(href="/user/edit") 修改信息
+                                        .pull-right
+                                            a.btn.btn-default.btn-flat(href="/user?_method=delete" + (redirect_url ? ("&redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登出
+

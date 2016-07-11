@@ -60,6 +60,15 @@ var show = function *(next) {
             setReadSession(this.session, journal._id);
         }
         var comments = yield Comment.find({journal_id: journal._id}).sort({created_at: 1});
+        if (this.session.user) {
+            comments.forEach(function (comment) {
+                comment.is_checked = true;
+                comment.replies.forEach(function (reply) {
+                    reply.is_checked = true;
+                });
+                comment.save();
+            });
+        }
         this.render('./journals/show',{"title":journal.title, journal: journal, comments: comments, current_user: this.session.user, current_module: this.current_module, redirect_url: this.request.url}, true);
     }
     else {

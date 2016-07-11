@@ -19,6 +19,15 @@ var show = function *(next) {
         setReadSession(this.session, article);
     }
     var comments = yield Comment.find({article_id: article._id}).sort({created_at: 1});
+    if (this.session.user) {
+        comments.forEach(function (comment) {
+            comment.is_checked = true;
+            comment.replies.forEach(function (reply) {
+                reply.is_checked = true;
+            });
+            comment.save();
+        });
+    }
     this.render('./columns/articles/show',{title: article.title, column_id: this.params.column_id, article: article, articles: articles, comments: comments, current_user: this.session.user, current_module: this.current_module, redirect_url: this.request.url}, true);
 };
 

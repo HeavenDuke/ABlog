@@ -9,6 +9,10 @@ Comment.Schema = {
         type: String,
         required: false
     },
+    is_checked: {
+        type: Boolean,
+        default: false
+    },
     created_at: {
         type: Date,
         required: true,

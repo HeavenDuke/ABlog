@@ -14,6 +14,10 @@ Reply.Schema = {
         type: Date,
         required: true,
         default: Date.now
+    },
+    is_checked: {
+        type: Boolean,
+        default: false
     }
 };
 

@@ -10,9 +10,8 @@ var show = function *(next) {
     var Writing = global.database.models.writing;
     var date = new Date(this.params.date);
     date.setHours(0, 0, 0);
-    console.log(date);
     var writing = yield Writing.findOne({date: date});
-    this.body = JSON.stringify(writing);
+    this.body = writing ? writing.count : 0;
 };
 
 var update = function *(next) {

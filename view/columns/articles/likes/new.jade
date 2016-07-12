@@ -1,12 +1,31 @@
 //
    Created by Obscurity on 2016/5/11.
-    (href="/journals/" + journal._id + '/likes?_method=post&type=like')
+
 .text-center
-    span.text-center
-        a.btn.btn-app
-            i.fa.fa-thumbs-o-up
-            = article.likes_count + "顶"
-    span.text-center
-        a.btn.btn-app(style="margin-left: 20px;")
-            i.fa.fa-thumbs-o-down
-            = article.dislikes_count + "踩"
+    if !attitude
+        span.text-center
+            a.btn.btn-app(href="/columns/" + article.column_id + "/articles/" + article._id + '/likes?attitude=like&_method=POST&action=post')
+                i.fa.fa-thumbs-o-up
+                = likes + " 顶"
+        span.text-center
+            a.btn.btn-app(style="margin-left: 20px;" href="/columns/" + article.column_id + "/articles/" + article._id + '/likes?attitude=dislike&_method=POST&action=post')
+                i.fa.fa-thumbs-o-down
+                = dislikes + " 踩"
+    else if attitude.like
+        span.text-center
+            a.btn.btn-app(href="/columns/" + article.column_id + "/articles/" + article._id + '/likes?attitude=like&_method=POST&action=delete')
+                i.fa.fa-thumbs-o-up
+                = likes + " 已顶"
+        span.text-center
+            a.btn.btn-app(style="margin-left: 20px;" href="/columns/" + article.column_id + "/articles/" + article._id + '/likes?attitude=dislike&_method=POST&action=post')
+                i.fa.fa-thumbs-o-down
+                = dislikes + " 踩"
+    else
+        span.text-center
+            a.btn.btn-app(href="/columns/" + article.column_id + "/articles/" + article._id + '/likes?attitude=like&_method=POST&action=post')
+                i.fa.fa-thumbs-o-up
+                = likes + " 顶"
+        span.text-center
+            a.btn.btn-app(style="margin-left: 20px;" href="/columns/" + article.column_id + "/articles/" + article._id + '/likes?attitude=dislike&_method=POST&action=delete')
+                i.fa.fa-thumbs-o-down
+                = dislikes + " 已踩"

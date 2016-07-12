@@ -10,6 +10,12 @@ exports.create = function *(next) {
     var article = yield Article.findById(article_id);
     comment.content = this.request.body.content;
     comment.article_id = article_id;
+    if (this.session.guest) {
+        comment.guest_id = this.session.guest._id;
+    }
+    else {
+        comment.user_id = this.session.user._id;
+    }
     comment.save();
     article.comment_count += 1;
     article.save();

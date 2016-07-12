@@ -7,5 +7,5 @@ var authentication = require('../../../../middlewares/authentication');
 var visit_recorder = require('../../../../middlewares/visit_recorder');
 
 module.exports = function (app) {
-    app.post('columns-articles-likes-create', '/columns/:column_id/articles/:articles/likes', visit_recorder, authentication.guest_only, likes_controller.create);
+    app.post('columns-articles-likes-create', '/columns/:column_id/articles/:article_id/likes', visit_recorder, authentication.guest_only, likes_controller.create);
 };

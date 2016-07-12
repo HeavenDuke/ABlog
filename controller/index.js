@@ -10,5 +10,6 @@ module.exports = {
     images: require('./images'),
     writings: require('./writings'),
     notifications: require('./notifications'),
+    guests: require('./guests'),
     home: require('./home')
 };

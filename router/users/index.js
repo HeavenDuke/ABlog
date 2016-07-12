@@ -1,19 +1,17 @@
 /**
  * Created by Obscurity on 2016/3/20.
  */
-var userController = require('../../controller').users;
+var users_controller = require('../../controller').users;
 var authentication = require('../../middlewares/authentication');
 var visit_recorder = require('../../middlewares/visit_recorder');
 
+var session_router = require('./sessions');
+
 module.exports = function(app) {
 
-    app.get('/user/login', visit_recorder, userController.loginView);
+    app.get('users-edit', '/users/edit', visit_recorder, authentication, users_controller.edit);
 
-    app.get('/user/edit', visit_recorder, authentication, userController.edit);
+    app.put('users-update', '/users', visit_recorder, authentication, users_controller.update);
 
-    app.put('/user', visit_recorder, authentication, userController.update);
-
-    app.post('/user/login', visit_recorder, userController.loginAction);
-
-    app.del('/user', visit_recorder, authentication, userController.logoutAction);
+    session_router(app);
 };

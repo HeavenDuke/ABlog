@@ -32,7 +32,7 @@
                                             small 一直在吃瓜，从未被超越
                                     li.user-footer
                                         .pull-left
-                                            a.btn.btn-default.btn-flat(href='/user/login' + (redirect_url ? ("?redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登录
+                                            a.btn.btn-default.btn-flat(href='/users/sessions/new' + (redirect_url ? ("?redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登录
                                         .pull-right
                                             a.btn.btn-default.btn-flat(href="#" onclick="alert('敬请期待');") 注册
                  else
@@ -60,7 +60,7 @@
                                             small Beyond Infinity
                                      li.user-footer
                                         .pull-left
-                                            a.btn.btn-default.btn-flat(href="/user/edit") 修改信息
+                                            a.btn.btn-default.btn-flat(href="/users/edit") 修改信息
                                         .pull-right
-                                            a.btn.btn-default.btn-flat(href="/user?_method=delete" + (redirect_url ? ("&redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登出
+                                            a.btn.btn-default.btn-flat(href="/users/sessions?_method=delete" + (redirect_url ? ("&redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登出
 

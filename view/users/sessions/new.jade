@@ -1,7 +1,7 @@
 //
    Created by Obscurity on 2016/5/2.
 
-extends ../layout/layout
+extends ../../layout/layout
 
 block specified_ref
     link(rel="stylesheet" type="text/css" href="/theme.css")
@@ -19,7 +19,7 @@ block content
                 br
                 .text-center
                     h4 登录
-                form(role="form" action="/user/login" method="POST")
+                form(role="form" action="/users/sessions" method="POST")
                     input.hidden(name="redirect_url" value=redirect_url_after_login)
                     .form-group
                         label(for="username") 账户名

@@ -19,7 +19,7 @@ block content
                 br
                 .text-center
                     h4 修改个人信息
-                form(role="form" action="/user" method="POST")
+                form(role="form" action="/users" method="POST")
                     input.hidden(name="_method" value="put")
                     .form-group
                         label(for="password") 原密码
@@ -31,4 +31,4 @@ block content
                         label(for="confirm_password") 确认密码
                         input.form-control#confirm_password(type="password" name="confirm_password" required)
                     .text-center
-                        button(type="submit").button.button-primary.button-pill 登录
+                        button(type="submit").button.button-primary.button-pill 修改

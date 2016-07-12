@@ -22,7 +22,7 @@ Guest.Schema = {
 };
 
 Guest.collection = {
-    collection: 'Users'
+    collection: 'Guests'
 };
 
 Guest.encasePassword = function (plain) {

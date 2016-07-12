@@ -19,9 +19,22 @@
                     li(class=current_module == "column" ? "active" : "")
                         a(href='/columns') 专栏
                 if (current_user == null)
-                    ul.nav.navbar-nav.pull-right
-                        li
-                            a(href='/user/login' + (redirect_url ? ("?redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登录
+                    .navbar-custom-menu
+                        ul.nav.navbar-nav.pull-right
+                            li.dropdown.user-menu
+                                a.dropdown-toggle(href="#" data-toggle="dropdown" area-expanded="false")
+                                    img.user-image(src="/head.png")
+                                    span.hidden-xs 游客
+                                ul.dropdown-menu
+                                    li.user-header
+                                        img.img-circle(src="/head.png")
+                                        p 游客
+                                            small 一直在吃瓜，从未被超越
+                                    li.user-footer
+                                        .pull-left
+                                            a.btn.btn-default.btn-flat(href='/user/login' + (redirect_url ? ("?redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登录
+                                        .pull-right
+                                            a.btn.btn-default.btn-flat(href="#" onclick="alert('敬请期待');") 注册
                  else
                      ul.nav.navbar-nav
                          li(class=current_module == "writing" ? "active" : "")

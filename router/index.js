@@ -10,6 +10,7 @@ var rss_router = require('./rss');
 var writing_router = require('./writings');
 var image_router = require('./images');
 var notification_router = require('./notifications');
+var guest_router = require('./guests');
 
 var visit_recorder = require('../middlewares/visit_recorder');
 
@@ -18,6 +19,7 @@ module.exports = function(app){
     app.get('home', '/', visit_recorder, home_controller.index);
 
     user_router(app);
+    guest_router(app);
     contest_router(app);
     paper_router(app);
     project_router(app);

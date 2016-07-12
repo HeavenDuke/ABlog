@@ -53,6 +53,7 @@ VisitRecordSchema.statics.ignore_minute = VisitRecord.ignore_minute;
 GuestSchema.methods.encasePassword = Guest.encasePassword;
 GuestSchema.methods.parsePassword = Guest.parsePassword;
 GuestSchema.methods.validatePassword = Guest.validatePassword;
+GuestSchema.statics.validateConfirmPassword = Guest.validateConfirmPassword;
 
 database.models.journal = mongoose.model("journal", JournalSchema);
 database.models.user = mongoose.model("user", UserSchema);

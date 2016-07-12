@@ -1,3 +1,47 @@
 //
    Created by heavenduke on 16-7-12.
 
+extends ../../layout/layout
+
+block specified_ref
+    link(rel="stylesheet" type="text/css" href="/theme.css")
+    link(rel="stylesheet" type="text/css" href="/index.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/skins/_all-skins.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/AdminLTE.min.css")
+
+block content
+    .container
+        .row
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4
+                br
+                br
+                br
+                .register-box.with-border
+                    .register-box-body
+                        p.login-box-msg 用户登录
+                        form(role="form" action="/guests/sessions" method="POST")
+                            input.hidden(name="redirect_url" value=redirect_url_after_login)
+                            .form-group.has-feedback
+                                input.form-control(type="text" name="email" placeHolder="邮箱" required)
+                                span.form-control-feedback.fa.fa-envelope
+                            .form-group.has-feedback
+                                input.form-control(type="password" name="password" placeHolder="密码" required)
+                                span.form-control-feedback.fa.fa-lock
+                            .row
+                                .col-lg-8.col-md-8.col-sm-8
+                                    .checkbox
+                                        label
+                                            input(name="remember" type="checkbox")
+                                            | 记住我
+                                .col-lg-4.col-md-4.col-sm-4
+                                    button.btn.btn-primary.btn-block.btn-flat(type="submit") 登录
+                        //.social-auth-links.text-center
+                        //    p - Or -
+                        //    a.btn.btn-block.btn-social.btn-danger.btn-flat(href="#")
+                        //        i.fa.fa-qq
+                        //        | 使用QQ帐号登录
+                        br
+                        a(href="/guests/new") 还没有帐号？点此注册
+                        br
+                        a(href="#") 忘记密码？点此找回

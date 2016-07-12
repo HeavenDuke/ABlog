@@ -1,3 +1,43 @@
 //
    Created by heavenduke on 16-7-12.
 
+extends ../layout/layout
+
+block specified_ref
+    link(rel="stylesheet" type="text/css" href="/theme.css")
+    link(rel="stylesheet" type="text/css" href="/index.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/skins/_all-skins.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/AdminLTE.min.css")
+
+block content
+    .container
+        .row
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4
+                br
+                br
+                br
+                .register-box.with-border
+                    .register-box-body
+                        p.login-box-msg 修改个人信息
+                        form(role="form" action="/guests" method="POST")
+                            input.hidden(name="_method" value="PUT")
+                            .form-group.has-feedback
+                                input.form-control(type="email" name="email" placeHolder="邮箱" value=current_guest.email required)
+                                span.form-control-feedback.fa.fa-envelope
+                            .form-group.has-feedback
+                                input.form-control(type="text" name="username" placeHolder="昵称" value=current_guest.username required)
+                                span.form-control-feedback.fa.fa-user
+                            .form-group.has-feedback
+                                input.form-control(type="password" name="password" placeHolder="原密码")
+                                span.form-control-feedback.fa.fa-lock
+                            .form-group.has-feedback
+                                input.form-control(type="password" name="new_password" placeHolder="新密码")
+                                span.form-control-feedback.fa.fa-lock
+                            .form-group.has-feedback
+                                input.form-control(type="password" name="confirm_password" placeHolder="再次输入密码")
+                                span.form-control-feedback.fa.fa-lock
+                            .row
+                                .col-lg-4.col-md-4.col-sm-4
+                                .col-lg-4.col-md-4.col-sm-4
+                                    button.btn.btn-primary.btn-block.btn-flat(type="submit") 修改

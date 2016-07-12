@@ -58,4 +58,8 @@ Guest.validatePassword = function (plain) {
     return correct_password == encrypted;
 };
 
+Guest.validateConfirmPassword = function (pwd, cpwd) {
+    return pwd == cpwd;
+};
+
 module.exports = Guest;

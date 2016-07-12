@@ -18,24 +18,33 @@
                 ul.nav.navbar-nav
                     li(class=current_module == "column" ? "active" : "")
                         a(href='/columns') 专栏
-                if (current_user == null)
+                if (current_guest != null)
                     .navbar-custom-menu
                         ul.nav.navbar-nav.pull-right
+                            //li.dropdown.messages-menu
+                            //    a.dropdown-toggle(href="#" data-toggle="dropdown" aria-expanded="false")
+                            //        i.fa.fa-envelope-o
+                            //        span.label.label-success#notification_counter
+                            //    ul.dropdown-menu
+                            //        li.header#notification_intro 暂无新评论
+                            //        li
+                            //            ul.menu#notification_container
                             li.dropdown.user-menu
                                 a.dropdown-toggle(href="#" data-toggle="dropdown" area-expanded="false")
                                     img.user-image(src="/head.png")
-                                    span.hidden-xs 游客
+                                    span.hidden-xs= current_guest.username
                                 ul.dropdown-menu
                                     li.user-header
                                         img.img-circle(src="/head.png")
-                                        p 游客
-                                            small 一直在吃瓜，从未被超越
+                                        p= current_guest.username
+                                            small 欢迎来到HeavenDuke的博客
                                     li.user-footer
                                         .pull-left
-                                            a.btn.btn-default.btn-flat(href='/users/sessions/new' + (redirect_url ? ("?redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登录
+                                            a.btn.btn-default.btn-flat(href="/guests/edit") 修改信息
                                         .pull-right
-                                            a.btn.btn-default.btn-flat(href="#" onclick="alert('敬请期待');") 注册
-                 else
+                                            a.btn.btn-default.btn-flat(href="/guests/sessions?_method=delete" + (redirect_url ? ("&redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登出
+
+                else if(current_user != null)
                      ul.nav.navbar-nav
                          li(class=current_module == "writing" ? "active" : "")
                              a(href='/writings') 码字
@@ -63,4 +72,20 @@
                                             a.btn.btn-default.btn-flat(href="/users/edit") 修改信息
                                         .pull-right
                                             a.btn.btn-default.btn-flat(href="/users/sessions?_method=delete" + (redirect_url ? ("&redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登出
-
+                else
+                     .navbar-custom-menu
+                         ul.nav.navbar-nav.pull-right
+                             li.dropdown.user-menu
+                                 a.dropdown-toggle(href="#" data-toggle="dropdown" area-expanded="false")
+                                     img.user-image(src="/head.png")
+                                     span.hidden-xs 游客
+                                 ul.dropdown-menu
+                                     li.user-header
+                                         img.img-circle(src="/head.png")
+                                         p 游客
+                                             small 一直在吃瓜，从未被超越
+                                     li.user-footer
+                                         .pull-left
+                                             a.btn.btn-default.btn-flat(href='/guests/sessions/new' + (redirect_url ? ("?redirect_url=" + global.utils.urlEncoder.url_encode(redirect_url)) : "")) 登录
+                                         .pull-right
+                                             a.btn.btn-default.btn-flat(href="#" onclick="alert('敬请期待');") 注册

@@ -3,7 +3,7 @@
  */
 
 var edit = function *(next) {
-    this.render('./users/edit',{"title":"修改密码", current_user: this.session.user}, true);
+    this.render('./users/edit',{"title":"修改密码", current_guest: this.session.guest, current_user: this.session.user}, true);
 };
 
 var update = function *(next) {

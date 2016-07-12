@@ -29,8 +29,18 @@ var cross_auth = function *(next) {
     }
 };
 
+var auth_none = function *(next) {
+    if (this.session.guest || this.session.user) {
+        this.redirect('/');
+    }
+    else {
+        yield next;
+    }
+};
+
 module.exports = {
     admin_only: admin_only,
     guest_only: guest_only,
-    cross_auth: cross_auth
+    cross_auth: cross_auth,
+    auth_none: auth_none
 };

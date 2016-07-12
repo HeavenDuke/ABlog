@@ -3,12 +3,7 @@
  */
 
 var init = function *(next) {
-    if (this.session.user) {
-        this.redirect('/');
-    }
-    else {
-        this.render('./users/sessions/new', {"title": "管理员登录", current_user: this.session.user, redirect_url_after_login: this.request.query.redirect_url}, true);
-    }
+    this.render('./users/sessions/new', {"title": "管理员登录", current_guest: this.session.guest, current_user: this.session.user, redirect_url_after_login: this.request.query.redirect_url}, true);
 };
 
 var create = function *(next) {
@@ -18,9 +13,6 @@ var create = function *(next) {
             username: user.username
         };
     };
-    if (this.session.user) {
-        this.redirect('/');
-    }
     var User = global.database.models.user;
     var userQuery = {
         username: this.request.body.username

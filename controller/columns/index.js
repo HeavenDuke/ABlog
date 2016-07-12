@@ -5,7 +5,7 @@
 var index = function* (next) {
     var Column = global.database.models.column;
     var columns = yield Column.find({}).sort({updated_at: -1});
-    this.render("./columns/index", {title: "专栏目录", current_user: this.session.user, current_module: this.current_module, columns: columns, redirect_url: this.request.url});
+    this.render("./columns/index", {title: "专栏目录", current_guest: this.session.guest, current_user: this.session.user, current_module: this.current_module, columns: columns, redirect_url: this.request.url});
 };
 
 var show = function* (next) {
@@ -14,11 +14,11 @@ var show = function* (next) {
     var column = yield Column.findById(this.params.column_id);
     var columns = yield Column.find({}).sort({updated_at: -1});
     var articles = yield Article.find({column_id: this.params.column_id}).sort({order: 1});
-    this.render("./columns/show", {title: column.name, current_user: this.session.user, current_module: this.current_module, columns: columns, column: column, articles: articles, redirect_url: this.request.url});
+    this.render("./columns/show", {title: column.name, current_guest: this.session.guest, current_user: this.session.user, current_module: this.current_module, columns: columns, column: column, articles: articles, redirect_url: this.request.url});
 };
 
 var init = function* (next) {
-    this.render("./columns/new", {title: "添加专栏", current_user: this.session.user, current_module: this.current_module, redirect_url: this.request.url});
+    this.render("./columns/new", {title: "添加专栏", current_guest: this.session.guest, current_user: this.session.user, current_module: this.current_module, redirect_url: this.request.url});
 };
 
 var create = function* (next) {
@@ -33,7 +33,7 @@ var create = function* (next) {
 var edit = function* (next) {
     var Column = global.database.models.column;
     var column = yield Column.findById(this.params.column_id);
-    this.render("./columns/edit", {title: "编辑专栏信息", current_user: this.session.user, current_module: this.current_module, column: column, redirect_url: this.request.url});
+    this.render("./columns/edit", {title: "编辑专栏信息", current_guest: this.session.guest, current_user: this.session.user, current_module: this.current_module, column: column, redirect_url: this.request.url});
 };
 
 var update = function* (next) {

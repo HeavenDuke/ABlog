@@ -13,10 +13,10 @@ module.exports = function(app) {
         yield next;
     };
     
-    app.get('writings-index', '/writings', visit_recorder, authentication, current_module, writings_controller.index);
+    app.get('writings-index', '/writings', visit_recorder, authentication.admin_only, current_module, writings_controller.index);
 
-    app.get('writings-show', '/writings/:date', visit_recorder, authentication, current_module, writings_controller.show);
+    app.get('writings-show', '/writings/:date', visit_recorder, authentication.admin_only, current_module, writings_controller.show);
     
-    app.put('writings-update', '/writings', visit_recorder, authentication, current_module, writings_controller.update);
+    app.put('writings-update', '/writings', visit_recorder, authentication.admin_only, current_module, writings_controller.update);
     
 };

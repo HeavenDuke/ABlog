@@ -90,5 +90,6 @@ module.exports = {
     edit: edit,
     update: update,
     destroy: destroy,
-    comments: require('./comments')
+    comments: require('./comments'),
+    likes: require('./likes')
 };

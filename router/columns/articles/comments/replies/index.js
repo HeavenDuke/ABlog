@@ -3,12 +3,12 @@
  */
 
 
-var repliesController = require('../../../../../controller').columns.articles.comments.replies;
+var replies_controller = require('../../../../../controller').columns.articles.comments.replies;
 var authentication = require('../../../../../middlewares/authentication');
 var visit_recorder = require('../../../../../middlewares/visit_recorder');
 
 module.exports = function(app) {
 
-    app.post('article-comment-reply-create', '/columns/:column_id/articles/:article_id/comments/:comment_id/replies', visit_recorder, repliesController.create);
+    app.post('article-comment-reply-create', '/columns/:column_id/articles/:article_id/comments/:comment_id/replies', visit_recorder, authentication.cross_auth, replies_controller.create);
 
 };

@@ -12,6 +12,6 @@ module.exports = function(app) {
 
     app.post('users-sessions-create', '/users/sessions', visit_recorder, sessions_controller.create);
 
-    app.del('users-sessions-destroy', '/users/sessions', visit_recorder, authentication, sessions_controller.destroy);
+    app.del('users-sessions-destroy', '/users/sessions', visit_recorder, authentication.admin_only, sessions_controller.destroy);
 
 };

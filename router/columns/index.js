@@ -2,8 +2,8 @@
  * Created by Obscurity on 2016/5/29.
  */
 
-var columnsController = require('../../controller').columns;
-var articleRouter = require('./articles');
+var columns_controller = require('../../controller').columns;
+var article_router = require('./articles');
 var authentication = require('../../middlewares/authentication');
 var visit_recorder = require('../../middlewares/visit_recorder');
 
@@ -14,20 +14,20 @@ module.exports = function(app) {
         yield next;
     };
 
-    app.get('columns-list', '/columns', visit_recorder, current_module, columnsController.index);
+    app.get('columns-list', '/columns', visit_recorder, current_module, columns_controller.index);
 
-    app.get('columns-new', '/columns/new', visit_recorder, current_module, authentication, columnsController.init);
+    app.get('columns-new', '/columns/new', visit_recorder, current_module, authentication.admin_only, columns_controller.init);
 
-    app.get('columns-detail', '/columns/:column_id', visit_recorder, current_module, columnsController.show);
+    app.get('columns-detail', '/columns/:column_id', visit_recorder, current_module, columns_controller.show);
 
-    app.get('columns-edit', '/columns/:column_id/edit', visit_recorder, current_module, authentication, columnsController.edit);
+    app.get('columns-edit', '/columns/:column_id/edit', visit_recorder, current_module, authentication.admin_only, columns_controller.edit);
 
-    app.post('columns-create', '/columns', visit_recorder, current_module, authentication, columnsController.create);
+    app.post('columns-create', '/columns', visit_recorder, current_module, authentication.admin_only, columns_controller.create);
 
-    app.put('columns-update', '/columns/:column_id', visit_recorder, current_module, authentication, columnsController.update);
+    app.put('columns-update', '/columns/:column_id', visit_recorder, current_module, authentication.admin_only, columns_controller.update);
 
-    app.del('columns-destroy', '/columns/:column_id', visit_recorder, current_module, authentication, columnsController.destroy);
+    app.del('columns-destroy', '/columns/:column_id', visit_recorder, current_module, authentication.admin_only, columns_controller.destroy);
 
-    articleRouter(app);
+    article_router(app);
 
 };

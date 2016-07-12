@@ -8,6 +8,6 @@ var visit_recorder = require('../../middlewares/visit_recorder');
 
 module.exports = function (app) {
 
-    app.get('notification-index', '/notifications', visit_recorder, authentication, notifications_controller.index);
+    app.get('notification-index', '/notifications', visit_recorder, authentication.cross_auth, notifications_controller.index);
 
 };

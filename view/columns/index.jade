@@ -23,11 +23,13 @@ block content
                         th 专栏目录
                     tr
                         td.selected-column
-                            a(href="/columns") 专栏概要
+                            a(href="/columns")
+                                strong 专栏概要
                     - for(var index in columns)
                         tr
                             td
-                                a(href="/columns/" + columns[index]._id)= columns[index].name
+                                a(href="/columns/" + columns[index]._id)
+                                    strong= columns[index].name
                     if current_user
                         tr
                             td.text-center

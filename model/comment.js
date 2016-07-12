@@ -26,6 +26,14 @@ Comment.Schema = {
         type: require('mongoose').Schema.ObjectId,
         ref: "Articles"
     },
+    user_id: {
+        type: require('mongoose').Schema.ObjectId,
+        ref: "Users"
+    },
+    guest_id: {
+        type: require('mongoose').Schema.ObjectId,
+        ref: "Guests"
+    },
     replies: [require('./reply').Schema]
 };
 

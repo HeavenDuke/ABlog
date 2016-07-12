@@ -1,13 +1,17 @@
 /**
- * Created by heavenduke on 16-5-6.
+ * Created by Obscurity on 2016/7/12.
  */
 
 var crypto = require('crypto');
 
-var User = {};
+var Guest = {};
 
-User.Schema = {
+Guest.Schema = {
     username: {
+        type: String,
+        required: true
+    },
+    email: {
         type: String,
         required: true
     },
@@ -17,11 +21,11 @@ User.Schema = {
     }
 };
 
-User.collection = {
+Guest.collection = {
     collection: 'Users'
 };
 
-User.encasePassword = function (plain) {
+Guest.encasePassword = function (plain) {
     var generateRandom = function (alphabet) {
         var index = Math.floor((Math.random() * alphabet.length));
         return alphabet.charAt(index);
@@ -39,11 +43,11 @@ User.encasePassword = function (plain) {
     return method + '$' + nonce_str + '$' + encrypted;
 };
 
-User.parsePassword = function () {
+Guest.parsePassword = function () {
     return this.password.split("$");
 };
 
-User.validatePassword = function (plain) {
+Guest.validatePassword = function (plain) {
     var passwordSet = this.parsePassword();
     var method = passwordSet[0];
     var nonce_str = passwordSet[1];
@@ -54,4 +58,4 @@ User.validatePassword = function (plain) {
     return correct_password == encrypted;
 };
 
-module.exports = User;
+module.exports = Guest;

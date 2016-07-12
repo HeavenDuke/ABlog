@@ -18,6 +18,14 @@ Reply.Schema = {
     is_checked: {
         type: Boolean,
         default: false
+    },
+    user_id: {
+        type: require('mongoose').Schema.ObjectId,
+        ref: "Users"
+    },
+    guest_id: {
+        type: require('mongoose').Schema.ObjectId,
+        ref: "Guests"
     }
 };
 

@@ -20,6 +20,8 @@ var VisitRecord = require('./visit_record');
 var Column = require('./column');
 var Article = require('./article');
 var Writing = require('./writing');
+var Guest = require('./guest');
+var Attitude = require('./attitude');
 
 mongoose.Promise = global.Promise;
 
@@ -32,6 +34,8 @@ var ProjectSchema = new Schema(Project.Schema, Project.collection);
 var ColumnSchema = new Schema(Column.Schema, Column.collection);
 var ArticleSchema = new Schema(Article.Schema, Article.collection);
 var WritingSchema = new Schema(Writing.Schema, Writing.collection);
+var GuestSchema = new Schema(Guest.Schema, Guest.collection);
+var AttitudeSchema = new Schema(Attitude.Schema, Attitude.collection);
 
 JournalSchema.methods.link = Journal.link;
 JournalSchema.methods.title_top = Journal.title_top;
@@ -46,6 +50,9 @@ DiarySchema.statics.mood_list = Diary.mood_list;
 DiarySchema.statics.tag_list = Diary.tag_list;
 DiarySchema.statics.get_thumb_image = Diary.get_thumb_image;
 VisitRecordSchema.statics.ignore_minute = VisitRecord.ignore_minute;
+GuestSchema.methods.encasePassword = Guest.encasePassword;
+GuestSchema.methods.parsePassword = Guest.parsePassword;
+GuestSchema.methods.validatePassword = Guest.validatePassword;
 
 database.models.journal = mongoose.model("journal", JournalSchema);
 database.models.user = mongoose.model("user", UserSchema);
@@ -56,6 +63,8 @@ database.models.project = mongoose.model('project', ProjectSchema);
 database.models.column = mongoose.model('column', ColumnSchema);
 database.models.article = mongoose.model('article', ArticleSchema);
 database.models.writing = mongoose.model('writing', WritingSchema);
+database.models.guest = mongoose.model('guest', GuestSchema);
+database.models.attitude = mongoose.model('attitude', AttitudeSchema);
 
 module.exports = {
     loader:　database

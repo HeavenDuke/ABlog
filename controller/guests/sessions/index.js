@@ -3,7 +3,13 @@
  */
 
 var init = function *(next) {
-    this.render('./guests/sessions/new', {"title": "用户登录", current_guest: this.session.guest, redirect_url_after_login: this.request.query.redirect_url}, true);
+    this.render('./guests/sessions/new', {
+        title: "用户登录",
+        error: this.flash.error,
+        info: this.flash.info,
+        current_guest: this.session.guest,
+        redirect_url_after_login: this.request.query.redirect_url
+    }, true);
 };
 
 var create = function *(next) {
@@ -20,7 +26,8 @@ var create = function *(next) {
     };
     var guest = yield Guest.findOne(guest_query);
     if(!guest || !guest.validatePassword(this.request.body.password)) {
-        this.redirect(this.app.url("guests-sessions-new"));
+        this.flash = { error: "用户不存在或密码错误，请重新输入"};
+        this.redirect(this.app.url("guests-sessions-init"));
     }
     else {
         writeGuestInfo(this.session, guest);

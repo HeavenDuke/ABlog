@@ -43,6 +43,10 @@ User.parsePassword = function () {
     return this.password.split("$");
 };
 
+User.validateConfirmPassword = function (password, confirm) {
+    return password == confirm;
+};
+
 User.validatePassword = function (plain) {
     var passwordSet = this.parsePassword();
     var method = passwordSet[0];

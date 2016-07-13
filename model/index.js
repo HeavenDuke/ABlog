@@ -42,6 +42,7 @@ JournalSchema.methods.title_top = Journal.title_top;
 UserSchema.methods.encasePassword = User.encasePassword;
 UserSchema.methods.parsePassword = User.parsePassword;
 UserSchema.methods.validatePassword = User.validatePassword;
+UserSchema.statics.validateConfirmPassword = User.validateConfirmPassword;
 DiarySchema.methods.mood_to_color = Diary.mood_to_color;
 DiarySchema.methods.translate_mood = Diary.translate_mood;
 DiarySchema.methods.tag_to_icon = Diary.tag_to_icon;

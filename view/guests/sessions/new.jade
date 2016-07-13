@@ -20,6 +20,7 @@ block content
                 .register-box.with-border
                     .register-box-body
                         p.login-box-msg 用户登录
+                        include ../../layout/flash.jade
                         form(role="form" action="/guests/sessions" method="POST")
                             input.hidden(name="redirect_url" value=redirect_url_after_login)
                             .form-group.has-feedback

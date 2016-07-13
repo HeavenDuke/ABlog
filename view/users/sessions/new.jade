@@ -19,6 +19,7 @@ block content
                 br
                 .text-center
                     h4 登录
+                include ../../layout/flash.jade
                 form(role="form" action="/users/sessions" method="POST")
                     input.hidden(name="redirect_url" value=redirect_url_after_login)
                     .form-group

@@ -7,7 +7,8 @@ var admin_only = function *(next) {
         yield next;
     }
     else {
-        this.redirect('/');
+        this.flash = { error: "请先登录"};
+        this.redirect(this.app.url("users-sessions-new"));
     }
 };
 
@@ -16,7 +17,8 @@ var guest_only = function *(next) {
         yield next;
     }
     else {
-        this.redirect('/');
+        this.flash = { error: "请先登录"};
+        this.redirect(this.app.url("guests-sessions-init"));
     }
 };
 
@@ -25,7 +27,8 @@ var cross_auth = function *(next) {
         yield next;
     }
     else {
-        this.redirect('/');
+        this.flash = { error: "请先登录"};
+        this.redirect(this.app.url("guests-sessions-init"));
     }
 };
 

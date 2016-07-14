@@ -18,6 +18,7 @@ var bodyParser = require('koa-bodyparser');
 var staticCache = require('koa-static-cache');
 var koaStatic = require('koa-static');
 var marked = require('marked');
+var astepback = require('astepback');
 //路由
 var router = require('koa-router');
 var validator = require('koa-validator');
@@ -40,12 +41,11 @@ Server.prototype.start = function () {
         format: 'YYYY-MM-DD-[{category}][.log]'
     });
 
-
-
     var port = this.opts.port || 3000;
 
     this.use(session(this));
     this.keys = ['heavenduke'];
+    this.use(astepback());
     this.use(flash());
 
     this.context.logger = logger;

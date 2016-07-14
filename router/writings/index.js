@@ -4,6 +4,7 @@
 
 var writings_controller = require('../../controller').writings;
 var authentication = require('../../middlewares/authentication');
+var set_redirection = require('../../middlewares/set_redirection');
 var visit_recorder = require('../../middlewares/visit_recorder');
 
 module.exports = function(app) {
@@ -13,7 +14,7 @@ module.exports = function(app) {
         yield next;
     };
     
-    app.get('writings-index', '/writings', visit_recorder, authentication.admin_only, current_module, writings_controller.index);
+    app.get('writings-index', '/writings', visit_recorder, set_redirection, authentication.admin_only, current_module, writings_controller.index);
 
     app.get('writings-show', '/writings/:date', visit_recorder, authentication.admin_only, current_module, writings_controller.show);
     

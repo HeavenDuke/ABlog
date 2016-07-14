@@ -30,7 +30,8 @@ var create = function *(next) {
             guest.password = guest.encasePassword(this.request.body.password);
             guest.save();
             writeGuestInfo(this.session, guest);
-            this.redirect('/');
+            this.flash = { info: "注册成功"};
+            this.redirect(this.asb);
         }
         else if (!Guest.validateConfirmPassword(this.request.body.password, this.request.body.confirm_password)) {
             this.flash = { error: "两次输入密码不一致，请重新输入"};

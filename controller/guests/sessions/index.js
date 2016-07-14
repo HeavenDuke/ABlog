@@ -31,7 +31,7 @@ var create = function *(next) {
     }
     else {
         writeGuestInfo(this.session, guest);
-        this.redirect(this.request.body.redirect_url ? this.request.body.redirect_url : '/');
+        this.redirect(this.asb);
     }
 };
 
@@ -40,7 +40,7 @@ var destroy = function *(next) {
         delete session.guest;
     };
     eraseUserInfo(this.session);
-    this.redirect(this.request.query.redirect_url ? this.request.query.redirect_url : '/');
+    this.redirect(this.asb);
 };
 
 module.exports = {

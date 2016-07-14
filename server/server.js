@@ -46,7 +46,7 @@ Server.prototype.start = function () {
     this.use(session(this));
     this.keys = ['heavenduke'];
     this.use(astepback());
-    this.use(flash());
+    this.use(flash({}));
 
     this.context.logger = logger;
 

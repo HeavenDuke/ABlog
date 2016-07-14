@@ -7,6 +7,7 @@ var authentication = require('../../middlewares/authentication');
 var path = require('path');
 var config = require('../../config/config')();
 var visit_recorder = require('../../middlewares/visit_recorder');
+var set_redirection = require('../../middlewares/set_redirection');
 
 module.exports = function(app) {
 
@@ -15,7 +16,7 @@ module.exports = function(app) {
         yield next;
     };
 
-    app.get('diaries-list', '/diaries', visit_recorder, current_module, diaries_controller.index);
+    app.get('diaries-list', '/diaries', visit_recorder, set_redirection, current_module, diaries_controller.index);
 
     app.post('diaries-create', '/diaries', visit_recorder, current_module, authentication.admin_only, diaries_controller.create);
 

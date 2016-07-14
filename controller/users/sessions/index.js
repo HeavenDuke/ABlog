@@ -32,7 +32,7 @@ var create = function *(next) {
     else {
         writeUserInfo(this.session, user);
         this.flash = { info: "登录成功" };
-        this.redirect(this.request.body.redirect_url ? this.request.body.redirect_url : '/');
+        this.redirect(this.asb);
     }
 };
 
@@ -41,7 +41,7 @@ var destroy = function *(next) {
         delete session.user;
     };
     eraseUserInfo(this.session);
-    this.redirect(this.request.query.redirect_url ? this.request.query.redirect_url : '/');
+    this.redirect(this.asb);
 };
 
 module.exports = {

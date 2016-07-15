@@ -8,7 +8,7 @@
         var heads = $("img.guest_comment");
         for(var i = 0; i < heads.length; i++) {
             var head = $(heads[i]);
-            var data = new Identicon(head.attr('hash')).toString();
+            var data = new Identicon(md5(head.attr('hash'))).toString();
             head.attr("src", "data:image/png;base64," + data);
             head.removeAttr('hash');
         }

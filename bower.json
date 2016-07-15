@@ -26,6 +26,7 @@
     "lightgallery": "^1.2.19",
     "blueimp-file-upload": "jQuery-File-Upload#^9.12.5",
     "fullcalendar": "^2.8.0",
-    "identicon.js": "identicon#*"
+    "identicon.js": "identicon#*",
+    "js-md5": "md5#^0.4.1"
   }
 }

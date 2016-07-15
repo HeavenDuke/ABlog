@@ -55,6 +55,7 @@ var show = function *(next) {
     var json_guests = {};
     guests.forEach(function (guest) {
         json_guests[guest._id] = {
+            _id: guest._id,
             username: guest.username
         };
     });

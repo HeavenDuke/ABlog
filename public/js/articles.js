@@ -4,6 +4,16 @@
 
 (function() {
 
+    var prepare_article_comment_heads = function () {
+        var heads = $("img.guest_comment");
+        for(var i = 0; i < heads.length; i++) {
+            var head = $(heads[i]);
+            var data = new Identicon(head.attr('hash')).toString();
+            head.attr("src", "data:image/png;base64," + data);
+            head.removeAttr('hash');
+        }
+    };
+
     var prepare_article_detail = function () {
         var article_content_container = $("#article-content");
         article_content_container.html(article_content_container.text());
@@ -49,6 +59,8 @@
             var comment_id = entry_id.substring(0, entry_id.indexOf("_reply_entry"));
             $("#" + comment_id + "_reply_container").slideToggle();
         });
+
+        prepare_article_comment_heads();
     };
 
     var prepare_article_previewer = function () {

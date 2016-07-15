@@ -31,11 +31,11 @@
                             //            ul.menu#notification_container
                             li.dropdown.user-menu
                                 a.dropdown-toggle(href="#" data-toggle="dropdown" area-expanded="false")
-                                    img.user-image(src="/head.png")
+                                    img.user-image.current_guest_head(hash=current_guest._id)
                                     span.hidden-xs= current_guest.username
                                 ul.dropdown-menu
                                     li.user-header
-                                        img.img-circle(src="/head.png")
+                                        img.img-circle.current_guest_head(hash=current_guest._id)
                                         p= current_guest.username
                                             small 欢迎来到HeavenDuke的博客
                                     li.user-footer

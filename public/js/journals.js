@@ -4,13 +4,7 @@
 
 (function() {
 
-    var prepare_journal_detail = function () {
-        var journal_content_container = $("#journal-content");
-        journal_content_container.html(journal_content_container.text());
-        $('pre code').each(function() {
-            hljs.highlightBlock(this);
-        });
-
+    var prepare_journal_comments = function () {
         var owos = $("div[class$='OwO']");
         for(var i = 0; i < owos.length; i++) {
             var comment_id = $(owos[i]).attr("comment_id");
@@ -38,7 +32,9 @@
                 });
             }
         }
+    };
 
+    var prepare_journal_comment_replies = function () {
         $("a[id$='_reply_entry']").on('click', function () {
             var entry_id = $(this).attr('id');
             var toggle_hash = {
@@ -49,6 +45,27 @@
             var comment_id = entry_id.substring(0, entry_id.indexOf("_reply_entry"));
             $("#" + comment_id + "_reply_container").slideToggle();
         });
+    };
+
+    var prepare_journal_comment_heads = function () {
+        var heads = $("img.guest_comment");
+        for(var i = 0; i < heads.length; i++) {
+            var head = $(heads[i]);
+            var data = new Identicon(head.attr('hash')).toString();
+            head.attr("src", "data:image/png;base64," + data);
+            head.removeAttr('hash');
+        }
+    };
+
+    var prepare_journal_detail = function () {
+        var journal_content_container = $("#journal-content");
+        journal_content_container.html(journal_content_container.text());
+        $('pre code').each(function() {
+            hljs.highlightBlock(this);
+        });
+        prepare_journal_comments();
+        prepare_journal_comment_replies();
+        prepare_journal_comment_heads();
     };
 
     var prepare_journal_previewer = function () {

@@ -27,6 +27,16 @@
         return result;
     };
 
+    var prepare_current_guest_head = function () {
+        var heads = $('img.current_guest_head');
+        for(var i = 0; i < heads.length; i++) {
+            var head = $(heads[i]);
+            var data = new Identicon(head.attr('hash')).toString();
+            head.attr("src", "data:image/png;base64," + data);
+            head.removeAttr('hash');
+        }
+    };
+
     var prepare_notification_listener = function () {
         $.get('/notifications', function (data, status) {
             var count = data.articles.length + data.journals.length;
@@ -56,5 +66,6 @@
         });
 
         prepare_notification_listener();
+        prepare_current_guest_head();
     });
 }());

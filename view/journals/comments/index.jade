@@ -8,7 +8,7 @@
             if comments[index].user
                 img.img-circle.img-sm(src="/favicon.ico")
             else if comments[index].guest
-                img.img-circle.img-sm(src="/head.png")
+                img.img-circle.img-sm.guest_comment(hash=comments[index].guest._id)
             else
                 img.img-circle.img-sm(src="/head.png")
             if current_user != null
@@ -34,7 +34,7 @@
                             if replies[index_r].user
                                 img.img-circle.img-sm(src="/favicon.ico")
                             else if replies[index_r].guest
-                                img.img-circle.img-sm(src="/head.png")
+                                img.img-circle.img-sm.guest_comment(hash=replies[index_r].guest._id)
                             else
                                 img.img-circle.img-sm(src="/head.png")
                             .comment-text

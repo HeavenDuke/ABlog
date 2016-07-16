@@ -8,6 +8,7 @@ block specified_ref
     link(rel="stylesheet" type="text/css" href="/index.css")
     link(rel="stylesheet" type="text/css" href="/AdminLTE/css/skins/_all-skins.css")
     link(rel="stylesheet" type="text/css" href="/AdminLTE/css/AdminLTE.min.css")
+    script(type="text/javascript" src="/ajaxfileupload/jquery.ajaxfileupload.min.js")
 
 block content
     .container
@@ -17,11 +18,18 @@ block content
                 br
                 br
                 br
-                .register-box.with-border
-                    .register-box-body
-                        p.login-box-msg 修改个人信息
-                        include ../layout/flash.jade
-                        form(role="form" action="/guests" method="POST")
+                .box.box-primary
+                    form(action="/guests" method="POST")
+                        .box-body.box-profile
+                            p.login-box-msg 修改个人信息
+                            include ../layout/flash.jade
+                            if current_guest.head
+                                img#head_input_trigger.profile-user-img.img-responsive.clickable(src="/" + current_guest.head)
+                            else
+                                img#head_input_trigger.profile-user-img.img-responsive.current_guest_head.clickable(hash=current_guest._id)
+                            h3.profile-username.text-center 修改头像
+                            input#head_input.hidden(name="head" type="file")
+                            input#head_input_path.hidden(name="head_path" type="text")
                             input.hidden(name="_method" value="PUT")
                             .form-group.has-feedback
                                 input.form-control(type="email" name="email" placeHolder="邮箱" value=current_guest.email required)
@@ -41,4 +49,5 @@ block content
                             .row
                                 .col-lg-4.col-md-4.col-sm-4
                                 .col-lg-4.col-md-4.col-sm-4
-                                    button.btn.btn-primary.btn-block.btn-flat(type="submit") 修改
+                                    button.btn.btn-primary.btn-block.btn-flat(type="submit") 提交
+    include ./reference.jade

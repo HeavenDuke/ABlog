@@ -56,7 +56,8 @@ var show = function *(next) {
     guests.forEach(function (guest) {
         json_guests[guest._id] = {
             _id: guest._id,
-            username: guest.username
+            username: guest.username,
+            head: guest.head
         };
     });
     if (user_id) {

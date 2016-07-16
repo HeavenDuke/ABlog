@@ -2,6 +2,15 @@
  * Created by heavenduke on 16-7-12.
  */
 
+var writeGuestInfo = function (session, guest) {
+    session.guest = {
+        _id: guest._id,
+        username: guest.username,
+        email: guest.email,
+        head: guest.head
+    };
+};
+
 var init = function *(next) {
     this.render('./guests/sessions/new', {
         title: "用户登录",
@@ -13,13 +22,6 @@ var init = function *(next) {
 };
 
 var create = function *(next) {
-    var writeGuestInfo = function (session, guest) {
-        session.guest = {
-            _id: guest._id,
-            username: guest.username,
-            email: guest.email
-        };
-    };
     var Guest = global.database.models.guest;
     var guest_query = {
         email: this.request.body.email

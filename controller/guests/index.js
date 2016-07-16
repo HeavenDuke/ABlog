@@ -2,6 +2,18 @@
  * Created by Obscurity on 2016/6/19.
  */
 
+var path = require('path');
+var fs = Promise.promisifyAll(require("fs"));
+
+var writeGuestInfo = function (session, guest) {
+    session.guest = {
+        _id: guest._id,
+        username: guest.username,
+        email: guest.email,
+        head: guest.head
+    };
+};
+
 var init = function *(next) {
     this.render('./guests/new', {
         title: "用户注册",
@@ -13,13 +25,6 @@ var init = function *(next) {
 };
 
 var create = function *(next) {
-    var writeGuestInfo = function (session, guest) {
-        session.guest = {
-            _id: guest._id,
-            username: guest.username,
-            email: guest.email
-        };
-    };
     var Guest = global.database.models.guest;
     var guest = yield Guest.findOne({email: this.request.body.email});
     if (!guest) {
@@ -58,13 +63,6 @@ var edit = function *(next) {
 };
 
 var update = function *(next) {
-    var writeGuestInfo = function (session, guest) {
-        session.guest = {
-            _id: guest._id,
-            username: guest.username,
-            email: guest.email
-        };
-    };
     var Guest = global.database.models.guest;
     var guest = yield Guest.findById(this.session.guest._id);
     var passwordSet = {
@@ -79,6 +77,12 @@ var update = function *(next) {
     }
     if (this.request.body.username) {
         guest.username = this.request.body.username;
+    }
+    if (this.request.body.head_path) {
+        if (guest.head) {
+            yield fs.unlinkAsync(path.join(global.conf.staticDir,  "uploads", guest.head));
+        }
+        guest.head = this.request.body.head_path;
     }
     if (passwordSet.previous || passwordSet.new || passwordSet.confirm) {
         if (guest.validatePassword(passwordSet.previous) && Guest.validateConfirmPassword(passwordSet.new, passwordSet.confirm)) {
@@ -109,5 +113,6 @@ module.exports = {
     update: update,
     sessions: require('./sessions'),
     passwords: require('./passwords'),
-    sms: require('./sms')
+    sms: require('./sms'),
+    heads: require('./heads')
 };

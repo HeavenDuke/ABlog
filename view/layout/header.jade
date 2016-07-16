@@ -31,11 +31,17 @@
                             //            ul.menu#notification_container
                             li.dropdown.user-menu
                                 a.dropdown-toggle(href="#" data-toggle="dropdown" area-expanded="false")
-                                    img.user-image.current_guest_head(hash=current_guest._id)
+                                    if current_guest.head
+                                        img.user-image(src="/" + current_guest.head)
+                                    else
+                                        img.user-image.current_guest_head(hash=current_guest._id)
                                     span.hidden-xs= current_guest.username
                                 ul.dropdown-menu
                                     li.user-header
-                                        img.img-circle.current_guest_head(hash=current_guest._id)
+                                        if current_guest.head
+                                            img.img-circle(src="/" + current_guest.head)
+                                        else
+                                            img.img-circle.current_guest_head(hash=current_guest._id)
                                         p= current_guest.username
                                             small 欢迎来到HeavenDuke的博客
                                     li.user-footer

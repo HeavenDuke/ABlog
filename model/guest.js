@@ -18,6 +18,10 @@ Guest.Schema = {
     password: {
         type: String,
         required: true
+    },
+    head: {
+        type: String,
+        required: false
     }
 };
 

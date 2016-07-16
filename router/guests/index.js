@@ -10,6 +10,9 @@ var visit_recorder = require('../../middlewares/visit_recorder');
 var password_router = require('./passwords');
 var session_router = require('./sessions');
 var sms_router = require('./sms');
+var head_router = require('./heads');
+var path = require('path');
+var config = require('../../config/config')();
 
 module.exports = function (app) {
 
@@ -24,5 +27,6 @@ module.exports = function (app) {
     password_router(app);
     session_router(app);
     sms_router(app);
+    head_router(app);
 
 };

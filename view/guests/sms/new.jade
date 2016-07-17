@@ -1,3 +1,37 @@
 //
    Created by heavenduke on 16-7-12.
 
+extends ../../layout/layout
+
+block specified_ref
+    link(rel="stylesheet" type="text/css" href="/theme.css")
+    link(rel="stylesheet" type="text/css" href="/index.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/skins/_all-skins.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/AdminLTE.min.css")
+
+block content
+    .container
+        .row
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4
+                br
+                br
+                br
+                .register-box.with-border
+                    .register-box-body
+                        p.login-box-msg 发送验证码
+                        include ../../layout/flash.jade
+                        form(role="form" action="/guests/sms" method="post")
+                            input.hidden(name="_method" value="put")
+                            .form-group.input-group.input-group-sm
+                                input.form-control#email(name="email" placeHolder="请输入电子邮箱" required)
+                                span.input-group-btn
+                                    a.btn.btn-info.btn-flat#otp_sender(href="#") 发送验证码
+                            .form-group.has-feedback
+                                input.form-control(type="text" name="otp_code" placeHolder="请输入六位验证码" required)
+                                span.form-control-feedback.fa.fa-envelope
+                            .row
+                                .col-lg-4.col-md-4.col-sm-4
+                                .col-lg-4.col-md-4.col-sm-4
+                                    button.btn.btn-primary.btn-block.btn-flat(type="submit") 提交
+    include ../reference

@@ -80,7 +80,9 @@ var update = function *(next) {
     }
     if (this.request.body.head_path) {
         if (guest.head) {
-            yield fs.unlinkAsync(path.join(global.conf.staticDir,  "uploads", guest.head));
+            if (fs.existsSync(path.join(global.conf.staticDir,  "uploads", guest.head))) {
+                yield fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", guest.head));
+            }
         }
         guest.head = this.request.body.head_path;
     }

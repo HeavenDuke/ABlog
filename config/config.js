@@ -20,6 +20,16 @@ module.exports = function(root) {
 
         "mongodb": 'mongodb://localhost:27017/ablog',
 
+        "smtp": {
+            "host": 'smtp.163.com',
+            "port": 465,
+            "secure": true, // use SSL
+            "auth": {
+                "user": 'trashlhc@163.com',
+                "pass": '940815cc'
+            }
+        },
+
         "pagination": {
             "journal": 6
         },

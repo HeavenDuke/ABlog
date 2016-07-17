@@ -16,8 +16,7 @@ var init = function *(next) {
         title: "用户登录",
         error: this.flash.error,
         info: this.flash.info,
-        current_guest: this.session.guest,
-        redirect_url_after_login: this.request.query.redirect_url
+        current_guest: this.session.guest
     }, true);
 };
 

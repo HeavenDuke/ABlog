@@ -10,7 +10,9 @@ module.exports = function (app) {
 
     app.get('guest-sms-init', '/guests/sms/new', visit_recorder, smss_controller.init);
 
-    app.post('guest-sms-create', '/guests/sms/create', visit_recorder, smss_controller.create);
+    app.post('guest-sms-create', '/guests/sms', visit_recorder, smss_controller.create);
+
+    app.put('guest-sms-validate', '/guests/sms', visit_recorder, smss_controller.update);
 
 
 };

@@ -22,6 +22,10 @@ Guest.Schema = {
     head: {
         type: String,
         required: false
+    },
+    confirmation_token: {
+        type: String,
+        required: false
     }
 };
 

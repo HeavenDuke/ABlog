@@ -1,3 +1,35 @@
 //
    Created by heavenduke on 16-7-12.
 
+extends ../../layout/layout
+
+block specified_ref
+    link(rel="stylesheet" type="text/css" href="/theme.css")
+    link(rel="stylesheet" type="text/css" href="/index.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/skins/_all-skins.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/AdminLTE.min.css")
+
+block content
+    .container
+        .row
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4
+            .col-lg-4.col-md-4.col-sm-4.col-xs-4
+                br
+                br
+                br
+                .box.box-primary
+                    form(action="/guests/passwords" method="POST")
+                        .box-body.box-profile
+                            p.login-box-msg 重置密码
+                            include ../../layout/flash.jade
+                            input.hidden(name="confirmation_token" value=confirmation_token)
+                            .form-group.has-feedback
+                                input.form-control(type="password" name="password" placeHolder="新密码")
+                                span.form-control-feedback.fa.fa-lock
+                            .form-group.has-feedback
+                                input.form-control(type="password" name="confirm_password" placeHolder="再次输入密码")
+                                span.form-control-feedback.fa.fa-lock
+                            .row
+                                .col-lg-4.col-md-4.col-sm-4
+                                .col-lg-4.col-md-4.col-sm-4
+                                    button.btn.btn-primary.btn-block.btn-flat(type="submit") 提交

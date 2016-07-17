@@ -41,9 +41,19 @@ var auth_none = function *(next) {
     }
 };
 
+var auth_confirmation_token = function *(next) {
+    if (this.session.confirmation_token) {
+        yield next;
+    }
+    else {
+        this.redirect('/');
+    }
+};
+
 module.exports = {
     admin_only: admin_only,
     guest_only: guest_only,
     cross_auth: cross_auth,
-    auth_none: auth_none
+    auth_none: auth_none,
+    auth_confirmation_token: auth_confirmation_token
 };

@@ -3,7 +3,14 @@
  */
 
 var index = function *(next) {
-
+    this.render('./galleries/index', {
+        title: "相册列表",
+        current_guest: this.session.guest,
+        current_user: this.session.user,
+        galleries: [],
+        current_module: this.current_module,
+        redirect_url: this.request.url
+    });
 };
 
 var show = function *(next) {

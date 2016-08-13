@@ -22,6 +22,8 @@ var Article = require('./article');
 var Writing = require('./writing');
 var Guest = require('./guest');
 var Attitude = require('./attitude');
+var Gallery = require('./gallery');
+var Photo = require('./photo');
 
 mongoose.Promise = global.Promise;
 
@@ -36,6 +38,8 @@ var ArticleSchema = new Schema(Article.Schema, Article.collection);
 var WritingSchema = new Schema(Writing.Schema, Writing.collection);
 var GuestSchema = new Schema(Guest.Schema, Guest.collection);
 var AttitudeSchema = new Schema(Attitude.Schema, Attitude.collection);
+var GallerySchema = new Schema(Gallery.Schema, Gallery.collection);
+var PhotoSchema = new Schema(Photo.Schema, Photo.collection);
 
 JournalSchema.methods.link = Journal.link;
 JournalSchema.methods.title_top = Journal.title_top;
@@ -67,6 +71,8 @@ database.models.article = mongoose.model('article', ArticleSchema);
 database.models.writing = mongoose.model('writing', WritingSchema);
 database.models.guest = mongoose.model('guest', GuestSchema);
 database.models.attitude = mongoose.model('attitude', AttitudeSchema);
+database.models.gallery = mongoose.model('gallery', GallerySchema);
+database.models.photo = mongoose.model('photo', PhotoSchema);
 
 module.exports = {
     loader:　database

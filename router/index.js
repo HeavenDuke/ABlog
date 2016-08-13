@@ -11,6 +11,7 @@ var writing_router = require('./writings');
 var image_router = require('./images');
 var notification_router = require('./notifications');
 var guest_router = require('./guests');
+var gallery_router = require('./galleries');
 
 var visit_recorder = require('../middlewares/visit_recorder');
 
@@ -30,5 +31,6 @@ module.exports = function(app){
     image_router(app);
     writing_router(app);
     notification_router(app);
+    gallery_router(app);
     
 };

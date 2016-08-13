@@ -23,6 +23,10 @@ Photo.Schema = {
         required: true,
         default: Date.now
     },
+    path: {
+        type: String,
+        required: true
+    },
     gallery_id: {
         type: require('mongoose').Schema.ObjectId,
         required: true

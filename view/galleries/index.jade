@@ -13,4 +13,23 @@ block specified_ref
 
 block content
     .container
-        h1 相册列表页面
+        .row.gallery
+            h4.pull-left 相册列表
+        .divider
+        .row
+            if galleries.length == 0
+                if !current_user
+                    h1.text-center 主人很懒
+                    h1.text-center 还没有创建任何相册_(:з」∠)_
+            - for index in galleries
+                .col-lg-2.col-md-2.col-sm-4.text-center
+                    a(href="/galleries/" + galleries[index]._id)
+                        img.img-circle.img-responsive(src=photos[galleries[index].face_id])
+                        h4= galleries[index].name
+            if current_user
+                .col-lg-2.col-md-2.col-sm-4.text-center
+                    a(href="#")
+                        img.img-circle.img-responsice(src="/head.png")
+                        h4 新建相册
+    include ./new
+    include ./edit

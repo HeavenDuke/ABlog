@@ -22,6 +22,10 @@ Gallery.Schema = {
         type: Date,
         required: true,
         default: Date.now
+    },
+    face_id: {
+        type: require('mongoose').Schema.ObjectId,
+        required: false
     }
 };
 

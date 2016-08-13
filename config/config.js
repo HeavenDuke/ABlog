@@ -21,12 +21,12 @@ module.exports = function(root) {
         "mongodb": 'mongodb://localhost:27017/ablog',
 
         "smtp": {
-            "host": 'smtp.163.com',
-            "port": 465,
-            "secure": true, // use SSL
+            "host": 'heavenduke.com',
+            "port": 25,
+            "secure": false, // use SSL
             "auth": {
-                "user": 'trashlhc@163.com',
-                "pass": '940815cc'
+                "user": 'heavenduke',
+                "pass": '940815cc.,'
             }
         },
 

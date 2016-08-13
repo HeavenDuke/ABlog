@@ -28,7 +28,7 @@ var create = function *(next) {
     var otp_code = generate_otp_code(6);
     var email = this.request.query.email;
     var mailOptions = {
-        from: '"HeavenDuke" <trashlhc@163.com>',
+        from: '"heavenduke" <heavenduke@heavenduke.com>',
         to: email,
         subject: '重置密码',
         html: '<p>重置密码所需要的6位验证码为：<strong>' + otp_code + '</strong></p>' // html body

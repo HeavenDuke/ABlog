@@ -151,16 +151,16 @@ Server.prototype.initGlobalVariables = function() {
 
 Server.prototype.launchTasks = function () {
     var schedule = require('node-schedule');
-    schedule.scheduleJob('0 * * * *', function () {
-        require('../jobs').RSSUpdateJob(function (err) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                console.log("rss updated");
-            }
-        });
-    });
+    // schedule.scheduleJob('0 * * * *', function () {
+    //     require('../jobs').RSSUpdateJob(function (err) {
+    //         if (err) {
+    //             console.log(err);
+    //         }
+    //         else {
+    //             console.log("rss updated");
+    //         }
+    //     });
+    // });
     schedule.scheduleJob('0 * * * *', function () {
         require('../jobs').RemoveRedundantImageJob(function (err) {
             if (err) {
@@ -168,6 +168,17 @@ Server.prototype.launchTasks = function () {
             }
             else {
                 console.log("redundant images removed");
+            }
+        });
+    });
+
+    schedule.scheduleJob('0 * * * *', function () {
+        require('../jobs').BackupDatabaseJob(function (err) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("database backup uploaded");
             }
         });
     });

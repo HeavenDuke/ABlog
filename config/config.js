@@ -20,6 +20,12 @@ module.exports = function(root) {
 
         "mongodb": 'mongodb://localhost:27017/ablog',
 
+        "qiniu": {
+            "access_key": "YHexqPaoOloZzPViE-Xi3_qOuULiCBA-eycounJn",
+            "secret_key": "Tegzlvkop-7xLT3C9_2JWeXDPZZ3tP3QyOAoZfbO",
+            "backup_bucket": "dbbackuphd"
+        },
+
         "smtp": {
             "host": 'heavenduke.com',
             "port": 25,

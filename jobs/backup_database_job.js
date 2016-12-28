@@ -101,14 +101,3 @@ module.exports = function (callback) {
         }
     });
 };
-
-module.exports(function (err, reply) {
-    if (err) {
-        console.log(err);
-    }
-    else {
-        console.log(reply);
-        console.log(finished);
-    }
-});
-

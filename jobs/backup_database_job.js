@@ -40,11 +40,10 @@ const make_zips = function (callback) {
         type: "dir"
     }];
     let output = fs.createWriteStream(backup_path);
-    let archive = archiver("zip");
+    let archive = archiver("zip", {store: true});
 
     archive.on("end", function () {
-        console.log(archive.pointer() + ' total bytes');
-        console.log('archiver has been finalized and the output file descriptor has closed.');
+        console.log("finish compression");
         return callback(null);
     });
 
@@ -73,8 +72,9 @@ module.exports = function (callback) {
         secret_key: config.qiniu.secret_key
     });
 
+    qiniu.set("uploadUrl", "up.qiniu.com");
+
     let bucket = qiniu.bucket(config.qiniu.backup_bucket);
-    console.log(bucket);
 
     const uploaded_name = new Date().format('yyyyMMddhhmmss') + '-backup.zip';
 
@@ -89,6 +89,7 @@ module.exports = function (callback) {
                 }
                 else {
                     bucket.putFile(uploaded_name, backup_path, function (err, reply) {
+                        console.log(reply);
                         if (err) {
                             callback(err);
                         }

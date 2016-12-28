@@ -46,8 +46,8 @@ block content
                                                     .hidden(id=diaries[index]._id + "_mood" mood=diaries[index].mood)
                                                     .hidden(id=diaries[index]._id + "_publicity" publicity=diaries[index].is_public.toString())
                                                     .hidden(id=diaries[index]._id + "_images" images=JSON.stringify(diaries[index].images))
-                                                        - for(var img_index in diaries[index].images)
-                                                            .hidden(thumb=Diary.get_thumb_image("/" + diaries[index].images[img_index]))
+                                                        - for(var i = 0; i < diaries[index].images.length; i++)
+                                                            .hidden(thumb=Diary.get_thumb_image("/" + diaries[index].images[i]))
                                                     if !diaries[index].is_public
                                                         i.fa.fa-clock-o= "　私密日记"
                                                 h3.timeline-header(id=diaries[index]._id + "_brief")= diaries[index].brief
@@ -55,9 +55,9 @@ block content
                                                 if diaries[index].images.length != 0
                                                     .timeline-body
                                                         div(id=diaries[index]._id + "_gallery")
-                                                            - for(var img_index in diaries[index].images)
-                                                                a(href="/" + diaries[index].images[img_index])
-                                                                    img.margin.image_thumb(thumb_url=Diary.get_thumb_image("/" + diaries[index].images[img_index]))
+                                                            - for(var i = 0; i < diaries[index].images.length; i++)
+                                                                a(href="/" + diaries[index].images[i])
+                                                                    img.margin.image_thumb(thumb_url=Diary.get_thumb_image("/" + diaries[index].images[i]))
                                                 .timeline-footer
                                                     if current_user
                                                         a.btn.btn-xs.btn-warning(diary_id=diaries[index]._id data-toggle="modal" data-target="#edit_diary_modal") 编辑

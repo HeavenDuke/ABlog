@@ -1,7 +1,7 @@
-var path = require('path');
-var Server = require(path.join(__dirname, 'server', 'server.js'));
-var config = require('./config/config')(__dirname);
-var server = new Server(config);
+let path = require('path');
+let Server = require(path.join(__dirname, 'server', 'server.js'));
+let config = require('./config/config')(__dirname);
+let server = new Server(config);
 server.start();
 
 server.initGlobalVariables();

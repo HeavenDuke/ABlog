@@ -130,7 +130,7 @@ Diary.translate_tag = function () {
 }
 
 Diary.tag_to_icon = function () {
-    var hash_table = {
+    let hash_table = {
         "everything": "fa-user",
         "read": "fa-book",
         "movie": "fa-film",
@@ -149,7 +149,7 @@ Diary.tag_to_icon = function () {
 };
 
 Diary.get_thumb_image = function (image_path) {
-    var dotIndex = image_path.lastIndexOf(".");
+    let dotIndex = image_path.lastIndexOf(".");
     return image_path.substring(0, dotIndex) + "_thumb." + image_path.substring(dotIndex + 1);
 };
 

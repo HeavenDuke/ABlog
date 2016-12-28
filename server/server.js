@@ -150,7 +150,7 @@ Server.prototype.initGlobalVariables = function() {
 };
 
 Server.prototype.launchTasks = function () {
-    var schedule = require('node-schedule');
+    let schedule = require('node-schedule');
     // schedule.scheduleJob('0 * * * *', function () {
     //     require('../jobs').RSSUpdateJob(function (err) {
     //         if (err) {
@@ -173,7 +173,7 @@ Server.prototype.launchTasks = function () {
     });
 
     schedule.scheduleJob('0 * * * *', function () {
-        require('../jobs').BackupDatabaseJob(function (err) {
+        require('../jobs').BackupDatabaseJob(function (err, reply) {
             if (err) {
                 console.log(err);
             }

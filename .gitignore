@@ -1,5 +1,4 @@
 # Logs
-logs
 *.log
 npm-debug.log*
 
@@ -28,6 +27,10 @@ node_modules
 
 # Optional npm cache directory
 .npm
+
+# Backup files
+backups/backup.zip
+database/*.json
 
 # Optional REPL history
 .node_repl_history

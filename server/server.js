@@ -178,7 +178,7 @@ Server.prototype.launchTasks = function () {
         });
     });
 
-    schedule.scheduleJob('* */1 * * *', function () {
+    schedule.scheduleJob('0 0 * * *', function () {
         require('../jobs').BackupDatabaseJob(function (err, reply) {
             if (err) {
                 console.log(err);

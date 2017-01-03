@@ -4,11 +4,12 @@
 let qiniu = require('node-qiniu');
 let config = require('../config/config')();
 let exec = require('child_process').exec;
+let path = require('path');
 require("../libs/date")();
 let archiver = require('archiver');
 let fs = require('fs');
-const backup_path = "../backups/backup.zip";
-const database_path = "../database";
+const backup_path = path.join(config.baseDir, "backups/backup.zip");
+const database_path = path.join(config.baseDir, "database");
 
 const make_backup = function (callback) {
     let database = "ablog";
@@ -33,10 +34,10 @@ const make_backup = function (callback) {
 
 const make_zips = function (callback) {
     let compressed_paths = [{
-        path: "../public/uploads",
+        path: path.join(config.baseDir, "public/uploads"),
         type: "dir"
     }, {
-        path: "../database",
+        path: path.join(config.baseDir, "database"),
         type: "dir"
     }];
     let output = fs.createWriteStream(backup_path);

@@ -6,6 +6,8 @@ var _ = require('underscore');
 module.exports = function(root) {
     var config = {
         "title":"",
+
+        "baseDir": path.join(__dirname, '..'),
         //默认生产环境
         "env":"production",
         "appName": "Backend",

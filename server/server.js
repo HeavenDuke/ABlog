@@ -161,7 +161,7 @@ Server.prototype.launchTasks = function () {
     //         }
     //     });
     // });
-    schedule.scheduleJob('0 * * * *', function () {
+    schedule.scheduleJob('* * * * *', function () {
         require('../jobs').RemoveRedundantImageJob(function (err) {
             if (err) {
                 console.log(err);
@@ -172,7 +172,7 @@ Server.prototype.launchTasks = function () {
         });
     });
 
-    schedule.scheduleJob('0 * * * *', function () {
+    schedule.scheduleJob('* */1 * * *', function () {
         require('../jobs').BackupDatabaseJob(function (err, reply) {
             if (err) {
                 console.log(err);

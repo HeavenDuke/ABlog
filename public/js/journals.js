@@ -59,7 +59,12 @@
 
     var prepare_journal_detail = function () {
         var journal_content_container = $("#journal-content");
-        journal_content_container.html(journal_content_container.text());
+        var journal_raw_content = marked(journal_content_container.text());
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, journal_raw_content]);
+        journal_content_container.html(journal_raw_content);
         $('pre code').each(function() {
             hljs.highlightBlock(this);
         });
@@ -91,6 +96,9 @@
             myCodeMirror.save();
             var journal_raw_content = marked(rawEditor.val());
             journal_previewer_content.html(journal_raw_content);
+            MathJax.Hub.Config({
+                tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+            });
             MathJax.Hub.Queue(["Typeset", MathJax.Hub, journal_raw_content]);
             journal_previewer_content.children('pre').each(function() {
                 hljs.highlightBlock(this);

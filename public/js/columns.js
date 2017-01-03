@@ -7,7 +7,12 @@
 
     var prepare_column_detail = function () {
         var column_introduction_container = $("#column-introduction");
-        column_introduction_container.html(column_introduction_container.text());
+        var column_raw_content = marked(column_introduction_container.text());
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, column_raw_content]);
+        column_introduction_container.html(column_raw_content);
         $('pre code').each(function() {
             hljs.highlightBlock(this);
         });
@@ -36,6 +41,9 @@
             myCodeMirror.save();
             var column_raw_content = marked(rawEditor.val());
             column_previewer_content.html(column_raw_content);
+            MathJax.Hub.Config({
+                tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+            });
             MathJax.Hub.Queue(["Typeset", MathJax.Hub, column_raw_content]);
             column_previewer_content.children('pre').each(function() {
                 hljs.highlightBlock(this);

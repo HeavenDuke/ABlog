@@ -16,7 +16,12 @@
 
     var prepare_article_detail = function () {
         var article_content_container = $("#article-content");
-        article_content_container.html(article_content_container.text());
+        var article_raw_content = marked(article_content_container.text());
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, article_raw_content]);
+        article_content_container.html(article_raw_content);
         $('pre code').each(function() {
             hljs.highlightBlock(this);
         });
@@ -86,6 +91,9 @@
             myCodeMirror.save();
             var article_raw_content = marked(rawEditor.val());
             article_previewer_content.html(article_raw_content);
+            MathJax.Hub.Config({
+                tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+            });
             MathJax.Hub.Queue(["Typeset", MathJax.Hub, article_raw_content]);
             article_previewer_content.children('pre').each(function() {
                 hljs.highlightBlock(this);

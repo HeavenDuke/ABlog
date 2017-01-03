@@ -138,7 +138,13 @@ Server.prototype.initGlobalVariables = function() {
         urlEncoder: require('../libs/urlEncoder')
     };
     global.utils.markdown.setOptions({
-        renderer: new marked.Renderer(),
+        renderer: (function () {
+            let renderer = new marked.Renderer();
+            renderer.em = function (text) {
+                return '_' + text + '_';
+            };
+            return renderer;
+        }()),
         gfm: true,
         tables: true,
         breaks: false,

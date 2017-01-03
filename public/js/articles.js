@@ -16,7 +16,11 @@
 
     var prepare_article_detail = function () {
         var article_content_container = $("#article-content");
-        var article_raw_content = marked(article_content_container.text());
+        let renderer = new marked.Renderer();
+        renderer.em = function (text) {
+            return '_' + text + '_';
+        };
+        var article_raw_content = marked(article_content_container.text(), {renderer: renderer});
         MathJax.Hub.Config({
             tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
         });
@@ -89,7 +93,11 @@
             var article_previewer = $("#article_previewer");
             var article_previewer_content = $("#article_previewer_content");
             myCodeMirror.save();
-            var article_raw_content = marked(rawEditor.val());
+            let renderer = new marked.Renderer();
+            renderer.em = function (text) {
+                return '_' + text + '_';
+            };
+            var article_raw_content = marked(rawEditor.val(), {renderer: renderer});
             article_previewer_content.html(article_raw_content);
             MathJax.Hub.Config({
                 tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}

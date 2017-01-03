@@ -4,11 +4,11 @@
 
 (function() {
 
-    var prepare_journal_comments = function () {
-        var owos = $("div[class$='OwO']");
-        for(var i = 0; i < owos.length; i++) {
-            var comment_id = $(owos[i]).attr("comment_id");
-            var reply_owo = null;
+    let prepare_journal_comments = function () {
+        let owos = $("div[class$='OwO']");
+        for(let i = 0; i < owos.length; i++) {
+            let comment_id = $(owos[i]).attr("comment_id");
+            let reply_owo = null;
             if (comment_id) {
                 reply_owo = new OwO({
                     logo: 'OωO表情',
@@ -34,38 +34,39 @@
         }
     };
 
-    var prepare_journal_comment_replies = function () {
+    let prepare_journal_comment_replies = function () {
         $("a[id$='_reply_entry']").on('click', function () {
-            var entry_id = $(this).attr('id');
-            var toggle_hash = {
+            let entry_id = $(this).attr('id');
+            let toggle_hash = {
                 "回复": "收起",
                 "收起": "回复"
             };
             $(this).text(toggle_hash[$(this).text().trim()]);
-            var comment_id = entry_id.substring(0, entry_id.indexOf("_reply_entry"));
+            let comment_id = entry_id.substring(0, entry_id.indexOf("_reply_entry"));
             $("#" + comment_id + "_reply_container").slideToggle();
         });
     };
 
-    var prepare_journal_comment_heads = function () {
-        var heads = $("img.guest_comment");
-        for(var i = 0; i < heads.length; i++) {
-            var head = $(heads[i]);
-            var data = new Identicon(md5(head.attr('hash'))).toString();
+    let prepare_journal_comment_heads = function () {
+        let heads = $("img.guest_comment");
+        for(let i = 0; i < heads.length; i++) {
+            let head = $(heads[i]);
+            let data = new Identicon(md5(head.attr('hash'))).toString();
             head.attr("src", "data:image/png;base64," + data);
             head.removeAttr('hash');
         }
     };
 
-    var prepare_journal_detail = function () {
-        var journal_content_container = $("#journal-content");
-        var journal_raw_content = marked(journal_content_container.text());
+    let prepare_journal_detail = function () {
+        let journal_content_container = $("#journal-content");
+        journal_content_container.html(journal_content_container.text());
         MathJax.Hub.Config({
             tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
         });
-        MathJax.Hub.Queue(["Typeset", MathJax.Hub, journal_raw_content]);
-        journal_content_container.html(journal_raw_content);
-        $('pre code').each(function() {
+        setTimeout(function () {
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        }, 1000);
+        $('pre code').each(function () {
             hljs.highlightBlock(this);
         });
         prepare_journal_comments();
@@ -73,9 +74,9 @@
         prepare_journal_comment_heads();
     };
 
-    var prepare_journal_previewer = function () {
-        var rawEditor = $("#journal_content_input");
-        var myCodeMirror = CodeMirror.fromTextArea(rawEditor[0], {
+    let prepare_journal_previewer = function () {
+        let rawEditor = $("#journal_content_input");
+        let myCodeMirror = CodeMirror.fromTextArea(rawEditor[0], {
             value: rawEditor.val(),
             lineNumbers: true,
             mode: "gfm",
@@ -89,17 +90,21 @@
             smartIndent: true,
             showCursorWhenSelecting: true
         });
-        var journal_previewer_entry = $("#journal_previewer_entry");
+        let journal_previewer_entry = $("#journal_previewer_entry");
         journal_previewer_entry.on("click", function () {
-            var journal_previewer = $("#journal_previewer");
-            var journal_previewer_content = $("#journal_previewer_content");
+            let journal_previewer = $("#journal_previewer");
+            let journal_previewer_content = $("#journal_previewer_content");
             myCodeMirror.save();
-            var journal_raw_content = marked(rawEditor.val());
+            let renderer = new marked.Renderer();
+            renderer.em = function (text) {
+                return '_' + text + '_';
+            };
+            let journal_raw_content = marked(rawEditor.val(), {renderer: renderer});
             journal_previewer_content.html(journal_raw_content);
             MathJax.Hub.Config({
                 tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
             });
-            MathJax.Hub.Queue(["Typeset", MathJax.Hub, journal_raw_content]);
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
             journal_previewer_content.children('pre').each(function() {
                 hljs.highlightBlock(this);
             });

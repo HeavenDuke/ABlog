@@ -7,12 +7,16 @@
 
     var prepare_column_detail = function () {
         var column_introduction_container = $("#column-introduction");
-        var column_raw_content = marked(column_introduction_container.text());
+        let renderer = new marked.Renderer();
+        renderer.em = function (text) {
+            return '_' + text + '_';
+        };
+        var column_raw_content = marked(column_introduction_container.text(), {renderer: renderer});
+        column_introduction_container.html(column_raw_content);
         MathJax.Hub.Config({
             tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
         });
-        MathJax.Hub.Queue(["Typeset", MathJax.Hub, column_raw_content]);
-        column_introduction_container.html(column_raw_content);
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         $('pre code').each(function() {
             hljs.highlightBlock(this);
         });
@@ -39,7 +43,11 @@
             var column_previewer = $("#column_previewer");
             var column_previewer_content = $("#column_previewer_content");
             myCodeMirror.save();
-            var column_raw_content = marked(rawEditor.val());
+            let renderer = new marked.Renderer();
+            renderer.em = function (text) {
+                return '_' + text + '_';
+            };
+            var column_raw_content = marked(rawEditor.val(), {renderer: renderer});
             column_previewer_content.html(column_raw_content);
             MathJax.Hub.Config({
                 tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}

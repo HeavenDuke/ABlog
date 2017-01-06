@@ -5,7 +5,7 @@ extends ../layout/layout
 
 block specified_ref
     script(type="text/javascript" src="/marked/marked.js")
-    link(rel="stylesheet" type="text/css" href="/galleries.css")
+    link(rel="stylesheet" type="text/css" href="/photo.css")
     link(rel="stylesheet" type="text/css" href="/theme.css")
     link(rel="stylesheet" type="text/css" href="/index.css")
     link(rel="stylesheet" type="text/css" href="/AdminLTE/css/skins/_all-skins.css")
@@ -13,23 +13,24 @@ block specified_ref
 
 block content
     .container
-        .row.gallery
-            h4.pull-left 相册列表
+        .row.photo
+            h4.pull-left 图片列表
         .divider
         .row
-            if galleries.length == 0
+            if photos.length == 0
                 if !current_user
                     h1.text-center 主人很懒
                     h1.text-center 还没有创建任何相册_(:з」∠)_
-            - for index in galleries
-                .col-lg-2.col-md-2.col-sm-4.text-center
-                    a(href="/galleries/" + galleries[index]._id)
-                        img.img-circle.img-responsive(src=photos[galleries[index].face_id])
-                        h4= galleries[index].name
-            if current_user
-                .col-lg-2.col-md-2.col-sm-4.text-center
-                    a(href="#")
-                        img.img-circle.img-responsice(src="/head.png")
-                        h4 新建相册
+            - for index in photos
+                .post
+                    .user-block
+                        span.username= photos[index].name
+                        span.description= photos[index].created_at.format("yyyy年MM月dd日 hh:mm")
+                    .row.margin-bottom
+                        .col-sm-6
+                            img.img-responsive(src=photo[index].path, alt='Photo')
+                        .col-sm-6
+                            .row
+                                p= photo[index].description
     include ./new
     include ./edit

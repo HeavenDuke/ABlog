@@ -11,6 +11,6 @@ module.exports = {
     writings: require('./writings'),
     notifications: require('./notifications'),
     guests: require('./guests'),
-    galleries: require('./galleries'),
+    photos: require('./photos'),
     home: require('./home')
 };

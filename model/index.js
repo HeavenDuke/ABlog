@@ -1,13 +1,11 @@
 /**
  * Created by Obscurity on 2016/5/2.
  */
-
-var path = require('path');
-var fs = require('fs');
-var mongoose = require('mongoose');
-var _ = require('underscore');
-var Schema = mongoose.Schema;
-var database = {
+let path = require('path');
+let fs = require('fs');
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
+let database = {
     models: {}
 };
 
@@ -22,7 +20,6 @@ var Article = require('./article');
 var Writing = require('./writing');
 var Guest = require('./guest');
 var Attitude = require('./attitude');
-var Gallery = require('./gallery');
 var Photo = require('./photo');
 
 mongoose.Promise = global.Promise;
@@ -38,7 +35,6 @@ var ArticleSchema = new Schema(Article.Schema, Article.collection);
 var WritingSchema = new Schema(Writing.Schema, Writing.collection);
 var GuestSchema = new Schema(Guest.Schema, Guest.collection);
 var AttitudeSchema = new Schema(Attitude.Schema, Attitude.collection);
-var GallerySchema = new Schema(Gallery.Schema, Gallery.collection);
 var PhotoSchema = new Schema(Photo.Schema, Photo.collection);
 
 JournalSchema.methods.link = Journal.link;
@@ -71,7 +67,6 @@ database.models.article = mongoose.model('article', ArticleSchema);
 database.models.writing = mongoose.model('writing', WritingSchema);
 database.models.guest = mongoose.model('guest', GuestSchema);
 database.models.attitude = mongoose.model('attitude', AttitudeSchema);
-database.models.gallery = mongoose.model('gallery', GallerySchema);
 database.models.photo = mongoose.model('photo', PhotoSchema);
 
 module.exports = {

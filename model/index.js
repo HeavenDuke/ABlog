@@ -55,6 +55,7 @@ GuestSchema.methods.encasePassword = Guest.encasePassword;
 GuestSchema.methods.parsePassword = Guest.parsePassword;
 GuestSchema.methods.validatePassword = Guest.validatePassword;
 GuestSchema.statics.validateConfirmPassword = Guest.validateConfirmPassword;
+PhotoSchema.statics.get_thumb_image = Diary.get_thumb_image;
 
 database.models.journal = mongoose.model("journal", JournalSchema);
 database.models.user = mongoose.model("user", UserSchema);

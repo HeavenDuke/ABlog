@@ -33,6 +33,11 @@ Photo.Schema = {
     }
 };
 
+Photo.get_thumb_image = function (image_path) {
+    let dotIndex = image_path.lastIndexOf(".");
+    return image_path.substring(0, dotIndex) + "_thumb." + image_path.substring(dotIndex + 1);
+};
+
 Photo.collection = {
     collection: 'Photos'
 };

@@ -40,7 +40,7 @@ block content
                                 i.fa.fa-times
                             span.description(style="margin-left: 0px;")= photo.location + "　" + photo.created_at.format("yyyy年MM月dd日")
                         .row.margin
-                            img.img-responsive(src=photo.path, alt='Photo' style="border-radius: 5px;")
+                            img.img-responsive(src=Photo.get_thumb_image("/" + photo.path), alt='Photo' style="border-radius: 5px;")
             .col-lg-4.col-md-6.col-sm-6.col-xs-12
                 - for photo in col2
                     .post
@@ -50,7 +50,7 @@ block content
                                 i.fa.fa-times
                             span.description(style="margin-left: 0px;")= photo.location + "　" + photo.created_at.format("yyyy年MM月dd日")
                         .row.margin
-                            img.img-responsive(src=photo.path, alt='Photo' style="border-radius: 5px;")
+                            img.img-responsive(src=Photo.get_thumb_image("/" + photo.path), alt='Photo' style="border-radius: 5px;")
             .col-lg-4.col-md-6.col-sm-6.col-xs-12
                 - for photo in col3
                     .post
@@ -60,5 +60,5 @@ block content
                                 i.fa.fa-times
                             span.description(style="margin-left: 0px;")= photo.location + "　" + photo.created_at.format("yyyy年MM月dd日")
                         .row.margin
-                            img.img-responsive(src=photo.path, alt='Photo' style="border-radius: 5px;")
+                            img.img-responsive(src=Photo.get_thumb_image("/" + photo.path), alt='Photo' style="border-radius: 5px;")
     include ./new

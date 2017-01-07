@@ -21,6 +21,7 @@ let index = function *(next) {
         current_guest: this.session.guest,
         current_user: this.session.user,
         photos: photos,
+        Photo: Photo,
         current_module: this.current_module,
         redirect_url: this.request.url
     });

@@ -15,22 +15,50 @@ block content
     .container
         .row.photo
             h4.pull-left 图片列表
+            if current_user != null
+                a.button.button-primary.button-pill.pull-right(href="#" data-toggle="modal" data-target="#new_photo_modal") 上传照片
         .divider
         .row
             if photos.length == 0
-                if !current_user
-                    h1.text-center 主人很懒
-                    h1.text-center 还没有创建任何相册_(:з」∠)_
-            - for index in photos
-                .post
-                    .user-block
-                        span.username= photos[index].name
-                        span.description= photos[index].created_at.format("yyyy年MM月dd日 hh:mm")
-                    .row.margin-bottom
-                        .col-sm-6
-                            img.img-responsive(src=photo[index].path, alt='Photo')
-                        .col-sm-6
-                            .row
-                                p= photo[index].description
+                h1.text-center 主人很懒
+                h1.text-center 还没有上传任何照片_(:з」∠)_
+            - var col1 = []
+            - var col2 = []
+            - var col3 = []
+            - for(var i = 0; i < photos.length; i+=3)
+                - col1.push(photos[i])
+                if(i + 1 < photos.length)
+                    - col2.push(photos[i + 1])
+                if(i + 2 < photos.length)
+                    - col3.push(photos[i + 2])
+            .col-lg-4.col-md-6.col-sm-6.col-xs-12
+                - for photo in col1
+                    .post
+                        .user-block
+                            span.username(style="margin-left: 0px;")= photo.title
+                            a.pull-right.btn.btn-box-tool.delete-entry(href="/photos/" + photo._id + "?_method=delete")
+                                i.fa.fa-times
+                            span.description(style="margin-left: 0px;")= photo.location + "　" + photo.created_at.format("yyyy年MM月dd日")
+                        .row.margin
+                            img.img-responsive(src=photo.path, alt='Photo' style="border-radius: 5px;")
+            .col-lg-4.col-md-6.col-sm-6.col-xs-12
+                - for photo in col2
+                    .post
+                        .user-block
+                            span.username(style="margin-left: 0px;")= photo.title
+                            a.pull-right.btn.btn-box-tool.delete-entry(href="/photos/" + photo._id + "?_method=delete")
+                                i.fa.fa-times
+                            span.description(style="margin-left: 0px;")= photo.location + "　" + photo.created_at.format("yyyy年MM月dd日")
+                        .row.margin
+                            img.img-responsive(src=photo.path, alt='Photo' style="border-radius: 5px;")
+            .col-lg-4.col-md-6.col-sm-6.col-xs-12
+                - for photo in col3
+                    .post
+                        .user-block
+                            span.username(style="margin-left: 0px;")= photo.title
+                            a.pull-right.btn.btn-box-tool.delete-entry(href="/photos/" + photo._id + "?_method=delete")
+                                i.fa.fa-times
+                            span.description(style="margin-left: 0px;")= photo.location + "　" + photo.created_at.format("yyyy年MM月dd日")
+                        .row.margin
+                            img.img-responsive(src=photo.path, alt='Photo' style="border-radius: 5px;")
     include ./new
-    include ./edit

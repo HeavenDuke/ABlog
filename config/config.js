@@ -4,21 +4,21 @@ var local = require('./local');
 var _ = require('underscore');
 
 module.exports = function(root) {
-    var config = {
-        "title":"",
+    let config = {
+        "title": "",
 
         "baseDir": path.join(__dirname, '..'),
         //默认生产环境
-        "env":"production",
+        "env": "production",
         "appName": "Backend",
         //端口号配置
         "port": 3000,
         //模板所在的目录
-        "viewDir": path.join(__dirname,'..','view'),
+        "viewDir": path.join(__dirname, '..', 'view'),
         //log所在的目录
-        "logDir": path.join(__dirname,'..', 'log'),
+        "logDir": path.join(__dirname, '..', 'log'),
         //静态文件所在的目录
-        "staticDir": path.join(__dirname,'..', 'public'),
+        "staticDir": path.join(__dirname, '..', 'public'),
 
         "mongodb": 'mongodb://localhost:27017/ablog',
 

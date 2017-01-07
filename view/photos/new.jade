@@ -1,3 +1,29 @@
 //
    Created by heavenduke on 16-8-13.
 
+#new_photo_modal.modal.fade
+    .modal-dialog
+        .modal-content
+            form(action="/photos" method="POST" enctype="multipart/form-data")
+                .modal-header
+                    button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
+                    h4.modal-title 创建照片故事
+                .modal-body
+                    .form-group
+                        label 标题:
+                        input.form-control(name="title" type="text" placeholder="给照片起个名字吧~" maxlength=30 required)
+                    .form-group
+                        label 拍摄日期
+                        input.form-control(name="created_at" type="date" placeholder="什么时候拍摄的呢" required)
+                    .form-group
+                        label 拍摄地点
+                        input.form-control(name="location" placeholder="什么地方拍摄的呢" required)
+                    .form-group
+                        label 请选择待上传的照片
+                        input(name="photo" type="file" required)
+                    .form-group
+                        label 描述:
+                        textarea.form-control(name="introduction" rows="5" maxlength=1000 placeholder="图片中包含着怎样的故事呢" required)
+                .modal-footer.text-center
+                    button.button.button-pill.button-small(type="button" aria-hidden="true" data-dismiss="modal") 取消
+                    button.button.button-pill.button-primary.button-small(type="submit") 创建

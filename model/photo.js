@@ -2,10 +2,14 @@
  * Created by heavenduke on 16-8-13.
  */
 
-var Photo = {};
+let Photo = {};
 
 Photo.Schema = {
-    name: {
+    title: {
+        type: String,
+        required: true
+    },
+    location: {
         type: String,
         required: true
     },

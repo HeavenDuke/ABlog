@@ -28,6 +28,9 @@
     "fullcalendar": "^2.8.0",
     "identicon.js": "identicon#*",
     "js-md5": "md5#^0.4.1",
-    "AjaxFileUpload": "^1.0.0"
+    "AjaxFileUpload": "^1.0.0",
+    "masonry": "^4.1.1",
+    "imagesloaded": "^4.1.1",
+    "modernizr": "^3.3.1"
   }
 }

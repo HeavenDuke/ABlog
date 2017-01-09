@@ -1,3 +1,21 @@
 //
    Created by heavenduke on 16-8-13.
 
+#photo_detail_modal.modal.fade
+    .modal-dialog
+        .modal-content(style="min-width: 700px;")
+            .modal-body
+                .post
+                    .user-block
+                        span.username(style="margin-left: 0px;")#photo_title
+                        span.description(style="margin-left: 0px;")#photo_info
+                    .row#photo_long
+                        .col-lg-8
+                            img.photo-border(style="width: 100%;")#photo_img_long
+                        .col-lg-4
+                            p#photo_introduction_long
+                    .row#photo_wide
+                        .col-lg-12
+                            img.photo-border(style="width: 98%; margin-left: 1%; margin-right: 1%;")#photo_img_wide
+                            hr
+                            p(style="width: 96%; margin-left: 2%; margin-right: 2%;")#photo_introduction_wide

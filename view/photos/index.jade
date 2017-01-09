@@ -18,47 +18,22 @@ block content
             if current_user != null
                 a.button.button-primary.button-pill.pull-right(href="#" data-toggle="modal" data-target="#new_photo_modal") 上传照片
         .divider
-        .row
-            if photos.length == 0
+        if photos.length == 0
+            .row
                 h1.text-center 主人很懒
                 h1.text-center 还没有上传任何照片_(:з」∠)_
-            - var col1 = []
-            - var col2 = []
-            - var col3 = []
-            - for(var i = 0; i < photos.length; i+=3)
-                - col1.push(photos[i])
-                if(i + 1 < photos.length)
-                    - col2.push(photos[i + 1])
-                if(i + 2 < photos.length)
-                    - col3.push(photos[i + 2])
-            .col-lg-4.col-md-6.col-sm-6.col-xs-12
-                - for photo in col1
-                    .post
-                        .user-block
-                            span.username(style="margin-left: 0px;")= photo.title
-                            a.pull-right.btn.btn-box-tool.delete-entry(href="/photos/" + photo._id + "?_method=delete")
-                                i.fa.fa-times
-                            span.description(style="margin-left: 0px;")= photo.location + "　" + photo.created_at.format("yyyy年MM月dd日")
-                        .row.margin
-                            img.img-responsive(src=Photo.get_thumb_image("/" + photo.path), alt='Photo' style="border-radius: 5px;")
-            .col-lg-4.col-md-6.col-sm-6.col-xs-12
-                - for photo in col2
-                    .post
-                        .user-block
-                            span.username(style="margin-left: 0px;")= photo.title
-                            a.pull-right.btn.btn-box-tool.delete-entry(href="/photos/" + photo._id + "?_method=delete")
-                                i.fa.fa-times
-                            span.description(style="margin-left: 0px;")= photo.location + "　" + photo.created_at.format("yyyy年MM月dd日")
-                        .row.margin
-                            img.img-responsive(src=Photo.get_thumb_image("/" + photo.path), alt='Photo' style="border-radius: 5px;")
-            .col-lg-4.col-md-6.col-sm-6.col-xs-12
-                - for photo in col3
-                    .post
-                        .user-block
-                            span.username(style="margin-left: 0px;")= photo.title
-                            a.pull-right.btn.btn-box-tool.delete-entry(href="/photos/" + photo._id + "?_method=delete")
-                                i.fa.fa-times
-                            span.description(style="margin-left: 0px;")= photo.location + "　" + photo.created_at.format("yyyy年MM月dd日")
-                        .row.margin
-                            img.img-responsive(src=Photo.get_thumb_image("/" + photo.path), alt='Photo' style="border-radius: 5px;")
+        else
+            .row
+                .grid-masonry
+                    .gutter-sizer
+                    .grid-sizer
+                    - for photo in photos
+                        .grid-masonry-item(photoinfo=JSON.stringify(photo))
+                            img.margin.photo-border(src=Photo.get_thumb_image("/" + photo.path), alt='Photo')
+                            a(data-toggle="modal" data-target="#photo_detail_modal")
+                                .overlay.margin.text-center.photo-border
+                                    .photo-title.text-center= photo.title
+                                    .photo-info= photo.location + "　" + photo.created_at.format("yyyy年MM月dd日")
     include ./new
+    include ./show
+    include ./reference

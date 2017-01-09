@@ -11,11 +11,11 @@ let get_thumb_path = function (image_path) {
     let dirname = path.dirname(image_path);
     let extname = path.extname(image_path);
     return path.join(dirname, path.basename(image_path, extname) + "_thumb" + extname);
-}
+};
 
 let index = function *(next) {
     let Photo = global.database.models.photo;
-    let photos = yield Photo.find({});
+    let photos = yield Photo.find({}).sort({created_at: -1});
     this.render('./photos/index', {
         title: "相册列表",
         current_guest: this.session.guest,
@@ -36,9 +36,9 @@ let create = function *(next) {
         let thumb_height = 400;
         let thumb_scale = size.height / thumb_height;
         let thumb_width = size.width / thumb_scale;
-        let raw_height = 960;
-        let raw_scale = size.height / raw_height;
-        let raw_width = size.width / raw_scale;
+        let raw_width = 960;
+        let raw_scale = size.width / raw_width;
+        let raw_height = size.height / raw_scale;
         yield gm(image.path).resize(raw_height, raw_width).autoOrient().writeAsync(image.path);
         yield gm(image.path).resize(thumb_width, thumb_height).autoOrient().writeAsync(get_thumb_path(image.path));
     }

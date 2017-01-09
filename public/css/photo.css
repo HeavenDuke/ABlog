@@ -8,6 +8,10 @@
     border-radius: 5px;
 }
 
+.photo-introduction {
+    font-size: 20px;
+}
+
 .grid-masonry .gutter-sizer {
     width: 3.5%;
 }

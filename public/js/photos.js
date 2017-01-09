@@ -30,15 +30,15 @@
                 $("#photo_long").css("display", "none");
                 $("#photo_wide").css("display", "block");
                 $("#photo_img_wide").attr("src", "/" + photo_info.path);
-                $("#photo_introduction_wide").text(photo_info.title);
+                $("#photo_introduction_wide").text(photo_info.introduction);
             }
             else {
                 $("#photo_long").css("display", "block");
                 $("#photo_wide").css("display", "none");
                 $("#photo_img_long").attr("src", "/" + photo_info.path);
-                $("#photo_introduction_long").text(photo_info.title);
+                $("#photo_introduction_long").text(photo_info.introduction);
             }
-            $("#photo_title").text(photo_info.introduction);
+            $("#photo_title").text(photo_info.title);
             $("#photo_info").text(photo_info.location + "　" + new Date(photo_info.created_at).format("yyyy年MM月dd日"));
         });
     };

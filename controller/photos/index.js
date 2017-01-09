@@ -17,7 +17,7 @@ let index = function *(next) {
     let Photo = global.database.models.photo;
     let photos = yield Photo.find({}).sort({created_at: -1});
     this.render('./photos/index', {
-        title: "相册列表",
+        title: "照片故事",
         current_guest: this.session.guest,
         current_user: this.session.user,
         photos: photos,

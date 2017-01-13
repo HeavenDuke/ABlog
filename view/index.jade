@@ -30,7 +30,7 @@ block content
                                     li.list-group-item
                                         b= key
                                         a.pull-right= owner[key]
-                .box.box-solid
+                .box.box-solid.hidden-sm.hidden-xs
                     .box-header.with-border
                         h3.box-title 友情链接
                     .box-body
@@ -46,7 +46,7 @@ block content
                                             a.pull-right.btn.btn-flat.btn-xs.btn-danger.delete-entry(href="/links/" + link._id + "?_method=DELETE") 删除
                         if current_user
                             a.btn.btn-info.btn-block(href="#" data-toggle="modal" data-target="#add_link_modal") 添加链接
-                .box.box-solid
+                .box.box-solid.hidden-sm.hidden-xs
                     .box-header.with-border
                         h3.box-title 最新日记
                         a.pull-right(href="/diaries") more

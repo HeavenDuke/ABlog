@@ -19,7 +19,7 @@ block content
                 .box.box-widget
                     .box-header.with-border
                         .box-header.with-border
-                            h3.box-title 每日小记
+                            h3.hd.box-title 每日小记
                             if current_user
                                 span.pull-right
                                     button.button.button-pill.button-primary(type="button" data-toggle="modal" data-target="#new_diary_modal") 写日记
@@ -50,7 +50,7 @@ block content
                                                             .hidden(thumb=Diary.get_thumb_image("/" + diaries[index].images[i]))
                                                     if !diaries[index].is_public
                                                         i.fa.fa-clock-o= "　私密日记"
-                                                h3.timeline-header(id=diaries[index]._id + "_brief")= diaries[index].brief
+                                                h3.hd.timeline-header(id=diaries[index]._id + "_brief")= diaries[index].brief
                                                 .timeline-body(id=diaries[index]._id + "_content")= diaries[index].content
                                                 if diaries[index].images.length != 0
                                                     .timeline-body

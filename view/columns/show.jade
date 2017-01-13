@@ -17,7 +17,7 @@ block specified_ref
 block content
     .container
         .row.column
-            h4 专栏列表
+            h4.hd 专栏列表
         .divider
         .row
             .col-lg-3.col-md-3.col-sm-3
@@ -41,7 +41,7 @@ block content
                 .box.box-solid
                     .box-header.with-border
                         .box-title
-                            h3
+                            h3.hd
                                 i.fa.fa-book
                                 strong.margin= column.name
                         if current_user
@@ -54,20 +54,20 @@ block content
                     .box-body
                         #column-introduction= global.utils.markdown(column.introduction)
                     .box-body
-                        h4 专栏文章：
+                        h4.hd 专栏文章：
                         if articles.length != 0
                             table.table
                                 - for(var index in articles)
                                     tr
                                         td(style="width: 15px;")
-                                            h4
+                                            h4.hd
                                                 strong= articles[index].order
                                         td
-                                            h4
+                                            h4.hd
                                                 strong
                                                     a(href="/columns/" + column._id + "/articles/" + articles[index]._id)= articles[index].title
                         else
-                            h4
+                            h4.hd
                                 strong 该专栏下还没有文章
                     if current_user
                         .box-footer.text-center

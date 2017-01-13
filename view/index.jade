@@ -18,7 +18,7 @@ block content
                 .box.box-primary
                     .box-body.box-profile
                         img.profile-user-img.img-responsive.img-circle(src="/favicon.ico")
-                        h3.profile-username.text-center= owner.username + " "
+                        h3.hd.profile-username.text-center= owner.username + " "
                             if owner.sex == 'm'
                                 i.fa.fa-mars
                             else
@@ -33,7 +33,7 @@ block content
                 if diary
                     .box.box-solid.hidden-sm.hidden-xs
                         .box-header.with-border
-                            h3.box-title 最新日记
+                            h3.hd.box-title 最新日记
                             a.pull-right(href="/diaries") more
                                 i.fa.fa-angle-double-right
                         .box-body
@@ -41,7 +41,7 @@ block content
                             span.text-muted= diary.recorded_date.format("yyyy年MM月dd日")
                 .box.box-solid.hidden-sm.hidden-xs
                     .box-header.with-border
-                        h3.box-title 友情链接
+                        h3.hd.box-title 友情链接
                     .box-body
                         table(style="width: 100%;")
                             - for link in links
@@ -58,7 +58,7 @@ block content
             .col-lg-8.col-md-8
                 .box.box-solid
                     .box-header.with-border
-                        h3.box-title 近期博文
+                        h3.hd.box-title 近期博文
                         a.pull-right(href="/journals") more
                             i.fa.fa-angle-double-right
                     .box-body
@@ -71,7 +71,7 @@ block content
         .modal-dialog
             .modal-content
                 .modal-header.with-border
-                    h3.modal-title 添加友情链接
+                    h3.hd.modal-title 添加友情链接
                 .modal-body
                     form.form(method="post" action="/links")
                         .form-group

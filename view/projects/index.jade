@@ -14,14 +14,14 @@ block specified_ref
 block content
     .container
         .row.project
-            h4.pull-left 我的项目
+            h4.hd.pull-left 我的项目
             if current_user
                 a.button.button-primary.button-pill.pull-right(href="/projects/new") 新项目
         .divider
         if projects.length == 0
             .row.text-center
-                h1 主人很弱
-                h1 什么项目都不会写_(:з」∠)_
+                h1.hd 主人很弱
+                h1.hd 什么项目都不会写_(:з」∠)_
         else
             - for(var i = 0; i < projects.length; i+= 2)
                 .row

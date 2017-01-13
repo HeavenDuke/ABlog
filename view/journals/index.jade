@@ -14,14 +14,14 @@ block specified_ref
 block content
     .container
         .row.journal
-            h4.pull-left 博客列表
+            h4.hd.pull-left 博客列表
             if current_user != null
                 a.button.button-primary.button-pill.pull-right(href="/journals/new") 写博客
         .divider
         if journals.length == 0
             .row.text-center
-                h1 主人很懒
-                h1 什么也没有写_(:з」∠)_
+                h1.hd 主人很懒
+                h1.hd 什么也没有写_(:з」∠)_
         else
             - for (var i = 0; i < journals.length; i++)
                 .row.journal

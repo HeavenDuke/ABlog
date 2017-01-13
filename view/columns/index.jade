@@ -14,7 +14,7 @@ block specified_ref
 block content
     .container
         .row.column
-            h4 专栏列表
+            h4.hd 专栏列表
         .divider
         .row
             .col-lg-4.col-md-4.col-sm-4
@@ -38,7 +38,7 @@ block content
                 .box.box-solid
                     .box-header.with-border
                         .box-title
-                            h4
+                            h4.hd
                                 strong 这里是HeavenDuke的技术专栏
                         .box-body
                             p 专栏用于记录一些系列性的文章，主要内容包括但不限于：
@@ -51,16 +51,16 @@ block content
                             p po主能力有限，文章中可能出现诸多错误。
                             p 各位看官如果感觉对什么地方存在问题，还请在评论区不吝赐教，谢谢Orz
                         .box-body
-                            h4
+                            h4.hd
                                 strong 最近的一些专栏如下：
                             if columns.length != 0
                                 table.table
                                     - for(var index in columns)
                                         tr
                                             td
-                                                h4
+                                                h4.hd
                                                     strong
                                                         a(href="/columns/" + columns[index]._id)= columns[index].name + "　(最近一次更新: " + columns[index].updated_at.format("yyyy年MM月dd日 hh:mm") + ")"
                             else
-                                h4
+                                h4.hd
                                     strong 暂无专栏

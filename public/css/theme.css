@@ -14,7 +14,7 @@ h1, h2, h3, h4, h5, h6 .hd{
     font-family: Microsoft YaHei,Tahoma,Verdana,STHeiTi,simsun,sans-serif;
 }
 
-body .body{
+body, .body{
     padding-bottom: 70px;
     font-family: Microsoft YaHei,Tahoma,Verdana,STHeiTi,simsun,sans-serif;
 }

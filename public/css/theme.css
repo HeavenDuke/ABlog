@@ -10,11 +10,11 @@ a.black-link{color:#3F3F3F}
 a.black-link:visited{color: #3F3F3F}
 a.black-link:hover{color:#555555}
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 .hd{
     font-family: Microsoft YaHei,Tahoma,Verdana,STHeiTi,simsun,sans-serif;
 }
 
-body {
+body .body{
     padding-bottom: 70px;
     font-family: Microsoft YaHei,Tahoma,Verdana,STHeiTi,simsun,sans-serif;
 }

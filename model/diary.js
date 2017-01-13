@@ -153,4 +153,46 @@ Diary.get_thumb_image = function (image_path) {
     return image_path.substring(0, dotIndex) + "_thumb." + image_path.substring(dotIndex + 1);
 };
 
+Diary.get_diary_container = function (admin) {
+    let result = "<li class='time-label'>";
+    result += "<span class='bg-green'>" + this.recorded_date.format("yyyy年MM月dd日") + "</span>";
+    result += "</li>";
+    result += "<li>";
+    result += "<i id='" + this._id + "_tag' tag='" + this.tag + "' class='fa " + this.mood_to_color() + " " + this.tag_to_icon() + "'></i>";
+    result += "<div class='timeline-item'>";
+    result += "<span class='time'>";
+    result += "<div class='hidden' id='" + this._id + "_content' content='" + this.content + "'></div>";
+    result += "<div class='hidden' id='" + this._id + "_date' date='" + this.recorded_date.format("yyyy-MM-dd") + "'></div>";
+    result += "<div class='hidden' id='" + this._id + "_mood' mood='" + this.mood + "'></div>";
+    result += "<div class='hidden' id='" + this._id + "_publicity' publicity='" + this.is_public + "'></div>";
+    result += "<div class='hidden' id='" + this._id + "_images' images='" + (this.images ? JSON.stringify(this.images) : "[]") + "'>";
+    if (this.images) {
+        for (let i = 0; i < this.images.length; i++) {
+            result += "<div thumb='" + Diary.get_thumb_image("/" + this.images[i]) + "'></div>";
+        }
+    }
+    result += "</div>";
+    result +=　"</span>";
+    result += "<h3 class='hd timeline-header' id='" + this._id + "_brief'>" + this.brief + "</h3>";
+    result += "<div class='hd timeline-body' id='" + this._id + "_content'>" + this.content + "</div>";
+    result += "<div class='hd timeline-body' id='" + this._id + "_gallery'>";
+    if (this.images) {
+        for (let i = 0; i < this.images.length; i++) {
+            result += "<a href='" + this.images[i] + "'>";
+            result += "<img thumb_url='" + Diary.get_thumb_image("/" + this.images[i]) + "' class='margin image_thumb' src='" + Diary.get_thumb_image("/" + this.images[i]) + "'>";
+            result += "</a>";
+        }
+    }
+    result += "</div>";
+    if (admin) {
+        result += "<div class='timeline-footer'>";
+        result += "<a diary_id='" + this._id + "'  data-toggle='modal' data-target='#edit_diary_modal' class='btn btn-xs btn-warning'>编辑</a>";
+        result += "<a href='/diaries/" + this._id + "?_method=delete' style='margin-left: 10px;' class='btn btn-xs btn-danger delete-entry'>删除</a>";
+        result += "</div>";
+    }
+    result += "</div>";
+    result += "</li>";
+    return result;
+};
+
 module.exports = Diary;

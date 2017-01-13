@@ -19,7 +19,10 @@ exports.create = function *(next) {
     comment.save();
     article.comment_count += 1;
     article.save();
-    this.redirect(this.app.url("articles-detail", {column_id: this.params.column_id, article_id: this.params.article_id}));
+    this.redirect(this.app.url("articles-detail", {
+        column_id: this.params.column_id,
+        article_id: this.params.article_id
+    }));
 };
 
 exports.destroy = function *(next) {
@@ -31,7 +34,10 @@ exports.destroy = function *(next) {
     comment.remove();
     article.comment_count -= 1;
     article.save();
-    this.redirect(this.app.url("articles-detail", {column_id: this.params.column_id, article_id: this.params.article_id}));
+    this.redirect(this.app.url("articles-detail", {
+        column_id: this.params.column_id,
+        article_id: this.params.article_id
+    }));
 };
 
 exports.replies = require('./replies');

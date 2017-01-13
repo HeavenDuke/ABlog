@@ -21,7 +21,10 @@ var show = function *(next) {
     if (!this.session.read_history || !this.session.read_history[article._id]) {
         setReadSession(this.session, article);
     }
-    var attitude = this.session.guest ? yield Attitude.findOne({guest_id: this.session.guest._id, journal_id: this.params.journal_id}) : null;
+    var attitude = this.session.guest ? yield Attitude.findOne({
+        guest_id: this.session.guest._id,
+        journal_id: this.params.journal_id
+    }) : null;
     var likes = yield Attitude.count({like: true, journal_id: this.params.journal_id});
     var dislikes = yield Attitude.count({like: false, journal_id: this.params.journal_id});
     var comments = yield Comment.find({article_id: article._id}).sort({created_at: 1});
@@ -94,13 +97,33 @@ var show = function *(next) {
         }
         json_comments.push(json_comment);
     });
-    this.render('./columns/articles/show',{title: article.title, likes: likes, dislikes: dislikes, attitude: attitude, column_id: this.params.column_id, article: article, articles: articles, comments: json_comments, current_guest: this.session.guest, current_user: this.session.user, current_module: this.current_module, redirect_url: this.request.url}, true);
+    this.render('./columns/articles/show', {
+        title: article.title,
+        likes: likes,
+        dislikes: dislikes,
+        attitude: attitude,
+        column_id: this.params.column_id,
+        article: article,
+        articles: articles,
+        comments: json_comments,
+        current_guest: this.session.guest,
+        current_user: this.session.user,
+        current_module: this.current_module,
+        redirect_url: this.request.url
+    }, true);
 };
 
 var init = function *(next) {
     var Column = global.database.models.column;
     var column = yield Column.findById(this.params.column_id);
-    this.render('./columns/articles/new',{"title":"写专栏文章", current_module: this.current_module, current_guest: this.session.guest, current_user: this.session.user, column: column, redirect_url: this.request.url}, true);
+    this.render('./columns/articles/new', {
+        "title": "写专栏文章",
+        current_module: this.current_module,
+        current_guest: this.session.guest,
+        current_user: this.session.user,
+        column: column,
+        redirect_url: this.request.url
+    }, true);
 };
 
 var create = function *(next) {
@@ -121,7 +144,14 @@ var create = function *(next) {
 var edit = function *(next) {
     var Article = global.database.models.article;
     var article = yield Article.findById(this.params.article_id);
-    this.render('./columns/articles/edit',{"title": "编辑博客", article: article, current_guest: this.session.guest, current_user: this.session.user, current_module: this.current_module, redirect_url: this.request.url}, true);
+    this.render('./columns/articles/edit', {
+        "title": "编辑博客",
+        article: article,
+        current_guest: this.session.guest,
+        current_user: this.session.user,
+        current_module: this.current_module,
+        redirect_url: this.request.url
+    }, true);
 };
 
 var update = function *(next) {

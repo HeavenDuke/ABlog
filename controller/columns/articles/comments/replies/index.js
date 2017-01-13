@@ -14,5 +14,8 @@ exports.create = function *(next) {
     }
     comment.replies.push(reply);
     comment.save();
-    this.redirect(this.app.url("articles-detail", {column_id: this.params.column_id, article_id: this.params.article_id}));
+    this.redirect(this.app.url("articles-detail", {
+        column_id: this.params.column_id,
+        article_id: this.params.article_id
+    }));
 };

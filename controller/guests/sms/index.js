@@ -20,7 +20,7 @@ var create = function *(next) {
     var generate_otp_code = function (len) {
         var alphabet = '1234567890';
         var result = '';
-        for(var i = 0; i < len; i++) {
+        for (var i = 0; i < len; i++) {
             result += alphabet.charAt(Math.randint(0, alphabet.length - 1));
         }
         return result;

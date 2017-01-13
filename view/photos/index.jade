@@ -23,16 +23,19 @@ block content
                 h1.hd.text-center 还没有上传任何照片_(:з」∠)_
         else
             .row
-                .grid-masonry
-                    .gutter-sizer
-                    .grid-sizer
-                    - for photo in photos
-                        .grid-masonry-item(photoinfo=JSON.stringify(photo))
-                            img.margin.photo-border(src=Photo.get_thumb_image("/" + photo.path), alt='Photo')
-                            a(data-toggle="modal" data-target="#photo_detail_modal")
-                                .overlay.margin.text-center.photo-border
-                                    .photo-title.text-center= photo.title
-                                    .photo-info= photo.location + "　" + photo.created_at.format("yyyy年MM月dd日")
+                .jscoll
+                    .grid-masonry
+                        .gutter-sizer
+                        .grid-sizer
+                        - for photo in photos
+                            .grid-masonry-item(photoinfo=JSON.stringify(photo))
+                                img.margin.photo-border(src=Photo.get_thumb_image("/" + photo.path), alt='Photo')
+                                a(data-toggle="modal" data-target="#photo_detail_modal")
+                                    .overlay.margin.text-center.photo-border
+                                        .photo-title.text-center= photo.title
+                                        .photo-info= photo.location + "　" + photo.created_at.format("yyyy年MM月dd日")
+                    //if render_loader
+                    //    a#scroller.btn.btn-block.btn-flat(href="/photos?render=false&offset=" + global.conf.pagination.photo) 加载更多
     include ./new
     include ./show
     include ./reference

@@ -42,6 +42,7 @@ block content
                                             i(id=diaries[index]._id + "_tag" tag=diaries[index].tag class="fa " + diaries[index].tag_to_icon() + " " + diaries[index].mood_to_color())
                                             .timeline-item
                                                 span.time
+                                                    .hidden(id=diaries[index]._id + "_content" content=diaries[index].content)
                                                     .hidden(id=diaries[index]._id + "_date" date=diaries[index].recorded_date.format("yyyy-MM-dd"))
                                                     .hidden(id=diaries[index]._id + "_mood" mood=diaries[index].mood)
                                                     .hidden(id=diaries[index]._id + "_publicity" publicity=diaries[index].is_public.toString())
@@ -67,10 +68,19 @@ block content
                                         i.fa.fa-clock-o.bg-gray
                                         .timeline-item
                                             .timeline-body 现在，这里还是一片空虚...
-                                li
-                                    i.fa.fa-clock-o.bg-gray
-                                    .timeline-item
-                                        .timeline-body 过去，一切从这里开始
+                                if render_loader
+                                    li#pscroller(style="cursor: pointer;" onclick="$('#scroller').click();")
+                                        i.fa.fa-clock-o.bg-gray
+                                        .timeline-item
+                                            .timeline-body 点击以加载更多
+                                    .jscroll.hidden
+                                        a#scroller(style="cursor: pointer;" href="/diaries?render=false&offset=" + global.conf.pagination.diary)
+                                else
+                                    li#end_marker
+                                        i.fa.fa-clock-o.bg-gray
+                                        .timeline-item
+                                            .timeline-body 过去，一切从这里开始
+
     include ./new
     include ./edit
     include ./reference

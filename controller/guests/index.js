@@ -35,20 +35,20 @@ var create = function *(next) {
             guest.password = guest.encasePassword(this.request.body.password);
             guest.save();
             writeGuestInfo(this.session, guest);
-            this.flash = { info: "注册成功"};
+            this.flash = {info: "注册成功"};
             this.redirect(this.asb);
         }
         else if (!Guest.validateConfirmPassword(this.request.body.password, this.request.body.confirm_password)) {
-            this.flash = { error: "两次输入密码不一致，请重新输入"};
+            this.flash = {error: "两次输入密码不一致，请重新输入"};
             this.redirect(this.app.url('guests-init'));
         }
         else {
-            this.flash = { error: "密码长度在6-16位之间"};
+            this.flash = {error: "密码长度在6-16位之间"};
             this.redirect(this.app.url('guests-init'));
         }
     }
     else {
-        this.flash = { error: "邮箱已被注册，请重新输入"};
+        this.flash = {error: "邮箱已被注册，请重新输入"};
         this.redirect(this.app.url('guests-init'));
     }
 };
@@ -80,7 +80,7 @@ var update = function *(next) {
     }
     if (this.request.body.head_path) {
         if (guest.head) {
-            if (fs.existsSync(path.join(global.conf.staticDir,  "uploads", guest.head))) {
+            if (fs.existsSync(path.join(global.conf.staticDir, "uploads", guest.head))) {
                 yield fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", guest.head));
             }
         }

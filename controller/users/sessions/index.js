@@ -25,13 +25,13 @@ var create = function *(next) {
         username: this.request.body.username
     };
     var user = yield User.findOne(userQuery);
-    if(!user || !user.validatePassword(this.request.body.password)) {
-        this.flash = { error: "您输入的用户名或密码有误，请重新输入" };
+    if (!user || !user.validatePassword(this.request.body.password)) {
+        this.flash = {error: "您输入的用户名或密码有误，请重新输入"};
         this.redirect(this.app.url("users-sessions-new"));
     }
     else {
         writeUserInfo(this.session, user);
-        this.flash = { info: "登录成功" };
+        this.flash = {info: "登录成功"};
         this.redirect(this.asb);
     }
 };

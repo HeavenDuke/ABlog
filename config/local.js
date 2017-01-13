@@ -2,5 +2,11 @@
 var path = require('path');
 module.exports = {
     "env":"local",
-    "debug": true
+    "debug": true,
+
+    "pagination": {
+        "journal": 6,
+        "diary": 1,
+        "photo": 10
+    },
 };

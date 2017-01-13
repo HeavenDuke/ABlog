@@ -3,7 +3,7 @@
  */
 
 var edit = function *(next) {
-    this.render('./users/edit',{
+    this.render('./users/edit', {
         title: "修改密码",
         error: this.flash.error,
         info: this.flash.info,

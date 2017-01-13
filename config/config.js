@@ -46,7 +46,9 @@ module.exports = function(root) {
         },
 
         "pagination": {
-            "journal": 6
+            "journal": 6,
+            "diary": 15,
+            "photo": 30
         },
 
         "preview": {
@@ -57,7 +59,7 @@ module.exports = function(root) {
     //当NODE_ENV环境变量值为local时
     //本地调试环境
     if(process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'development'){
-        config = _.extend(config,local);
+        config = _.extend(config, local);
     }
 
     return config;

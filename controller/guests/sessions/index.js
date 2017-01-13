@@ -26,8 +26,8 @@ var create = function *(next) {
         email: this.request.body.email
     };
     var guest = yield Guest.findOne(guest_query);
-    if(!guest || !guest.validatePassword(this.request.body.password)) {
-        this.flash = { error: "用户不存在或密码错误，请重新输入"};
+    if (!guest || !guest.validatePassword(this.request.body.password)) {
+        this.flash = {error: "用户不存在或密码错误，请重新输入"};
         this.redirect(this.app.url("guests-sessions-init"));
     }
     else {

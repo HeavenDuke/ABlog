@@ -53,12 +53,8 @@ block content
                             a.pull-right(href="/diaries") more
                                 i.fa.fa-angle-double-right
                         .box-body
-                            ul.timeline
-                                li
-                                    i(id=diary._id + "_tag" tag=diary.tag class="fa " + diary.tag_to_icon() + " " + diary.mood_to_color())
-                                    .timeline-item
-                                        h3.timeline-header(id=diary._id + "_brief")= diary.brief
-                                        .timeline-body(id=diary._id + "_content")= diary.content
+                            p= diary.content.substr(0, 200) + "..."
+                            span.text-muted= diary.recorded_date.format("yyyy年MM月dd日")
             .col-lg-8.col-md-8
                 .box.box-solid
                     .box-header.with-border

@@ -24,8 +24,7 @@ module.exports = function(root) {
 
         "homepage": {
             "pagination": {
-                "journal": 5,
-                "diary": 4,
+                "journal": 7,
                 "photo": 5
             }
         },

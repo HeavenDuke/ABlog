@@ -30,6 +30,15 @@ block content
                                     li.list-group-item
                                         b= key
                                         a.pull-right= owner[key]
+                if diary
+                    .box.box-solid.hidden-sm.hidden-xs
+                        .box-header.with-border
+                            h3.box-title 最新日记
+                            a.pull-right(href="/diaries") more
+                                i.fa.fa-angle-double-right
+                        .box-body
+                            p= diary.content.substr(0, 200) + "..."
+                            span.text-muted= diary.recorded_date.format("yyyy年MM月dd日")
                 .box.box-solid.hidden-sm.hidden-xs
                     .box-header.with-border
                         h3.box-title 友情链接
@@ -46,15 +55,6 @@ block content
                                             a.pull-right.btn.btn-flat.btn-xs.btn-danger.delete-entry(href="/links/" + link._id + "?_method=DELETE") 删除
                         if current_user
                             a.btn.btn-info.btn-block(href="#" data-toggle="modal" data-target="#add_link_modal") 添加链接
-                if diary
-                    .box.box-solid.hidden-sm.hidden-xs
-                        .box-header.with-border
-                            h3.box-title 最新日记
-                            a.pull-right(href="/diaries") more
-                                i.fa.fa-angle-double-right
-                        .box-body
-                            p= diary.content.substr(0, 200) + "..."
-                            span.text-muted= diary.recorded_date.format("yyyy年MM月dd日")
             .col-lg-8.col-md-8
                 .box.box-solid
                     .box-header.with-border

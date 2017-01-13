@@ -12,5 +12,6 @@ module.exports = {
     notifications: require('./notifications'),
     guests: require('./guests'),
     photos: require('./photos'),
+    links: require('./links'),
     home: require('./home')
 };

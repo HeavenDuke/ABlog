@@ -22,6 +22,14 @@ module.exports = function(root) {
 
         "mongodb": 'mongodb://localhost:27017/ablog',
 
+        "homepage": {
+            "pagination": {
+                "journal": 5,
+                "diary": 4,
+                "photo": 5
+            }
+        },
+
         "qiniu": {
             "access_key": "YHexqPaoOloZzPViE-Xi3_qOuULiCBA-eycounJn",
             "secret_key": "Tegzlvkop-7xLT3C9_2JWeXDPZZ3tP3QyOAoZfbO",

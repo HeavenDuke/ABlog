@@ -9,39 +9,42 @@ let database = {
     models: {}
 };
 
-var Journal = require('./journal');
-var Project = require('./project');
-var User = require('./user');
-var Comment = require('./comment');
-var Diary = require('./diary');
-var VisitRecord = require('./visit_record');
-var Column = require('./column');
-var Article = require('./article');
-var Writing = require('./writing');
-var Guest = require('./guest');
-var Attitude = require('./attitude');
-var Photo = require('./photo');
+let Journal = require('./journal');
+let Project = require('./project');
+let User = require('./user');
+let Comment = require('./comment');
+let Diary = require('./diary');
+let VisitRecord = require('./visit_record');
+let Column = require('./column');
+let Article = require('./article');
+let Writing = require('./writing');
+let Guest = require('./guest');
+let Attitude = require('./attitude');
+let Photo = require('./photo');
+let Link = require('./link');
 
 mongoose.Promise = global.Promise;
 
-var JournalSchema = new Schema(Journal.Schema, Journal.collection);
-var UserSchema = new Schema(User.Schema, User.collection);
-var CommentSchema = new Schema(Comment.Schema, Comment.collection);
-var DiarySchema = new Schema(Diary.Schema, Diary.collection);
-var VisitRecordSchema = new Schema(VisitRecord.Schema, VisitRecord.collection);
-var ProjectSchema = new Schema(Project.Schema, Project.collection);
-var ColumnSchema = new Schema(Column.Schema, Column.collection);
-var ArticleSchema = new Schema(Article.Schema, Article.collection);
-var WritingSchema = new Schema(Writing.Schema, Writing.collection);
-var GuestSchema = new Schema(Guest.Schema, Guest.collection);
-var AttitudeSchema = new Schema(Attitude.Schema, Attitude.collection);
-var PhotoSchema = new Schema(Photo.Schema, Photo.collection);
+let JournalSchema = new Schema(Journal.Schema, Journal.collection);
+let UserSchema = new Schema(User.Schema, User.collection);
+let CommentSchema = new Schema(Comment.Schema, Comment.collection);
+let DiarySchema = new Schema(Diary.Schema, Diary.collection);
+let VisitRecordSchema = new Schema(VisitRecord.Schema, VisitRecord.collection);
+let ProjectSchema = new Schema(Project.Schema, Project.collection);
+let ColumnSchema = new Schema(Column.Schema, Column.collection);
+let ArticleSchema = new Schema(Article.Schema, Article.collection);
+let WritingSchema = new Schema(Writing.Schema, Writing.collection);
+let GuestSchema = new Schema(Guest.Schema, Guest.collection);
+let AttitudeSchema = new Schema(Attitude.Schema, Attitude.collection);
+let PhotoSchema = new Schema(Photo.Schema, Photo.collection);
+let LinkSchema = new Schema(Link.Schema, Link.collection);
 
 JournalSchema.methods.link = Journal.link;
 JournalSchema.methods.title_top = Journal.title_top;
 UserSchema.methods.encasePassword = User.encasePassword;
 UserSchema.methods.parsePassword = User.parsePassword;
 UserSchema.methods.validatePassword = User.validatePassword;
+UserSchema.methods.getBasicInfo = User.getBasicInfo;
 UserSchema.statics.validateConfirmPassword = User.validateConfirmPassword;
 DiarySchema.methods.mood_to_color = Diary.mood_to_color;
 DiarySchema.methods.translate_mood = Diary.translate_mood;
@@ -69,6 +72,7 @@ database.models.writing = mongoose.model('writing', WritingSchema);
 database.models.guest = mongoose.model('guest', GuestSchema);
 database.models.attitude = mongoose.model('attitude', AttitudeSchema);
 database.models.photo = mongoose.model('photo', PhotoSchema);
+database.models.link = mongoose.model('link', LinkSchema);
 
 module.exports = {
     loader:　database

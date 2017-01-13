@@ -11,6 +11,26 @@ User.Schema = {
         type: String,
         required: true
     },
+    sex: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+    },
+    favorites: {
+        type: String,
+        required: true,
+    },
+    specialities: {
+        type: String,
+        required: true,
+    },
+    current_position: {
+        type: String,
+        required: true
+    },
     password: {
         type: String,
         required: true
@@ -41,6 +61,17 @@ User.encasePassword = function (plain) {
 
 User.parsePassword = function () {
     return this.password.split("$");
+};
+
+User.getBasicInfo = function () {
+    return {
+        username: this.username,
+        email: this.email,
+        sex: this.sex,
+        favorites: this.favorites,
+        specialities: this.specialities,
+        current_position: this.current_position
+    };
 };
 
 User.validateConfirmPassword = function (password, confirm) {

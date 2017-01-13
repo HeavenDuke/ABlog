@@ -1,23 +1,25 @@
-var home_controller = require('../controller').home;
-var user_router = require('./users');
-var contest_router = require('./contests');
-var paper_router = require('./papers');
-var project_router = require('./projects');
-var journal_router = require('./journals');
-var diary_router = require('./diaries');
-var column_router = require('./columns');
-var rss_router = require('./rss');
-var writing_router = require('./writings');
-var image_router = require('./images');
-var notification_router = require('./notifications');
-var guest_router = require('./guests');
-var photo_router = require('./photos');
+let home_controller = require('../controller').home;
+let user_router = require('./users');
+let contest_router = require('./contests');
+let paper_router = require('./papers');
+let project_router = require('./projects');
+let journal_router = require('./journals');
+let diary_router = require('./diaries');
+let column_router = require('./columns');
+let rss_router = require('./rss');
+let writing_router = require('./writings');
+let image_router = require('./images');
+let notification_router = require('./notifications');
+let guest_router = require('./guests');
+let photo_router = require('./photos');
+let link_router = require('./links');
 
-var visit_recorder = require('../middlewares/visit_recorder');
+let visit_recorder = require('../middlewares/visit_recorder');
+let set_redirection = require('../middlewares/set_redirection');
 
 module.exports = function(app){
     //首页
-    app.get('home', '/', visit_recorder, home_controller.index);
+    app.get('home', '/', visit_recorder, set_redirection, home_controller.index);
 
     user_router(app);
     guest_router(app);
@@ -32,5 +34,6 @@ module.exports = function(app){
     writing_router(app);
     notification_router(app);
     photo_router(app);
+    link_router(app);
     
 };

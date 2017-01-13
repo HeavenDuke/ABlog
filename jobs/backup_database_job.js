@@ -14,7 +14,7 @@ const database_path = path.join(config.baseDir, "database");
 const make_backup = function (callback) {
     let database = "ablog";
     let collections = ["Diaries", "Journals", "Users", "Articles", "Guests",
-        "Projects", "VisitRecords", "Columns", "Writings", "Comments"];
+        "Projects", "VisitRecords", "Columns", "Writings", "Comments", "Photos", "Links"];
     let count = 0;
     collections.forEach(function (collection) {
         let command = "mongoexport -d " + database + " -c " + collection + " > " + database_path + "/" + collection + ".json";

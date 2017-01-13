@@ -2,14 +2,14 @@
  * Created by heavenduke on 16-7-7.
  */
 
-var writings_controller = require('../../controller').writings;
-var authentication = require('../../middlewares/authentication');
-var set_redirection = require('../../middlewares/set_redirection');
-var visit_recorder = require('../../middlewares/visit_recorder');
+let writings_controller = require('../../controller').writings;
+let authentication = require('../../middlewares/authentication');
+let set_redirection = require('../../middlewares/set_redirection');
+let visit_recorder = require('../../middlewares/visit_recorder');
 
 module.exports = function(app) {
 
-    var current_module = function *(next) {
+    let current_module = function *(next) {
         this.current_module = "writing";
         yield next;
     };

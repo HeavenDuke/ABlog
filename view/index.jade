@@ -3,103 +3,85 @@
 
 extends ./layout/layout
 
+block specified_ref
+    script(type="text/javascript" src="/marked/marked.js")
+    link(rel="stylesheet" type="text/css" href="/journals.css")
+    link(rel="stylesheet" type="text/css" href="/theme.css")
+    link(rel="stylesheet" type="text/css" href="/index.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/skins/_all-skins.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/AdminLTE.min.css")
+
 block content
     .container
-        .ablog-header
-            .ablog-header-left.col-lg-5.col-md-5
-                .left-content
-                    div
-                        .head-img
-                            img(src="http://i1.hdslb.com/bfs/face/5f42c51ce1b8308e101c914b8fcdd1dc76253e82.jpg")
-                        .info-detail
-                                .info-detail-name
-                                    span H.D.
-                                    a.black-link(href="#")
-                                        i.fa.fa-fw.fa-facebook(style="color:#3B589C;")
-                                    a.black-link(href="#")
-                                        i.fa.fa-fw.fa-twitter(style="color:#1AB2E8;")
-                                    a.black-link(href="#")
-                                        i.fa.fa-fw.fa-instagram
-                                    a.black-link(href="#")
-                                        i.fa.fa-fw.fa-github
-                                .info-detail-motto 看剑~看剑~看剑~看剑~看剑~看剑~看剑~你已经满身疮痍
-                .left-bkg
-                    .bkg-filter
-                    .bkg-img(style='background-color:#7cf;')
-            .ablog-header-right-img.col-lg-7.col-md-7(style='background-color:#7cf;')
-        .ablog-tags
-            span.label.label-info 中二
-            span.label.label-info 病娇
-            span.label.label-info 腹黑
-            span.label.label-info 被害妄想
-            span.label.label-info 萝莉控
-            span.label.label-info 二次元
-            span.label.label-info 黑长直
-        .ablog-section.row
-            .ablog-list.col-lg-7.col-md-7
-                .well.well-lg 你好世界！
-                .well.well-lg Hello World！
-                .well.well-lg こんにちは、せかい！
-                .well.well-lg 안녕하세요, 세계
-                .well.well-lg hallo welt
-                .well.well-lg bonjour, monde
-                .well.well-lg Hola mundo
-                .well.well-lg Γεια σου κόσμο
-                .well.well-lg witaj w świecie
-                .well.well-lg สวัสดีโลก
-                .well.well-lg hej världen
-                .well.well-lg здравствуй, мир
-                .well.well-lg مرحبا العالم
-
-            .ablog-timeline.col-lg-5.col-md-5
-                ul.timeline
-                    li.time-label
-                        span.bg-green 10 Feb. 2014
-                    li
-                        i.fa.fa-envelope.bg-blue
-                        .timeline-item
-                            span.time
-                                i.fa.fa-clock-o
-                                | &nbsp;23:33
-                            h3.timeline-header
-                                a(href="#") Support Team
-                                | sent you an email
-                            .timeline-body
-                                | lk;jasdl;kjasdlkajsdlkjasd,asdkj ,asd;asld,masdlkdfs,lkhj
-                            .timeline-footer
-                                a.btn.btn-sm.btn-default OK
-                    li
-                        i.fa.fa-user.bg-aqua
-                        .timeline-item
-                            span.time
-                                i.fa.fa-clock-o
-                                | &nbsp;5 mins ago
-                            h3.timeline-header.no-border
-                                a(href="#") Sarah Young
-                                | accepted your friend request
-                    li
-                        i.fa.fa-user.bg-aqua
-                        .timeline-item
-                            span.time
-                                i.fa.fa-clock-o
-                                | &nbsp;1 min ago
-                            h3.timeline-header.no-border
-                                a(href="#") Sarah Old
-                                | accepted your friend request
-                    li
-                        i.fa.fa-clock-o.bg-gray
-    .container.text-center(style="display:none;")
-        h1 你好世界！
-        h1 Hello World！
-        h1 こんにちは、せかい！
-        h1 안녕하세요, 세계
-        h1 hallo welt
-        h1 bonjour, monde
-        h1 Hola mundo
-        h1 Γεια σου κόσμο
-        h1 witaj w świecie
-        h1 สวัสดีโลก
-        h1 hej världen
-        h1 здравствуй, мир
-        h1 مرحبا العالم
+        .row.home
+            .col-lg-4.col-md-4
+                .box.box-primary
+                    .box-body.box-profile
+                        img.profile-user-img.img-responsive.img-circle(src="/favicon.ico")
+                        h3.profile-username.text-center= owner.username + " "
+                            if owner.sex == 'm'
+                                i.fa.fa-mars
+                            else
+                                i.fa.fa-venus
+                        p.text-muted.text-center 键盘的奴隶
+                        ul.list-group.list-group-unbordered
+                            - for key in Object.keys(owner)
+                                if ['username', 'sex'].includes(key) == false
+                                    li.list-group-item
+                                        b= key
+                                        a.pull-right= owner[key]
+                .box.box-solid
+                    .box-header.with-border
+                        h3.box-title 友情链接
+                    .box-body
+                        table(style="width: 100%;")
+                            - for link in links
+                                tr
+                                    td
+                                        a(href=link.url)
+                                            strong= link.name
+                                            p.text-muted= link.url
+                                    if current_user
+                                        td
+                                            a.pull-right.btn.btn-flat.btn-xs.btn-danger.delete-entry(href="/links/" + link._id + "?_method=DELETE") 删除
+                        if current_user
+                            a.btn.btn-info.btn-block(href="#" data-toggle="modal" data-target="#add_link_modal") 添加链接
+                .box.box-solid
+                    .box-header.with-border
+                        h3.box-title 最新日记
+                        a.pull-right(href="/diaries") more
+                            i.fa.fa-angle-double-right
+                    .box-body
+                        ul.timeline
+                            li
+                                i(id=diary._id + "_tag" tag=diary.tag class="fa " + diary.tag_to_icon() + " " + diary.mood_to_color())
+                                .timeline-item
+                                    h3.timeline-header(id=diary._id + "_brief")= diary.brief
+                                    .timeline-body(id=diary._id + "_content")= diary.content
+            .col-lg-8.col-md-8
+                .box.box-solid
+                    .box-header.with-border
+                        h3.box-title 近期博文
+                        a.pull-right(href="/journals") more
+                            i.fa.fa-angle-double-right
+                    .box-body
+                        - for journal in journals
+                            .row.journal
+                                a.journal-title(href="/journals/" + journal._id)= journal.placed_top ? journal.title_top() : journal.title
+                                .journal-info= journal.updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journal.read_count + ')　评论(' + journal.comment_count + ')'
+                                .journal-content= global.utils.journalPreview(global.utils.html2plain(global.utils.markdown(journal.content)), global.conf.preview.journal)
+    #add_link_modal.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header.with-border
+                    h3.modal-title 添加友情链接
+                .modal-body
+                    form.form(method="post" action="/links")
+                        .form-group
+                            label 外链名称
+                            input.form-control(name="name")
+                        .form-group
+                            label 外链地址
+                            input.form-control(name="url")
+                        button.btn.btn-block.btn-info 添加
 

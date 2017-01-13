@@ -2,16 +2,16 @@
  * Created by Obscurity on 2016/3/20.
  */
 
-var index = function *(next) {
-    var Journal = global.database.models.journal;
-    var journal_per_page = global.conf.pagination.journal;
-    var total_journal_count = null;
-    var topped_journal_count = null;
-    var current_page_index = null;
-    var total_page = null;
-    var offset = null;
-    var journals = null;
-    var journals_not_topped = null;
+let index = function *(next) {
+    let Journal = global.database.models.journal;
+    let journal_per_page = global.conf.pagination.journal;
+    let total_journal_count = null;
+    let topped_journal_count = null;
+    let current_page_index = null;
+    let total_page = null;
+    let offset = null;
+    let journals = null;
+    let journals_not_topped = null;
     if (this.session.user) {
         total_journal_count = yield Journal.count({});
         topped_journal_count = yield Journal.count({"placed_top": true});
@@ -36,20 +36,20 @@ var index = function *(next) {
             journals = journals.concat(journals_not_topped);
         }
     }
-    var pagination = {
+    let pagination = {
         total_page: total_page,
         current_index: current_page_index
     };
     this.render('./journals/index',{"title":"博客列表", current_guest: this.session.guest, current_user: this.session.user, journals: journals, pagination: pagination, current_module: this.current_module, redirect_url: this.request.url}, true);
 };
 
-var show = function *(next) {
-    var Journal = global.database.models.journal;
-    var Comment = global.database.models.comment;
-    var Attitude = global.database.models.attitude;
-    var Guest = global.database.models.guest;
-    var User = global.database.models.user;
-    var setReadSession = function (session, journal_id) {
+let show = function *(next) {
+    let Journal = global.database.models.journal;
+    let Comment = global.database.models.comment;
+    let Attitude = global.database.models.attitude;
+    let Guest = global.database.models.guest;
+    let User = global.database.models.user;
+    let setReadSession = function (session, journal_id) {
         if (!session.read_history) {
             session.read_history = {};
         }
@@ -57,18 +57,18 @@ var show = function *(next) {
         journal.save();
         session.read_history[journal_id] = true;
     };
-    var journal = yield Journal.findById(this.params.journal_id);
-    var attitude = this.session.guest ? yield Attitude.findOne({guest_id: this.session.guest._id, journal_id: this.params.journal_id}) : null;
-    var likes = yield Attitude.count({like: true, journal_id: this.params.journal_id});
-    var dislikes = yield Attitude.count({like: false, journal_id: this.params.journal_id});
+    let journal = yield Journal.findById(this.params.journal_id);
+    let attitude = this.session.guest ? yield Attitude.findOne({guest_id: this.session.guest._id, journal_id: this.params.journal_id}) : null;
+    let likes = yield Attitude.count({like: true, journal_id: this.params.journal_id});
+    let dislikes = yield Attitude.count({like: false, journal_id: this.params.journal_id});
     if (journal.is_public || this.session.user) {
         if (!this.session.read_history || !this.session.read_history[journal._id]) {
             setReadSession(this.session, journal._id);
         }
-        var comments = yield Comment.find({journal_id: journal._id}).sort({created_at: 1});
-        var user_id = null;
-        var guest_ids = [];
-        var ctx = this;
+        let comments = yield Comment.find({journal_id: journal._id}).sort({created_at: 1});
+        let user_id = null;
+        let guest_ids = [];
+        let ctx = this;
         comments.forEach(function (comment) {
             if (ctx.session.user) {
                 comment.is_checked = true;
@@ -92,8 +92,8 @@ var show = function *(next) {
             }
             comment.save();
         });
-        var guests = yield Guest.find({_id: {"$in": guest_ids}});
-        var json_guests = {};
+        let guests = yield Guest.find({_id: {"$in": guest_ids}});
+        let json_guests = {};
         guests.forEach(function (guest) {
             json_guests[guest._id] = {
                 _id: guest._id,
@@ -102,11 +102,11 @@ var show = function *(next) {
             };
         });
         if (user_id) {
-            var user = yield User.findById(user_id);
+            let user = yield User.findById(user_id);
         }
-        var json_comments = [];
+        let json_comments = [];
         comments.forEach(function (comment) {
-            var json_comment = {
+            let json_comment = {
                 _id: comment._id,
                 journal_id: comment.journal_id,
                 content: comment.content,
@@ -114,7 +114,7 @@ var show = function *(next) {
                 replies: []
             };
             comment.replies.forEach(function (reply) {
-                var json_reply = {
+                let json_reply = {
                     _id: reply._id,
                     content: reply.content,
                     created_at: reply.created_at
@@ -142,13 +142,13 @@ var show = function *(next) {
     }
 };
 
-var init = function *(next) {
+let init = function *(next) {
     this.render('./journals/new',{"title":"写博客", current_guest: this.session.guest, current_user: this.session.user, redirect_url: this.request.url}, true);
 };
 
-var create = function *(next) {
-    var Journal = global.database.models.journal;
-    var journal = new Journal();
+let create = function *(next) {
+    let Journal = global.database.models.journal;
+    let journal = new Journal();
     journal.title = this.request.body.title;
     journal.content = !this.request.body.content ? "" : this.request.body.content;
     journal.placed_top = !!this.request.body.placed_top;
@@ -157,15 +157,15 @@ var create = function *(next) {
     this.redirect(this.app.url("journals-detail", {journal_id: journal._id}));
 };
 
-var edit = function *(next) {
-    var Journal = global.database.models.journal;
-    var journal = yield Journal.findById(this.params.journal_id);
+let edit = function *(next) {
+    let Journal = global.database.models.journal;
+    let journal = yield Journal.findById(this.params.journal_id);
     this.render('./journals/edit',{"title": "编辑博客", journal: journal, current_guest: this.session.guest, current_user: this.session.user, current_module: this.current_module, redirect_url: this.request.url}, true);
 };
 
-var update = function *(next) {
-    var Journal = global.database.models.journal;
-    var journal = yield Journal.findById(this.params.journal_id);
+let update = function *(next) {
+    let Journal = global.database.models.journal;
+    let journal = yield Journal.findById(this.params.journal_id);
     journal.title = this.request.body.title;
     journal.content = !this.request.body.content ? "" : this.request.body.content;
     journal.placed_top = !(!this.request.body.placed_top);
@@ -175,10 +175,10 @@ var update = function *(next) {
     this.redirect(this.app.url('journals-update', {journal_id: journal._id}));
 };
 
-var destroy = function *(next) {
-    var Journal = global.database.models.journal;
-    var Comment = global.database.models.comment;
-    var journal = yield Journal.findById(this.params.journal_id);
+let destroy = function *(next) {
+    let Journal = global.database.models.journal;
+    let Comment = global.database.models.comment;
+    let journal = yield Journal.findById(this.params.journal_id);
     yield Comment.remove({journal_id: journal._id});
     journal.remove();
     this.redirect(this.app.url('journals-list'));

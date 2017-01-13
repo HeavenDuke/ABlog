@@ -45,7 +45,9 @@ block content
                                 | 返回
                 .box-body
                     #journal-content.journal-content= global.utils.markdown(journal.content)
+                    include ./likes/new
                 .bshare-custom
+                    span 分享：
                     a.bshare-qzone(title="分享到QQ空间")
                     a.bshare-sinaminiblog(title="分享到新浪微博")
                     a.bshare-renren(title="分享到人人网")
@@ -54,7 +56,6 @@ block content
                     a.bshare-weixin(title="分享到微信")
                     a.bshare-more.bshare-more-icon.more-style-addthis(title="更多平台")
                     span.BSHARE_COUNT.bshare-share-count 0
-                    include ./likes/new
                 include ./comments/index
                 include ./comments/new
     include ./reference

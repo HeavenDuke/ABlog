@@ -9,6 +9,9 @@
                     .user-block
                         span.username(style="margin-left: 0px;")#photo_title
                         span.description(style="margin-left: 0px;")#photo_info
+                        if current_user
+                            span.pull-right
+                                a.btn.btn-xs.btn-danger.delete-entry#remove_entry 删除
                     .row#photo_long
                         .col-lg-7
                             img.photo-border(style="width: 100%;")#photo_img_long

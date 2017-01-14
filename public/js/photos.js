@@ -39,6 +39,7 @@
         }
         $("#photo_title").text(photo_info.title);
         $("#photo_info").text(photo_info.location + "　" + new Date(photo_info.created_at).format("yyyy年MM月dd日"));
+        $("#remove_entry").attr('href', "/photos/" + photo_info._id + "?_method=delete")
     };
 
     let prepare_photo_detail = function () {
@@ -55,6 +56,7 @@
                 let added_items = added_container.children(".grid-masonry-item");
                 added_items.on("click", show_photo_detail);
                 grid.append(added_items);
+                grid.masonry('appended', added_items);
                 let item_loader = added_container.children("#scroller");
                 if (item_loader.length == 0) {
                     let end_marker = added_container.children("#end_marker");

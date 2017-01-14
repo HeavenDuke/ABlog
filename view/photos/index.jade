@@ -34,8 +34,8 @@ block content
                                     .overlay.margin.text-center.photo-border
                                         .photo-title.text-center= photo.title
                                         .photo-info= photo.location + "　" + photo.created_at.format("yyyy年MM月dd日")
-                    //if render_loader
-                    //    a#scroller.btn.btn-block.btn-flat(href="/photos?render=false&offset=" + global.conf.pagination.photo) 加载更多
+                    if render_loader
+                        a#scroller.btn.btn-block.btn-flat(href="/photos?render=false&offset=" + global.conf.pagination.photo) 加载更多
     include ./new
     include ./show
     include ./reference

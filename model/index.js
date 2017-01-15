@@ -61,6 +61,7 @@ GuestSchema.methods.validatePassword = Guest.validatePassword;
 GuestSchema.statics.validateConfirmPassword = Guest.validateConfirmPassword;
 PhotoSchema.methods.get_image_container = Photo.get_image_container;
 PhotoSchema.statics.get_thumb_image = Photo.get_thumb_image;
+PhotoSchema.statics.get_preview_image = Photo.get_preview_image;
 
 
 database.models.journal = mongoose.model("journal", JournalSchema);

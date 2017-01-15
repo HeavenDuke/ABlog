@@ -38,6 +38,11 @@ Photo.get_thumb_image = function (image_path) {
     return image_path.substring(0, dotIndex) + "_thumb." + image_path.substring(dotIndex + 1);
 };
 
+Photo.get_preview_image = function (image_path) {
+    let dotIndex = image_path.lastIndexOf(".");
+    return image_path.substring(0, dotIndex) + "_preview." + image_path.substring(dotIndex + 1);
+};
+
 Photo.get_image_container = function () {
     let result = "<div class='grid-masonry-item' photoinfo='" + JSON.stringify(this) + "'>";
     result += "<img class='margin photo-border' src='" + Photo.get_thumb_image("/" + this.path) + "'/>";

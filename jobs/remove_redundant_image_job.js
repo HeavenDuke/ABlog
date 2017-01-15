@@ -19,7 +19,7 @@ module.exports = function (callback) {
         photos.forEach(function (photo) {
             image_ids.push(photo.path);
             image_ids.push(image_tools.get_thumb_path(photo.path));
-            image_ids.push(image_tools.get_thumb_path(photo.path));
+            image_ids.push(image_tools.get_preview_path(photo.path));
         });
         Diary.find({}, function(err, diaries) {
             if (err) callback(err);
@@ -47,7 +47,7 @@ module.exports = function (callback) {
                     let total_number = Object.keys(delete_set).length;
                     let counter = 0;
                     for(let key in delete_set) {
-                        if (fs.existsSync(path.join(image_path, key))) {
+                        if (!fs.existsSync(path.join(image_path, key))) {
                             fs.unlink(path.join(image_path, key), function () {
                                 counter++;
                                 if (counter >= total_number) {

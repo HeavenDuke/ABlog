@@ -41,6 +41,20 @@ block content
                             span.text-muted= diary.recorded_date.format("yyyy年MM月dd日")
                 .box.box-solid.hidden-sm.hidden-xs
                     .box-header.with-border
+                        h3.hd.box-title 最新照片
+                        a.pull-right(href="/photos") more
+                            i.fa.fa-angle-double-right
+                    .box-body
+                        #photo-carousel.carousel.slide
+                            ol.carousel-indicators
+                                - for(var i = 0; i < photos.length; i++)
+                                    li(data-target="#photo-carousel" data-slide-to=i class=(i == 0 ? "active" : ""))
+                            .carousel-inner
+                                - for(var i = 0; i < photos.length; i++)
+                                    div(class=(i == 0 ? "active item" : "item"))
+                                        img(src=Photo.get_preview_image("/" + photos[i].path))
+                .box.box-solid.hidden-sm.hidden-xs
+                    .box-header.with-border
                         h3.hd.box-title 友情链接
                     .box-body
                         table(style="width: 100%;")

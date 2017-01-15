@@ -6,12 +6,7 @@ let path = require('path');
 let gm = require('gm').subClass({imageMagick: true});
 Promise.promisifyAll(gm.prototype);
 let fs = Promise.promisifyAll(require("fs"));
-
-let get_thumb_path = function (image_path) {
-    let dirname = path.dirname(image_path);
-    let extname = path.extname(image_path);
-    return path.join(dirname, path.basename(image_path, extname) + "_thumb" + extname);
-};
+let image_tools = require('../../libs/image');
 
 let index = function *(next) {
     let Photo = global.database.models.photo;
@@ -58,8 +53,12 @@ let create = function *(next) {
         let raw_width = 960;
         let raw_scale = size.width / raw_width;
         let raw_height = size.height / raw_scale;
+        let preview_size = 800;
+        let preview_scale = preview_size / Math.min(size.width, size.height);
+        let preview_width = size.width * preview_scale, preview_height = size.height * preview_scale;
         yield gm(image.path).resize(raw_height, raw_width).autoOrient().writeAsync(image.path);
-        yield gm(image.path).resize(thumb_width, thumb_height).autoOrient().writeAsync(get_thumb_path(image.path));
+        yield gm(image.path).resize(thumb_width, thumb_height).autoOrient().writeAsync(image_tools.get_thumb_path(image.path));
+        yield gm(image.path).resize(preview_width, preview_height).autoOrient().crop(preview_size, preview_size, (preview_width - preview_size) / 2, (preview_height - preview_size) / 2).writeAsync(image_tools.get_preview_path(image.path));
     }
     else {
         result = yield fs.unlinkAsync(image.path);
@@ -80,7 +79,8 @@ let destroy = function *(next) {
     let photo = yield Photo.findById(this.params.photo_id);
     let static_photo = photo.path;
     yield fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", static_photo));
-    yield fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", get_thumb_path(static_photo)));
+    yield fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", image_tools.get_thumb_path(static_photo)));
+    yield fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", image_tools.get_preview_path(static_photo)));
     photo.remove();
     this.redirect(this.app.url('photos-index'));
 };

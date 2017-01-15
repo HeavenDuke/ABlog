@@ -165,16 +165,6 @@ Server.prototype.initGlobalVariables = function() {
 
 Server.prototype.launchTasks = function () {
     let schedule = require('node-schedule');
-    // schedule.scheduleJob('0 * * * *', function () {
-    //     require('../jobs').RSSUpdateJob(function (err) {
-    //         if (err) {
-    //             console.log(err);
-    //         }
-    //         else {
-    //             console.log("rss updated");
-    //         }
-    //     });
-    // });
     schedule.scheduleJob('* * * * *', function () {
         require('../jobs').RemoveRedundantImageJob(function (err) {
             if (err) {

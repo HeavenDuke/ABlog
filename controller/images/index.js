@@ -6,12 +6,7 @@ let path = require('path');
 let gm = require('gm').subClass({imageMagick: true});
 Promise.promisifyAll(gm.prototype);
 let fs = Promise.promisifyAll(require("fs"));
-
-function get_thumb_path(image_path) {
-    let dirname = path.dirname(image_path);
-    let extname = path.extname(image_path);
-    return path.join(dirname, path.basename(image_path, extname) + "_thumb" + extname);
-}
+let image_tools = require('../../libs/image');
 
 
 let create = function *(next) {
@@ -33,12 +28,12 @@ let create = function *(next) {
             let raw_scale = size.height / raw_height;
             let raw_width = size.width / raw_scale;
             let result = yield gm(image.path).resize(raw_height, raw_width).autoOrient().writeAsync(image.path);
-            result = yield gm(image.path).resize(thumb_width, thumb_height).autoOrient().writeAsync(get_thumb_path(image.path));
+            result = yield gm(image.path).resize(thumb_width, thumb_height).autoOrient().writeAsync(image_tools.get_thumb_path(image.path));
             image_paths.push({
                 name: image_path,
                 size: image.size,
                 url: image_path,
-                thumbnailUrl: get_thumb_path(image_path)
+                thumbnailUrl: image_tools.get_thumb_path(image_path)
             });
         }
         else {

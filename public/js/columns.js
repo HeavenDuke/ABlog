@@ -11,6 +11,14 @@
         renderer.em = function (text) {
             return '_' + text + '_';
         };
+        renderer.image = function(href, title, text) {
+            let out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
+            if (title) {
+                out += ' title="' + title + '"';
+            }
+            out += this.options.xhtml ? '/>' : '>';
+            return out;
+        };
         var column_raw_content = marked(column_introduction_container.text(), {renderer: renderer});
         column_introduction_container.html(column_raw_content);
         MathJax.Hub.Config({
@@ -46,6 +54,14 @@
             let renderer = new marked.Renderer();
             renderer.em = function (text) {
                 return '_' + text + '_';
+            };
+            renderer.image = function(href, title, text) {
+                let out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
+                if (title) {
+                    out += ' title="' + title + '"';
+                }
+                out += this.options.xhtml ? '/>' : '>';
+                return out;
             };
             var column_raw_content = marked(rawEditor.val(), {renderer: renderer});
             column_previewer_content.html(column_raw_content);

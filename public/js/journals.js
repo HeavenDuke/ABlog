@@ -99,6 +99,14 @@
             renderer.em = function (text) {
                 return '_' + text + '_';
             };
+            renderer.image = function(href, title, text) {
+                let out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
+                if (title) {
+                    out += ' title="' + title + '"';
+                }
+                out += this.options.xhtml ? '/>' : '>';
+                return out;
+            };
             let journal_raw_content = marked(rawEditor.val(), {renderer: renderer});
             journal_previewer_content.html(journal_raw_content);
             MathJax.Hub.Config({

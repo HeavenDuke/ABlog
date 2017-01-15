@@ -143,6 +143,14 @@ Server.prototype.initGlobalVariables = function() {
             renderer.em = function (text) {
                 return '_' + text + '_';
             };
+            renderer.image = function(href, title, text) {
+                let out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
+                if (title) {
+                    out += ' title="' + title + '"';
+                }
+                out += this.options.xhtml ? '/>' : '>';
+                return out;
+            };
             return renderer;
         }()),
         gfm: true,

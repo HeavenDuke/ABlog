@@ -1,0 +1,36 @@
+extends ../layout/layout
+
+block specified_ref
+    link(rel="stylesheet" type="text/css" href="/projects.css")
+    link(rel="stylesheet" type="text/css" href="/index.css")
+    link(rel="stylesheet" type="text/css" href="/highlightjs/styles/github.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/skins/_all-skins.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/AdminLTE.min.css")
+    link(rel="stylesheet" type="text/css" href="/theme.css")
+
+block content
+    .container
+        .row.project
+            h4.hd.pull-left 我的项目
+            if current_user
+                a.button.button-primary.button-pill.pull-right(href="/projects/new") 新项目
+        .divider
+        if projects.length == 0
+            .row.text-center
+                h1.hd 主人很弱
+                h1.hd 什么项目都不会写_(:з」∠)_
+        else
+            .row
+                for project in projects
+                    .col-lg-6.col-md-6
+                        .box.box-solid
+                            .box-header.with-border
+                                i.fa.fa-bug
+                                .box-title= project.name
+                                .direct-chat-timestamp= project.started_at.format("yyyy年MM年dd日") + " ~ " + (project.closed_at ? project.closed_at.format("yyyy年MM年dd日"): "今")
+                            .box-body.project-item.projects_introduction= project.introduction
+                            if current_user
+                                .box-footer
+                                    a.btn.btn-xs.btn-warning(href="/projects/" + project._id + "/edit") 编辑
+                                    a.delete-entry.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + project._id + "?_method=delete") 删除
+    include ./reference

@@ -5,7 +5,7 @@ module.exports = {
     "debug": true,
 
     "pagination": {
-        "journal": 6,
+        "journal": 3,
         "diary": 1,
         "photo": 10
     },

@@ -1,6 +1,3 @@
-//
-   Created by heavenduke on 16-8-13.
-
 extends ../layout/layout
 
 block specified_ref
@@ -27,7 +24,7 @@ block content
                     .grid-masonry
                         .gutter-sizer
                         .grid-sizer
-                        - for photo in photos
+                        for photo in photos
                             .grid-masonry-item(photoinfo=JSON.stringify(photo))
                                 img.margin.photo-border(src=Photo.get_thumb_image("/" + photo.path), alt='Photo')
                                 a(data-toggle="modal" data-target="#photo_detail_modal")

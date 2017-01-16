@@ -1,0 +1,71 @@
+//
+   Created by Obscurity on 2016/5/11.
+
+.box-footer.box-comments
+    .comment-header 评论列表
+    for comment in comments
+        .box-comment
+            if comment.user
+                img.img-circle.img-sm(src="/favicon.ico")
+            else if comment.guest
+                if comment.guest.head
+                    img.img-circle.img-sm(src="/" + comment.guest.head)
+                else
+                    img.img-circle.img-sm.guest_comment(hash=comment.guest._id)
+            else
+                img.img-circle.img-sm(src="/head.png")
+            if current_user != null
+                a.delete-entry.pull-right(href="/journals/" + journal._id + "/comments/" + comment._id + "?_method=delete") 删除
+                a.pull-right(id=comment._id + "_reply_entry" style="margin-right: 10px; cursor: pointer;") 回复
+            else if current_guest != null
+                a.pull-right(id=comment._id + "_reply_entry" style="cursor: pointer;") 回复
+            .comment-text
+                if comment.user
+                    .username= comment.user.username
+                else if comment.guest
+                    .username= comment.guest.username
+                else
+                    .username 匿名用户
+                span.text-muted.pull-right= comment.created_at.format("yyyy年MM月dd日 hh:mm:ss")
+                = comment.content
+        - var replies = comment.replies;
+        if replies.length != 0
+            .box-comment
+                .box-footer.box-comments(style="margin-left: 20px;")
+                    for reply in replies
+                        .box-comment
+                            if reply.user
+                                img.img-circle.img-sm(src="/favicon.ico")
+                            else if reply.guest
+                                if reply.guest.head
+                                    img.img-circle.img-sm(src="/" + reply.guest.head)
+                                else
+                                    img.img-circle.img-sm.guest_comment(hash=reply.guest._id)
+                            else
+                                img.img-circle.img-sm(src="/head.png")
+                            .comment-text
+                                if reply.user
+                                    .username= reply.user.username
+                                else if reply.guest
+                                    .username= reply.guest.username
+                                else
+                                    .username 匿名用户
+                                span.text-muted.pull-right= reply.created_at.format("yyyy年MM月dd日 hh:mm:ss")
+                                = reply.content
+                    .box-comment(id=comment._id + "_reply_container" style="display: none;")
+                        form(action="/journals/" + journal._id + "/comments/" + comment._id + "/replies" method="POST").margin
+                            .form-group
+                                label 回复
+                                .OwO(comment_id=comment.id)
+                                textarea.form-control(name="content" id=comment.id + "_comment_reply" placeholder="请输入您的回复~")
+                            button.button.button-block.button-small.button-primary 提交
+        else
+            .box-comment(id=comment._id + "_reply_container" style="display: none;")
+                .box-footer.box-comments(style="margin-left: 20px;")
+                    .box-comment
+                        form(action="/journals/" + journal._id + "/comments/" + comment._id + "/replies" method="POST").margin
+                            .form-group
+                                label 回复
+                                .OwO(comment_id=comment.id)
+                                textarea.form-control(name="content" id=comment.id + "_comment_reply" placeholder="请输入您的回复~")
+                            button.button.button-block.button-small.button-primary 提交

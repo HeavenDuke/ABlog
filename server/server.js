@@ -12,7 +12,7 @@ var config = require('../config/config')(__dirname);
 var Logger = require('mini-logger');
 var onerror = require('koa-onerror');
 var override = require('koamethodoverride');
-var koaJade = require('koa-jade');
+var koaPug = require('koa-pug');
 var session = require('koa-session');
 var bodyParser = require('koa-bodyparser');
 var staticCache = require('koa-static-cache');
@@ -52,7 +52,7 @@ Server.prototype.start = function () {
 
     onerror(this);
 
-    var jade = new koaJade({
+    var pug = new koaPug({
         viewPath: './view',
         debug: false,
         pretty: true,

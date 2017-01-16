@@ -38,15 +38,16 @@ block content
                                     a.btn.btn-xs.btn-warning(href="/projects/" + project._id + "/edit") 编辑
                                     a.delete-entry.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + project._id + "?_method=delete") 删除
                     if list[1][index]
+                        - var project2 = list[1][index++]
                         .col-lg-6.col-md-6
                             .box.box-solid
                                 .box-header.with-border
                                     i.fa.fa-bug
-                                    .box-title= project.name
-                                    .direct-chat-timestamp= project.started_at.format("yyyy年MM年dd日") + " ~ " + (project.closed_at ? project.closed_at.format("yyyy年MM年dd日") : "今")
-                                .box-body.project-item.projects_introduction= project.introduction
+                                    .box-title= project2.name
+                                    .direct-chat-timestamp= project2.started_at.format("yyyy年MM年dd日") + " ~ " + (project2.closed_at ? project2.closed_at.format("yyyy年MM年dd日") : "今")
+                                .box-body.project-item.projects_introduction= project2.introduction
                                 if current_user
                                     .box-footer
-                                        a.btn.btn-xs.btn-warning(href="/projects/" + project._id + "/edit") 编辑
-                                        a.delete-entry.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + project._id + "?_method=delete") 删除
+                                        a.btn.btn-xs.btn-warning(href="/projects/" + project2._id + "/edit") 编辑
+                                        a.delete-entry.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + project2._id + "?_method=delete") 删除
     include ./reference

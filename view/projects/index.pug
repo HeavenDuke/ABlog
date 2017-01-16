@@ -20,8 +20,12 @@ block content
                 h1.hd 主人很弱
                 h1.hd 什么项目都不会写_(:з」∠)_
         else
-            .row
-                for project in projects
+            - var list = [[], []], i = 0, index = 0;
+            for project in projects
+                - list[i].push(project)
+                - i = 1 - i;
+            for project in list[0]
+                .row
                     .col-lg-6.col-md-6
                         .box.box-solid
                             .box-header.with-border
@@ -33,4 +37,16 @@ block content
                                 .box-footer
                                     a.btn.btn-xs.btn-warning(href="/projects/" + project._id + "/edit") 编辑
                                     a.delete-entry.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + project._id + "?_method=delete") 删除
+                    if list[1][index]
+                        .col-lg-6.col-md-6
+                            .box.box-solid
+                                .box-header.with-border
+                                    i.fa.fa-bug
+                                    .box-title= project.name
+                                    .direct-chat-timestamp= project.started_at.format("yyyy年MM年dd日") + " ~ " + (project.closed_at ? project.closed_at.format("yyyy年MM年dd日") : "今")
+                                .box-body.project-item.projects_introduction= project.introduction
+                                if current_user
+                                    .box-footer
+                                        a.btn.btn-xs.btn-warning(href="/projects/" + project._id + "/edit") 编辑
+                                        a.delete-entry.btn.btn-xs.btn-danger(style="margin-left: 10px;" href="/projects/" + project._id + "?_method=delete") 删除
     include ./reference

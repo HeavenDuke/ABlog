@@ -10,6 +10,7 @@ var flash = require('koa-flash');
 var config = require('../config/config')(__dirname);
 //log记录
 var Logger = require('mini-logger');
+var Logger = require('mini-logger');
 var onerror = require('koa-onerror');
 var override = require('koamethodoverride');
 var koaPug = require('koa-pug');

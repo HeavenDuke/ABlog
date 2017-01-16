@@ -25,11 +25,11 @@ block content
                         td
                             a(href="/columns")
                                 strong 专栏概要
-                    for column in columns
+                    for acolumn in columns
                         tr
-                            td(class=(column._id.toString() == column._id.toString() ? "selected-column" : ""))
-                                a(href="/columns/" + column._id)
-                                    strong= column.name
+                            td(class=(acolumn._id.toString() == column._id.toString() ? "selected-column" : ""))
+                                a(href="/columns/" + acolumn._id)
+                                    strong= acolumn.name
                     if current_user
                         tr
                             td.text-center

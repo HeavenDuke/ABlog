@@ -19,11 +19,11 @@ block content
                 table.table.table-bordered
                     tr
                         th 文章目录
-                    for article in articles
+                    for anarticle in articles
                         tr
-                            td(class=(article._id.toString() == article._id.toString() ? "selected-article" : ""))
-                                a(href="/columns/" + column_id + "/articles/" + article._id)
-                                    strong= article.order + "　" + article.title
+                            td(class=(anarticle._id.toString() == article._id.toString() ? "selected-article" : ""))
+                                a(href="/columns/" + column_id + "/articles/" + anarticle._id)
+                                    strong= anarticle.order + "　" + anarticle.title
             .col-lg-9.col-md-9
                 .box.box-widget
                     .box-header.with-border

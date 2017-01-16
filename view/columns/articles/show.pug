@@ -15,7 +15,7 @@ block specified_ref
 block content
     .container
         .row.article
-            .col-lg-3.col-md-3.col-sm-3
+            .col-lg-3.col-md-3
                 table.table.table-bordered
                     tr
                         th 文章目录
@@ -24,7 +24,7 @@ block content
                             td(class=(article._id.toString() == article._id.toString() ? "selected-article" : ""))
                                 a(href="/columns/" + column_id + "/articles/" + article._id)
                                     strong= article.order + "　" + article.title
-            .col-lg-9.col-md-9.col-sm-9
+            .col-lg-9.col-md-9
                 .box.box-widget
                     .box-header.with-border
                         .col-lg-7.col-md-6.col-sm-6

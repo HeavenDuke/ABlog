@@ -6,18 +6,8 @@
 (function() {
 
     var prepare_column_detail = function () {
-        var column_introduction_container = $("#column-introduction");
-        let renderer = new marked.Renderer();
-        renderer.image = function(href, title, text) {
-            let out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
-            if (title) {
-                out += ' title="' + title + '"';
-            }
-            out += this.options.xhtml ? '/>' : '>';
-            return out;
-        };
-        var column_raw_content = marked(column_introduction_container.text(), {renderer: renderer});
-        column_introduction_container.html(column_raw_content);
+        let column_introduction_container = $("#column-introduction");
+        column_introduction_container.html(column_introduction_container.text());
         MathJax.Hub.Config({
             tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
         });

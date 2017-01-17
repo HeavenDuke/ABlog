@@ -151,13 +151,13 @@ Server.prototype.initGlobalVariables = function() {
             };
             return renderer;
         }()),
-        //gfm: true,
-        //tables: true,
-        //breaks: false,
-        //pedantic: false,
-        //sanitize: true,
-        //smartLists: true,
-        //smartypants: false
+        gfm: true,
+        tables: true,
+        breaks: false,
+        pedantic: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: false
     });
 };
 

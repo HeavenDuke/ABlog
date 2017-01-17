@@ -15,22 +15,12 @@
     };
 
     var prepare_article_detail = function () {
-        var article_content_container = $("#article-content");
-        let renderer = new marked.Renderer();
-        renderer.image = function(href, title, text) {
-            let out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
-            if (title) {
-                out += ' title="' + title + '"';
-            }
-            out += this.options.xhtml ? '/>' : '>';
-            return out;
-        };
-        var article_raw_content = marked(article_content_container.text(), {renderer: renderer});
+        let article_content_container = $("#article-content");
+        article_content_container.html(article_content_container.text());
         MathJax.Hub.Config({
             tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
         });
         MathJax.Hub.Queue(["Typeset", MathJax.Hub, article_raw_content]);
-        article_content_container.html(article_raw_content);
         $('pre code').each(function() {
             hljs.highlightBlock(this);
         });

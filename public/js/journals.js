@@ -96,9 +96,6 @@
             let journal_previewer_content = $("#journal_previewer_content");
             myCodeMirror.save();
             let renderer = new marked.Renderer();
-            renderer.em = function (text) {
-                return '_' + text + '_';
-            };
             renderer.image = function(href, title, text) {
                 let out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
                 if (title) {

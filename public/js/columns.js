@@ -8,9 +8,6 @@
     var prepare_column_detail = function () {
         var column_introduction_container = $("#column-introduction");
         let renderer = new marked.Renderer();
-        renderer.em = function (text) {
-            return '_' + text + '_';
-        };
         renderer.image = function(href, title, text) {
             let out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
             if (title) {
@@ -52,9 +49,6 @@
             var column_previewer_content = $("#column_previewer_content");
             myCodeMirror.save();
             let renderer = new marked.Renderer();
-            renderer.em = function (text) {
-                return '_' + text + '_';
-            };
             renderer.image = function(href, title, text) {
                 let out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
                 if (title) {

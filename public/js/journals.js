@@ -104,16 +104,7 @@
                 out += this.options.xhtml ? '/>' : '>';
                 return out;
             };
-            let journal_raw_content = marked(rawEditor.val(), {
-                renderer: renderer,
-                gfm: true,
-                tables: true,
-                breaks: false,
-                pedantic: false,
-                sanitize: true,
-                smartLists: true,
-                smartypants: false
-            });
+            let journal_raw_content = marked(rawEditor.val(), {renderer: renderer});
             journal_previewer_content.html(journal_raw_content);
             MathJax.Hub.Config({
                 tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}

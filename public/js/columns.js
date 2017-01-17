@@ -16,16 +16,7 @@
             out += this.options.xhtml ? '/>' : '>';
             return out;
         };
-        var column_raw_content = marked(column_introduction_container.text(), {
-            renderer: renderer,
-            gfm: true,
-            tables: true,
-            breaks: false,
-            pedantic: false,
-            sanitize: true,
-            smartLists: true,
-            smartypants: false
-        });
+        var column_raw_content = marked(column_introduction_container.text(), {renderer: renderer});
         column_introduction_container.html(column_raw_content);
         MathJax.Hub.Config({
             tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
@@ -66,16 +57,7 @@
                 out += this.options.xhtml ? '/>' : '>';
                 return out;
             };
-            var column_raw_content = marked(rawEditor.val(), {
-                renderer: renderer,
-                gfm: true,
-                tables: true,
-                breaks: false,
-                pedantic: false,
-                sanitize: true,
-                smartLists: true,
-                smartypants: false
-            });
+            var column_raw_content = marked(rawEditor.val(), {renderer: renderer});
             column_previewer_content.html(column_raw_content);
             MathJax.Hub.Config({
                 tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}

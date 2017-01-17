@@ -20,7 +20,7 @@
         MathJax.Hub.Config({
             tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
         });
-        MathJax.Hub.Queue(["Typeset", MathJax.Hub, article_raw_content]);
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         $('pre code').each(function() {
             hljs.highlightBlock(this);
         });

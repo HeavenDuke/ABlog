@@ -141,9 +141,6 @@ Server.prototype.initGlobalVariables = function() {
     global.utils.markdown.setOptions({
         renderer: (function () {
             let renderer = new marked.Renderer();
-            renderer.em = function (text) {
-                return '_' + text + '_';
-            };
             renderer.image = function(href, title, text) {
                 let out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
                 if (title) {

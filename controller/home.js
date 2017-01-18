@@ -8,6 +8,8 @@ let index = function *(next) {
     let Photo = global.database.models.photo;
     let Link = global.database.models.link;
     let User = global.database.models.user;
+    let Column = global.database.models.column;
+    let columns = yield Column.find({}).sort({updated_at: -1}).limit(2);
     let journals = {}, diary = {}, photos = {}, links = {}, user = {};
     user = yield User.findOne({});
     if (this.session.user) {
@@ -29,6 +31,7 @@ let index = function *(next) {
         journals: journals,
         diary: diary,
         links: links,
+        columns: columns,
         owner: user.getBasicInfo(),
         Photo: Photo
     });

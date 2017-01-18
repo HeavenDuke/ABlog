@@ -77,6 +77,26 @@ block content
                         a.pull-right(href="/journals") more
                             i.fa.fa-angle-double-right
                     .box-body
+                        if columns.length == 2
+                            .row.journal
+                                for column in columns
+                                    .col-lg-6
+                                        .info-box
+                                            span.info-box-icon.bg-aqua
+                                                i.fa.fa-book
+                                            .info-box-content
+                                                span.info-box-text= column.updated_at.format('yyyy年MM月dd日更新')
+                                                span.info-box-number= column.name
+                        else if columns.length == 1
+                            - var column = columns[0]
+                            .row.journal
+                                .col-lg-12
+                                    .info-box
+                                        span.info-box-icon.bg-aqua
+                                            i.fa.fa-book
+                                        .info-box-content
+                                            span.info-box-text= column.updated_at.format('yyyy年MM月dd日更新')
+                                            span.info-box-number= column.name
                         for journal in journals
                             .row.journal
                                 a.journal-title(href="/journals/" + journal._id)= journal.placed_top ? journal.title_top() : journal.title

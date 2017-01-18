@@ -26,6 +26,12 @@ Article.Schema = {
         type: String,
         required: false
     },
+    comment_count: {
+        type: Number,
+        required: true,
+        default: 0,
+        min: 0
+    },
     likes_count: {
         type: Number,
         required: true,

@@ -57,6 +57,38 @@
         }
     };
 
+    let prepare_journal_share = function () {
+        $("#hshare").hshare({
+            size: "medium",
+            renderText: true,
+            shares: [{
+                platform: "qzone",
+                icon: "/hshare/icons/qzone.png",
+                text: "分享到QQ空间"
+            }, {
+                platform: "qq",
+                icon: "/hshare/icons/qq.png",
+                text: "QQ好友"
+            }, {
+                platform: "douban",
+                icon: "/hshare/icons/douban.png",
+                text: "豆瓣"
+            }, {
+                platform: "renren",
+                icon: "/hshare/icons/renren.png",
+                text: "人人网"
+            }, {
+                platform: "sinaweibo",
+                icon: "/hshare/icons/sinaweibo.png",
+                text: "新浪微博"
+            }, {
+                platform: "wechat",
+                icon: "/hshare/icons/wechat.png",
+                text: "微信"
+            }]
+        });
+    };
+
     let prepare_journal_detail = function () {
         let journal_content_container = $("#journal-content");
         journal_content_container.html(journal_content_container.text());
@@ -72,6 +104,7 @@
         prepare_journal_comments();
         prepare_journal_comment_replies();
         prepare_journal_comment_heads();
+        prepare_journal_share();
     };
 
     let prepare_journal_previewer = function () {

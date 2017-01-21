@@ -11,6 +11,7 @@ block specified_ref
     link(rel="stylesheet" type="text/css" href="/AdminLTE/css/AdminLTE.min.css")
     link(rel="stylesheet" type="text/css" href="/OwO/OwO.min.css")
     link(rel="stylesheet" type="text/css" href="/theme.css")
+    link(rel="stylesheet" type="text/css" href="/hshare/hshare.css")
 
 block content
     .container
@@ -53,16 +54,8 @@ block content
                     .box-body
                         #article-content.article-content= global.utils.markdown(article.content)
                         include ./likes/new
-                        .bshare-custom
+                        #hshare
                             span 分享：
-                            a.bshare-qzone(title="分享到QQ空间")
-                            a.bshare-sinaminiblog(title="分享到新浪微博")
-                            a.bshare-renren(title="分享到人人网")
-                            a.bshare-qqmb(title="分享到腾讯微博")
-                            a.bshare-qqim(title="分享到QQ好友")
-                            a.bshare-weixin(title="分享到微信")
-                            a.bshare-more.bshare-more-icon.more-style-addthis(title="更多平台")
-                            span.BSHARE_COUNT.bshare-share-count 0
                     include ./comments/index
                     include ./comments/new
     include ./reference

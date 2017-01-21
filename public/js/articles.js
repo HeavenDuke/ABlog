@@ -65,6 +65,39 @@
         });
 
         prepare_article_comment_heads();
+        prepare_article_share();
+    };
+
+    let prepare_article_share = function () {
+        $("#hshare").hshare({
+            size: "medium",
+            renderText: true,
+            shares: [{
+                platform: "qzone",
+                icon: "/hshare/icons/qzone.png",
+                text: "分享到QQ空间"
+            }, {
+                platform: "qq",
+                icon: "/hshare/icons/qq.png",
+                text: "QQ好友"
+            }, {
+                platform: "douban",
+                icon: "/hshare/icons/douban.png",
+                text: "豆瓣"
+            }, {
+                platform: "renren",
+                icon: "/hshare/icons/renren.png",
+                text: "人人网"
+            }, {
+                platform: "sinaweibo",
+                icon: "/hshare/icons/sinaweibo.png",
+                text: "新浪微博"
+            }, {
+                platform: "wechat",
+                icon: "/hshare/icons/wechat.png",
+                text: "微信"
+            }]
+        });
     };
 
     var prepare_article_previewer = function () {

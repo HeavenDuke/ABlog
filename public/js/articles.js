@@ -71,31 +71,18 @@
     let prepare_article_share = function () {
         $("#hshare").hshare({
             size: "medium",
-            renderText: true,
             shares: [{
-                platform: "qzone",
-                icon: "/hshare/icons/qzone.png",
-                text: "分享到QQ空间"
+                platform: "qzone"
             }, {
-                platform: "qq",
-                icon: "/hshare/icons/qq.png",
-                text: "QQ好友"
+                platform: "qq"
             }, {
-                platform: "douban",
-                icon: "/hshare/icons/douban.png",
-                text: "豆瓣"
+                platform: "douban"
             }, {
-                platform: "renren",
-                icon: "/hshare/icons/renren.png",
-                text: "人人网"
+                platform: "renren"
             }, {
-                platform: "sinaweibo",
-                icon: "/hshare/icons/sinaweibo.png",
-                text: "新浪微博"
+                platform: "sinaweibo"
             }, {
-                platform: "wechat",
-                icon: "/hshare/icons/wechat.png",
-                text: "微信"
+                platform: "wechat"
             }]
         });
     };

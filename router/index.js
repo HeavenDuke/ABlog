@@ -22,11 +22,11 @@ module.exports = function(app){
     app.get('home', '/', visit_recorder, set_redirection, home_controller.index);
 
     app.post('updataHshare', "/hshare", function *(next) {
-        this.json({message: "success"});
+        this.body = {message: "success"};
     });
 
     app.get('loadHshare', "/hshare", function *(next) {
-        this.json({stat: 100});
+        this.body = {stat: 1000};
     });
 
     user_router(app);

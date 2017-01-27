@@ -21,6 +21,14 @@ module.exports = function(app){
     //首页
     app.get('home', '/', visit_recorder, set_redirection, home_controller.index);
 
+    app.post('updataHshare', "/hshare", function *(next) {
+        this.json({message: "success"});
+    });
+
+    app.get('loadHshare', "/hshare", function *(next) {
+        this.json({stat: 100});
+    });
+
     user_router(app);
     guest_router(app);
     contest_router(app);

@@ -22,10 +22,12 @@ module.exports = function(app){
     app.get('home', '/', visit_recorder, set_redirection, home_controller.index);
 
     app.post('updataHshare', "/hshare", function *(next) {
+        this.response.set("Access-Control-Allow-Origin", "*");
         this.body = {message: "success"};
     });
 
     app.get('loadHshare', "/hshare", function *(next) {
+        this.response.set("Access-Control-Allow-Origin", "*");
         this.body = {stat: 1000};
     });
 

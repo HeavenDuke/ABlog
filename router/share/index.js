@@ -8,8 +8,8 @@ let set_redirection = require('../../middlewares/set_redirection');
 
 module.exports = function(app) {
 
-    app.get('load-share-stat', '/shares', authentication.auth_none, share_controller.show);
+    app.get('load-share-stat', '/shares', share_controller.show);
 
-    app.post('update-share-stat', '/shares', authentication.auth_none, share_controller.update);
+    app.post('update-share-stat', '/shares', share_controller.update);
 
 };

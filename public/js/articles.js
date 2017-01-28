@@ -70,20 +70,26 @@
 
     let prepare_article_share = function () {
         $("#hshare").hshare({
-            size: "medium",
-            shares: [{
-                platform: "qzone"
+            size: "large",
+            renderText: true,
+            more: true,
+            platforms: [{
+                name: "qzone"
             }, {
-                platform: "qq"
+                name: "qq"
             }, {
-                platform: "douban"
+                name: "douban"
             }, {
-                platform: "renren"
+                name: "renren"
             }, {
-                platform: "sinaweibo"
+                name: "sinaweibo"
             }, {
-                platform: "wechat"
-            }]
+                name: "wechat"
+            }],
+            stat: {
+                loadUrl: "/shares",
+                updateUrl: "/shares"
+            }
         });
     };
 

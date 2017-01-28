@@ -13,6 +13,7 @@ let notification_router = require('./notifications');
 let guest_router = require('./guests');
 let photo_router = require('./photos');
 let link_router = require('./links');
+let share_router = require('./share');
 
 let visit_recorder = require('../middlewares/visit_recorder');
 let set_redirection = require('../middlewares/set_redirection');
@@ -35,5 +36,6 @@ module.exports = function(app){
     notification_router(app);
     photo_router(app);
     link_router(app);
+    share_router(app);
     
 };

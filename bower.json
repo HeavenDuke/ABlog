@@ -31,6 +31,7 @@
     "AjaxFileUpload": "^1.0.0",
     "masonry": "^4.1.1",
     "imagesloaded": "^4.1.1",
-    "jscroll": "^2.3.5"
+    "jscroll": "^2.3.5",
+    "hshare": "^1.0.0"
   }
 }

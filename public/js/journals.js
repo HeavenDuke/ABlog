@@ -76,8 +76,8 @@
                 name: "wechat"
             }],
             stat: {
-                loadUrl: "http://localhost:3000/shares",
-                updateUrl: "http://localhost:3000/shares"
+                loadUrl: "/shares",
+                updateUrl: "/shares"
             }
         });
     };

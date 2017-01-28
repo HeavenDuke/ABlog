@@ -691,8 +691,8 @@
             }
 
             var _hoverout = function (event) {
-                var cursorX = event.pageX;
-                var cursorY = event.pageY;
+                var cursorX = event.clientX;
+                var cursorY = event.clientY;
                 var panelLeft = morePanel.position().left;
                 var panelTop = morePanel.position().top;
                 var panelWidth = morePanel.width();
@@ -702,10 +702,10 @@
                 }
             };
 
-            var _hoverin = function () {
+            var _hoverin = function (event) {
                 if (morePanel.css("display") == "none") {
-                    var left = $(this).position().left;
-                    var top = $(this).position().top;
+                    var left = event.clientX;
+                    var top = event.clientY;
                     var entryWidth = $(this).width();
                     var entryHeight = $(this).height();
                     var width = morePanel.width();

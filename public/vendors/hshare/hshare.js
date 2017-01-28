@@ -724,7 +724,7 @@
                 size = "small";
                 var morePanel = _renderMorePanel();
                 $this.append(moreEntry);
-                $("body").append(morePanel);
+                $this.append(morePanel);
                 moreEntry.hover(_hoverin, _hoverout);
                 morePanel.on('mouseout mouseleave', _hoverout);
             }

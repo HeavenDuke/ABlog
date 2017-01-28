@@ -2,10 +2,11 @@
  * Created by heavenduke on 17-1-28.
  */
 
+let urlCoder = require('../../libs/urlEncoder');
 
 let show = function *(next) {
     let Share = global.database.models.share;
-    let url = this.request.query.url;
+    let url = urlCoder.url_decode(this.request.query.url);
     let shares = yield Share.find({
         url: url
     });
@@ -18,7 +19,7 @@ let show = function *(next) {
 
 let update = function *(next) {
     let Share = global.database.models.share;
-    let url = this.request.body.url;
+    let url = urlCoder.url_decode(this.request.body.url);
     let platform = this.request.body.platform;
     let share = yield Share.findOne({
         url: url,

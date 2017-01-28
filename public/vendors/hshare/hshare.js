@@ -549,19 +549,19 @@
             return container;
         };
 
-        var _calculateLocation = function (ex, ey, ew, eh, width, height, sw, sh) {
+        var _calculateLocation = function (ex, ey, width, height, sw, sh) {
             var result = {};
-            if (ex + ew + width > sw) {
-                result.x = ex + ew - width;
+            if (ex + width > sw) {
+                result.x = ex - width;
             }
             else {
-                result.x = ex + ew;
+                result.x = ex;
             }
-            if (ey + eh + height > sh) {
-                result.y = ey + eh - height;
+            if (ey + height > sh) {
+                result.y = ey - height;
             }
             else {
-                result.y = ey + eh;
+                result.y = ey;
             }
             return result;
         };
@@ -706,13 +706,11 @@
                 if (morePanel.css("display") == "none") {
                     var left = event.clientX;
                     var top = event.clientY;
-                    var entryWidth = $(this).width();
-                    var entryHeight = $(this).height();
                     var width = morePanel.width();
                     var height = morePanel.height();
                     var screenWidth = $(window).width();
                     var screenHeight = $(window).height();
-                    var location = _calculateLocation(left, top, entryWidth / 2, entryHeight / 2, width, height, screenWidth, screenHeight);
+                    var location = _calculateLocation(left, top, width, height, screenWidth, screenHeight);
                     morePanel.attr("style", "left: " + location.x + "px; top: " + location.y + "px;");
                     morePanel.css('display', "block");
                 }

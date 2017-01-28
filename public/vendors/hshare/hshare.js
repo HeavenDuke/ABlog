@@ -550,6 +550,7 @@
         };
 
         var _calculateLocation = function (ex, ey, width, height, sw, sh) {
+            console.log(ex, ey, width, height, sw, sh);
             var result = {};
             if (ex + width > sw) {
                 result.x = ex - width;

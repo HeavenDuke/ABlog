@@ -57,6 +57,31 @@
         }
     };
 
+    let prepare_journal_share = function () {
+        $("#hshare").hshare({
+            size: "large",
+            renderText: true,
+            more: true,
+            platforms: [{
+                name: "qzone"
+            }, {
+                name: "qq"
+            }, {
+                name: "douban"
+            }, {
+                name: "renren"
+            }, {
+                name: "sinaweibo"
+            }, {
+                name: "wechat"
+            }],
+            stat: {
+                loadUrl: "http://localhost:3000/shares",
+                updateUrl: "http://localhost:3000/shares"
+            }
+        });
+    };
+
     let prepare_journal_detail = function () {
         let journal_content_container = $("#journal-content");
         journal_content_container.html(journal_content_container.text());
@@ -72,6 +97,7 @@
         prepare_journal_comments();
         prepare_journal_comment_replies();
         prepare_journal_comment_heads();
+        prepare_journal_share();
     };
 
     let prepare_journal_previewer = function () {

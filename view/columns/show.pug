@@ -2,7 +2,7 @@ extends ../layout/layout
 
 block specified_ref
     script(type="text/javascript" src="/marked/marked.js")
-    script(type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML")
+    script(type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML")
     script(type="text/javascript" src="/highlightjs/highlight.pack.js")
     link(rel="stylesheet" type="text/css" href="/columns.css")
     link(rel="stylesheet" type="text/css" href="/index.css")
@@ -10,6 +10,7 @@ block specified_ref
     link(rel="stylesheet" type="text/css" href="/AdminLTE/css/skins/_all-skins.css")
     link(rel="stylesheet" type="text/css" href="/AdminLTE/css/AdminLTE.min.css")
     link(rel="stylesheet" type="text/css" href="/theme.css")
+    link(rel="stylesheet" type="text/css" href="/hshare/hshare.css")
 
 block content
     .container
@@ -50,16 +51,8 @@ block content
                                 | 删除
                     .box-body
                         #column-introduction= global.utils.markdown(column.introduction)
-                        .bshare-custom
+                        #hshare
                             span 分享：
-                            a.bshare-qzone(title="分享到QQ空间")
-                            a.bshare-sinaminiblog(title="分享到新浪微博")
-                            a.bshare-renren(title="分享到人人网")
-                            a.bshare-qqmb(title="分享到腾讯微博")
-                            a.bshare-qqim(title="分享到QQ好友")
-                            a.bshare-weixin(title="分享到微信")
-                            a.bshare-more.bshare-more-icon.more-style-addthis(title="更多平台")
-                            span.BSHARE_COUNT.bshare-share-count 0
                     .box-body
                         h4.hd 专栏文章：
                         if articles.length != 0

@@ -15,6 +15,32 @@
         $('pre code').each(function() {
             hljs.highlightBlock(this);
         });
+        prepare_column_share();
+    };
+
+    let prepare_column_share = function () {
+        $("#hshare").hshare({
+            size: "large",
+            renderText: true,
+            more: true,
+            platforms: [{
+                name: "qzone"
+            }, {
+                name: "qq"
+            }, {
+                name: "douban"
+            }, {
+                name: "renren"
+            }, {
+                name: "sinaweibo"
+            }, {
+                name: "wechat"
+            }],
+            stat: {
+                loadUrl: "http://localhost:3000/shares",
+                updateUrl: "http://localhost:3000/shares"
+            }
+        });
     };
 
     var prepare_column_previewer = function () {

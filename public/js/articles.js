@@ -65,6 +65,32 @@
         });
 
         prepare_article_comment_heads();
+        prepare_article_share();
+    };
+
+    let prepare_article_share = function () {
+        $("#hshare").hshare({
+            size: "large",
+            renderText: true,
+            more: true,
+            platforms: [{
+                name: "qzone"
+            }, {
+                name: "qq"
+            }, {
+                name: "douban"
+            }, {
+                name: "renren"
+            }, {
+                name: "sinaweibo"
+            }, {
+                name: "wechat"
+            }],
+            stat: {
+                loadUrl: "http://localhost:3000/shares",
+                updateUrl: "http://localhost:3000/shares"
+            }
+        });
     };
 
     var prepare_article_previewer = function () {

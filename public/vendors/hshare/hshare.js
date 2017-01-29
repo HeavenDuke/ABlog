@@ -692,10 +692,10 @@
             }
 
             var _hoverout = function (event) {
-                var cursorX = event.clientX;
-                var cursorY = event.clientY;
-                var panelLeft = morePanel.position().left;
-                var panelTop = morePanel.position().top;
+                var cursorX = event.pageX;
+                var cursorY = event.pageY;
+                var panelLeft = morePanel.offset().left;
+                var panelTop = morePanel.offset().top;
                 var panelWidth = morePanel.width();
                 var panelHeight = morePanel.height();
                 if (!_isWithinBox(cursorX, cursorY, panelLeft, panelTop, panelWidth, panelHeight)) {
@@ -705,8 +705,8 @@
 
             var _hoverin = function (event) {
                 if (morePanel.css("display") == "none") {
-                    var left = event.clientX;
-                    var top = event.clientY;
+                    var left = event.pageX;
+                    var top = event.pageY;
                     var width = morePanel.width();
                     var height = morePanel.height();
                     var screenWidth = $(window).width();
@@ -724,7 +724,7 @@
                 size = "small";
                 var morePanel = _renderMorePanel();
                 $this.append(moreEntry);
-                $this.append(morePanel);
+                $("body").append(morePanel);
                 moreEntry.hover(_hoverin, _hoverout);
                 morePanel.on('mouseout mouseleave', _hoverout);
             }

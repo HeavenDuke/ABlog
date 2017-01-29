@@ -61,7 +61,6 @@
         $("#hshare").hshare({
             size: "large",
             renderText: false,
-            more: true,
             platforms: [{
                 name: "qzone"
             }, {

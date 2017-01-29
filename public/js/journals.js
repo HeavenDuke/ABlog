@@ -60,8 +60,7 @@
     let prepare_journal_share = function () {
         $("#hshare").hshare({
             size: "large",
-            renderText: true,
-            more: true,
+            renderText: false,
             platforms: [{
                 name: "qzone"
             }, {

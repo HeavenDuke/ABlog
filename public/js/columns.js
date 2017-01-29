@@ -21,8 +21,7 @@
     let prepare_column_share = function () {
         $("#hshare").hshare({
             size: "large",
-            renderText: true,
-            more: true,
+            renderText: false,
             platforms: [{
                 name: "qzone"
             }, {

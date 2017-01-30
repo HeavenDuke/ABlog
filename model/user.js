@@ -66,11 +66,11 @@ User.parsePassword = function () {
 User.getBasicInfo = function () {
     return {
         username: this.username,
-        email: this.email,
+        "邮箱": this.email,
         sex: this.sex,
-        favorites: this.favorites,
-        specialities: this.specialities,
-        current_position: this.current_position
+        "爱好": this.favorites,
+        "专长": this.specialities,
+        "职位": this.current_position
     };
 };
 

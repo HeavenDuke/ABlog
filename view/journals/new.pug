@@ -24,6 +24,7 @@ block specified_ref
     link(rel="stylesheet" type="text/css" href="/codemirror/theme/monokai.css")
     link(rel="stylesheet" type="text/css" href="/AdminLTE/css/skins/_all-skins.css")
     link(rel="stylesheet" type="text/css" href="/AdminLTE/css/AdminLTE.min.css")
+    link(rel="stylesheet" type="text/css" href="/iCheck/skins/flat/blue.css")
     link(rel="stylesheet" type="text/css" href="/theme.css")
 
 block content
@@ -37,18 +38,30 @@ block content
             .row
                 .col-lg-12.col-md-12.col-sm-12.col-xs-12
                     textarea#journal_content_input.hidden.form-control(name="content" rows=20 placeholder="请在此输入博客正文" maxlength=100000)
+            .row.text-center#tags-container
+                br
+                span.journal-tag 关键字: 暂无
             .row.text-center
                 br
-                .form-group
-                    .checkbox
-                        input(name="placed_top" type="checkbox")
-                        label 是否置顶
-                .form-group
-                    .checkbox
-                        input(name="is_public" type="checkbox")
-                        label 是否公开
-                .text-center
-                    button#journal_submission_entry.button.button-pill.button-primary(type="submit") 提交
-                    button#journal_previewer_entry.button.button-pill(style="margin-left: 10px;" type="button" data-toggle="modal" data-target="#journal_previewer") 预览
+                .col-lg-3.col-md-3.col-sm-2.col-xs-2
+                .col-lg-6.col-md-6.col-sm-8.col-xs-8
+                    .input-group
+                        span.input-group-addon
+                            i.fa.fa-tag
+                        input.form-control(name="tag" placeholder="请在此输入标签")
+                        input.hidden(name="tags")
+                        span.input-group-btn
+                            button.btn.btn-primary.btn-flat#add-tag-entry(type="button") 添加
+            .row.text-center
+                br
+                input(name="placed_top" type="checkbox")
+                label 　是否置顶　
+
+                input(name="is_public" type="checkbox")
+                label 　是否公开
+            .row.text-center
+                br
+                button#journal_submission_entry.btn.btn-flat.btn-primary(type="submit") 提交
+                button#journal_previewer_entry.btn.btn-flat(style="margin-left: 10px;" type="button" data-toggle="modal" data-target="#journal_previewer") 预览
     include ./preview
     include ./reference

@@ -6,6 +6,10 @@
     background: white;
 }
 
+.inline-block {
+    display: inline-block;
+}
+
 a.black-link{color:#3F3F3F}
 a.black-link:visited{color: #3F3F3F}
 a.black-link:hover{color:#555555}

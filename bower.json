@@ -32,6 +32,7 @@
     "masonry": "^4.1.1",
     "imagesloaded": "^4.1.1",
     "jscroll": "^2.3.5",
-    "hshare": "^1.1.6"
+    "hshare": "^1.1.6",
+    "iCheck": "^1.0.2"
   }
 }

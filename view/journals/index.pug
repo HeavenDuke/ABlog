@@ -23,21 +23,32 @@ block content
             for journal in journals
                 .row.journal
                     a.journal-title(href="/journals/" + journal._id)= journal.placed_top ? journal.title_top() : journal.title
-                    .journal-info= journal.updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journal.read_count + ')　评论(' + journal.comment_count + ')'
+                    div
+                        .journal-meta.text-muted.inline-block= journal.updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journal.read_count + ')　评论(' + journal.comment_count + ')'
                     .journal-content= global.utils.journalPreview(global.utils.html2plain(global.utils.markdown(journal.content)), global.conf.preview.journal)
+                    .journal-meta.text-muted
+                        if journal.tags.length == 0
+                            span 关键字：暂无
+                        else
+                            span 关键字：
+                            - var i = 0;
+                            for tag in journal.tags
+                                a.journal-tag(href="/journals?tag=" + tag.name)= tag.name
+                                if i++ < journal.tags.length - 1
+                                    span /
             .row.text-center
                 ul.pagination
                     if pagination.current_index > 1
                         li
-                            a(href="/journals?page=" + (pagination.current_index - 1)) &laquo; 上一页
+                            a(href="/journals?page=" + (pagination.current_index - 1) + (tag ? "&tag=" + tag : "")) &laquo; 上一页
                     - var i = 1 > pagination.current_index - 2 ? 1 : pagination.current_index - 2;
                     - while(i <= (pagination.total_page < pagination.current_index + 2 ? pagination.total_page : pagination.current_index + 2))
                         if i == pagination.current_index
                             li.active
-                                a(href="/journals?page=" + i)= i
+                                a(href="/journals?page=" + i + (tag ? "&tag=" + tag : ""))= i
                         else
                             li
-                                a(href="/journals?page=" + i)= i
+                                a(href="/journals?page=" + i + (tag ? "&tag=" + tag : ""))= i
                         - i++
                     if pagination.current_index < pagination.total_page
                         li

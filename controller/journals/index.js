@@ -12,30 +12,39 @@ let index = function *(next) {
     let offset = null;
     let journals = null;
     let journals_not_topped = null;
+    var tag = this.request.query.tag;
     if (this.session.user) {
-        total_journal_count = yield Journal.count({});
-        topped_journal_count = yield Journal.count({"placed_top": true});
+        total_journal_count = yield Journal.count(tag ? {"tags.name": tag} : {});
+        topped_journal_count = yield Journal.count(tag ? {"placed_top": true, "tags.name": tag} : {"placed_top": true});
         total_page = Math.ceil(total_journal_count / journal_per_page);
         current_page_index = parseInt(this.request.query.page) == 0 || isNaN(parseInt(this.request.query.page)) ? 1 : parseInt(this.request.query.page);
         offset = (current_page_index - 1) * global.conf.pagination.journal;
-        journals = yield Journal.find({placed_top: true}).sort({updated_at: -1}).skip(offset).limit(journal_per_page);
+        journals = yield Journal.find(tag ? {"placed_top": true, "tags.name": tag} : {"placed_top": true}).sort({updated_at: -1}).skip(offset).limit(journal_per_page);
         if (journals.length < journal_per_page) {
-            journals_not_topped = yield Journal.find({placed_top: false}).sort({updated_at: -1}).skip(offset > topped_journal_count ? offset - topped_journal_count : 0).limit(journal_per_page - journals.length);
+            journals_not_topped = yield Journal.find(tag ? {"placed_top": false, "tags.name": tag} : {"placed_top": false}).sort({updated_at: -1}).skip(offset > topped_journal_count ? offset - topped_journal_count : 0).limit(journal_per_page - journals.length);
             journals = journals.concat(journals_not_topped);
         }
     }
     else {
-        total_journal_count = yield Journal.count({is_public: true});
-        topped_journal_count = yield Journal.count({"placed_top": true, is_public: true});
+        total_journal_count = yield Journal.count(tag ? {is_public: true, "tags.name": tag} : {is_public: true});
+        topped_journal_count = yield Journal.count(tag ? {"placed_top": true, is_public: true, "tags.name": tag} : {"placed_top": true, is_public: true});
         total_page = Math.ceil(total_journal_count / journal_per_page);
         current_page_index = parseInt(this.request.query.page) == 0 || isNaN(parseInt(this.request.query.page)) ? 1 : parseInt(this.request.query.page);
         offset = (current_page_index - 1) * global.conf.pagination.journal;
-        journals = yield Journal.find({
+        journals = yield Journal.find(tag ? {
+            placed_top: true,
+            is_public: true,
+            "tags.name": tag
+        } : {
             placed_top: true,
             is_public: true
         }).sort({updated_at: -1}).skip(offset).limit(journal_per_page);
         if (journals.length < journal_per_page) {
-            journals_not_topped = yield Journal.find({
+            journals_not_topped = yield Journal.find(tag ? {
+                placed_top: false,
+                is_public: true,
+                "tags.name": tag
+            } : {
                 placed_top: false,
                 is_public: true
             }).sort({updated_at: -1}).skip(offset > topped_journal_count ? offset - topped_journal_count : 0).limit(journal_per_page - journals.length);
@@ -53,6 +62,7 @@ let index = function *(next) {
         journals: journals,
         pagination: pagination,
         current_module: this.current_module,
+        tag: tag,
         redirect_url: this.request.url
     }, true);
 };
@@ -218,6 +228,7 @@ let update = function *(next) {
     journal.is_public = !!this.request.body.is_public;
     journal.updated_at = Date.now();
     journal.tags = [];
+    console.log(tags);
     tags.forEach(function (tag) {
         journal.tags.push({name: tag});
     });

@@ -20,10 +20,17 @@ block content
                 .box-header.with-border
                     .col-lg-8.col-md-6.col-sm-6
                         .journal-title= journal.title
-                            .user-block
-                                img.img-circle(src="/favicon.ico" alt="Owner Image")
-                                span.username HeavenDuke
-                                span.description= journal.updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journal.read_count + ')　评论(' + comments.length + ')'
+                        .journal-meta.text-muted
+                            if journal.tags.length == 0
+                                span 关键字：暂无
+                            else
+                                span 关键字：
+                                - var i = 0;
+                                for tag in journal.tags
+                                    a.journal-tag(href="/journals?tag=" + tag.name)= tag.name
+                                    if i++ < journal.tags.length - 1
+                                        span /
+                        .journal-meta.text-muted= journal.updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journal.read_count + ')　评论(' + comments.length + ')'
                     if current_user
                         .col-lg-4.col-md-6.col-sm-6
                             .text-center
@@ -42,10 +49,11 @@ block content
                                 i.fa.fa-reply
                                 | 返回
                 .box-body
-                    #journal-content.journal-content= global.utils.markdown(journal.content)
-                    include ./likes/new
-                    #hshare
-                        span 分享：
+                    .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                        #journal-content.journal-content= global.utils.markdown(journal.content)
+                        include ./likes/new
+                        #hshare
+                            span 分享：
                 include ./comments/index
                 include ./comments/new
     include ./reference

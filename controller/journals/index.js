@@ -182,10 +182,15 @@ let init = function *(next) {
 let create = function *(next) {
     let Journal = global.database.models.journal;
     let journal = new Journal();
+    let tags = JSON.parse(this.request.body.tags);
     journal.title = this.request.body.title;
     journal.content = !this.request.body.content ? "" : this.request.body.content;
     journal.placed_top = !!this.request.body.placed_top;
     journal.is_public = !!this.request.body.is_public;
+    journal.tags = [];
+    tags.forEach(function (tag) {
+        journal.tags.push({name: tag});
+    });
     journal.save();
     this.redirect(this.app.url("journals-detail", {journal_id: journal._id}));
 };
@@ -206,11 +211,16 @@ let edit = function *(next) {
 let update = function *(next) {
     let Journal = global.database.models.journal;
     let journal = yield Journal.findById(this.params.journal_id);
+    let tags = JSON.parse(this.request.body.tags);
     journal.title = this.request.body.title;
     journal.content = !this.request.body.content ? "" : this.request.body.content;
     journal.placed_top = !(!this.request.body.placed_top);
     journal.is_public = !!this.request.body.is_public;
     journal.updated_at = Date.now();
+    journal.tags = [];
+    tags.forEach(function (tag) {
+        journal.tags.push({name: tag});
+    });
     journal.save();
     this.redirect(this.app.url('journals-update', {journal_id: journal._id}));
 };

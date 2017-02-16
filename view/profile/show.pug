@@ -19,7 +19,7 @@ block content
             .box.box-widget
                 .box-body
                     .col-lg-12.col-md-12.col-sm-12.col-xs-12
-                        #profile-content.profile-content= global.utils.markdown(current_user.profile ? current_user.profile : "")
+                        #profile-content.profile-content= global.utils.markdown(user.profile ? user.profile : "")
                         #hshare
                             span 分享：
                     if current_user

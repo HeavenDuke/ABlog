@@ -4,6 +4,7 @@
 
 var admin_only = function *(next) {
     if (this.session.user) {
+        this.session.user = yield global.database.models.User.findById(this.session.user._id);
         yield next;
     }
     else {
@@ -14,6 +15,7 @@ var admin_only = function *(next) {
 
 var guest_only = function *(next) {
     if (this.session.guest) {
+        this.session.user = yield global.database.models.User.findById(this.session.user._id);
         yield next;
     }
     else {
@@ -24,6 +26,12 @@ var guest_only = function *(next) {
 
 var cross_auth = function *(next) {
     if (this.session.guest || this.session.user) {
+        if (this.session.guest) {
+            this.session.guest = yield global.database.models.Guest.findById(this.session.guest._id);
+        }
+        if (this.session.user) {
+            this.session.user = yield global.database.models.User.findById(this.session.user._id);
+        }
         yield next;
     }
     else {
@@ -34,6 +42,12 @@ var cross_auth = function *(next) {
 
 var auth_none = function *(next) {
     if (this.session.guest || this.session.user) {
+        if (this.session.guest) {
+            this.session.guest = yield global.database.models.Guest.findById(this.session.guest._id);
+        }
+        if (this.session.user) {
+            this.session.user = yield global.database.models.User.findById(this.session.user._id);
+        }
         this.redirect('/');
     }
     else {

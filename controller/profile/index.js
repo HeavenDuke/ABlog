@@ -30,8 +30,6 @@ let update = function *(next) {
 
 module.exports = {
     show: show,
-    init: init,
-    create: create,
     edit: edit,
     update: update
 };

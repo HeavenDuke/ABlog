@@ -86,10 +86,10 @@
     };
 
     $(document).on('ready', function () {
-        if (window.location.href.match(/\/profiles\/\w+\/edit/) != null) {
+        if (window.location.href.match(/\/profile\/edit/) != null) {
             prepare_profile_previewer();
         }
-        else if (window.location.href.match(/\/profiles\/\w+/) != null) {
+        else if (window.location.href.match(/\/profile/) != null) {
             prepare_profile_detail();
         }
     });

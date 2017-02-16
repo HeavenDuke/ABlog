@@ -86,6 +86,16 @@ block content
                                 a.journal-title(href="/journals/" + journal._id)= journal.title
                                 .journal-info= journal.updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + journal.read_count + ')　评论(' + journal.comment_count + ')'
                                 .journal-content= global.utils.journalPreview(global.utils.html2plain(global.utils.markdown(journal.content)), global.conf.preview.journal)
+                                .journal-meta.text-muted
+                                    if journal.tags.length == 0
+                                        span 关键字：暂无
+                                    else
+                                        span 关键字：
+                                        - var i = 0;
+                                        for tag in journal.tags
+                                            a.journal-tag(href="/journals?tag=" + tag.name)= tag.name
+                                            if i++ < journal.tags.length - 1
+                                                span /
     #add_link_modal.modal.fade
         .modal-dialog
             .modal-content

@@ -17,7 +17,7 @@ let show = function *(next) {
 
 let edit = function *(next) {
     let User = global.database.models.user;
-    let user = yield User.findById(this.current_user._id);
+    let user = yield User.findById(this.session.user._id);
    this.render('./profile/edit', {
         "title": "编辑简历",
        user: user,
@@ -30,7 +30,7 @@ let edit = function *(next) {
 
 let update = function *(next) {
     let User = global.database.models.user;
-    let user = yield User.findById(this.current_user._id);
+    let user = yield User.findById(this.session.user._id);
     this.session.user.profile = !this.request.body.profile ? "" : this.request.body.profile;
     this.session.user.save();
     this.redirect(this.app.url('profile-detail'));

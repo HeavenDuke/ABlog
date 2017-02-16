@@ -13,19 +13,19 @@ User.Schema = {
     },
     sex: {
         type: String,
-        required: true,
+        required: true
     },
     email: {
         type: String,
-        required: true,
+        required: true
     },
     favorites: {
         type: String,
-        required: true,
+        required: true
     },
     specialities: {
         type: String,
-        required: true,
+        required: true
     },
     current_position: {
         type: String,
@@ -34,6 +34,10 @@ User.Schema = {
     password: {
         type: String,
         required: true
+    },
+    profile: {
+        type: String,
+        required: false
     }
 };
 

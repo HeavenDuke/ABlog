@@ -2,7 +2,6 @@ extends ./layout/layout
 
 block specified_ref
     script(type="text/javascript" src="/marked/marked.js")
-    link(rel="stylesheet" type="text/css" href="/journals.css")
     link(rel="stylesheet" type="text/css" href="/theme.css")
     link(rel="stylesheet" type="text/css" href="/index.css")
     link(rel="stylesheet" type="text/css" href="/AdminLTE/css/skins/_all-skins.css")
@@ -27,6 +26,8 @@ block content
                                     li.list-group-item
                                         b= key
                                         a.pull-right= owner[key]
+                        .text-center
+                            a.badge.bg-blue(href="/profile") About Me
                 if diary
                     .box.box-solid.hidden-sm.hidden-xs
                         .box-header.with-border

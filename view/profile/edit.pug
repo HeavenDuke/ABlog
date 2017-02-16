@@ -1,0 +1,42 @@
+extends ../layout/layout
+
+block specified_ref
+    script(type="text/javascript" src="/marked/marked.js")
+    script(type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML")
+    script(type="text/javascript" src="/codemirror/lib/codemirror.js")
+    script(type="text/javascript" src="/codemirror/mode/gfm/gfm.js")
+    script(type="text/javascript" src="/codemirror/mode/markdown/markdown.js")
+    script(type="text/javascript" src="/codemirror/addon/mode/overlay.js")
+    script(type="text/javascript" src="/codemirror/addon/comment/comment.js")
+    script(type="text/javascript" src="/codemirror/addon/comment/continuecomment.js")
+    script(type="text/javascript" src="/codemirror/mode/meta.js")
+    script(type="text/javascript" src="/codemirror/mode/javascript/javascript.js")
+    script(type="text/javascript" src="/codemirror/mode/htmlmixed/htmlmixed.js")
+    script(type="text/javascript" src="/codemirror/mode/xml/xml.js")
+    script(type="text/javascript" src="/codemirror/mode/css/css.js")
+    script(type="text/javascript" src="/codemirror/mode/clike/clike.js")
+    script(type="text/javascript" src="/highlightjs/highlight.pack.js")
+    script(type="text/javascript" src="/codemirror/keymap/sublime.js")
+    link(rel="stylesheet" type="text/css" href="/profile.css")
+    link(rel="stylesheet" type="text/css" href="/index.css")
+    link(rel="stylesheet" type="text/css" href="/highlightjs/styles/github.css")
+    link(rel="stylesheet" type="text/css" href="/codemirror/lib/codemirror.css")
+    link(rel="stylesheet" type="text/css" href="/codemirror/theme/monokai.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/skins/_all-skins.css")
+    link(rel="stylesheet" type="text/css" href="/AdminLTE/css/AdminLTE.min.css")
+    link(rel="stylesheet" type="text/css" href="/iCheck/skins/flat/blue.css")
+    link(rel="stylesheet" type="text/css" href="/theme.css")
+
+block content
+    .container
+        form(role="form" action="/profile", method="POST")
+            input.hidden(name="_method", value="PUT")
+            .row
+                .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                    textarea#profile_content_input.hidden.form-control(name="content" rows=20 placeholder="请在此输入简历正文" maxlength=100000)= current_user.profile
+            .row.text-center
+                    br
+                    button.btn.btn-flat.btn-primary(type="submit") 提交
+                    button#profilel_previewer_entry.btn.btn-flat(style="margin-left: 10px;" type="button" data-toggle="modal" data-target="#profile_previewer") 预览
+    include ./preview
+    include ./reference

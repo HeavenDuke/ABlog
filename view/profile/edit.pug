@@ -33,7 +33,7 @@ block content
             input.hidden(name="_method", value="PUT")
             .row
                 .col-lg-12.col-md-12.col-sm-12.col-xs-12
-                    textarea#profile_content_input.hidden.form-control(name="content" rows=20 placeholder="请在此输入简历正文" maxlength=100000)= current_user.profile
+                    textarea#profile_content_input.hidden.form-control(name="profile" rows=20 placeholder="请在此输入简历正文" maxlength=100000)= current_user.profile ? current_user.profile : ""
             .row.text-center
                     br
                     button.btn.btn-flat.btn-primary(type="submit") 提交

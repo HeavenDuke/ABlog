@@ -9,6 +9,7 @@ let show = function *(next) {
         title: "个人简历",
         user: user,
         current_guest: this.session.guest,
+        current_user: this.session.user,
         current_module: this.current_module,
         redirect_url: this.request.url
     }, true);

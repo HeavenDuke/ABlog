@@ -22,7 +22,8 @@ Column.Schema = {
         type: Date,
         required: true,
         default: Date.now
-    }
+    },
+    tags: [require('./tag').Schema]
 };
 
 Column.collection = {

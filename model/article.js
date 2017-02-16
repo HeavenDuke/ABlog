@@ -55,7 +55,8 @@ Article.Schema = {
     column_id: {
         type: require('mongoose').Schema.ObjectId,
         required: false
-    }
+    },
+    tags: [require('./tag').Schema]
 };
 
 Article.collection = {

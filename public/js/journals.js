@@ -191,6 +191,7 @@
                 $("input[name='tags']").val(JSON.stringify(tags));
                 update_tags_container();
             }
+            input.val("");
         });
         container.children("span.journal-tag").each(function () {
             if ($(this).text().trim() == "×") {

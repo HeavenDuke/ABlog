@@ -28,9 +28,9 @@ block content
                     .journal-content= global.utils.journalPreview(global.utils.html2plain(global.utils.markdown(journal.content)), global.conf.preview.journal)
                     .journal-meta.text-muted
                         if journal.tags.length == 0
-                            span 关键字：暂无
+                            span 关键词：暂无
                         else
-                            span 关键字：
+                            span 关键词：
                             - var i = 0;
                             for tag in journal.tags
                                 a.journal-tag(href="/journals?tag=" + tag.name)= tag.name

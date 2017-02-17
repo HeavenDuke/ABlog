@@ -38,9 +38,32 @@ block content
             .row
                 .col-lg-12.col-md-12.col-sm-12.col-xs-12
                     textarea#column_content_input.hidden.form-control(name="introduction" rows=20 placeholder="请在此输入专栏描述" maxlength=100000)= column.introduction
+            .row.text-center#tags-container
+                br
+                if column.tags.length == 0
+                    span.column-tag-divider 关键词：暂无
+                else
+                    span.column-tag-divider 关键词：
+                    - var i = 0;
+                    for tag in column.tags
+                        span.column-tag= tag.name
+                        span.column-tag ×
+                        if i++ < column.tags.length - 1
+                            span.column-tag-divider /
             .row.text-center
                 br
-                button.button.button-pill.button-primary(type="submit") 提交
-                button#column_previewer_entry.button.button-pill(style="margin-left: 10px;" type="button" data-toggle="modal" data-target="#column_previewer") 预览
+                .col-lg-3.col-md-3.col-sm-2.col-xs-2
+                .col-lg-6.col-md-6.col-sm-8.col-xs-8
+                    .input-group
+                        span.input-group-addon
+                            i.fa.fa-tag
+                        input.form-control(name="tag" placeholder="请在此输入标签")
+                        input.hidden(name="tags")
+                        span.input-group-btn
+                            button.btn.btn-primary.btn-flat#add-tag-entry(type="button") 添加
+            .row.text-center
+                br
+                button.btn.btn-flat.btn-primary(type="submit") 提交
+                button#column_previewer_entry.btn.btn-flat(style="margin-left: 10px;" type="button" data-toggle="modal" data-target="#column_previewer") 预览
     include ./preview
     include ./reference

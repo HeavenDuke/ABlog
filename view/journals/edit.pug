@@ -42,15 +42,15 @@ block content
             .row.text-center#tags-container
                 br
                 if journal.tags.length == 0
-                    span 关键字：暂无
+                    span.journal-tag-divider 关键词：暂无
                 else
-                    span 关键字：
+                    span.journal-tag-divider 关键词：
                     - var i = 0;
                     for tag in journal.tags
                         span.journal-tag= tag.name
                         span.journal-tag ×
                         if i++ < journal.tags.length - 1
-                            span /
+                            span.journal-tag-divider /
             .row.text-center
                 br
                 .col-lg-3.col-md-3.col-sm-2.col-xs-2

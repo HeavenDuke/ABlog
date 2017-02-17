@@ -156,7 +156,7 @@
         var update_tags_container = function () {
             container.empty();
             container.append("<br>");
-            container.append("<span class='journal-tag'>关键字: " + (tags.length == 0 ? "暂无" : "") + "</span>");
+            container.append("<span class='journal-tag-divider'>关键词: " + (tags.length == 0 ? "暂无" : "") + "</span>");
             for(var i = 0; i < tags.length; i++) {
                 container.append("<span class='journal-tag'>" + tags[i] + "</span>");
                 var remove_entry = $("<a class='journal-tag'>×</a>");
@@ -172,7 +172,7 @@
                 });
                 container.append(remove_entry);
                 if (i < tags.length - 1) {
-                    container.append("<span class='journal-tag'> / </span>");
+                    container.append("<span class='journal-tag-divider'> / </span>");
                 }
             }
         };
@@ -206,7 +206,7 @@
                     update_tags_container();
                 });
             }
-            else if (!["/", "关键字: ", "关键字: 暂无"].includes($(this).text().trim())) {
+            else {
                 tags.push($(this).text().trim());
                 $("input[name='tags']").val(JSON.stringify(tags));
             }

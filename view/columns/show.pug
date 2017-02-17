@@ -42,6 +42,16 @@ block content
                             h3.hd
                                 i.fa.fa-book
                                 strong.margin= column.name
+                            .column-meta.text-muted
+                                if column.tags.length == 0
+                                    span 关键词：暂无
+                                else
+                                    span 关键词：
+                                    - var i = 0;
+                                    for tag in column.tags
+                                        span.column-tag= tag.name
+                                        if i++ < column.tags.length - 1
+                                            span /
                         if current_user
                             a.pull-right.btn.btn-app(href="/columns/" + column._id + '/edit')
                                 i.fa.fa-pencil

@@ -7,7 +7,7 @@
     font-family: "Microsoft YaHei";
 }
 
-.journal-tag {
+.journal-tag-divider, .journal-tag {
     margin: 2px 2px 2px 2px;
     background-color: white;
     color: #777777;

@@ -5,8 +5,10 @@
 
 (function() {
 
+    var tags = [];
+
     var prepare_column_detail = function () {
-        let column_introduction_container = $("#column-introduction");
+        var column_introduction_container = $("#column-introduction");
         column_introduction_container.html(column_introduction_container.text());
         MathJax.Hub.Config({
             tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
@@ -18,7 +20,7 @@
         prepare_column_share();
     };
 
-    let prepare_column_share = function () {
+    var prepare_column_share = function () {
         $("#hshare").hshare({
             size: "large",
             renderText: false,
@@ -63,9 +65,9 @@
             var column_previewer = $("#column_previewer");
             var column_previewer_content = $("#column_previewer_content");
             myCodeMirror.save();
-            let renderer = new marked.Renderer();
+            var renderer = new marked.Renderer();
             renderer.image = function(href, title, text) {
-                let out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
+                var out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
                 if (title) {
                     out += ' title="' + title + '"';
                 }
@@ -84,12 +86,76 @@
         });
     };
 
+    var prepare_column_tag_uploader = function () {
+        var container = $("#tags-container");
+        var update_tags_container = function () {
+            container.empty();
+            container.append("<br>");
+            container.append("<span class='column-tag-divider'>关键词: " + (tags.length == 0 ? "暂无" : "") + "</span>");
+            for(var i = 0; i < tags.length; i++) {
+                container.append("<span class='column-tag'>" + tags[i] + "</span>");
+                var remove_entry = $("<a class='column-tag'>×</a>");
+                remove_entry.click(function () {
+                    for(var j = 0; j < tags.length; j++) {
+                        if (tags[j] == $(this).prev().text().trim()) {
+                            tags.splice(j, 1);
+                            break;
+                        }
+                    }
+                    $("input[name='tags']").val(JSON.stringify(tags));
+                    update_tags_container();
+                });
+                container.append(remove_entry);
+                if (i < tags.length - 1) {
+                    container.append("<span class='column-tag-divider'> / </span>");
+                }
+            }
+        };
+        $("#add-tag-entry").click(function () {
+            var input = $("input[name='tag']");
+
+            var tag = input.val();
+            if (!tag || tag.length > 20 || tag.length == 0) {
+                alert("标签字数控制在1~20个字符内")
+            }
+            else if (tags.includes(tag)) {
+                alert("已添加当前标签")
+            }
+            else {
+                tags.push(tag);
+                $("input[name='tags']").val(JSON.stringify(tags));
+                update_tags_container();
+            }
+            input.val("");
+        });
+        container.children("span.column-tag").each(function () {
+            if ($(this).text().trim() == "×") {
+                $(this).click(function () {
+                    for(var j = 0; j < tags.length; j++) {
+                        if (tags[j] == $(this).prev().text().trim()) {
+                            tags.splice(j, 1);
+                            break;
+                        }
+                    }
+                    $("input[name='tags']").val(JSON.stringify(tags));
+                    update_tags_container();
+                });
+            }
+            else {
+                tags.push($(this).text().trim());
+                $("input[name='tags']").val(JSON.stringify(tags));
+            }
+        });
+    };
+
     $(document).on('ready', function () {
         if (window.location.href.match(/\/columns\/\w+\/edit/) != null) {
             prepare_column_previewer();
+            prepare_column_tag_uploader();
         }
         else if (window.location.href.match(/\/columns\/new/) != null) {
             prepare_column_previewer();
+            prepare_column_tag_uploader();
         }
         else if (window.location.href.match(/\/columns\/\w+/) != null) {
             prepare_column_detail();

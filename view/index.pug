@@ -81,6 +81,9 @@ block content
                         for article in articles
                             .row.journal
                                 a.journal-title(href="/columns/" + article.column_id + "/articles/" + article._id)= article.title
+                                a.pull-right.text-muted.journal-tag(href="/columns/" + article.column_id)
+                                    i.fa.fa-book
+                                    | 　专栏文章
                                 .journal-info= article.updated_at.format("yyyy年MM月dd日 hh:mm") + '　阅读(' + article.read_count + ')　评论(' + article.comment_count + ')'
                                 .journal-content= global.utils.journalPreview(global.utils.html2plain(global.utils.markdown(article.content)), global.conf.preview.journal)
                         for journal in journals
@@ -90,9 +93,9 @@ block content
                                 .journal-content= global.utils.journalPreview(global.utils.html2plain(global.utils.markdown(journal.content)), global.conf.preview.journal)
                                 .journal-meta.text-muted
                                     if journal.tags.length == 0
-                                        span 关键字：暂无
+                                        span 关键词：暂无
                                     else
-                                        span 关键字：
+                                        span 关键词：
                                         - var i = 0;
                                         for tag in journal.tags
                                             a.journal-tag(href="/journals?tag=" + tag.name)= tag.name

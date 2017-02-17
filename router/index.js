@@ -14,6 +14,7 @@ let guest_router = require('./guests');
 let photo_router = require('./photos');
 let link_router = require('./links');
 let share_router = require('./share');
+let profile_router = require('./profile');
 
 let visit_recorder = require('../middlewares/visit_recorder');
 let set_redirection = require('../middlewares/set_redirection');
@@ -47,5 +48,6 @@ module.exports = function(app){
     photo_router(app);
     link_router(app);
     share_router(app);
+    profile_router(app);
     
 };

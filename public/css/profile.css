@@ -1,0 +1,60 @@
+.profile {
+    margin: 2%;
+}
+
+.profile-title {
+    font-size: 1.4em;
+    font-family: "Microsoft YaHei";
+}
+
+.profile-tag {
+    margin: 2px 2px 2px 2px;
+    background-color: white;
+    color: #777777;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    height: 20px;
+    padding: 2px 5px;
+    font-size: 13px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.profile-tag:hover {
+    margin: 2px 2px 2px 2px;
+    background-color: white;
+    color: #999999;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    padding: 2px 5px;
+    height: 20px;
+    font-size: 13px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.profile-meta {
+    margin: 2px 2px;
+    font-size: 13px;
+    font-family: "Microsoft YaHei";
+}
+
+.profile-info {
+    white-space:normal;
+}
+
+.profile-content {
+    white-space:normal;
+    margin-top: 2%;
+}
+
+.profile-previewer {
+    width: 80%;
+}
+
+.comment-header {
+    font-size: 1.2em;
+    font-family: "Microsoft YaHei";
+}

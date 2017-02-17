@@ -11,21 +11,24 @@ var init = function () {
         var user = new User();
         user.username = "HeavenDuke";
         user.password = "md5$11111195$378BF8EB624C64A198A00C299B82CF41";
+        user.email = "trashlhc@163.com";
+        user.sex = "trashlhc@163.com";
+        user.specialities = "trashlhc@163.com";
+        user.current_position = "trashlhc@163.com";
+        user.favorites = "trashlhc@163.com";
         user.save();
     }
 
-    function initDiary() {
-        //var Diary = database.models.diary;
-        //var diary = new Diary();
-        //diary.brief = "HeavenDuke";
-        //diary.content = "md5$11111195$378BF8EB624C64A198A00C299B82CF41";
-        //diary.save();
+    function initStat() {
+        var Stat = database.models.stat;
+        var stat = new Stat();
+        stat.save();
     }
 
     var mongoose = require('mongoose');
     mongoose.connect(require('../../config/config')().mongodb);
     initUser();
-    initDiary();
+    // initStat();
     console.log('finish deploying database seed.');
     mongoose.disconnect();
 };

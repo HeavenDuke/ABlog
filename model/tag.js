@@ -8,6 +8,11 @@ Tag.Schema = {
     name: {
         type: String,
         required: true
+    },
+    journal_count: {
+        type: Number,
+        required: false,
+        default: 0
     }
 };
 

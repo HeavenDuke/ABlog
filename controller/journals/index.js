@@ -191,8 +191,13 @@ let init = function *(next) {
 
 let create = function *(next) {
     let Journal = global.database.models.journal;
+    let Stat= global.database.models.stat;
     let journal = new Journal();
     let tags = JSON.parse(this.request.body.tags);
+    let stat = yield Stat.findOne({});
+    if (!stat) {
+        stat = new Stat();
+    }
     journal.title = this.request.body.title;
     journal.content = !this.request.body.content ? "" : this.request.body.content;
     journal.placed_top = !!this.request.body.placed_top;
@@ -200,8 +205,20 @@ let create = function *(next) {
     journal.tags = [];
     tags.forEach(function (tag) {
         journal.tags.push({name: tag});
+        var exist = false;
+        for(var i = 0; i < stat.tags.length; i++) {
+            if (stat.tags[i].name == tag) {
+                stat.tags[i].journal_count++;
+                exist = true;
+                break;
+            }
+        }
+        if (!exist) {
+            stat.tags.push({name: tag, journal_count: 1});
+        }
     });
-    journal.save();
+    yield journal.save();
+    yield stat.save();
     this.redirect(this.app.url("journals-detail", {journal_id: journal._id}));
 };
 
@@ -220,19 +237,46 @@ let edit = function *(next) {
 
 let update = function *(next) {
     let Journal = global.database.models.journal;
+    let Stat= global.database.models.stat;
     let journal = yield Journal.findById(this.params.journal_id);
+    let stat = yield Stat.findOne({});
+    if (!stat) {
+        stat = new Stat();
+    }
     let tags = JSON.parse(this.request.body.tags);
     journal.title = this.request.body.title;
     journal.content = !this.request.body.content ? "" : this.request.body.content;
     journal.placed_top = !(!this.request.body.placed_top);
     journal.is_public = !!this.request.body.is_public;
     journal.updated_at = Date.now();
+    journal.tags.forEach(function (tag) {
+        for(var i = 0; i < stat.tags.length; i++) {
+            if (stat.tags[i].name == tag.name) {
+                stat.tags[i].journal_count--;
+                if (stat.tags[i].journal_count == 0) {
+                    stat.tags.splice(i, 1);
+                }
+                break;
+            }
+        }
+    });
     journal.tags = [];
-    console.log(tags);
     tags.forEach(function (tag) {
         journal.tags.push({name: tag});
+        var exist = false;
+        for(var i = 0; i < stat.tags.length; i++) {
+            if (stat.tags[i].name == tag) {
+                stat.tags[i].journal_count++;
+                exist = true;
+                break;
+            }
+        }
+        if (!exist) {
+            stat.tags.push({name: tag, journal_count: 1});
+        }
     });
-    journal.save();
+    yield journal.save();
+    yield stat.save();
     this.redirect(this.app.url('journals-update', {journal_id: journal._id}));
 };
 

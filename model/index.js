@@ -23,6 +23,7 @@ let Attitude = require('./attitude');
 let Photo = require('./photo');
 let Link = require('./link');
 let Share = require('./share');
+let Stat = require('./stat');
 
 mongoose.Promise = global.Promise;
 
@@ -40,6 +41,7 @@ let AttitudeSchema = new Schema(Attitude.Schema, Attitude.collection);
 let PhotoSchema = new Schema(Photo.Schema, Photo.collection);
 let LinkSchema = new Schema(Link.Schema, Link.collection);
 let ShareSchema = new Schema(Share.Schema, Share.colletion);
+let StatSchema = new Schema(Stat.Schema, Stat.collection);
 
 JournalSchema.methods.link = Journal.link;
 JournalSchema.methods.title_top = Journal.title_top;
@@ -80,6 +82,7 @@ database.models.attitude = mongoose.model('attitude', AttitudeSchema);
 database.models.photo = mongoose.model('photo', PhotoSchema);
 database.models.link = mongoose.model('link', LinkSchema);
 database.models.share = mongoose.model('share', ShareSchema);
+database.models.stat = mongoose.model('stat', StatSchema);
 
 module.exports = {
     loader:　database

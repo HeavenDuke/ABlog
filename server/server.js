@@ -3,30 +3,31 @@
  */
 
 global.Promise = require('bluebird');
-var debug = require('debug')('ablog');
-var koa = require('koa');
-var flash = require('koa-flash');
+let debug = require('debug')('ablog');
+let koa = require('koa');
+let flash = require('koa-flash');
 //配置文件
-var config = require('../config/config')(__dirname);
+let config = require('../config/config')(__dirname);
 //log记录
-var Logger = require('mini-logger');
-var Logger = require('mini-logger');
-var onerror = require('koa-onerror');
-var override = require('koamethodoverride');
-var koaPug = require('koa-pug');
-var session = require('koa-session');
-var bodyParser = require('koa-bodyparser');
-var staticCache = require('koa-static-cache');
-var koaStatic = require('koa-static');
-var marked = require('marked');
-var astepback = require('astepback');
+let Logger = require('mini-logger');
+let onerror = require('koa-onerror');
+let override = require('koamethodoverride');
+let koaPug = require('koa-pug');
+let session = require('koa-generic-session');
+let redisStore = require('koa-redis');
+let bodyParser = require('koa-bodyparser');
+let staticCache = require('koa-static-cache');
+let koaStatic = require('koa-static');
+let marked = require('marked');
+let astepback = require('astepback');
 //路由
-var router = require('koa-router');
-var validator = require('koa-validator');
+let router = require('koa-router');
+let validator = require('koa-validator');
 
-var appRouter = require('../router');
-var path = require('path');
-var mongoose = require('mongoose');
+let appRouter = require('../router');
+let path = require('path');
+let fs = require('fs');
+let mongoose = require('mongoose');
 
 function Server(option) {
     this.opts = option || {};
@@ -34,17 +35,31 @@ function Server(option) {
 
 Server.prototype = koa();
 
+Server.prototype.create_folders = function () {
+    if (!fs.existsSync(path.join(__dirname, "backups"))) {
+        fs.mkdirSync(path.join(__dirname, "backups"));
+    }
+    if (!fs.existsSync(path.join(__dirname, "database"))) {
+        fs.mkdirSync(path.join(__dirname, "database"));
+    }
+    if (!fs.existsSync(path.join(__dirname, "log"))) {
+        fs.mkdirSync(path.join(__dirname, "log"));
+    }
+};
+
 Server.prototype.start = function () {
 
-    var logger = Logger({
+    let logger = Logger({
         dir: config.logDir,
         categories: ['router', 'model', 'controller', 'job'],
         format: 'YYYY-MM-DD-[{category}][.log]'
     });
 
-    var port = this.opts.port || 3000;
+    let port = this.opts.port || 3000;
 
-    this.use(session(this));
+    this.use(session({
+        store: redisStore({})
+    }));
     this.keys = ['heavenduke'];
     this.use(astepback());
     this.use(flash({}));
@@ -53,7 +68,7 @@ Server.prototype.start = function () {
 
     onerror(this);
 
-    var pug = new koaPug({
+    new koaPug({
         viewPath: './view',
         debug: false,
         pretty: true,
@@ -71,7 +86,7 @@ Server.prototype.start = function () {
     this.use(validator());
 
     //静态文件cache
-    var staticDir = config.staticDir;
+    let staticDir = config.staticDir;
 
     this.use(koaStatic(path.join(staticDir, 'uploads')));
 

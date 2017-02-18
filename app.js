@@ -1,3 +1,5 @@
+"use strict";
+
 let path = require('path');
 let Server = require(path.join(__dirname, 'server', 'server.js'));
 let config = require('./config/config')(__dirname);

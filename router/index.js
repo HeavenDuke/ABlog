@@ -1,3 +1,4 @@
+"use strict";
 let home_controller = require('../controller').home;
 let user_router = require('./users');
 let project_router = require('./projects');

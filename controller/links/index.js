@@ -1,6 +1,7 @@
 /**
  * Created by heavenduke on 17-1-13.
  */
+"use strict";
 
 exports.create = function *(next) {
     let Link = global.database.models.link;

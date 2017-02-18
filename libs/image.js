@@ -2,6 +2,7 @@
  * Created by heavenduke on 17-1-15.
  */
 
+"use strict";
 let path = require('path');
 
 exports.get_preview_path = function (image_path) {

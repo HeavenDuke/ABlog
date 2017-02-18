@@ -1,10 +1,9 @@
 /**
  * Created by Obscurity on 2016/5/11.
  */
+"use strict";
 
 let path = require('path');
-let gm = require('gm').subClass({imageMagick: true});
-Promise.promisifyAll(gm.prototype);
 let fs = Promise.promisifyAll(require("fs"));
 
 function get_thumb_path(image_path) {

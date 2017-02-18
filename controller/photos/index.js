@@ -1,10 +1,10 @@
 /**
  * Created by heavenduke on 16-8-13.
  */
+"use strict";
 
 let path = require('path');
-let gm = require('gm').subClass({imageMagick: true});
-Promise.promisifyAll(gm.prototype);
+let Jimp = require('jimp');
 let fs = Promise.promisifyAll(require("fs"));
 let image_tools = require('../../libs/image');
 
@@ -46,22 +46,22 @@ exports.create = function *(next) {
     let image_path = path.basename(image.path);
     let allowed_mimes = ["image/jpeg", "image/bmp", "image/gif", "image/png"];
     if (allowed_mimes.indexOf(image.type) != -1) {
-        let size = yield gm(image.path).sizeAsync();
+        let data = yield Jimp.read(image.path);
         let thumb_height = 400;
-        let thumb_scale = size.height / thumb_height;
-        let thumb_width = size.width / thumb_scale;
+        let thumb_scale = data.bitmap.height / thumb_height;
+        let thumb_width = data.bitmap.width / thumb_scale;
         let raw_width = 960;
-        let raw_scale = size.width / raw_width;
-        let raw_height = size.height / raw_scale;
+        let raw_scale = data.bitmap.width / raw_width;
+        let raw_height = data.bitmap.height / raw_scale;
         let preview_size = 800;
-        let preview_scale = preview_size / Math.min(size.width, size.height);
-        let preview_width = size.width * preview_scale, preview_height = size.height * preview_scale;
-        yield gm(image.path).resize(raw_height, raw_width).autoOrient().writeAsync(image.path);
-        yield gm(image.path).resize(thumb_width, thumb_height).autoOrient().writeAsync(image_tools.get_thumb_path(image.path));
-        yield gm(image.path).resize(preview_width, preview_height).autoOrient().crop(preview_size, preview_size, (preview_width - preview_size) / 2, (preview_height - preview_size) / 2).writeAsync(image_tools.get_preview_path(image.path));
+        let preview_scale = preview_size / Math.min(data.bitmap.width, data.bitmap.height);
+        let preview_width = data.bitmap.width * preview_scale, preview_height = data.bitmap.height * preview_scale;
+        data.resize(raw_width, raw_height).write(image.path);
+        data.resize(thumb_width, thumb_height).write(image_tools.get_thumb_path(image.path));
+        data.resize(preview_width, preview_height).crop((preview_width - preview_size) / 2, (preview_height - preview_size) / 2, preview_size, preview_size).write(image_tools.get_preview_path(image.path));
     }
     else {
-        result = yield fs.unlinkAsync(image.path);
+        yield fs.unlinkAsync(image.path);
     }
     let Photo = global.database.models.photo;
     let photo = new Photo();

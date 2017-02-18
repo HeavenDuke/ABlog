@@ -1,6 +1,7 @@
 /**
  * Created by heavenduke on 16-5-5.
  */
+"use strict";
 
 global.Promise = require('bluebird');
 let debug = require('debug')('ablog');

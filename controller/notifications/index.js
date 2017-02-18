@@ -1,6 +1,7 @@
 /**
  * Created by heavenduke on 16-7-11.
  */
+"use strict";
 
 exports.index = function *(next) {
     let Journal = global.database.models.journal;

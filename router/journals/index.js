@@ -16,11 +16,11 @@ module.exports = function(app) {
         yield next;
     };
 
-    app.get('journals-list', '/journals', visit_recorder, set_redirection, current_module, journals_controller.index);
+    app.get('journals-index', '/journals', visit_recorder, set_redirection, current_module, journals_controller.index);
 
     app.get('journals-new', '/journals/new', visit_recorder, set_redirection, current_module, authentication.admin_only, journals_controller.init);
 
-    app.get('journals-detail', '/journals/:journal_id', visit_recorder, set_redirection, current_module, journals_controller.show);
+    app.get('journals-show', '/journals/:journal_id', visit_recorder, set_redirection, current_module, journals_controller.show);
 
     app.get('journals-edit', '/journals/:journal_id/edit', visit_recorder, set_redirection, current_module, authentication.admin_only, journals_controller.edit);
 

@@ -15,11 +15,11 @@ module.exports = function(app) {
         yield next;
     };
 
-    app.get('columns-list', '/columns', visit_recorder, set_redirection, current_module, columns_controller.index);
+    app.get('columns-index', '/columns', visit_recorder, set_redirection, current_module, columns_controller.index);
 
     app.get('columns-new', '/columns/new', visit_recorder, set_redirection, current_module, authentication.admin_only, columns_controller.init);
 
-    app.get('columns-detail', '/columns/:column_id', visit_recorder, set_redirection, current_module, columns_controller.show);
+    app.get('columns-show', '/columns/:column_id', visit_recorder, set_redirection, current_module, columns_controller.show);
 
     app.get('columns-edit', '/columns/:column_id/edit', visit_recorder, set_redirection, current_module, authentication.admin_only, columns_controller.edit);
 

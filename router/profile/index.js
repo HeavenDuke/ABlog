@@ -9,10 +9,10 @@ let authentication = require('../../middlewares/authentication').admin_only;
 
 module.exports = function (app) {
 
-    app.get('profile-detail', "/profile", visit_recorder, set_redirection, profiles_controller.show);
+    app.get('profiles-show', "/profile", visit_recorder, set_redirection, profiles_controller.show);
 
-    app.get('profile-edit', "/profile/edit", visit_recorder, set_redirection, authentication, profiles_controller.edit);
+    app.get('profiles-edit', "/profile/edit", visit_recorder, set_redirection, authentication, profiles_controller.edit);
 
-    app.put('profile-update', "/profile", visit_recorder, authentication, profiles_controller.update);
+    app.put('profiles-update', "/profile", visit_recorder, authentication, profiles_controller.update);
 
 };

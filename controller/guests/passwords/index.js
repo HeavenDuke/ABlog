@@ -17,7 +17,7 @@ exports.create = function *(next) {
             if (this.request.body.password.length >= 6 && this.request.body.password.length <= 16 && Guest.validateConfirmPassword(this.request.body.password, this.request.body.confirm_password)) {
                 guest.password = guest.encasePassword(this.request.body.password);
                 guest.save();
-                this.redirect(this.app.url("guests-sessions-init"));
+                this.redirect(this.app.url("guests-sessions-new"));
             }
         }
         else {

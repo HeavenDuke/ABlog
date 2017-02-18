@@ -12,6 +12,6 @@ module.exports = function (app) {
 
     var uploader = koa_body({multipart: true, formidable: {uploadDir: path.join(config.staticDir, 'uploads'), keepExtensions: true, hash: "sha1"}});
 
-    app.post('image-create', '/images', authentication.cross_auth, uploader, images_controller.create);
+    app.post('images-create', '/images', authentication.cross_auth, uploader, images_controller.create);
 
 };

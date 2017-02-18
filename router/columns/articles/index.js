@@ -16,17 +16,17 @@ module.exports = function(app) {
         yield next;
     };
 
-    app.get('articles-new', '/columns/:column_id/articles/new', visit_recorder, set_redirection, current_module, authentication.admin_only, articles_controller.init);
+    app.get('columns-articles-new', '/columns/:column_id/articles/new', visit_recorder, set_redirection, current_module, authentication.admin_only, articles_controller.init);
 
-    app.get('articles-detail', '/columns/:column_id/articles/:article_id', visit_recorder, set_redirection, current_module, articles_controller.show);
+    app.get('columns-articles-show', '/columns/:column_id/articles/:article_id', visit_recorder, set_redirection, current_module, articles_controller.show);
 
-    app.get('articles-edit', '/columns/:column_id/articles/:article_id/edit', visit_recorder, set_redirection, current_module, authentication.admin_only, articles_controller.edit);
+    app.get('columns-articles-edit', '/columns/:column_id/articles/:article_id/edit', visit_recorder, set_redirection, current_module, authentication.admin_only, articles_controller.edit);
 
-    app.post('articles-create', '/columns/:column_id/articles', visit_recorder, current_module, authentication.admin_only, articles_controller.create);
+    app.post('columns-articles-create', '/columns/:column_id/articles', visit_recorder, current_module, authentication.admin_only, articles_controller.create);
 
-    app.put('articles-update', '/columns/:column_id/articles/:article_id', visit_recorder, current_module, authentication.admin_only, articles_controller.update);
+    app.put('columns-articles-update', '/columns/:column_id/articles/:article_id', visit_recorder, current_module, authentication.admin_only, articles_controller.update);
 
-    app.del('articles-destroy', '/columns/:column_id/articles/:article_id', visit_recorder, current_module, authentication.admin_only, articles_controller.destroy);
+    app.del('columns-articles-destroy', '/columns/:column_id/articles/:article_id', visit_recorder, current_module, authentication.admin_only, articles_controller.destroy);
 
     comment_router(app);
 

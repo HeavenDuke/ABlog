@@ -9,5 +9,5 @@ let visit_recorder = require('../../../../middlewares/visit_recorder');
 
 module.exports = function(app) {
 
-    app.post('reply-create', '/journals/:journal_id/comments/:comment_id/replies', visit_recorder, authentication.cross_auth, replies_controller.create);
+    app.post('journals-comments-replies-create', '/journals/:journal_id/comments/:comment_id/replies', visit_recorder, authentication.cross_auth, replies_controller.create);
 };

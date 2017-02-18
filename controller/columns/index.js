@@ -55,7 +55,7 @@ exports.create = function*(next) {
         introduction: this.request.body.introduction,
         tags: tags
     });
-    this.redirect(this.app.url("columns-detail", {"column_id": column._id}));
+    this.redirect(this.app.url("columns-show", {"column_id": column._id}));
 };
 
 exports.edit = function*(next) {
@@ -83,7 +83,7 @@ exports.update = function*(next) {
         column.tags.push({name: tag});
     });
     yield column.save();
-    this.redirect(this.app.url("columns-detail", {"column_id": column._id}));
+    this.redirect(this.app.url("columns-show", {"column_id": column._id}));
 };
 
 exports.destroy = function*(next) {
@@ -91,7 +91,7 @@ exports.destroy = function*(next) {
     let Article = global.database.models.article;
     yield Column.findByIdAndRemove(this.params.column_id);
     yield Article.remove({column_id: this.params.column_id});
-    this.redirect(this.app.url("columns-list"));
+    this.redirect(this.app.url("columns-index"));
 };
 
 exports.articles = require('./articles');

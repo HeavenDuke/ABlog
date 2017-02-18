@@ -9,7 +9,7 @@ let visit_recorder = require('../../../middlewares/visit_recorder');
 
 module.exports = function (app) {
 
-    app.get('guests-sessions-init', '/guests/sessions/new', visit_recorder, authentication.auth_none, sessions_controller.init);
+    app.get('guests-sessions-new', '/guests/sessions/new', visit_recorder, authentication.auth_none, sessions_controller.init);
 
     app.post('guests-sessions-create', '/guests/sessions', visit_recorder, authentication.auth_none, sessions_controller.create);
 

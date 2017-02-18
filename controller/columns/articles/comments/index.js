@@ -19,7 +19,7 @@ exports.create = function *(next) {
     comment.save();
     article.comment_count += 1;
     article.save();
-    this.redirect(this.app.url("articles-detail", {
+    this.redirect(this.app.url("columns-articles-show", {
         column_id: this.params.column_id,
         article_id: this.params.article_id
     }));
@@ -34,7 +34,7 @@ exports.destroy = function *(next) {
     comment.remove();
     article.comment_count -= 1;
     article.save();
-    this.redirect(this.app.url("articles-detail", {
+    this.redirect(this.app.url("columns-articles-show", {
         column_id: this.params.column_id,
         article_id: this.params.article_id
     }));

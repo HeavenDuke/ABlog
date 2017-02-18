@@ -11,7 +11,7 @@ exports.show = function *(next) {
         url: url
     });
     let sum = 0;
-    for(let i = 0; i < shares.length; i++) {
+    for (let i = 0; i < shares.length; i++) {
         sum += shares[i].stat;
     }
     this.body = {stat: sum};

@@ -25,15 +25,25 @@ exports.index = function *(next) {
         total_page = Math.ceil(total_journal_count / journal_per_page);
         current_page_index = parseInt(this.request.query.page) == 0 || isNaN(parseInt(this.request.query.page)) ? 1 : parseInt(this.request.query.page);
         offset = (current_page_index - 1) * global.conf.pagination.journal;
-        journals = yield Journal.find(tag ? {"placed_top": true, "tags.name": tag} : {"placed_top": true}).sort({updated_at: -1}).skip(offset).limit(journal_per_page);
+        journals = yield Journal.find(tag ? {
+            "placed_top": true,
+            "tags.name": tag
+        } : {"placed_top": true}).sort({updated_at: -1}).skip(offset).limit(journal_per_page);
         if (journals.length < journal_per_page) {
-            journals_not_topped = yield Journal.find(tag ? {"placed_top": false, "tags.name": tag} : {"placed_top": false}).sort({updated_at: -1}).skip(offset > topped_journal_count ? offset - topped_journal_count : 0).limit(journal_per_page - journals.length);
+            journals_not_topped = yield Journal.find(tag ? {
+                "placed_top": false,
+                "tags.name": tag
+            } : {"placed_top": false}).sort({updated_at: -1}).skip(offset > topped_journal_count ? offset - topped_journal_count : 0).limit(journal_per_page - journals.length);
             journals = journals.concat(journals_not_topped);
         }
     }
     else {
         total_journal_count = yield Journal.count(tag ? {is_public: true, "tags.name": tag} : {is_public: true});
-        topped_journal_count = yield Journal.count(tag ? {"placed_top": true, is_public: true, "tags.name": tag} : {"placed_top": true, is_public: true});
+        topped_journal_count = yield Journal.count(tag ? {
+            "placed_top": true,
+            is_public: true,
+            "tags.name": tag
+        } : {"placed_top": true, is_public: true});
         total_page = Math.ceil(total_journal_count / journal_per_page);
         current_page_index = parseInt(this.request.query.page) == 0 || isNaN(parseInt(this.request.query.page)) ? 1 : parseInt(this.request.query.page);
         offset = (current_page_index - 1) * global.conf.pagination.journal;
@@ -130,7 +140,7 @@ exports.show = function *(next) {
             comment.save();
         });
         let guests = yield Guest.find({_id: {"$in": guest_ids}});
-        let json_guests = {};
+        let json_guests = {}, user = null;
         guests.forEach(function (guest) {
             json_guests[guest._id] = {
                 _id: guest._id,
@@ -139,7 +149,7 @@ exports.show = function *(next) {
             };
         });
         if (user_id) {
-            let user = yield User.findById(user_id);
+            user = yield User.findById(user_id);
         }
         let json_comments = [];
         comments.forEach(function (comment) {
@@ -186,7 +196,7 @@ exports.show = function *(next) {
         }, true);
     }
     else {
-        this.redirect(this.app.url('journals-list'));
+        this.redirect(this.app.url('journals-index'));
     }
 };
 
@@ -201,7 +211,7 @@ exports.init = function *(next) {
 
 exports.create = function *(next) {
     let Journal = global.database.models.journal;
-    let Stat= global.database.models.stat;
+    let Stat = global.database.models.stat;
     let journal = new Journal();
     let tags = JSON.parse(this.request.body.tags);
     let stat = yield Stat.findOne({});
@@ -216,7 +226,7 @@ exports.create = function *(next) {
     tags.forEach(function (tag) {
         journal.tags.push({name: tag});
         var exist = false;
-        for(var i = 0; i < stat.tags.length; i++) {
+        for (var i = 0; i < stat.tags.length; i++) {
             if (stat.tags[i].name == tag) {
                 stat.tags[i].journal_count++;
                 exist = true;
@@ -229,7 +239,7 @@ exports.create = function *(next) {
     });
     yield journal.save();
     yield stat.save();
-    this.redirect(this.app.url("journals-detail", {journal_id: journal._id}));
+    this.redirect(this.app.url("journals-show", {journal_id: journal._id}));
 };
 
 exports.edit = function *(next) {
@@ -247,7 +257,7 @@ exports.edit = function *(next) {
 
 exports.update = function *(next) {
     let Journal = global.database.models.journal;
-    let Stat= global.database.models.stat;
+    let Stat = global.database.models.stat;
     let journal = yield Journal.findById(this.params.journal_id);
     let stat = yield Stat.findOne({});
     if (!stat) {
@@ -260,7 +270,7 @@ exports.update = function *(next) {
     journal.is_public = !!this.request.body.is_public;
     journal.updated_at = Date.now();
     journal.tags.forEach(function (tag) {
-        for(var i = 0; i < stat.tags.length; i++) {
+        for (var i = 0; i < stat.tags.length; i++) {
             if (stat.tags[i].name == tag.name) {
                 stat.tags[i].journal_count--;
                 if (stat.tags[i].journal_count == 0) {
@@ -274,7 +284,7 @@ exports.update = function *(next) {
     tags.forEach(function (tag) {
         journal.tags.push({name: tag});
         var exist = false;
-        for(var i = 0; i < stat.tags.length; i++) {
+        for (var i = 0; i < stat.tags.length; i++) {
             if (stat.tags[i].name == tag) {
                 stat.tags[i].journal_count++;
                 exist = true;
@@ -296,7 +306,7 @@ exports.destroy = function *(next) {
     let journal = yield Journal.findById(this.params.journal_id);
     yield Comment.remove({journal_id: journal._id});
     journal.remove();
-    this.redirect(this.app.url('journals-list'));
+    this.redirect(this.app.url('journals-index'));
 };
 
 exports.comments = require('./comments');

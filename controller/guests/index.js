@@ -49,7 +49,7 @@ exports.create = function *(next) {
     }
     else {
         this.flash = {error: "邮箱已被注册，请重新输入"};
-        this.redirect(this.app.url('guests-init'));
+        this.redirect(this.app.url('guests-new'));
     }
 };
 

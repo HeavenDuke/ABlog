@@ -9,9 +9,9 @@ let replies_router = require('./replies');
 
 module.exports = function(app) {
 
-    app.post('article-comment-create', '/columns/:column_id/articles/:article_id/comments', visit_recorder, authentication.cross_auth, comments_controller.create);
+    app.post('columns-articles-comments-create', '/columns/:column_id/articles/:article_id/comments', visit_recorder, authentication.cross_auth, comments_controller.create);
 
-    app.del('article-comment-destroy', '/columns/:column_id/articles/:article_id/comments/:comment_id', visit_recorder, authentication.admin_only, comments_controller.destroy);
+    app.del('columns-articles-comments-destroy', '/columns/:column_id/articles/:article_id/comments/:comment_id', visit_recorder, authentication.admin_only, comments_controller.destroy);
 
     replies_router(app);
 

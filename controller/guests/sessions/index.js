@@ -28,7 +28,7 @@ exports.create = function *(next) {
     let guest = yield Guest.findOne(guest_query);
     if (!guest || !guest.validatePassword(this.request.body.password)) {
         this.flash = {error: "用户不存在或密码错误，请重新输入"};
-        this.redirect(this.app.url("guests-sessions-init"));
+        this.redirect(this.app.url("guests-sessions-new"));
     }
     else {
         writeGuestInfo(this.session, guest);

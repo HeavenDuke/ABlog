@@ -59,15 +59,15 @@ exports.update = function *(next) {
             this.session.confirmation_token = confirmation_token;
             guest.confirmation_token = confirmation_token;
             guest.save();
-            this.redirect(this.app.url("guest-password-reset-page"));
+            this.redirect(this.app.url("guests-passwords-new"));
         }
         else {
             this.flash = {error: "验证码错误，请重新输入"};
-            this.redirect(this.app.url("guest-sms-init"));
+            this.redirect(this.app.url("guests-sms-new"));
         }
     }
     else {
         this.flash = {error: "用户不存在，请重新输入"};
-        this.redirect(this.app.url("guest-sms-init"));
+        this.redirect(this.app.url("guests-sms-new"));
     }
 };

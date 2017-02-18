@@ -18,7 +18,7 @@ exports.create = function *(next) {
     comment.save();
     journal.comment_count += 1;
     journal.save();
-    this.redirect(this.app.url('journals-detail', {journal_id: this.params.journal_id}));
+    this.redirect(this.app.url('journals-show', {journal_id: this.params.journal_id}));
 };
 
 exports.destroy = function *(next) {
@@ -29,7 +29,7 @@ exports.destroy = function *(next) {
     comment.remove();
     journal.comment_count -= 1;
     journal.save();
-    this.redirect(this.app.url('journals-detail', {journal_id: comment.journal_id}));
+    this.redirect(this.app.url('journals-show', {journal_id: comment.journal_id}));
 };
 
 exports.replies = require('./replies');

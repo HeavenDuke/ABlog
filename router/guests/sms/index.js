@@ -8,11 +8,11 @@ let visit_recorder = require('../../../middlewares/visit_recorder');
 
 module.exports = function (app) {
 
-    app.get('guest-sms-init', '/guests/sms/new', visit_recorder, sms_controller.init);
+    app.get('guests-sms-new', '/guests/sms/new', visit_recorder, sms_controller.init);
 
-    app.post('guest-sms-create', '/guests/sms', visit_recorder, sms_controller.create);
+    app.post('guests-sms-create', '/guests/sms', visit_recorder, sms_controller.create);
 
-    app.put('guest-sms-validate', '/guests/sms', visit_recorder, sms_controller.update);
+    app.put('guests-sms-update', '/guests/sms', visit_recorder, sms_controller.update);
 
 
 };

@@ -8,12 +8,12 @@ exports.create = function *(next) {
     link.name = this.request.body.name;
     link.url = this.request.body.url;
     link.save();
-    this.redirect("/");
+    this.redirect(this.app.url("home"));
 };
 
 exports.destroy = function *(next) {
     let Link = global.database.models.link;
     let link = yield Link.findById(this.params.link_id);
     link.remove();
-    this.redirect("/");
+    this.redirect(this.app.url("home"));
 };

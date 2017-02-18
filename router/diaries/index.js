@@ -16,7 +16,7 @@ module.exports = function(app) {
         yield next;
     };
 
-    app.get('diaries-list', '/diaries', visit_recorder, set_redirection, current_module, diaries_controller.index);
+    app.get('diaries-index', '/diaries', visit_recorder, set_redirection, current_module, diaries_controller.index);
 
     app.post('diaries-create', '/diaries', visit_recorder, current_module, authentication.admin_only, diaries_controller.create);
 

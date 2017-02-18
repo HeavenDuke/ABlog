@@ -46,7 +46,7 @@ exports.create = function *(next) {
     project.started_at = new Date(this.request.body.started_at);
     project.closed_at = this.request.body.closed_at ? new Date(this.request.body.closed_at) : null;
     project.save();
-    this.redirect(this.app.url("projects-list"));
+    this.redirect(this.app.url("projects-index"));
 };
 
 exports.edit = function *(next) {
@@ -70,12 +70,12 @@ exports.update = function *(next) {
     project.started_at = new Date(this.request.body.started_at);
     project.closed_at = this.request.body.closed_at ? new Date(this.request.body.closed_at) : null;
     project.save();
-    this.redirect(this.app.url("projects-list"));
+    this.redirect(this.app.url("projects-index"));
 };
 
 exports.destroy = function *(next) {
     let Project = global.database.models.project;
     let project = yield Project.findById(this.params.project_id);
     project.remove();
-    this.redirect(this.app.url("projects-list"));
+    this.redirect(this.app.url("projects-index"));
 };

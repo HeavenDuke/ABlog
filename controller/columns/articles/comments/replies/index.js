@@ -14,7 +14,7 @@ exports.create = function *(next) {
     }
     comment.replies.push(reply);
     comment.save();
-    this.redirect(this.app.url("articles-detail", {
+    this.redirect(this.app.url("columns-articles-show", {
         column_id: this.params.column_id,
         article_id: this.params.article_id
     }));

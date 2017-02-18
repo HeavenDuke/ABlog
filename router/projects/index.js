@@ -14,11 +14,11 @@ module.exports = function(app) {
         yield next;
     };
 
-    app.get("projects-list", '/projects', visit_recorder, set_redirection, current_module, projects_controller.index);
+    app.get("projects-index", '/projects', visit_recorder, set_redirection, current_module, projects_controller.index);
 
     app.get("projects-new", '/projects/new', visit_recorder, set_redirection, authentication.admin_only, current_module, projects_controller.init);
 
-    app.get("projects-detail", '/projects/:project_id', visit_recorder, set_redirection, current_module, projects_controller.show);
+    app.get("projects-show", '/projects/:project_id', visit_recorder, set_redirection, current_module, projects_controller.show);
 
     app.get("projects-edit", '/projects/:project_id/edit', visit_recorder, set_redirection, authentication.admin_only, current_module, projects_controller.edit);
 

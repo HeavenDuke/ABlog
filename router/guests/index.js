@@ -16,7 +16,7 @@ let config = require('../../config/config')();
 
 module.exports = function (app) {
 
-    app.get('guests-init', '/guests/new', visit_recorder, authentication.auth_none, guests_controller.init);
+    app.get('guests-new', '/guests/new', visit_recorder, authentication.auth_none, guests_controller.init);
 
     app.post('guests-create', '/guests', visit_recorder, authentication.auth_none, guests_controller.create);
 

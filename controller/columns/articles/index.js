@@ -54,7 +54,7 @@ exports.show = function *(next) {
         }
         comment.save();
     });
-    let guests = yield Guest.find({_id: {"$in": guest_ids}});
+    let guests = yield Guest.find({_id: {"$in": guest_ids}}), user = null;
     let json_guests = {};
     guests.forEach(function (guest) {
         json_guests[guest._id] = {
@@ -64,7 +64,7 @@ exports.show = function *(next) {
         };
     });
     if (user_id) {
-        let user = yield User.findById(user_id);
+        user = yield User.findById(user_id);
     }
     let json_comments = [];
     comments.forEach(function (comment) {
@@ -138,7 +138,7 @@ exports.create = function *(next) {
     article.save();
     column.updated_at = Date.now();
     column.save();
-    this.redirect(this.app.url("articles-detail", {column_id: this.params.column_id, article_id: article._id}));
+    this.redirect(this.app.url("columns-articles-show", {column_id: this.params.column_id, article_id: article._id}));
 };
 
 exports.edit = function *(next) {
@@ -167,7 +167,7 @@ exports.update = function *(next) {
     article.save();
     column.updated_at = Date.now();
     column.save();
-    this.redirect(this.app.url('articles-detail', {column_id: this.params.column_id, article_id: article._id}));
+    this.redirect(this.app.url('columns-articles-show', {column_id: this.params.column_id, article_id: article._id}));
 };
 
 exports.destroy = function *(next) {
@@ -176,7 +176,7 @@ exports.destroy = function *(next) {
     let article = yield Article.findById(this.params.article_id);
     yield Comment.remove({journal_id: article._id});
     article.remove();
-    this.redirect(this.app.url('columns-detail', {column_id: this.params.column_id}));
+    this.redirect(this.app.url('columns-show', {column_id: this.params.column_id}));
 };
 
 exports.comments = require('./comments');

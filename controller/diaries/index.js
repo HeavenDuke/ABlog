@@ -38,7 +38,7 @@ exports.index = function *() {
     }
     else {
         let result = "";
-        for(let i = 0; i < diaries.length; i++) {
+        for (let i = 0; i < diaries.length; i++) {
             result += diaries[i].get_diary_container(!!this.session.user);
         }
         if (render_loader) {
@@ -68,7 +68,7 @@ exports.create = function *(next) {
     diary.recorded_date = new Date(fields.recorded_date);
     diary.images = JSON.parse(fields.image_ids);
     diary.save();
-    this.redirect('/diaries');
+    this.redirect(this.app.url("diaries-index"));
 };
 
 exports.update = function *(next) {
@@ -83,7 +83,7 @@ exports.update = function *(next) {
     diary.recorded_date = new Date(fields.recorded_date);
     diary.images = JSON.parse(fields.image_ids);
     diary.save();
-    this.redirect('/diaries');
+    this.redirect(this.app.url("diaries-index"));
 };
 
 exports.destroy = function *() {
@@ -96,5 +96,5 @@ exports.destroy = function *() {
         yield fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", get_thumb_path(image_path)));
     }
     diary.remove();
-    this.redirect('/diaries');
+    this.redirect(this.app.url("diaries-index"));
 };

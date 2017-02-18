@@ -12,6 +12,6 @@ module.exports = function (app) {
 
     let uploader = koa_body({multipart: true, formidable: {uploadDir: path.join(config.staticDir, 'uploads'), keepExtensions: true, hash: "sha1"}});
 
-    app.post('guest-head-upload', '/guests/heads', authentication.cross_auth, uploader, heads_controller.create);
+    app.post('guests-heads-create', '/guests/heads', authentication.cross_auth, uploader, heads_controller.create);
 
 };

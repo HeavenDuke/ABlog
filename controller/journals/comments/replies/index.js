@@ -14,5 +14,5 @@ exports.create = function *(next) {
     }
     comment.replies.push(reply);
     comment.save();
-    this.redirect(this.app.url("journals-detail", {journal_id: this.params.journal_id}));
+    this.redirect(this.app.url("journals-show", {journal_id: this.params.journal_id}));
 };

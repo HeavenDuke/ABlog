@@ -4,6 +4,7 @@
 
 let index = function *(next) {
     let Journal = global.database.models.journal;
+    let Stat = global.database.models.stat;
     let journal_per_page = global.conf.pagination.journal;
     let total_journal_count = null;
     let topped_journal_count = null;
@@ -12,7 +13,12 @@ let index = function *(next) {
     let offset = null;
     let journals = null;
     let journals_not_topped = null;
-    var tag = this.request.query.tag;
+    let tag = this.request.query.tag;
+    let stat = yield Stat.findOne({});
+    if (!stat) {
+        stat = yield Stat.create({tags: []});
+    }
+    let tags = stat.tags;
     if (this.session.user) {
         total_journal_count = yield Journal.count(tag ? {"tags.name": tag} : {});
         topped_journal_count = yield Journal.count(tag ? {"placed_top": true, "tags.name": tag} : {"placed_top": true});
@@ -55,6 +61,9 @@ let index = function *(next) {
         total_page: total_page,
         current_index: current_page_index
     };
+    tags.sort(function (tag1, tag2) {
+        return tag1.journal_count > tag2.journal_count;
+    });
     this.render('./journals/index', {
         "title": "博客列表",
         current_guest: this.session.guest,
@@ -63,6 +72,7 @@ let index = function *(next) {
         pagination: pagination,
         current_module: this.current_module,
         tag: tag,
+        tags: tags,
         redirect_url: this.request.url
     }, true);
 };

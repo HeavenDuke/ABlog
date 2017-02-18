@@ -2,11 +2,11 @@
  * Created by heavenduke on 16-7-17.
  */
 
+let heads_controller = require('../../../controller/index').guests.heads;
 let authentication = require('../../../middlewares/authentication');
 let koa_body = require('koa-body');
 let path = require('path');
 let config = require('../../../config/config')();
-let heads_controller = require('../../../controller/index').guests.heads;
 
 module.exports = function (app) {
 

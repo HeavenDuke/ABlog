@@ -1,11 +1,12 @@
 /**
  * Created by heavenduke on 16-6-29.
  */
+
+let images_controller = require('../../controller').images;
 let authentication = require('../../middlewares/authentication');
 let koa_body = require('koa-body');
 let path = require('path');
 let config = require('../../config/config')();
-let images_controller = require('../../controller').images;
 
 module.exports = function (app) {
 

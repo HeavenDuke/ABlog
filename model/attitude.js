@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/7/12.
  */
 
-var Attitude = {};
+let Attitude = {};
 
 Attitude.Schema = {
     like: {

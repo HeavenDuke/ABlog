@@ -2,16 +2,16 @@
  * Created by Obscurity on 2016/5/29.
  */
 
-var articles_controller = require('../../../controller').columns.articles;
-var comment_router = require('./comments');
-var likes_router = require('./likes');
-var authentication = require('../../../middlewares/authentication');
-var visit_recorder = require('../../../middlewares/visit_recorder');
-var set_redirection = require('../../../middlewares/set_redirection');
+let articles_controller = require('../../../controller').columns.articles;
+let comment_router = require('./comments');
+let likes_router = require('./likes');
+let authentication = require('../../../middlewares/authentication');
+let visit_recorder = require('../../../middlewares/visit_recorder');
+let set_redirection = require('../../../middlewares/set_redirection');
 
 module.exports = function(app) {
 
-    var current_module = function *(next) {
+    let current_module = function *(next) {
         this.current_module = "column";
         yield next;
     };

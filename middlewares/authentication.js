@@ -2,7 +2,7 @@
  * Created by heavenduke on 16-5-6.
  */
 
-var admin_only = function *(next) {
+let admin_only = function *(next) {
     if (this.session.user) {
         yield next;
     }
@@ -12,7 +12,7 @@ var admin_only = function *(next) {
     }
 };
 
-var guest_only = function *(next) {
+let guest_only = function *(next) {
     if (this.session.guest) {
         yield next;
     }
@@ -22,7 +22,7 @@ var guest_only = function *(next) {
     }
 };
 
-var cross_auth = function *(next) {
+let cross_auth = function *(next) {
     if (this.session.guest || this.session.user) {
         yield next;
     }
@@ -32,7 +32,7 @@ var cross_auth = function *(next) {
     }
 };
 
-var auth_none = function *(next) {
+let auth_none = function *(next) {
     if (this.session.guest || this.session.user) {
         this.redirect('/');
     }
@@ -41,7 +41,7 @@ var auth_none = function *(next) {
     }
 };
 
-var auth_confirmation_token = function *(next) {
+let auth_confirmation_token = function *(next) {
     if (this.session.confirmation_token) {
         yield next;
     }

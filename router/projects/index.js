@@ -2,14 +2,14 @@
  * Created by Obscurity on 2016/3/20.
  */
 
-var projects_controller = require('../../controller').projects;
-var authentication = require('../../middlewares/authentication');
-var set_redirection = require('../../middlewares/set_redirection');
-var visit_recorder = require('../../middlewares/visit_recorder');
+let projects_controller = require('../../controller').projects;
+let authentication = require('../../middlewares/authentication');
+let set_redirection = require('../../middlewares/set_redirection');
+let visit_recorder = require('../../middlewares/visit_recorder');
 
 module.exports = function(app) {
 
-    var current_module = function *(next) {
+    let current_module = function *(next) {
         this.current_module = "project";
         yield next;
     };

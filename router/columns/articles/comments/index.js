@@ -2,10 +2,10 @@
  * Created by Obscurity on 2016/3/20.
  */
 
-var comments_controller = require('../../../../controller').columns.articles.comments;
-var authentication = require('../../../../middlewares/authentication');
-var visit_recorder = require('../../../../middlewares/visit_recorder');
-var replies_router = require('./replies');
+let comments_controller = require('../../../../controller').columns.articles.comments;
+let authentication = require('../../../../middlewares/authentication');
+let visit_recorder = require('../../../../middlewares/visit_recorder');
+let replies_router = require('./replies');
 
 module.exports = function(app) {
 

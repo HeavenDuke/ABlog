@@ -3,7 +3,7 @@
  */
 
 exports.url_encode = function (url) {
-    var result = url;
+    let result = url;
     result = result.replace("?", "%3F");
     result = result.replace("&", "%26");
     result = result.replace("=", "%3D");
@@ -30,4 +30,4 @@ exports.url_decode = function (url){
     url = url.replace(/\%3d/g, "=");
     url = url.replace(/\%26/g, "&");
     return url;
-}
+};

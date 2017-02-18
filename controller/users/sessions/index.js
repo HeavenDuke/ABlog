@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/7/12.
  */
 
-var init = function *(next) {
+let init = function *(next) {
     this.render('./users/sessions/new', {
         "title": "管理员登录",
         error: this.flash.error,
@@ -13,18 +13,18 @@ var init = function *(next) {
     }, true);
 };
 
-var create = function *(next) {
-    var writeUserInfo = function (session, user) {
+let create = function *(next) {
+    let writeUserInfo = function (session, user) {
         session.user = {
             _id: user._id,
             username: user.username
         };
     };
-    var User = global.database.models.user;
-    var userQuery = {
+    let User = global.database.models.user;
+    let userQuery = {
         username: this.request.body.username
     };
-    var user = yield User.findOne(userQuery);
+    let user = yield User.findOne(userQuery);
     if (!user || !user.validatePassword(this.request.body.password)) {
         this.flash = {error: "您输入的用户名或密码有误，请重新输入"};
         this.redirect(this.app.url("users-sessions-new"));
@@ -36,8 +36,8 @@ var create = function *(next) {
     }
 };
 
-var destroy = function *(next) {
-    var eraseUserInfo = function (session) {
+let destroy = function *(next) {
+    let eraseUserInfo = function (session) {
         delete session.user;
     };
     eraseUserInfo(this.session);

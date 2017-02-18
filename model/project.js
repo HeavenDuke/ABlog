@@ -2,8 +2,7 @@
  * Created by heavenduke on 16-5-25.
  */
 
-var Project = {};
-var Progress = require('./progress');
+let Project = {};
 
 Project.Schema = {
     name: {
@@ -32,8 +31,7 @@ Project.Schema = {
     closed_at: {
         type: Date,
         required: false
-    },
-    progress: [Progress]
+    }
 };
 
 Project.collection = {

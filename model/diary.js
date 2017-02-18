@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/5/12.
  */
 
-var Diary = {};
+let Diary = {};
 
 Diary.Schema = {
     brief: {
@@ -55,7 +55,7 @@ Diary.collection = {
 };
 
 Diary.mood_to_color = function () {
-    var hash_table = {
+    let hash_table = {
         "excited": "bg-orange",
         "happy": "bg-green",
         "angry": "bg-red",
@@ -80,7 +80,7 @@ Diary.mood_list = function () {
 };
 
 Diary.translate_mood = function () {
-    var hash_table = {
+    let hash_table = {
         "excited": "一颗赛艇",
         "happy": "2333",
         "angry": "I am angry!",
@@ -111,7 +111,7 @@ Diary.tag_list = function () {
 };
 
 Diary.translate_tag = function () {
-    var hash_table = {
+    let hash_table = {
         "everything": "不明",
         "read": "读书",
         "movie": "电影",

@@ -3,10 +3,10 @@
  */
 
 exports.create = function *(next) {
-    var Journal = global.database.models.journal;
-    var Comment = global.database.models.comment;
-    var comment = new Comment();
-    var journal = yield Journal.findById(this.params.journal_id);
+    let Journal = global.database.models.journal;
+    let Comment = global.database.models.comment;
+    let comment = new Comment();
+    let journal = yield Journal.findById(this.params.journal_id);
     comment.content = this.request.body.content;
     if (this.session.guest) {
         comment.guest_id = this.session.guest._id;
@@ -22,10 +22,10 @@ exports.create = function *(next) {
 };
 
 exports.destroy = function *(next) {
-    var Journal = global.database.models.journal;
-    var Comment = global.database.models.comment;
-    var comment = yield Comment.findById(this.params.comment_id);
-    var journal = yield Journal.findById(comment.journal_id);
+    let Journal = global.database.models.journal;
+    let Comment = global.database.models.comment;
+    let comment = yield Comment.findById(this.params.comment_id);
+    let journal = yield Journal.findById(comment.journal_id);
     comment.remove();
     journal.comment_count -= 1;
     journal.save();

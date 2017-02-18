@@ -1,7 +1,7 @@
 //应用配置文件
-var path = require('path');
-var local = require('./local');
-var _ = require('underscore');
+let path = require('path');
+let local = require('./local');
+let _ = require('underscore');
 
 module.exports = function(root) {
     let config = {

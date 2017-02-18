@@ -2,12 +2,12 @@
  * Created by heavenduke on 16-7-12.
  */
 
-var nodemailer = require('nodemailer');
-var path = require('path');
-var config = require('../../../config/config')();
-var transporter = Promise.promisifyAll(nodemailer.createTransport(config.smtp));
+let nodemailer = require('nodemailer');
+let path = require('path');
+let config = require('../../../config/config')();
+let transporter = Promise.promisifyAll(nodemailer.createTransport(config.smtp));
 
-var init = function *(next) {
+let init = function *(next) {
     this.render('./guests/sms/new', {
         title: "发送验证码",
         error: this.flash.error,
@@ -16,25 +16,25 @@ var init = function *(next) {
     }, true);
 };
 
-var create = function *(next) {
-    var generate_otp_code = function (len) {
-        var alphabet = '1234567890';
-        var result = '';
-        for (var i = 0; i < len; i++) {
+let create = function *(next) {
+    let generate_otp_code = function (len) {
+        let alphabet = '1234567890';
+        let result = '';
+        for (let i = 0; i < len; i++) {
             result += alphabet.charAt(Math.randint(0, alphabet.length - 1));
         }
         return result;
     };
-    var otp_code = generate_otp_code(6);
-    var email = this.request.query.email;
-    var mailOptions = {
+    let otp_code = generate_otp_code(6);
+    let email = this.request.query.email;
+    let mailOptions = {
         from: '"heavenduke" <heavenduke@heavenduke.com>',
         to: email,
         subject: '重置密码',
         html: '<p>重置密码所需要的6位验证码为：<strong>' + otp_code + '</strong></p>' // html body
     };
 
-    var send_result = yield transporter.sendMail(mailOptions);
+    let send_result = yield transporter.sendMail(mailOptions);
     this.session.otp_code = otp_code;
     this.session.email = email;
     this.body = {
@@ -42,20 +42,20 @@ var create = function *(next) {
     };
 };
 
-var update = function *(next) {
-    var Guest = global.database.models.guest;
-    var guest = yield Guest.findOne({email: this.request.body.email});
+let update = function *(next) {
+    let Guest = global.database.models.guest;
+    let guest = yield Guest.findOne({email: this.request.body.email});
     if (guest) {
-        var generate_confirmation_toksn = function (len) {
-            var alphabet = '1234567890qpwoeirutyalskdjfhgzmxncbvQPWOEIRUTYALSKDJFHGZMXNCBV';
-            var result = '';
-            for (var i = 0; i < len; i++) {
+        let generate_confirmation_toksn = function (len) {
+            let alphabet = '1234567890qpwoeirutyalskdjfhgzmxncbvQPWOEIRUTYALSKDJFHGZMXNCBV';
+            let result = '';
+            for (let i = 0; i < len; i++) {
                 result += alphabet.charAt(Math.randint(0, alphabet.length - 1));
             }
             return result;
         };
         if (this.session.email == this.request.body.email && this.session.otp_code == this.request.body.otp_code) {
-            var confirmation_token = generate_confirmation_toksn(64);
+            let confirmation_token = generate_confirmation_toksn(64);
             this.session.confirmation_token = confirmation_token;
             guest.confirmation_token = confirmation_token;
             guest.save();

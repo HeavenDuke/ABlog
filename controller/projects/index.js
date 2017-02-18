@@ -2,9 +2,9 @@
  * Created by Obscurity on 2016/3/20.
  */
 
-var index = function *(next) {
-    var Project = global.database.models.project;
-    var projects = yield Project.find({}).sort({"closed_at": -1});
+let index = function *(next) {
+    let Project = global.database.models.project;
+    let projects = yield Project.find({}).sort({"closed_at": -1});
     this.render('./projects/index', {
         "title": "项目列表",
         current_guest: this.session.guest,
@@ -15,9 +15,9 @@ var index = function *(next) {
     }, true);
 };
 
-var show = function *(next) {
-    var Project = global.database.models.project;
-    var project = yield Project.findById(this.params.project_id);
+let show = function *(next) {
+    let Project = global.database.models.project;
+    let project = yield Project.findById(this.params.project_id);
     this.render('./projects/show', {
         "title": project.name,
         current_guest: this.session.guest,
@@ -28,7 +28,7 @@ var show = function *(next) {
     }, true);
 };
 
-var init = function *(next) {
+let init = function *(next) {
     this.render('./projects/new', {
         "title": "新增项目",
         current_guest: this.session.guest,
@@ -38,9 +38,9 @@ var init = function *(next) {
     }, true);
 };
 
-var create = function *(next) {
-    var Project = global.database.models.project;
-    var project = new Project();
+let create = function *(next) {
+    let Project = global.database.models.project;
+    let project = new Project();
     project.name = this.request.body.name;
     project.introduction = this.request.body.introduction;
     project.started_at = new Date(this.request.body.started_at);
@@ -49,9 +49,9 @@ var create = function *(next) {
     this.redirect(this.app.url("projects-list"));
 };
 
-var edit = function *(next) {
-    var Project = global.database.models.project;
-    var project = yield Project.findById(this.params.project_id);
+let edit = function *(next) {
+    let Project = global.database.models.project;
+    let project = yield Project.findById(this.params.project_id);
     this.render('./projects/edit', {
         "title": "编辑项目信息",
         current_guest: this.session.guest,
@@ -62,9 +62,9 @@ var edit = function *(next) {
     }, true);
 };
 
-var update = function *(next) {
-    var Project = global.database.models.project;
-    var project = yield Project.findById(this.params.project_id);
+let update = function *(next) {
+    let Project = global.database.models.project;
+    let project = yield Project.findById(this.params.project_id);
     project.name = this.request.body.name;
     project.introduction = this.request.body.introduction;
     project.started_at = new Date(this.request.body.started_at);
@@ -73,9 +73,9 @@ var update = function *(next) {
     this.redirect(this.app.url("projects-list"));
 };
 
-var destroy = function *(next) {
-    var Project = global.database.models.project;
-    var project = yield Project.findById(this.params.project_id);
+let destroy = function *(next) {
+    let Project = global.database.models.project;
+    let project = yield Project.findById(this.params.project_id);
     project.remove();
     this.redirect(this.app.url("projects-list"));
 };

@@ -2,10 +2,10 @@
  * Created by Obscurity on 2016/6/19.
  */
 
-var path = require('path');
-var fs = Promise.promisifyAll(require("fs"));
+let path = require('path');
+let fs = Promise.promisifyAll(require("fs"));
 
-var writeGuestInfo = function (session, guest) {
+let writeGuestInfo = function (session, guest) {
     session.guest = {
         _id: guest._id,
         username: guest.username,
@@ -14,7 +14,7 @@ var writeGuestInfo = function (session, guest) {
     };
 };
 
-var init = function *(next) {
+let init = function *(next) {
     this.render('./guests/new', {
         title: "用户注册",
         error: this.flash.error,
@@ -24,9 +24,9 @@ var init = function *(next) {
     }, true);
 };
 
-var create = function *(next) {
-    var Guest = global.database.models.guest;
-    var guest = yield Guest.findOne({email: this.request.body.email});
+let create = function *(next) {
+    let Guest = global.database.models.guest;
+    let guest = yield Guest.findOne({email: this.request.body.email});
     if (!guest) {
         if (this.request.body.password.length >= 6 && this.request.body.password.length <= 16 && Guest.validateConfirmPassword(this.request.body.password, this.request.body.confirm_password)) {
             guest = new Guest();
@@ -53,7 +53,7 @@ var create = function *(next) {
     }
 };
 
-var edit = function *(next) {
+let edit = function *(next) {
     this.render('./guests/edit', {
         title: "修改个人信息",
         error: this.flash.error,
@@ -62,16 +62,16 @@ var edit = function *(next) {
     }, true);
 };
 
-var update = function *(next) {
-    var Guest = global.database.models.guest;
-    var guest = yield Guest.findById(this.session.guest._id);
-    var passwordSet = {
+let update = function *(next) {
+    let Guest = global.database.models.guest;
+    let guest = yield Guest.findById(this.session.guest._id);
+    let passwordSet = {
         previous: this.request.body.password,
         new: this.request.body.new_password,
         confirm: this.request.body.confirm_password
     };
-    var check = yield Guest.findOne({email: this.request.body.email});
-    var error = null;
+    let check = yield Guest.findOne({email: this.request.body.email});
+    let error = null;
     if (this.request.body.email && !(check && check._id != guest._id)) {
         guest.email = this.request.body.email;
     }

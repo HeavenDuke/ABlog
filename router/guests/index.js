@@ -2,17 +2,17 @@
  * Created by heavenduke on 16-7-12.
  */
 
-var guests_controller = require('../../controller').guests;
+let guests_controller = require('../../controller').guests;
 
-var authentication = require('../../middlewares/authentication');
-var visit_recorder = require('../../middlewares/visit_recorder');
+let authentication = require('../../middlewares/authentication');
+let visit_recorder = require('../../middlewares/visit_recorder');
 
-var password_router = require('./passwords');
-var session_router = require('./sessions');
-var sms_router = require('./sms');
-var head_router = require('./heads');
-var path = require('path');
-var config = require('../../config/config')();
+let password_router = require('./passwords');
+let session_router = require('./sessions');
+let sms_router = require('./sms');
+let head_router = require('./heads');
+let path = require('path');
+let config = require('../../config/config')();
 
 module.exports = function (app) {
 

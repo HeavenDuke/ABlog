@@ -2,9 +2,9 @@
  * Created by heavenduke on 16-7-12.
  */
 
-var smss_controller = require('../../../controller').guests.sms;
+let smss_controller = require('../../../controller').guests.sms;
 
-var visit_recorder = require('../../../middlewares/visit_recorder');
+let visit_recorder = require('../../../middlewares/visit_recorder');
 
 module.exports = function (app) {
 

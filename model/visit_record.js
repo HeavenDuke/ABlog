@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/5/16.
  */
 
-var VisitRecord = {};
+let VisitRecord = {};
 
 VisitRecord.Schema = {
     times: {
@@ -28,11 +28,11 @@ VisitRecord.collection = {
 };
 
 VisitRecord.ignore_minute = function (date) {
-    var ignored_date = new Date(date.format('yyyy-MM-dd hh:00:00'));
-    var year = ignored_date.getFullYear();
-    var month = ignored_date.getMonth();
-    var day = ignored_date.getDate();
-    var hour = ignored_date.getHours();
+    let ignored_date = new Date(date.format('yyyy-MM-dd hh:00:00'));
+    let year = ignored_date.getFullYear();
+    let month = ignored_date.getMonth();
+    let day = ignored_date.getDate();
+    let hour = ignored_date.getHours();
     return Date.UTC(year, month, day, hour);
 };
 

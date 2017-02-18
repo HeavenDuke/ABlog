@@ -4,7 +4,7 @@
 
 module.exports = function () {
     Math.randint = function (min, max) {
-        var random = Math.random();
+        let random = Math.random();
         return min + Math.round(random * (max - min));
     };
 };

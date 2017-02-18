@@ -3,12 +3,12 @@
  */
 
 exports.create = function *() {
-    var Article = global.database.models.article;
-    var Attitude = global.database.models.attitude;
-    var article = yield Article.findById(this.params.article_id);
+    let Article = global.database.models.article;
+    let Attitude = global.database.models.attitude;
+    let article = yield Article.findById(this.params.article_id);
     if (article) {
-        var attitude = yield Attitude.findOne({guest_id: this.session.guest._id, article_id: this.params.article_id});
-        var action = this.request.query.action;
+        let attitude = yield Attitude.findOne({guest_id: this.session.guest._id, article_id: this.params.article_id});
+        let action = this.request.query.action;
         if (action == 'post') {
             if (!attitude) {
                 attitude = new Attitude();

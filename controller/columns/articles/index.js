@@ -2,13 +2,13 @@
  * Created by Obscurity on 2016/5/28.
  */
 
-var show = function *(next) {
-    var Article = global.database.models.article;
-    var Comment = global.database.models.comment;
-    var Attitude = global.database.models.attitude;
-    var Guest = global.database.models.guest;
-    var User = global.database.models.user;
-    var setReadSession = function (session, article) {
+let show = function *(next) {
+    let Article = global.database.models.article;
+    let Comment = global.database.models.comment;
+    let Attitude = global.database.models.attitude;
+    let Guest = global.database.models.guest;
+    let User = global.database.models.user;
+    let setReadSession = function (session, article) {
         if (!session.read_history) {
             session.read_history = {};
         }
@@ -16,21 +16,21 @@ var show = function *(next) {
         article.save();
         session.read_history[article._id] = true;
     };
-    var article = yield Article.findById(this.params.article_id);
-    var articles = yield Article.find({column_id: this.params.column_id}).sort({order: 1});
+    let article = yield Article.findById(this.params.article_id);
+    let articles = yield Article.find({column_id: this.params.column_id}).sort({order: 1});
     if (!this.session.read_history || !this.session.read_history[article._id]) {
         setReadSession(this.session, article);
     }
-    var attitude = this.session.guest ? yield Attitude.findOne({
+    let attitude = this.session.guest ? yield Attitude.findOne({
         guest_id: this.session.guest._id,
         journal_id: this.params.journal_id
     }) : null;
-    var likes = yield Attitude.count({like: true, journal_id: this.params.journal_id});
-    var dislikes = yield Attitude.count({like: false, journal_id: this.params.journal_id});
-    var comments = yield Comment.find({article_id: article._id}).sort({created_at: 1});
-    var user_id = null;
-    var guest_ids = [];
-    var ctx = this;
+    let likes = yield Attitude.count({like: true, journal_id: this.params.journal_id});
+    let dislikes = yield Attitude.count({like: false, journal_id: this.params.journal_id});
+    let comments = yield Comment.find({article_id: article._id}).sort({created_at: 1});
+    let user_id = null;
+    let guest_ids = [];
+    let ctx = this;
     comments.forEach(function (comment) {
         if (ctx.session.user) {
             comment.is_checked = true;
@@ -54,8 +54,8 @@ var show = function *(next) {
         }
         comment.save();
     });
-    var guests = yield Guest.find({_id: {"$in": guest_ids}});
-    var json_guests = {};
+    let guests = yield Guest.find({_id: {"$in": guest_ids}});
+    let json_guests = {};
     guests.forEach(function (guest) {
         json_guests[guest._id] = {
             _id: guest._id,
@@ -64,11 +64,11 @@ var show = function *(next) {
         };
     });
     if (user_id) {
-        var user = yield User.findById(user_id);
+        let user = yield User.findById(user_id);
     }
-    var json_comments = [];
+    let json_comments = [];
     comments.forEach(function (comment) {
-        var json_comment = {
+        let json_comment = {
             _id: comment._id,
             journal_id: comment.journal_id,
             content: comment.content,
@@ -76,7 +76,7 @@ var show = function *(next) {
             replies: []
         };
         comment.replies.forEach(function (reply) {
-            var json_reply = {
+            let json_reply = {
                 _id: reply._id,
                 content: reply.content,
                 created_at: reply.created_at
@@ -113,9 +113,9 @@ var show = function *(next) {
     }, true);
 };
 
-var init = function *(next) {
-    var Column = global.database.models.column;
-    var column = yield Column.findById(this.params.column_id);
+let init = function *(next) {
+    let Column = global.database.models.column;
+    let column = yield Column.findById(this.params.column_id);
     this.render('./columns/articles/new', {
         "title": "写专栏文章",
         current_module: this.current_module,
@@ -126,11 +126,11 @@ var init = function *(next) {
     }, true);
 };
 
-var create = function *(next) {
-    var Article = global.database.models.article;
-    var Column = global.database.models.column;
-    var article = new Article();
-    var column = yield Column.findById(this.params.column_id);
+let create = function *(next) {
+    let Article = global.database.models.article;
+    let Column = global.database.models.column;
+    let article = new Article();
+    let column = yield Column.findById(this.params.column_id);
     article.title = this.request.body.title;
     article.order = this.request.body.order;
     article.column_id = this.params.column_id;
@@ -141,9 +141,9 @@ var create = function *(next) {
     this.redirect(this.app.url("articles-detail", {column_id: this.params.column_id, article_id: article._id}));
 };
 
-var edit = function *(next) {
-    var Article = global.database.models.article;
-    var article = yield Article.findById(this.params.article_id);
+let edit = function *(next) {
+    let Article = global.database.models.article;
+    let article = yield Article.findById(this.params.article_id);
     this.render('./columns/articles/edit', {
         "title": "编辑博客",
         article: article,
@@ -154,11 +154,11 @@ var edit = function *(next) {
     }, true);
 };
 
-var update = function *(next) {
-    var Article = global.database.models.article;
-    var Column = global.database.models.column;
-    var article = yield Article.findById(this.params.article_id);
-    var column = yield Column.findById(this.params.column_id);
+let update = function *(next) {
+    let Article = global.database.models.article;
+    let Column = global.database.models.column;
+    let article = yield Article.findById(this.params.article_id);
+    let column = yield Column.findById(this.params.column_id);
     article.title = this.request.body.title;
     article.content = !this.request.body.content ? "" : this.request.body.content;
     article.order = this.request.body.order;
@@ -170,10 +170,10 @@ var update = function *(next) {
     this.redirect(this.app.url('articles-detail', {column_id: this.params.column_id, article_id: article._id}));
 };
 
-var destroy = function *(next) {
-    var Article = global.database.models.article;
-    var Comment = global.database.models.comment;
-    var article = yield Article.findById(this.params.article_id);
+let destroy = function *(next) {
+    let Article = global.database.models.article;
+    let Comment = global.database.models.comment;
+    let article = yield Article.findById(this.params.article_id);
     yield Comment.remove({journal_id: article._id});
     article.remove();
     this.redirect(this.app.url('columns-detail', {column_id: this.params.column_id}));

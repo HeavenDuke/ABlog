@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/5/28.
  */
 
-var Column = {};
+let Column = {};
 
 Column.Schema = {
     name: {

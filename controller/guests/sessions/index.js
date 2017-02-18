@@ -2,7 +2,7 @@
  * Created by heavenduke on 16-7-12.
  */
 
-var writeGuestInfo = function (session, guest) {
+let writeGuestInfo = function (session, guest) {
     session.guest = {
         _id: guest._id,
         username: guest.username,
@@ -11,7 +11,7 @@ var writeGuestInfo = function (session, guest) {
     };
 };
 
-var init = function *(next) {
+let init = function *(next) {
     this.render('./guests/sessions/new', {
         title: "用户登录",
         error: this.flash.error,
@@ -20,12 +20,12 @@ var init = function *(next) {
     }, true);
 };
 
-var create = function *(next) {
-    var Guest = global.database.models.guest;
-    var guest_query = {
+let create = function *(next) {
+    let Guest = global.database.models.guest;
+    let guest_query = {
         email: this.request.body.email
     };
-    var guest = yield Guest.findOne(guest_query);
+    let guest = yield Guest.findOne(guest_query);
     if (!guest || !guest.validatePassword(this.request.body.password)) {
         this.flash = {error: "用户不存在或密码错误，请重新输入"};
         this.redirect(this.app.url("guests-sessions-init"));
@@ -36,8 +36,8 @@ var create = function *(next) {
     }
 };
 
-var destroy = function *(next) {
-    var eraseUserInfo = function (session) {
+let destroy = function *(next) {
+    let eraseUserInfo = function (session) {
         delete session.guest;
     };
     eraseUserInfo(this.session);

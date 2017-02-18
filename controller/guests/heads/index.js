@@ -3,20 +3,20 @@
  */
 
 
-var path = require('path');
-var gm = require('gm').subClass({imageMagick: true});
+let path = require('path');
+let gm = require('gm').subClass({imageMagick: true});
 Promise.promisifyAll(gm.prototype);
-var fs = Promise.promisifyAll(require("fs"));
+let fs = Promise.promisifyAll(require("fs"));
 
-var create = function *(next) {
-    var head = this.request.body.files.head;
-    var image_path = path.basename(head.path);
-    var allowed_mimes = ["image/jpeg", "image/bmp", "image/gif", "image/png"];
+let create = function *(next) {
+    let head = this.request.body.files.head;
+    let image_path = path.basename(head.path);
+    let allowed_mimes = ["image/jpeg", "image/bmp", "image/gif", "image/png"];
     if (allowed_mimes.indexOf(head.type) != -1) {
-        var thumb_height = 100;
-        var thumb_width = 100;
+        let thumb_height = 100;
+        let thumb_width = 100;
         yield gm(head.path).resize(thumb_height, thumb_width, "!").autoOrient().writeAsync(head.path);
-        var result = {
+        let result = {
             name: image_path,
             url: "/" + image_path
         };

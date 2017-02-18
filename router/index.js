@@ -1,12 +1,9 @@
 let home_controller = require('../controller').home;
 let user_router = require('./users');
-let contest_router = require('./contests');
-let paper_router = require('./papers');
 let project_router = require('./projects');
 let journal_router = require('./journals');
 let diary_router = require('./diaries');
 let column_router = require('./columns');
-let rss_router = require('./rss');
 let writing_router = require('./writings');
 let image_router = require('./images');
 let notification_router = require('./notifications');
@@ -35,13 +32,10 @@ module.exports = function(app){
 
     user_router(app);
     guest_router(app);
-    contest_router(app);
-    paper_router(app);
     project_router(app);
     journal_router(app);
     diary_router(app);
     column_router(app);
-    rss_router(app);
     image_router(app);
     writing_router(app);
     notification_router(app);

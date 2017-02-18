@@ -3,13 +3,13 @@
  */
 
 exports.create = function *() {
-    var Journal = global.database.models.journal;
-    var Attitude = global.database.models.attitude;
-    var type = this.request.query.type == "dislike" ? "dislikes_count" : "likes_count";
-    var journal = yield Journal.findById(this.params.journal_id);
+    let Journal = global.database.models.journal;
+    let Attitude = global.database.models.attitude;
+    let type = this.request.query.type == "dislike" ? "dislikes_count" : "likes_count";
+    let journal = yield Journal.findById(this.params.journal_id);
     if (journal) {
-        var attitude = yield Attitude.findOne({guest_id: this.session.guest._id, journal_id: this.params.journal_id});
-        var action = this.request.query.action;
+        let attitude = yield Attitude.findOne({guest_id: this.session.guest._id, journal_id: this.params.journal_id});
+        let action = this.request.query.action;
         if (action == 'post') {
             if (!attitude) {
                 attitude = new Attitude();

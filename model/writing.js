@@ -2,7 +2,7 @@
  * Created by heavenduke on 16-7-7.
  */
 
-var Writing = {};
+let Writing = {};
 
 Writing.Schema = {
     date: {

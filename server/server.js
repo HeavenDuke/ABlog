@@ -36,14 +36,14 @@ function Server(option) {
 Server.prototype = koa();
 
 Server.prototype.create_folders = function () {
-    if (!fs.existsSync(path.join(__dirname, "backups"))) {
-        fs.mkdirSync(path.join(__dirname, "backups"));
+    if (!fs.existsSync(path.join(config.baseDir, "backups"))) {
+        fs.mkdirSync(path.join(config.baseDir, "backups"));
     }
-    if (!fs.existsSync(path.join(__dirname, "database"))) {
-        fs.mkdirSync(path.join(__dirname, "database"));
+    if (!fs.existsSync(path.join(config.baseDir, "database"))) {
+        fs.mkdirSync(path.join(config.baseDir, "database"));
     }
-    if (!fs.existsSync(path.join(__dirname, "log"))) {
-        fs.mkdirSync(path.join(__dirname, "log"));
+    if (!fs.existsSync(path.join(config.baseDir, "log"))) {
+        fs.mkdirSync(path.join(config.baseDir, "log"));
     }
 };
 

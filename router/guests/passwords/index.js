@@ -2,10 +2,10 @@
  * Created by heavenduke on 16-7-12.
  */
 
-var passwords_controller = require('../../../controller').guests.passwords;
+let passwords_controller = require('../../../controller').guests.passwords;
 
-var authentication = require('../../../middlewares/authentication');
-var visit_recorder = require('../../../middlewares/visit_recorder');
+let authentication = require('../../../middlewares/authentication');
+let visit_recorder = require('../../../middlewares/visit_recorder');
 
 module.exports = function (app) {
 

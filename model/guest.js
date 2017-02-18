@@ -2,9 +2,9 @@
  * Created by Obscurity on 2016/7/12.
  */
 
-var crypto = require('crypto');
+let crypto = require('crypto');
 
-var Guest = {};
+let Guest = {};
 
 Guest.Schema = {
     username: {
@@ -34,20 +34,20 @@ Guest.collection = {
 };
 
 Guest.encasePassword = function (plain) {
-    var generateRandom = function (alphabet) {
-        var index = Math.floor((Math.random() * alphabet.length));
+    let generateRandom = function (alphabet) {
+        let index = Math.floor((Math.random() * alphabet.length));
         return alphabet.charAt(index);
     };
-    var alphabet = "1234567890qwertyuiopasdfghjklzxcvbnm";
-    var nonce_str = "";
-    var randomBit = 8;
-    var method = 'md5';
-    for(var i = 0; i < randomBit; i++) {
+    let alphabet = "1234567890qwertyuiopasdfghjklzxcvbnm";
+    let nonce_str = "";
+    let randomBit = 8;
+    let method = 'md5';
+    for(let i = 0; i < randomBit; i++) {
         nonce_str += alphabet.charAt(generateRandom(alphabet));
     }
-    var encrypter = crypto.createHash(method);
+    let encrypter = crypto.createHash(method);
     encrypter.update(nonce_str + plain);
-    var encrypted = encrypter.digest('hex').toUpperCase();
+    let encrypted = encrypter.digest('hex').toUpperCase();
     return method + '$' + nonce_str + '$' + encrypted;
 };
 
@@ -56,13 +56,13 @@ Guest.parsePassword = function () {
 };
 
 Guest.validatePassword = function (plain) {
-    var passwordSet = this.parsePassword();
-    var method = passwordSet[0];
-    var nonce_str = passwordSet[1];
-    var correct_password = passwordSet[2];
-    var encrypter = crypto.createHash(method);
+    let passwordSet = this.parsePassword();
+    let method = passwordSet[0];
+    let nonce_str = passwordSet[1];
+    let correct_password = passwordSet[2];
+    let encrypter = crypto.createHash(method);
     encrypter.update(nonce_str + plain);
-    var encrypted = encrypter.digest('hex').toUpperCase();
+    let encrypted = encrypter.digest('hex').toUpperCase();
     return correct_password == encrypted;
 };
 

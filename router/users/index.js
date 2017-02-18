@@ -1,11 +1,11 @@
 /**
  * Created by Obscurity on 2016/3/20.
  */
-var users_controller = require('../../controller').users;
-var authentication = require('../../middlewares/authentication');
-var visit_recorder = require('../../middlewares/visit_recorder');
+let users_controller = require('../../controller').users;
+let authentication = require('../../middlewares/authentication');
+let visit_recorder = require('../../middlewares/visit_recorder');
 
-var session_router = require('./sessions');
+let session_router = require('./sessions');
 
 module.exports = function(app) {
 

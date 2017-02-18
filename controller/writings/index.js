@@ -2,7 +2,7 @@
  * Created by heavenduke on 16-7-7.
  */
 
-var index = function *(next) {
+let index = function *(next) {
     this.render('writings/index', {
         title: "每日码字统计",
         current_module: this.current_module,
@@ -11,20 +11,20 @@ var index = function *(next) {
     })
 };
 
-var show = function *(next) {
-    var Writing = global.database.models.writing;
-    var date = new Date(this.params.date);
+let show = function *(next) {
+    let Writing = global.database.models.writing;
+    let date = new Date(this.params.date);
     date.setHours(0, 0, 0);
-    var writing = yield Writing.findOne({date: date});
+    let writing = yield Writing.findOne({date: date});
     this.body = writing ? writing.count : 0;
 };
 
-var update = function *(next) {
-    var Writing = global.database.models.writing;
-    var date = new Date(this.request.body.date);
+let update = function *(next) {
+    let Writing = global.database.models.writing;
+    let date = new Date(this.request.body.date);
     date.setHours(0, 0, 0);
     console.log(date);
-    var writing = yield Writing.findOne({date: date});
+    let writing = yield Writing.findOne({date: date});
     if (!writing) {
         writing = new Writing();
         writing.date = date;

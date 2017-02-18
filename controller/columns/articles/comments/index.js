@@ -3,11 +3,11 @@
  */
 
 exports.create = function *(next) {
-    var article_id = this.params.article_id;
-    var Article = global.database.models.article;
-    var Comment = global.database.models.comment;
-    var comment = new Comment();
-    var article = yield Article.findById(article_id);
+    let article_id = this.params.article_id;
+    let Article = global.database.models.article;
+    let Comment = global.database.models.comment;
+    let comment = new Comment();
+    let article = yield Article.findById(article_id);
     comment.content = this.request.body.content;
     comment.article_id = article_id;
     if (this.session.guest) {
@@ -26,11 +26,11 @@ exports.create = function *(next) {
 };
 
 exports.destroy = function *(next) {
-    var Article = global.database.models.article;
-    var Comment = global.database.models.comment;
-    var comment = yield Comment.findById(this.params.comment_id);
-    var article_id = comment.article_id;
-    var article = yield Article.findById(article_id);
+    let Article = global.database.models.article;
+    let Comment = global.database.models.comment;
+    let comment = yield Comment.findById(this.params.comment_id);
+    let article_id = comment.article_id;
+    let article = yield Article.findById(article_id);
     comment.remove();
     article.comment_count -= 1;
     article.save();

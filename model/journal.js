@@ -2,7 +2,7 @@
  * Created by heavenduke on 16-5-5.
  */
 
-var Journal = {};
+let Journal = {};
 
 Journal.Schema = {
     title: {

@@ -3,7 +3,7 @@
  */
 
 
-var Reply = {};
+let Reply = {};
 
 Reply.Schema = {
     content: {

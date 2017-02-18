@@ -3,9 +3,9 @@
  */
 
 
-var replies_controller = require('../../../../controller').journals.comments.replies;
-var authentication = require('../../../../middlewares/authentication');
-var visit_recorder = require('../../../../middlewares/visit_recorder');
+let replies_controller = require('../../../../controller').journals.comments.replies;
+let authentication = require('../../../../middlewares/authentication');
+let visit_recorder = require('../../../../middlewares/visit_recorder');
 
 module.exports = function(app) {
 

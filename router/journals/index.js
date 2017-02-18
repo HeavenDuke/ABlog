@@ -2,16 +2,16 @@
  * Created by Obscurity on 2016/3/20.
  */
 
-var journals_controller = require('../../controller').journals;
-var comment_router = require('./comments');
-var likes_router = require('./likes');
-var authentication = require('../../middlewares/authentication');
-var set_redirection = require('../../middlewares/set_redirection');
-var visit_recorder = require('../../middlewares/visit_recorder');
+let journals_controller = require('../../controller').journals;
+let comment_router = require('./comments');
+let likes_router = require('./likes');
+let authentication = require('../../middlewares/authentication');
+let set_redirection = require('../../middlewares/set_redirection');
+let visit_recorder = require('../../middlewares/visit_recorder');
 
 module.exports = function(app) {
 
-    var current_module = function *(next) {
+    let current_module = function *(next) {
         this.current_module = "journal";
         yield next;
     };

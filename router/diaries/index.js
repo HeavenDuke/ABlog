@@ -2,16 +2,16 @@
  * Created by Obscurity on 2016/5/11.
  */
 
-var diaries_controller = require('../../controller').diaries;
-var authentication = require('../../middlewares/authentication');
-var path = require('path');
-var config = require('../../config/config')();
-var visit_recorder = require('../../middlewares/visit_recorder');
-var set_redirection = require('../../middlewares/set_redirection');
+let diaries_controller = require('../../controller').diaries;
+let authentication = require('../../middlewares/authentication');
+let path = require('path');
+let config = require('../../config/config')();
+let visit_recorder = require('../../middlewares/visit_recorder');
+let set_redirection = require('../../middlewares/set_redirection');
 
 module.exports = function(app) {
 
-    var current_module = function *(next) {
+    let current_module = function *(next) {
         this.current_module = "diary";
         yield next;
     };

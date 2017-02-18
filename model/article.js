@@ -3,7 +3,7 @@
  */
 
 
-var Article = {};
+let Article = {};
 
 Article.Schema = {
     title: {

@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/3/20.
  */
 
-var edit = function *(next) {
+let edit = function *(next) {
     this.render('./users/edit', {
         title: "修改密码",
         error: this.flash.error,
@@ -12,10 +12,10 @@ var edit = function *(next) {
     }, true);
 };
 
-var update = function *(next) {
-    var User = global.database.models.user;
-    var user = yield User.findById(this.session.user._id);
-    var passwordSet = {
+let update = function *(next) {
+    let User = global.database.models.user;
+    let user = yield User.findById(this.session.user._id);
+    let passwordSet = {
         previous: this.request.body.password,
         new: this.request.body.new_password,
         confirm: this.request.body.confirm_password

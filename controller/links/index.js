@@ -2,7 +2,7 @@
  * Created by heavenduke on 17-1-13.
  */
 
-let create = function *(next) {
+exports.create = function *(next) {
     let Link = global.database.models.link;
     let link = new Link();
     link.name = this.request.body.name;
@@ -11,14 +11,9 @@ let create = function *(next) {
     this.redirect("/");
 };
 
-let destroy = function *(next) {
+exports.destroy = function *(next) {
     let Link = global.database.models.link;
     let link = yield Link.findById(this.params.link_id);
     link.remove();
     this.redirect("/");
-};
-
-module.exports = {
-    create: create,
-    destroy: destroy
 };

@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/5/28.
  */
 
-let show = function *(next) {
+exports.show = function *(next) {
     let Article = global.database.models.article;
     let Comment = global.database.models.comment;
     let Attitude = global.database.models.attitude;
@@ -113,7 +113,7 @@ let show = function *(next) {
     }, true);
 };
 
-let init = function *(next) {
+exports.init = function *(next) {
     let Column = global.database.models.column;
     let column = yield Column.findById(this.params.column_id);
     this.render('./columns/articles/new', {
@@ -126,7 +126,7 @@ let init = function *(next) {
     }, true);
 };
 
-let create = function *(next) {
+exports.create = function *(next) {
     let Article = global.database.models.article;
     let Column = global.database.models.column;
     let article = new Article();
@@ -141,7 +141,7 @@ let create = function *(next) {
     this.redirect(this.app.url("articles-detail", {column_id: this.params.column_id, article_id: article._id}));
 };
 
-let edit = function *(next) {
+exports.edit = function *(next) {
     let Article = global.database.models.article;
     let article = yield Article.findById(this.params.article_id);
     this.render('./columns/articles/edit', {
@@ -154,7 +154,7 @@ let edit = function *(next) {
     }, true);
 };
 
-let update = function *(next) {
+exports.update = function *(next) {
     let Article = global.database.models.article;
     let Column = global.database.models.column;
     let article = yield Article.findById(this.params.article_id);
@@ -170,7 +170,7 @@ let update = function *(next) {
     this.redirect(this.app.url('articles-detail', {column_id: this.params.column_id, article_id: article._id}));
 };
 
-let destroy = function *(next) {
+exports.destroy = function *(next) {
     let Article = global.database.models.article;
     let Comment = global.database.models.comment;
     let article = yield Article.findById(this.params.article_id);
@@ -179,13 +179,5 @@ let destroy = function *(next) {
     this.redirect(this.app.url('columns-detail', {column_id: this.params.column_id}));
 };
 
-module.exports = {
-    show: show,
-    init: init,
-    create: create,
-    edit: edit,
-    update: update,
-    destroy: destroy,
-    comments: require('./comments'),
-    likes: require('./likes')
-};
+exports.comments = require('./comments');
+exports.likes = require('./likes');

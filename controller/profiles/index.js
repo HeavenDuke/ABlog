@@ -2,7 +2,7 @@
  * Created by Obscurity on 2017/2/17.
  */
 
-let show = function *(next) {
+exports.show = function *(next) {
     let User = global.database.models.user;
     let user = yield User.findOne({});
     this.render('./profile/show', {
@@ -15,7 +15,7 @@ let show = function *(next) {
     }, true);
 };
 
-let edit = function *(next) {
+exports.edit = function *(next) {
     let User = global.database.models.user;
     let user = yield User.findById(this.session.user._id);
    this.render('./profile/edit', {
@@ -28,16 +28,10 @@ let edit = function *(next) {
     }, true);
 };
 
-let update = function *(next) {
+exports.update = function *(next) {
     let User = global.database.models.user;
     let user = yield User.findById(this.session.user._id);
     user.profile = !this.request.body.profile ? "" : this.request.body.profile;
     user.save();
     this.redirect(this.app.url('profile-detail'));
-};
-
-module.exports = {
-    show: show,
-    edit: edit,
-    update: update
 };

@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/5/28.
  */
 
-let index = function*(next) {
+exports.index = function*(next) {
     let Column = global.database.models.column;
     let columns = yield Column.find({}).sort({updated_at: -1});
     this.render("./columns/index", {
@@ -15,7 +15,7 @@ let index = function*(next) {
     });
 };
 
-let show = function*(next) {
+exports.show = function*(next) {
     let Column = global.database.models.column;
     let Article = global.database.models.article;
     let column = yield Column.findById(this.params.column_id);
@@ -33,7 +33,7 @@ let show = function*(next) {
     });
 };
 
-let init = function*(next) {
+exports.init = function*(next) {
     this.render("./columns/new", {
         title: "添加专栏",
         current_guest: this.session.guest,
@@ -43,7 +43,7 @@ let init = function*(next) {
     });
 };
 
-let create = function*(next) {
+exports.create = function*(next) {
     let Column = global.database.models.column;
     let _tags = JSON.parse(this.request.body.tags);
     let tags = [];
@@ -58,7 +58,7 @@ let create = function*(next) {
     this.redirect(this.app.url("columns-detail", {"column_id": column._id}));
 };
 
-let edit = function*(next) {
+exports.edit = function*(next) {
     let Column = global.database.models.column;
     let column = yield Column.findById(this.params.column_id);
     this.render("./columns/edit", {
@@ -71,7 +71,7 @@ let edit = function*(next) {
     });
 };
 
-let update = function*(next) {
+exports.update = function*(next) {
     let Column = global.database.models.column;
     let column = yield Column.findById(this.params.column_id);
     let tags = JSON.parse(this.request.body.tags);
@@ -86,7 +86,7 @@ let update = function*(next) {
     this.redirect(this.app.url("columns-detail", {"column_id": column._id}));
 };
 
-let destroy = function*(next) {
+exports.destroy = function*(next) {
     let Column = global.database.models.column;
     let Article = global.database.models.article;
     yield Column.findByIdAndRemove(this.params.column_id);
@@ -94,13 +94,4 @@ let destroy = function*(next) {
     this.redirect(this.app.url("columns-list"));
 };
 
-module.exports = {
-    index: index,
-    show: show,
-    init: init,
-    edit: edit,
-    create: create,
-    update: update,
-    destroy: destroy,
-    articles: require('./articles')
-};
+exports.articles = require('./articles');

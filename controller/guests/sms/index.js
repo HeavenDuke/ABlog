@@ -7,7 +7,7 @@ let path = require('path');
 let config = require('../../../config/config')();
 let transporter = Promise.promisifyAll(nodemailer.createTransport(config.smtp));
 
-let init = function *(next) {
+exports.init = function *(next) {
     this.render('./guests/sms/new', {
         title: "发送验证码",
         error: this.flash.error,
@@ -16,7 +16,7 @@ let init = function *(next) {
     }, true);
 };
 
-let create = function *(next) {
+exports.create = function *(next) {
     let generate_otp_code = function (len) {
         let alphabet = '1234567890';
         let result = '';
@@ -42,7 +42,7 @@ let create = function *(next) {
     };
 };
 
-let update = function *(next) {
+exports.update = function *(next) {
     let Guest = global.database.models.guest;
     let guest = yield Guest.findOne({email: this.request.body.email});
     if (guest) {
@@ -70,10 +70,4 @@ let update = function *(next) {
         this.flash = {error: "用户不存在，请重新输入"};
         this.redirect(this.app.url("guest-sms-init"));
     }
-};
-
-module.exports = {
-    init: init,
-    create: create,
-    update: update
 };

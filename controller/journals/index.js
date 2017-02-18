@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/3/20.
  */
 
-let index = function *(next) {
+exports.index = function *(next) {
     let Journal = global.database.models.journal;
     let Stat = global.database.models.stat;
     let journal_per_page = global.conf.pagination.journal;
@@ -77,7 +77,7 @@ let index = function *(next) {
     }, true);
 };
 
-let show = function *(next) {
+exports.show = function *(next) {
     let Journal = global.database.models.journal;
     let Comment = global.database.models.comment;
     let Attitude = global.database.models.attitude;
@@ -190,7 +190,7 @@ let show = function *(next) {
     }
 };
 
-let init = function *(next) {
+exports.init = function *(next) {
     this.render('./journals/new', {
         "title": "写博客",
         current_guest: this.session.guest,
@@ -199,7 +199,7 @@ let init = function *(next) {
     }, true);
 };
 
-let create = function *(next) {
+exports.create = function *(next) {
     let Journal = global.database.models.journal;
     let Stat= global.database.models.stat;
     let journal = new Journal();
@@ -232,7 +232,7 @@ let create = function *(next) {
     this.redirect(this.app.url("journals-detail", {journal_id: journal._id}));
 };
 
-let edit = function *(next) {
+exports.edit = function *(next) {
     let Journal = global.database.models.journal;
     let journal = yield Journal.findById(this.params.journal_id);
     this.render('./journals/edit', {
@@ -245,7 +245,7 @@ let edit = function *(next) {
     }, true);
 };
 
-let update = function *(next) {
+exports.update = function *(next) {
     let Journal = global.database.models.journal;
     let Stat= global.database.models.stat;
     let journal = yield Journal.findById(this.params.journal_id);
@@ -290,7 +290,7 @@ let update = function *(next) {
     this.redirect(this.app.url('journals-update', {journal_id: journal._id}));
 };
 
-let destroy = function *(next) {
+exports.destroy = function *(next) {
     let Journal = global.database.models.journal;
     let Comment = global.database.models.comment;
     let journal = yield Journal.findById(this.params.journal_id);
@@ -299,14 +299,5 @@ let destroy = function *(next) {
     this.redirect(this.app.url('journals-list'));
 };
 
-module.exports = {
-    index: index,
-    show: show,
-    init: init,
-    create: create,
-    edit: edit,
-    update: update,
-    destroy: destroy,
-    comments: require('./comments'),
-    likes: require('./likes')
-};
+exports.comments = require('./comments');
+exports.likes = require('./likes');

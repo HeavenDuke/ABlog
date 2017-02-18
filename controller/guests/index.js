@@ -14,7 +14,7 @@ let writeGuestInfo = function (session, guest) {
     };
 };
 
-let init = function *(next) {
+exports.init = function *(next) {
     this.render('./guests/new', {
         title: "用户注册",
         error: this.flash.error,
@@ -24,7 +24,7 @@ let init = function *(next) {
     }, true);
 };
 
-let create = function *(next) {
+exports.create = function *(next) {
     let Guest = global.database.models.guest;
     let guest = yield Guest.findOne({email: this.request.body.email});
     if (!guest) {
@@ -53,7 +53,7 @@ let create = function *(next) {
     }
 };
 
-let edit = function *(next) {
+exports.edit = function *(next) {
     this.render('./guests/edit', {
         title: "修改个人信息",
         error: this.flash.error,
@@ -62,7 +62,7 @@ let edit = function *(next) {
     }, true);
 };
 
-let update = function *(next) {
+exports.update = function *(next) {
     let Guest = global.database.models.guest;
     let guest = yield Guest.findById(this.session.guest._id);
     let passwordSet = {
@@ -108,13 +108,7 @@ let update = function *(next) {
     this.redirect(this.app.url("guests-edit"));
 };
 
-module.exports = {
-    init: init,
-    create: create,
-    edit: edit,
-    update: update,
-    sessions: require('./sessions'),
-    passwords: require('./passwords'),
-    sms: require('./sms'),
-    heads: require('./heads')
-};
+exports.sessions = require('./sessions');
+exports.passwords = require('./passwords');
+exports.sms = require('./sms');
+exports.heads = require('./heads');

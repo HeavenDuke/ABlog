@@ -4,7 +4,7 @@
 
 let urlCoder = require('../../libs/urlEncoder');
 
-let show = function *(next) {
+exports.show = function *(next) {
     let Share = global.database.models.share;
     let url = urlCoder.url_decode(this.request.query.url);
     let shares = yield Share.find({
@@ -17,7 +17,7 @@ let show = function *(next) {
     this.body = {stat: sum};
 };
 
-let update = function *(next) {
+exports.update = function *(next) {
     let Share = global.database.models.share;
     let url = urlCoder.url_decode(this.request.body.url);
     let platform = this.request.body.platform;
@@ -34,9 +34,4 @@ let update = function *(next) {
     share.stat += 1;
     share.save();
     this.body = {message: "success"};
-};
-
-module.exports = {
-    show: show,
-    update: update
 };

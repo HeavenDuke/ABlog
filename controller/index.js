@@ -11,6 +11,6 @@ module.exports = {
     photos: require('./photos'),
     links: require('./links'),
     home: require('./home'),
-    share: require('./share'),
-    profile: require('./profile')
+    shares: require('./shares'),
+    profiles: require('./profiles')
 };

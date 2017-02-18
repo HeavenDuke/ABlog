@@ -11,7 +11,7 @@ let writeGuestInfo = function (session, guest) {
     };
 };
 
-let init = function *(next) {
+exports.init = function *(next) {
     this.render('./guests/sessions/new', {
         title: "用户登录",
         error: this.flash.error,
@@ -20,7 +20,7 @@ let init = function *(next) {
     }, true);
 };
 
-let create = function *(next) {
+exports.create = function *(next) {
     let Guest = global.database.models.guest;
     let guest_query = {
         email: this.request.body.email
@@ -36,16 +36,10 @@ let create = function *(next) {
     }
 };
 
-let destroy = function *(next) {
+exports.destroy = function *(next) {
     let eraseUserInfo = function (session) {
         delete session.guest;
     };
     eraseUserInfo(this.session);
     this.redirect(this.asb);
-};
-
-module.exports = {
-    init: init,
-    create: create,
-    destroy: destroy
 };

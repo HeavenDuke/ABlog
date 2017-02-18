@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/7/12.
  */
 
-let init = function *(next) {
+exports.init = function *(next) {
     this.render('./users/sessions/new', {
         "title": "管理员登录",
         error: this.flash.error,
@@ -13,7 +13,7 @@ let init = function *(next) {
     }, true);
 };
 
-let create = function *(next) {
+exports.create = function *(next) {
     let writeUserInfo = function (session, user) {
         session.user = {
             _id: user._id,
@@ -36,16 +36,10 @@ let create = function *(next) {
     }
 };
 
-let destroy = function *(next) {
+exports.destroy = function *(next) {
     let eraseUserInfo = function (session) {
         delete session.user;
     };
     eraseUserInfo(this.session);
     this.redirect(this.asb);
-};
-
-module.exports = {
-    init: init,
-    create: create,
-    destroy: destroy
 };

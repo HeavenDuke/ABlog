@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/3/20.
  */
 
-let edit = function *(next) {
+exports.edit = function *(next) {
     this.render('./users/edit', {
         title: "修改密码",
         error: this.flash.error,
@@ -12,7 +12,7 @@ let edit = function *(next) {
     }, true);
 };
 
-let update = function *(next) {
+exports.update = function *(next) {
     let User = global.database.models.user;
     let user = yield User.findById(this.session.user._id);
     let passwordSet = {
@@ -37,8 +37,4 @@ let update = function *(next) {
     }
 };
 
-module.exports = {
-    edit: edit,
-    update: update,
-    sessions: require('./sessions')
-};
+exports.sessions = require('./sessions');

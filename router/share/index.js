@@ -2,7 +2,7 @@
  * Created by heavenduke on 17-1-28.
  */
 
-let share_controller = require('../../controller').share;
+let share_controller = require('../../controller').shares;
 let authentication = require('../../middlewares/authentication');
 let set_redirection = require('../../middlewares/set_redirection');
 

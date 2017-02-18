@@ -2,7 +2,7 @@
  * Created by heavenduke on 16-7-11.
  */
 
-let index = function *(next) {
+exports.index = function *(next) {
     let Journal = global.database.models.journal;
     let Article = global.database.models.article;
     let Comment = global.database.models.comment;
@@ -22,8 +22,4 @@ let index = function *(next) {
         journals: yield Journal.find({_id: {"$in": journal_ids}})
     };
     this.body = JSON.stringify(notifications);
-};
-
-module.exports = {
-    index: index
 };

@@ -2,7 +2,7 @@
  * Created by Obscurity on 2017/2/17.
  */
 
-let profile_controller = require('../../controller').profile;
+let profile_controller = require('../../controller').profiles;
 let visit_recorder = require('../../middlewares/visit_recorder');
 let set_redirection = require('../../middlewares/set_redirection');
 let authentication = require('../../middlewares/authentication').admin_only;

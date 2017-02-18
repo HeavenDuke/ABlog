@@ -9,7 +9,7 @@ let fs = Promise.promisifyAll(require("fs"));
 let image_tools = require('../../libs/image');
 
 
-let create = function *(next) {
+exports.create = function *(next) {
     let image_paths = [];
     let files = this.request.body.files;
     if (!(files.images instanceof Array)) {
@@ -41,8 +41,4 @@ let create = function *(next) {
         }
     }
     this.body = {files: image_paths};
-};
-
-module.exports = {
-    create: create
 };

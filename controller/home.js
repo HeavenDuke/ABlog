@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/3/20.
  */
 
-let index = function *(next) {
+exports.index = function *(next) {
     let Journal = global.database.models.journal;
     let Diary = global.database.models.diary;
     let Photo = global.database.models.photo;
@@ -35,8 +35,4 @@ let index = function *(next) {
         owner: user.getBasicInfo(),
         Photo: Photo
     });
-};
-
-module.exports = {
-    index: index
 };

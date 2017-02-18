@@ -8,7 +8,7 @@ Promise.promisifyAll(gm.prototype);
 let fs = Promise.promisifyAll(require("fs"));
 let image_tools = require('../../libs/image');
 
-let index = function *(next) {
+exports.index = function *(next) {
     let Photo = global.database.models.photo;
     let offset = this.request.query.offset ? parseInt(this.request.query.offset) : 0;
     let render_page = this.request.query.render != 'false';
@@ -41,7 +41,7 @@ let index = function *(next) {
     }
 };
 
-let create = function *(next) {
+exports.create = function *(next) {
     let image = this.request.body.files.photo;
     let image_path = path.basename(image.path);
     let allowed_mimes = ["image/jpeg", "image/bmp", "image/gif", "image/png"];
@@ -74,7 +74,7 @@ let create = function *(next) {
     this.redirect(this.app.url("photos-index"));
 };
 
-let destroy = function *(next) {
+exports.destroy = function *(next) {
     let Photo = global.database.models.photo;
     let photo = yield Photo.findById(this.params.photo_id);
     let static_photo = photo.path;
@@ -83,10 +83,4 @@ let destroy = function *(next) {
     yield fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", image_tools.get_preview_path(static_photo)));
     photo.remove();
     this.redirect(this.app.url('photos-index'));
-};
-
-module.exports = {
-    index: index,
-    create: create,
-    destroy: destroy
 };

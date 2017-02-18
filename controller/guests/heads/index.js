@@ -8,7 +8,7 @@ let gm = require('gm').subClass({imageMagick: true});
 Promise.promisifyAll(gm.prototype);
 let fs = Promise.promisifyAll(require("fs"));
 
-let create = function *(next) {
+exports.create = function *(next) {
     let head = this.request.body.files.head;
     let image_path = path.basename(head.path);
     let allowed_mimes = ["image/jpeg", "image/bmp", "image/gif", "image/png"];
@@ -25,8 +25,4 @@ let create = function *(next) {
         yield fs.unlinkAsync(head.path);
     }
     this.body = result;
-};
-
-module.exports = {
-    create: create
 };

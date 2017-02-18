@@ -2,14 +2,14 @@
  * Created by heavenduke on 16-7-12.
  */
 
-let init = function *(next) {
+exports.init = function *(next) {
     this.render('./guests/passwords/new', {
         title: "重置密码",
         confirmation_token: this.session.confirmation_token
     });
 };
 
-let create = function *(next) {
+exports.create = function *(next) {
     if (this.session.confirmation_token == this.request.body.confirmation_token) {
         let Guest = global.database.models.guest;
         let guest = yield Guest.findOne({confirmation_token: this.request.body.confirmation_token});
@@ -31,17 +31,10 @@ let create = function *(next) {
     }
 };
 
-let edit = function *(next) {
+exports.edit = function *(next) {
 
 };
 
-let update = function *(next) {
+exports.update = function *(next) {
 
-};
-
-module.exports = {
-    init: init,
-    create: create,
-    edit: edit,
-    update: update
 };

@@ -2,7 +2,7 @@
  * Created by Obscurity on 2016/3/20.
  */
 
-let index = function *(next) {
+exports.index = function *(next) {
     let Project = global.database.models.project;
     let projects = yield Project.find({}).sort({"closed_at": -1});
     this.render('./projects/index', {
@@ -15,7 +15,7 @@ let index = function *(next) {
     }, true);
 };
 
-let show = function *(next) {
+exports.show = function *(next) {
     let Project = global.database.models.project;
     let project = yield Project.findById(this.params.project_id);
     this.render('./projects/show', {
@@ -28,7 +28,7 @@ let show = function *(next) {
     }, true);
 };
 
-let init = function *(next) {
+exports.init = function *(next) {
     this.render('./projects/new', {
         "title": "新增项目",
         current_guest: this.session.guest,
@@ -38,7 +38,7 @@ let init = function *(next) {
     }, true);
 };
 
-let create = function *(next) {
+exports.create = function *(next) {
     let Project = global.database.models.project;
     let project = new Project();
     project.name = this.request.body.name;
@@ -49,7 +49,7 @@ let create = function *(next) {
     this.redirect(this.app.url("projects-list"));
 };
 
-let edit = function *(next) {
+exports.edit = function *(next) {
     let Project = global.database.models.project;
     let project = yield Project.findById(this.params.project_id);
     this.render('./projects/edit', {
@@ -62,7 +62,7 @@ let edit = function *(next) {
     }, true);
 };
 
-let update = function *(next) {
+exports.update = function *(next) {
     let Project = global.database.models.project;
     let project = yield Project.findById(this.params.project_id);
     project.name = this.request.body.name;
@@ -73,19 +73,9 @@ let update = function *(next) {
     this.redirect(this.app.url("projects-list"));
 };
 
-let destroy = function *(next) {
+exports.destroy = function *(next) {
     let Project = global.database.models.project;
     let project = yield Project.findById(this.params.project_id);
     project.remove();
     this.redirect(this.app.url("projects-list"));
-};
-
-module.exports = {
-    index: index,
-    show: show,
-    init: init,
-    create: create,
-    edit: edit,
-    update: update,
-    destroy: destroy
 };

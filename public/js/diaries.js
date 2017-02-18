@@ -13,7 +13,7 @@
 
     var diaries = {};
 
-    let show_update_form = function() {
+    var show_update_form = function() {
         var diary_id = $(this).attr('diary_id');
         var brief = $("#" + diary_id + "_brief").text().trim();
         var content = $("#" + diary_id + "_content").attr("content");
@@ -160,23 +160,23 @@
         }
     };
 
-    let prepare_diary_scroll = function () {
+    var prepare_diary_scroll = function () {
         $('.jscroll').jscroll({
             autoTrigger: false,
             nextSelector: '#scroller',
             callback: function () {
-                let added_container = $(".jscroll-added");
-                let last_index = $("#pscroller");
-                let added_items = added_container.children("li");
+                var added_container = $(".jscroll-added");
+                var last_index = $("#pscroller");
+                var added_items = added_container.children("li");
                 added_items.find("a[data-target='#edit_diary_modal']").on("click", show_update_form);
                 added_items.find(".delete-entry").on("click", function () {
                     delete_warning($(this).attr('href'));
                     return false;
                 });
                 last_index.before(added_items);
-                let item_loader = added_container.children("#scroller");
+                var item_loader = added_container.children("#scroller");
                 if (item_loader.length == 0) {
-                    let end_marker = added_container.children("#end_marker");
+                    var end_marker = added_container.children("#end_marker");
                     last_index.after(end_marker);
                 }
                 last_index.remove();

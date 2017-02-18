@@ -12,11 +12,12 @@ exports.create = function *(next) {
     let head = this.request.body.files.head;
     let image_path = path.basename(head.path);
     let allowed_mimes = ["image/jpeg", "image/bmp", "image/gif", "image/png"];
+    let result = null;
     if (allowed_mimes.indexOf(head.type) != -1) {
         let thumb_height = 100;
         let thumb_width = 100;
         yield gm(head.path).resize(thumb_height, thumb_width, "!").autoOrient().writeAsync(head.path);
-        let result = {
+        result = {
             name: image_path,
             url: "/" + image_path
         };

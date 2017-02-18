@@ -28,7 +28,7 @@ let init = function () {
     let mongoose = require('mongoose');
     mongoose.connect(require('../../config/config')().mongodb);
     initUser();
-    // initStat();
+    initStat();
     console.log('finish deploying database seed.');
     mongoose.disconnect();
 };

@@ -1,6 +1,7 @@
 /**
  * Created by Obscurity on 2016/5/17.
  */
+"use strict";
 
 exports.create = function *(next) {
     let Comment = global.database.models.comment;

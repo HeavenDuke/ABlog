@@ -1,6 +1,7 @@
 /**
  * Created by Obscurity on 2016/6/19.
  */
+"use strict";
 
 let path = require('path');
 let fs = Promise.promisifyAll(require("fs"));

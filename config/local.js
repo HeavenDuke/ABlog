@@ -1,3 +1,4 @@
+"use strict";
 //本地调试环境配置
 let path = require('path');
 module.exports = {

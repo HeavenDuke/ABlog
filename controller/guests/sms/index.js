@@ -1,6 +1,7 @@
 /**
  * Created by heavenduke on 16-7-12.
  */
+"use strict";
 
 let nodemailer = require('nodemailer');
 let path = require('path');

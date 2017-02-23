@@ -1,3 +1,5 @@
+"use strict";
+
 //应用配置文件
 let path = require('path');
 let local = require('./local');

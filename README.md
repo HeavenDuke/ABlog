@@ -12,11 +12,7 @@
 ```plain
 sudo apt-get install mongodb-server
 ```
-安装imagemagick
-```plain
-sudo apt-get install build-essentials
-sudo apt-get install imagemagick
-```
+
 安装redis
 ```plain
 sudo apt-get install redis-server

@@ -1,11 +1,11 @@
 /**
  * Created by heavenduke on 16-7-17.
  */
+"use strict";
 
 
 let path = require('path');
-let gm = require('gm').subClass({imageMagick: true});
-Promise.promisifyAll(gm.prototype);
+let Jimp = require('jimp');
 let fs = Promise.promisifyAll(require("fs"));
 
 exports.create = function *(next) {
@@ -16,7 +16,8 @@ exports.create = function *(next) {
     if (allowed_mimes.indexOf(head.type) != -1) {
         let thumb_height = 100;
         let thumb_width = 100;
-        yield gm(head.path).resize(thumb_height, thumb_width, "!").autoOrient().writeAsync(head.path);
+        let image = yield Jimp.read(head.path);
+        image.resize(thumb_height, thumb_width).write(head.path);
         result = {
             name: image_path,
             url: "/" + image_path

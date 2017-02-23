@@ -1,6 +1,7 @@
 /**
  * Created by Obscurity on 2016/3/20.
  */
+"use strict";
 
 exports.index = function *(next) {
     let Journal = global.database.models.journal;

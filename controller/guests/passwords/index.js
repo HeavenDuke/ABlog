@@ -1,6 +1,7 @@
 /**
  * Created by heavenduke on 16-7-12.
  */
+"use strict";
 
 exports.init = function *(next) {
     this.render('./guests/passwords/new', {

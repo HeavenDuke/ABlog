@@ -1,10 +1,10 @@
 /**
  * Created by heavenduke on 16-6-29.
  */
+"use strict";
 
 let path = require('path');
-let gm = require('gm').subClass({imageMagick: true});
-Promise.promisifyAll(gm.prototype);
+let Jimp = require('jimp');
 let fs = Promise.promisifyAll(require("fs"));
 let image_tools = require('../../libs/image');
 
@@ -20,15 +20,15 @@ exports.create = function *(next) {
         let image_path = path.basename(image.path);
         let allowed_mimes = ["image/jpeg", "image/bmp", "image/gif", "image/png"];
         if (allowed_mimes.indexOf(image.type) != -1) {
-            let size = yield gm(image.path).sizeAsync();
+            let data = yield Jimp.read(image.path);
             let thumb_height = 150;
-            let thumb_scale = size.height / thumb_height;
-            let thumb_width = size.width / thumb_scale;
+            let thumb_scale = data.bitmap.height / thumb_height;
+            let thumb_width = data.bitmap.width / thumb_scale;
             let raw_height = 960;
-            let raw_scale = size.height / raw_height;
-            let raw_width = size.width / raw_scale;
-            let result = yield gm(image.path).resize(raw_height, raw_width).autoOrient().writeAsync(image.path);
-            result = yield gm(image.path).resize(thumb_width, thumb_height).autoOrient().writeAsync(image_tools.get_thumb_path(image.path));
+            let raw_scale = data.bitmap.height / raw_height;
+            let raw_width = data.bitmap.width / raw_scale;
+            data.resize(raw_width, raw_height).write(image.path);
+            data.resize(thumb_width, thumb_height).write(image_tools.get_thumb_path(image.path));
             image_paths.push({
                 name: image_path,
                 size: image.size,
@@ -37,7 +37,7 @@ exports.create = function *(next) {
             });
         }
         else {
-            result = yield fs.unlinkAsync(image.path);
+            yield fs.unlinkAsync(image.path);
         }
     }
     this.body = {files: image_paths};

@@ -5,6 +5,18 @@
 (function() {
 
     var tags = [];
+    var renderer = new marked.Renderer();
+    renderer.image = function(href, title, text) {
+        var out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
+        if (title) {
+            out += ' title="' + title + '"';
+        }
+        out += this.options.xhtml ? '/>' : '>';
+        return out;
+    };
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
 
     var prepare_journal_comments = function () {
         var owos = $("div[class$='OwO']");
@@ -85,15 +97,13 @@
 
     var prepare_journal_detail = function () {
         var journal_content_container = $("#journal-content");
-        journal_content_container.html(journal_content_container.text());
-        MathJax.Hub.Config({
-            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-        });
-        setTimeout(function () {
-            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-        }, 1000);
-        $('pre code').each(function () {
-            hljs.highlightBlock(this);
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub], function () {
+            var journal_raw_content = marked(journal_content_container.html(), {renderer: renderer});
+            journal_content_container.html(journal_raw_content);
+            $('pre code').each(function () {
+                hljs.highlightBlock(this);
+            });
+
         });
         prepare_journal_comments();
         prepare_journal_comment_replies();
@@ -122,23 +132,14 @@
             var journal_previewer = $("#journal_previewer");
             var journal_previewer_content = $("#journal_previewer_content");
             myCodeMirror.save();
-            var renderer = new marked.Renderer();
-            renderer.image = function(href, title, text) {
-                var out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
-                if (title) {
-                    out += ' title="' + title + '"';
-                }
-                out += this.options.xhtml ? '/>' : '>';
-                return out;
-            };
-            var journal_raw_content = marked(rawEditor.val(), {renderer: renderer});
+            var journal_raw_content = rawEditor.val();
             journal_previewer_content.html(journal_raw_content);
-            MathJax.Hub.Config({
-                tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-            });
-            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-            journal_previewer_content.children('pre').each(function() {
-                hljs.highlightBlock(this);
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub], function () {
+                journal_raw_content = marked(journal_previewer_content.html(), {renderer: renderer});
+                journal_previewer_content.html(journal_raw_content);
+                journal_previewer_content.children('pre').each(function() {
+                    hljs.highlightBlock(this);
+                });
             });
         });
     };

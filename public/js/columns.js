@@ -6,16 +6,27 @@
 (function() {
 
     var tags = [];
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    var renderer = new marked.Renderer();
+    renderer.image = function(href, title, text) {
+        var out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
+        if (title) {
+            out += ' title="' + title + '"';
+        }
+        out += this.options.xhtml ? '/>' : '>';
+        return out;
+    };
 
     var prepare_column_detail = function () {
         var column_introduction_container = $("#column-introduction");
-        column_introduction_container.html(column_introduction_container.text());
-        MathJax.Hub.Config({
-            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-        });
-        MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-        $('pre code').each(function() {
-            hljs.highlightBlock(this);
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub], function () {
+            var column_raw_content = marked(column_introduction_container.html(), {renderer: renderer});
+            column_introduction_container.html(column_raw_content);
+            $('pre code').each(function() {
+                hljs.highlightBlock(this);
+            });
         });
         prepare_column_share();
     };
@@ -65,23 +76,14 @@
             var column_previewer = $("#column_previewer");
             var column_previewer_content = $("#column_previewer_content");
             myCodeMirror.save();
-            var renderer = new marked.Renderer();
-            renderer.image = function(href, title, text) {
-                var out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
-                if (title) {
-                    out += ' title="' + title + '"';
-                }
-                out += this.options.xhtml ? '/>' : '>';
-                return out;
-            };
-            var column_raw_content = marked(rawEditor.val(), {renderer: renderer});
+            var column_raw_content = rawEditor.val();
             column_previewer_content.html(column_raw_content);
-            MathJax.Hub.Config({
-                tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-            });
-            MathJax.Hub.Queue(["Typeset", MathJax.Hub, column_raw_content]);
-            column_previewer_content.children('pre').each(function() {
-                hljs.highlightBlock(this);
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub], function () {
+                column_raw_content = marked(column_previewer_content.html(), {renderer: renderer});
+                column_previewer_content.html(column_raw_content);
+                column_previewer_content.children('pre').each(function() {
+                    hljs.highlightBlock(this);
+                });
             });
         });
     };

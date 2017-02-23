@@ -52,7 +52,7 @@ block content
                                     i.fa.fa-reply
                                     | 返回
                     .box-body
-                        #article-content.article-content= global.utils.markdown(article.content)
+                        #article-content.article-content= article.content
                         include ./likes/new
                         #hshare
                             span 分享：

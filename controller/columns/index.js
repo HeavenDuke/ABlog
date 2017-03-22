@@ -27,6 +27,8 @@ exports.show = function*(next) {
         current_guest: this.session.guest,
         current_user: this.session.user,
         current_module: this.current_module,
+        keywords: column.keywords().join(','),
+        description: column.keywords().join(','),
         columns: columns,
         column: column,
         articles: articles,

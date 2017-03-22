@@ -31,4 +31,13 @@ Column.collection = {
     collection: 'Columns'
 };
 
+Column.keywords = function () {
+    let result = [];
+    this.tags.forEach(function (tag) {
+        result.push(tag.name);
+    });
+    return result;
+};
+
+
 module.exports = Column;

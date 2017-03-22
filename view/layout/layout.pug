@@ -9,7 +9,10 @@ html
         //meta(http-equiv="Content-Security-Policy" content=whitenames)
         //meta(http-equiv="X-Content-Security-Policy" content=whitenames)
         //meta(http-equiv="X-Webkit-CSP" content=whitenames)
-        title #{title}
+        meta(name="keywords" content=keywords ? keywords : "")
+        meta(name="description" content=description ? description : "")
+        meta(name="author" content="HeavenDuke, heavenduke")
+        title= title
         link(rel="shortcut icon" href="/favicon.ico")
         include ./basic_ref
         block specified_ref

@@ -67,6 +67,14 @@ Journal.link = function(router, _id) {
     router.url('journals-detail', {journal_id: _id})
 };
 
+Journal.keywords = function () {
+    let result = [];
+    this.tags.forEach(function (tag) {
+        result.push(tag.name);
+    });
+    return result;
+};
+
 Journal.title_top = function() {
     return '[置顶]' + this.title;
 };

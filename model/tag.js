@@ -14,6 +14,11 @@ Tag.Schema = {
         type: Number,
         required: false,
         default: 0
+    },
+    column_count: {
+        type: Number,
+        required: false,
+        default: 0
     }
 };
 

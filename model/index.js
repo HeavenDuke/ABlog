@@ -44,7 +44,9 @@ let LinkSchema = new Schema(Link.Schema, Link.collection);
 let ShareSchema = new Schema(Share.Schema, Share.colletion);
 let StatSchema = new Schema(Stat.Schema, Stat.collection);
 
+ColumnSchema.methods.keywords = Column.keywords;
 JournalSchema.methods.link = Journal.link;
+JournalSchema.methods.keywords = Journal.keywords;
 JournalSchema.methods.title_top = Journal.title_top;
 UserSchema.methods.encasePassword = User.encasePassword;
 UserSchema.methods.parsePassword = User.parsePassword;

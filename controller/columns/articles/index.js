@@ -7,6 +7,7 @@ exports.show = function *(next) {
     let Article = global.database.models.article;
     let Comment = global.database.models.comment;
     let Attitude = global.database.models.attitude;
+    let Column = global.database.models.column;
     let Guest = global.database.models.guest;
     let User = global.database.models.user;
     let setReadSession = function (session, article) {
@@ -19,6 +20,7 @@ exports.show = function *(next) {
     };
     let article = yield Article.findById(this.params.article_id);
     let articles = yield Article.find({column_id: this.params.column_id}).sort({order: 1});
+    let column = yield Column.findById(this.params.column_id);
     if (!this.session.read_history || !this.session.read_history[article._id]) {
         setReadSession(this.session, article);
     }
@@ -107,6 +109,8 @@ exports.show = function *(next) {
         article: article,
         articles: articles,
         comments: json_comments,
+        keywords: column.keywords().join(','),
+        description: column.keywords().join(','),
         current_guest: this.session.guest,
         current_user: this.session.user,
         current_module: this.current_module,

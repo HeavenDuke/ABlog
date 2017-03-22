@@ -190,6 +190,8 @@ exports.show = function *(next) {
             attitude: attitude,
             journal: journal,
             comments: json_comments,
+            keywords: journal.keywords().join(','),
+            description: journal.keywords().join(','),
             current_guest: this.session.guest,
             current_user: this.session.user,
             current_module: this.current_module,

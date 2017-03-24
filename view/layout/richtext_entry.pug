@@ -3,26 +3,26 @@
 
 
 .btn-group
-    button.markdown-h1(type="button").btn.btn-default H1
-    button.markdown-h2(type="button").btn.btn-default H2
-    button.markdown-h3(type="button").btn.btn-default H3
-    button.markdown-h4(type="button").btn.btn-default H4
-    button.markdown-h5(type="button").btn.btn-default H5
+    a.markdown-h1(type="button" title="一级标题").btn.btn-default H1
+    a.markdown-h2(type="button" title="二级标题").btn.btn-default H2
+    a.markdown-h3(type="button" title="三级标题").btn.btn-default H3
+    a.markdown-h4(type="button" title="四级标题").btn.btn-default H4
+    a.markdown-h5(type="button" title="五级标题").btn.btn-default H5
 .btn-group(style="margin-left: 5px;")
-    button.markdown-bold(type="button").btn.btn-default
+    a.markdown-bold(type="button" title="加粗").btn.btn-default
         i.fa.fa-bold
-    button.markdown-italic(type="button").btn.btn-default
+    a.markdown-italic(type="button" title="斜体").btn.btn-default
         i.fa.fa-italic
 .btn-group(style="margin-left: 5px;")
-    button.markdown-numbered-list(type="button").btn.btn-default
+    a.markdown-numbered-list(type="button" title="有序列表").btn.btn-default
         i.fa.fa-list-ol
-    button.markdown-bulleted-list(type="button").btn.btn-default
+    a.markdown-bulleted-list(type="button" title="列表").btn.btn-default
         i.fa.fa-list-ul
 .btn-group(style="margin-left: 5px;")
-    button.markdown-link(type="button").btn.btn-default
+    a.markdown-link(type="button" title="超链接").btn.btn-default
         i.fa.fa-link
     .btn-group
-        button.markdown-code-entry(type="button" data-toggle="dropdown").btn.btn-default
+        a.markdown-code-entry(type="button" data-toggle="dropdown" title="代码").btn.btn-default
             i.fa.fa-code
         ul.dropdown-menu
             li.markdown-code-inline
@@ -30,7 +30,7 @@
             li.markdown-code
                 a(href="#") 代码
     .btn-group
-        button(type="button" data-toggle="dropdown").btn.btn-default
+        a(type="button" data-toggle="dropdown" title="选择语言").btn.btn-default
             i.fa.fa-language
         ul.dropdown-menu
             li.markdown-code-language(value="c")
@@ -57,15 +57,15 @@
                 a(href="#") Ruby
             li.markdown-code-language(value="xml")
                 a(href="#") XML
-    button.markdown-image(type="button").btn.btn-default
+    a.markdown-image(type="button" title="图片").btn.btn-default
         i.fa.fa-image
     .btn-group
-        button(type="button" data-toggle="dropdown").btn.btn-default
+        a(type="button" data-toggle="dropdown" title="Latex公式").btn.btn-default
             i.fa.fa-font
         ul.dropdown-menu
             li.markdown-latex-inline
                 a(href="#") 内联公式
             li.markdown-latex
                 a(href="#") 公式
-    button.markdown-html(type="button").btn.btn-default
+    a.markdown-html(type="button" title="HTML").btn.btn-default
         i.fa.fa-html5

@@ -1,0 +1,39 @@
+//
+   Created by heavenduke on 17-3-24.
+
+#markdown-new-link.modal.fade(tabindex="-1" role="dialog" aria-hidden="true")
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
+                h4.hd.modal-title 添加链接
+            .modal-body
+                .form-group
+                    label 链接名称
+                    input.form-control(name="markdown-link-name" placeholder="请输入链接名称")
+                .form-group
+                    label 链接地址
+                    input.form-control(name="markdown-link" placeholder="请输入链接地址")
+            .modal-footer
+                .row.text-center
+                    button.button.button-primary.button-pill.save-markdown-link(data-dismiss="modal") 确定
+                    button.button.button-default.button-pill(data-dismiss="modal") 关闭
+
+#markdown-new-image.modal.fade(tabindex="-1" role="dialog" aria-hidden="true")
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
+                h4.hd.modal-title 添加图片
+            .modal-body
+                .form-group
+                    label 图片名称
+                    input.form-control(name="markdown-image-name" placeholder="请输入图片的描述名称")
+                .form-group
+                    label 图片URL
+                    input.form-control(name="markdown-image-link" placeholder="请输入图片的URL地址")
+            .modal-footer
+                .row.text-center
+                    button.button.button-primary.button-pill.save-markdown-image(data-dismiss="modal") 确定
+                    button.button.button-default.button-pill(data-dismiss="modal") 关闭
+

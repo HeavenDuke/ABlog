@@ -40,6 +40,8 @@ block content
                         input.form-control(name="title" placeholder="请在此输入博客标题" maxlength=30 value= article.title required)
             .row
                 .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                    include ../../layout/richtext_entry
+                .col-lg-12.col-md-12.col-sm-12.col-xs-12
                     textarea#article_content_input.hidden.form-control(name="content" rows=20 placeholder="请在此输入文章正文" maxlength=100000)= article.content
             .row.text-center
                 br
@@ -47,4 +49,5 @@ block content
                     button.button.button-pill.button-primary(type="submit") 提交
                     button#article_previewer_entry.button.button-pill(style="margin-left: 10px;" type="button" data-toggle="modal" data-target="#article_previewer") 预览
     include ./preview
+    include ../../layout/richtext
     include ./reference

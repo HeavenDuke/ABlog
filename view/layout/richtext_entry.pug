@@ -1,0 +1,71 @@
+//
+   Created by heavenduke on 17-3-24.
+
+
+.btn-group
+    button.markdown-h1(type="button").btn.btn-default H1
+    button.markdown-h2(type="button").btn.btn-default H2
+    button.markdown-h3(type="button").btn.btn-default H3
+    button.markdown-h4(type="button").btn.btn-default H4
+    button.markdown-h5(type="button").btn.btn-default H5
+.btn-group(style="margin-left: 5px;")
+    button.markdown-bold(type="button").btn.btn-default
+        i.fa.fa-bold
+    button.markdown-italic(type="button").btn.btn-default
+        i.fa.fa-italic
+.btn-group(style="margin-left: 5px;")
+    button.markdown-numbered-list(type="button").btn.btn-default
+        i.fa.fa-list-ol
+    button.markdown-bulleted-list(type="button").btn.btn-default
+        i.fa.fa-list-ul
+.btn-group(style="margin-left: 5px;")
+    button.markdown-link(type="button").btn.btn-default
+        i.fa.fa-link
+    .btn-group
+        button.markdown-code-entry(type="button" data-toggle="dropdown").btn.btn-default
+            i.fa.fa-code
+        ul.dropdown-menu
+            li.markdown-code-inline
+                a(href="#") 内联代码
+            li.markdown-code
+                a(href="#") 代码
+    .btn-group
+        button(type="button" data-toggle="dropdown").btn.btn-default
+            i.fa.fa-language
+        ul.dropdown-menu
+            li.markdown-code-language(value="c")
+                a(href="#") C
+            li.markdown-code-language(value="cpp")
+                a(href="#") C++
+            li.markdown-code-language(value="css")
+                a(href="#") CSS
+            li.markdown-code-language(value="html")
+                a(href="#") HTML
+            li.markdown-code-language(value="java")
+                a(href="#") Java
+            li.markdown-code-language(value="javascript")
+                a(href="#") JavaScript
+            li.markdown-code-language(value="plain")
+                a(href="#") Plain
+            li.markdown-code-language(value="python")
+                a(href="#") Python
+            li.markdown-code-language(value="perl")
+                a(href="#") Perl
+            li.markdown-code-language(value="php")
+                a(href="#") PHP
+            li.markdown-code-language(value="ruby")
+                a(href="#") Ruby
+            li.markdown-code-language(value="xml")
+                a(href="#") XML
+    button.markdown-image(type="button").btn.btn-default
+        i.fa.fa-image
+    .btn-group
+        button(type="button" data-toggle="dropdown").btn.btn-default
+            i.fa.fa-font
+        ul.dropdown-menu
+            li.markdown-latex-inline
+                a(href="#") 内联公式
+            li.markdown-latex
+                a(href="#") 公式
+    button.markdown-html(type="button").btn.btn-default
+        i.fa.fa-html5

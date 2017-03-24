@@ -64,3 +64,10 @@ body, .body{
     /*animation:updown 1s ;*/
     /*-webkit-animation:updown 1s; /!*Safari and Chrome*!/*/
 /*}*/
+
+.richtext-action {
+    border: 1px solid lightgrey;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}

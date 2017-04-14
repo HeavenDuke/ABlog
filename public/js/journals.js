@@ -7,7 +7,7 @@
     var tags = [];
     var renderer = new marked.Renderer();
     renderer.image = function(href, title, text) {
-        var out = '<img style="width: 100%;" src="' + href + '" alt="' + text + '"';
+        var out = '<img class="md-image" style="max-height: 300px; max-width: 100%;" src="' + href + '" alt="' + text + '"';
         if (title) {
             out += ' title="' + title + '"';
         }
@@ -17,6 +17,12 @@
     MathJax.Hub.Config({
         tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
     });
+
+    var prepare_image_container = function () {
+        $('img.md-image').each(function () {
+            $(this).parent().addClass("text-center");
+        });
+    };
 
     var prepare_journal_comments = function () {
         var owos = $("div[class$='OwO']");
@@ -103,7 +109,7 @@
             $('pre code').each(function () {
                 hljs.highlightBlock(this);
             });
-
+            prepare_image_container();
         });
         prepare_journal_comments();
         prepare_journal_comment_replies();
@@ -140,6 +146,7 @@
                 journal_previewer_content.children('pre').each(function() {
                     hljs.highlightBlock(this);
                 });
+                prepare_image_container();
             });
         });
 

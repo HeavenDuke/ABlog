@@ -13,6 +13,6 @@ server.initGlobalVariables();
 
 server.initUtils();
 
-server.connectDb();
+//server.connectDb();
 
-server.launchTasks();
+//server.launchTasks();

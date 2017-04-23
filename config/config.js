@@ -34,7 +34,8 @@ module.exports = function(root) {
         "qiniu": {
             "access_key": "YHexqPaoOloZzPViE-Xi3_qOuULiCBA-eycounJn",
             "secret_key": "Tegzlvkop-7xLT3C9_2JWeXDPZZ3tP3QyOAoZfbO",
-            "backup_bucket": "dbbackuphd"
+            "backup_bucket": "dbbackuphd",
+            "image_bucket": "imghd"
         },
 
         "smtp": {

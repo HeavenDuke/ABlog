@@ -11,7 +11,7 @@
     });
     var renderer = new marked.Renderer();
     renderer.image = function(href, title, text) {
-        var out = '<img class="md-image" style="max-height: 300px; max-width: 100%;" src="' + href + '" alt="' + text + '"';
+        var out = '<img class="md-image" style="max-height: 400px; max-width: 100%;" src="' + href + '" alt="' + text + '"';
         if (title) {
             out += ' title="' + title + '"';
         }

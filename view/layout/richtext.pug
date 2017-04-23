@@ -32,6 +32,18 @@
                 .form-group
                     label 图片URL
                     input.form-control(name="markdown-image-link" placeholder="请输入图片的URL地址")
+                .form-group
+                    span.btn.btn-success.fileinput-button
+                        i.fa.fa-plus
+                        span 上传图片
+                        input#image_creation_uploader.form-control(name="images" type="file")
+                .form-group
+                    #create_upload_progress.progress
+                        .progress-bar.progress-bar-success
+                .form-group#image-preview-container(style="display: none;")
+                    label 预览
+                    .text-center
+                        img#image-previewer(style="width: 100%;")
             .modal-footer
                 .row.text-center
                     button.button.button-primary.button-pill.save-markdown-image(data-dismiss="modal") 确定

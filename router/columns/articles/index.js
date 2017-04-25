@@ -28,8 +28,8 @@ router.put('columns-articles-update', '/:article_id', visit_recorder, authentica
 
 router.del('columns-articles-destroy', '/:article_id', visit_recorder, authentication.admin_only, articles_controller.destroy);
 
-routerUtils.mount(router, comment_router);
+routerUtils.stack(router, "/:article_id", comment_router);
 
-routerUtils.mount(router, likes_router);
+routerUtils.stack(router, "/:article_id", likes_router);
 
 module.exports = router;

@@ -29,12 +29,12 @@ router.get('guests-edit', '/edit', visit_recorder, authentication.guest_only, gu
 
 router.put('guests-update', '/', visit_recorder, authentication.guest_only, guests_controller.update);
 
-routerUtils.mount(router, password_router);
+routerUtils.stack(router, "/", password_router);
 
-routerUtils.mount(router, session_router);
+routerUtils.stack(router, "/", session_router);
 
-routerUtils.mount(router, sms_router);
+routerUtils.stack(router, "/", sms_router);
 
-routerUtils.mount(router, head_router);
+routerUtils.stack(router, "/", head_router);
 
 module.exports = router;

@@ -32,6 +32,6 @@ router.put('columns-update', '/:column_id', visit_recorder, authentication.admin
 
 router.del('columns-destroy', '/:column_id', visit_recorder, authentication.admin_only, columns_controller.destroy);
 
-routerUtils.mount(router, article_router);
+routerUtils.stack(router, "/:column_id", article_router);
 
 module.exports = router;

@@ -33,8 +33,8 @@ router.put('journals-update', '/:journal_id', visit_recorder, authentication.adm
 
 router.del('journals-destroy', '/:journal_id', visit_recorder, authentication.admin_only, journals_controller.destroy);
 
-routerUtils.mount(router, comment_router);
+routerUtils.stack(router, "/:journal_id", comment_router);
 
-routerUtils.mount(router, likes_router);
+routerUtils.stack(router, "/:journal_id", likes_router);
 
 module.exports = router;

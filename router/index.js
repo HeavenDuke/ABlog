@@ -33,18 +33,18 @@ router.get('loadHshare', "/hshare", function *(next) {
     this.body = {stat: 1000};
 });
 
-routerUtils.mount(router, user_router);
-routerUtils.mount(router, guest_router);
-routerUtils.mount(router, project_router);
-routerUtils.mount(router, journal_router);
-routerUtils.mount(router, diary_router);
-routerUtils.mount(router, column_router);
-routerUtils.mount(router, image_router);
-routerUtils.mount(router, writing_router);
-routerUtils.mount(router, notification_router);
-routerUtils.mount(router, photo_router);
-routerUtils.mount(router, link_router);
-routerUtils.mount(router, share_router);
-routerUtils.mount(router, profile_router);
+routerUtils.stack(router, "/", user_router);
+routerUtils.stack(router, "/", guest_router);
+routerUtils.stack(router, "/", project_router);
+routerUtils.stack(router, "/", journal_router);
+routerUtils.stack(router, "/", diary_router);
+routerUtils.stack(router, "/", column_router);
+routerUtils.stack(router, "/", image_router);
+routerUtils.stack(router, "/", writing_router);
+routerUtils.stack(router, "/", notification_router);
+routerUtils.stack(router, "/", photo_router);
+routerUtils.stack(router, "/", link_router);
+routerUtils.stack(router, "/", share_router);
+routerUtils.stack(router, "/", profile_router);
 
 module.exports = router;

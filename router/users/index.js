@@ -13,7 +13,7 @@ let router = new Router({
 });
 let routerUtils = require('../../libs/routerUtil');
 
-routerUtils.mount(router, session_router);
+routerUtils.stack(router, "/", session_router);
 
 router.get('users-edit', '/edit', visit_recorder, authentication.admin_only, users_controller.edit);
 

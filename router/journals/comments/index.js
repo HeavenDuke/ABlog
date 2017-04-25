@@ -18,6 +18,6 @@ router.post('journals-comments-create', '/', visit_recorder, authentication.cros
 
 router.del('journals-comments-destroy', '/:comment_id', visit_recorder, authentication.admin_only, comments_controller.destroy);
 
-routerUtils.mount(router, replies_router);
+routerUtils.stack(router, "/:comment_id", replies_router);
 
 module.exports = router;

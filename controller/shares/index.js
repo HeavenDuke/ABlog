@@ -5,24 +5,24 @@
 
 let urlCoder = require('../../libs/urlEncoder');
 
-exports.show = function *(next) {
+exports.show = async (ctx, next) => {
     let Share = global.database.models.share;
-    let url = urlCoder.url_decode(this.request.query.url);
-    let shares = yield Share.find({
+    let url = urlCoder.url_decode(ctx.request.query.url);
+    let shares = await Share.find({
         url: url
     });
     let sum = 0;
     for (let i = 0; i < shares.length; i++) {
         sum += shares[i].stat;
     }
-    this.body = {stat: sum};
+    ctx.body = {stat: sum};
 };
 
-exports.update = function *(next) {
+exports.update = async (ctx, next) => {
     let Share = global.database.models.share;
-    let url = urlCoder.url_decode(this.request.body.url);
-    let platform = this.request.body.platform;
-    let share = yield Share.findOne({
+    let url = urlCoder.url_decode(ctx.request.body.url);
+    let platform = ctx.request.body.platform;
+    let share = await Share.findOne({
         url: url,
         platform: platform
     });
@@ -34,5 +34,5 @@ exports.update = function *(next) {
     }
     share.stat += 1;
     share.save();
-    this.body = {message: "success"};
+    ctx.body = {message: "success"};
 };

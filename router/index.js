@@ -33,18 +33,18 @@ router.get('loadHshare', "/hshare", function *(next) {
     this.body = {stat: 1000};
 });
 
-// routerUtils.mount(app, user_router);
-// routerUtils.mount(app, guest_router);
-// routerUtils.mount(app, project_router);
-// routerUtils.mount(app, journal_router);
+routerUtils.mount(router, user_router);
+routerUtils.mount(router, guest_router);
+routerUtils.mount(router, project_router);
+routerUtils.mount(router, journal_router);
 routerUtils.mount(router, diary_router);
-// routerUtils.mount(app, column_router);
-// routerUtils.mount(app, image_router);
-// routerUtils.mount(app, writing_router);
-// routerUtils.mount(app, notification_router);
-// routerUtils.mount(app, photo_router);
-// routerUtils.mount(app, link_router);
-// routerUtils.mount(app, share_router);
+routerUtils.mount(router, column_router);
+routerUtils.mount(router, image_router);
+routerUtils.mount(router, writing_router);
+routerUtils.mount(router, notification_router);
+routerUtils.mount(router, photo_router);
+routerUtils.mount(router, link_router);
+routerUtils.mount(router, share_router);
 routerUtils.mount(router, profile_router);
 
 module.exports = router;

@@ -3,39 +3,39 @@
  */
 "use strict";
 
-exports.init = function *(next) {
-    this.render('./guests/passwords/new', {
+exports.init = async (ctx, next) => {
+    ctx.render('./guests/passwords/new', {
         title: "重置密码",
-        confirmation_token: this.session.confirmation_token
+        confirmation_token: ctx.session.confirmation_token
     });
 };
 
-exports.create = function *(next) {
-    if (this.session.confirmation_token == this.request.body.confirmation_token) {
+exports.create = async (ctx, next) => {
+    if (ctx.session.confirmation_token == ctx.request.body.confirmation_token) {
         let Guest = global.database.models.guest;
-        let guest = yield Guest.findOne({confirmation_token: this.request.body.confirmation_token});
+        let guest = await Guest.findOne({confirmation_token: ctx.request.body.confirmation_token});
         if (guest) {
-            if (this.request.body.password.length >= 6 && this.request.body.password.length <= 16 && Guest.validateConfirmPassword(this.request.body.password, this.request.body.confirm_password)) {
-                guest.password = guest.encasePassword(this.request.body.password);
+            if (ctx.request.body.password.length >= 6 && ctx.request.body.password.length <= 16 && Guest.validateConfirmPassword(ctx.request.body.password, ctx.request.body.confirm_password)) {
+                guest.password = guest.encasePassword(ctx.request.body.password);
                 guest.save();
-                this.redirect(this.app.url("guests-sessions-new"));
+                ctx.redirect(ctx.app.url("guests-sessions-new"));
             }
         }
         else {
-            this.flash = {error: "非法访问"};
-            this.redirect('/');
+            ctx.flash = {error: "非法访问"};
+            ctx.redirect('/');
         }
     }
     else {
-        this.flash = {error: "非法访问"};
-        this.redirect('/');
+        ctx.flash = {error: "非法访问"};
+        ctx.redirect('/');
     }
 };
 
-exports.edit = function *(next) {
+exports.edit = async (ctx, next) => {
 
 };
 
-exports.update = function *(next) {
+exports.update = async (ctx, next) => {
 
 };

@@ -7,12 +7,15 @@ let sessions_controller = require('../../../controller').users.sessions;
 let authentication = require('../../../middlewares/authentication');
 let visit_recorder = require('../../../middlewares/visit_recorder');
 
-module.exports = function(app) {
+let Router = require('koa-router');
+let router = new Router({
+    prefix: "/sessions"
+});
 
-    app.get('users-sessions-new', '/users/sessions/new', visit_recorder, authentication.auth_none, sessions_controller.init);
+router.get('users-sessions-new', '/new', visit_recorder, authentication.auth_none, sessions_controller.init);
 
-    app.post('users-sessions-create', '/users/sessions', visit_recorder, authentication.auth_none, sessions_controller.create);
+router.post('users-sessions-create', '/', visit_recorder, authentication.auth_none, sessions_controller.create);
 
-    app.del('users-sessions-destroy', '/users/sessions', visit_recorder, authentication.admin_only, sessions_controller.destroy);
+router.del('users-sessions-destroy', '/', visit_recorder, authentication.admin_only, sessions_controller.destroy);
 
-};
+module.exports = router;

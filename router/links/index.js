@@ -7,11 +7,13 @@ let links_controller = require('../../controller').links;
 let authentication = require('../../middlewares/authentication');
 let set_redirection = require('../../middlewares/set_redirection');
 let visit_recorder = require('../../middlewares/visit_recorder');
+let Router = require('koa-router');
+let router = new Router({
+    prefix: "/links"
+});
 
-module.exports = function(app) {
+router.post('links-create', '/', visit_recorder, authentication.admin_only, links_controller.create);
 
-    app.post('links-create', '/links', visit_recorder, authentication.admin_only, links_controller.create);
+router.del('links-destroy', '/:link_id', visit_recorder, authentication.admin_only, links_controller.destroy);
 
-    app.del('links-destroy', '/links/:link_id', visit_recorder, authentication.admin_only, links_controller.destroy);
-
-};
+module.exports = router;

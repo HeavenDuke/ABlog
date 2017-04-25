@@ -3,34 +3,33 @@
  * Created by heavenduke on 16-7-7.
  */
 
-exports.index = function *(next) {
-    this.render('writings/index', {
+exports.index = async (ctx, next) => {
+    ctx.render('writings/index', {
         title: "每日码字统计",
-        current_module: this.current_module,
-        current_guest: this.session.guest,
-        current_user: this.session.user
+        current_module: ctx.current_module,
+        current_guest: ctx.session.guest,
+        current_user: ctx.session.user
     })
 };
 
-exports.show = function *(next) {
+exports.show = async (ctx, next) => {
     let Writing = global.database.models.writing;
-    let date = new Date(this.params.date);
+    let date = new Date(ctx.params.date);
     date.setHours(0, 0, 0);
-    let writing = yield Writing.findOne({date: date});
-    this.body = writing ? writing.count : 0;
+    let writing = await Writing.findOne({date: date});
+    ctx.body = writing ? writing.count : 0;
 };
 
-exports.update = function *(next) {
+exports.update = async (ctx, next) => {
     let Writing = global.database.models.writing;
-    let date = new Date(this.request.body.date);
+    let date = new Date(ctx.request.body.date);
     date.setHours(0, 0, 0);
-    console.log(date);
-    let writing = yield Writing.findOne({date: date});
+    let writing = await Writing.findOne({date: date});
     if (!writing) {
         writing = new Writing();
         writing.date = date;
     }
-    writing.count = parseInt(this.request.body.count);
+    writing.count = parseInt(ctx.request.body.count);
     writing.save();
-    this.redirect(this.app.url('writings-index'));
+    ctx.redirect(ctx.app.url('writings-index'));
 };

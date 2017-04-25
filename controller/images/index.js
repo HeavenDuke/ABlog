@@ -9,9 +9,9 @@ let fs = Promise.promisifyAll(require("fs"));
 let image_tools = require('../../libs/image');
 
 
-exports.create = function *(next) {
+exports.create = async (ctx, next) => {
     let image_paths = [];
-    let files = this.request.body.files;
+    let files = ctx.request.body.files;
     if (!(files.images instanceof Array)) {
         files.images = [files.images];
     }
@@ -20,7 +20,7 @@ exports.create = function *(next) {
         let image_path = path.basename(image.path);
         let allowed_mimes = ["image/jpeg", "image/bmp", "image/gif", "image/png"];
         if (allowed_mimes.indexOf(image.type) != -1) {
-            let data = yield Jimp.read(image.path);
+            let data = await Jimp.read(image.path);
             let thumb_height = 150;
             let thumb_scale = data.bitmap.height / thumb_height;
             let thumb_width = data.bitmap.width / thumb_scale;
@@ -37,8 +37,8 @@ exports.create = function *(next) {
             });
         }
         else {
-            yield fs.unlinkAsync(image.path);
+            await fs.unlinkAsync(image.path);
         }
     }
-    this.body = {files: image_paths};
+    ctx.body = {files: image_paths};
 };

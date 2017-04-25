@@ -7,13 +7,17 @@ let comments_controller = require('../../../controller').journals.comments;
 let authentication = require('../../../middlewares/authentication');
 let visit_recorder = require('../../../middlewares/visit_recorder');
 let replies_router = require('./replies');
+let routerUtils = require('../../../libs/routerUtil');
 
-module.exports = function(app) {
+let Router = require('koa-router');
+let router = new Router({
+    prefix: "/comments"
+});
 
-    app.post('journals-comments-create', '/journals/:journal_id/comments', visit_recorder, authentication.cross_auth, comments_controller.create);
+router.post('journals-comments-create', '/', visit_recorder, authentication.cross_auth, comments_controller.create);
 
-    app.del('journals-comments-destroy', '/journals/:journal_id/comments/:comment_id', visit_recorder, authentication.admin_only, comments_controller.destroy);
+router.del('journals-comments-destroy', '/:comment_id', visit_recorder, authentication.admin_only, comments_controller.destroy);
 
-    replies_router(app);
+routerUtils.mount(router, replies_router);
 
-};
+module.exports = router;

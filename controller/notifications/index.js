@@ -3,11 +3,11 @@
  */
 "use strict";
 
-exports.index = function *(next) {
+exports.index = async (ctx, next) => {
     let Journal = global.database.models.journal;
     let Article = global.database.models.article;
     let Comment = global.database.models.comment;
-    let comments = yield Comment.find({"$or": [{is_checked: false}, {'replies.is_checked': false}]});
+    let comments = await Comment.find({"$or": [{is_checked: false}, {'replies.is_checked': false}]});
     let article_ids = [];
     let journal_ids = [];
     comments.forEach(function (comment) {
@@ -19,8 +19,8 @@ exports.index = function *(next) {
         }
     });
     let notifications = {
-        articles: yield Article.find({_id: {"$in": article_ids}}),
-        journals: yield Journal.find({_id: {"$in": journal_ids}})
+        articles: await Article.find({_id: {"$in": article_ids}}),
+        journals: await Journal.find({_id: {"$in": journal_ids}})
     };
-    this.body = JSON.stringify(notifications);
+    ctx.body = JSON.stringify(notifications);
 };

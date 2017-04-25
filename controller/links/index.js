@@ -3,18 +3,18 @@
  */
 "use strict";
 
-exports.create = function *(next) {
+exports.create = async (ctx, next) => {
     let Link = global.database.models.link;
     let link = new Link();
-    link.name = this.request.body.name;
-    link.url = this.request.body.url;
+    link.name = ctx.request.body.name;
+    link.url = ctx.request.body.url;
     link.save();
-    this.redirect(this.app.url("home"));
+    ctx.redirect(ctx.app.url("home"));
 };
 
-exports.destroy = function *(next) {
+exports.destroy = async (ctx, next) => {
     let Link = global.database.models.link;
-    let link = yield Link.findById(this.params.link_id);
+    let link = await Link.findById(ctx.params.link_id);
     link.remove();
-    this.redirect(this.app.url("home"));
+    ctx.redirect(ctx.app.url("home"));
 };

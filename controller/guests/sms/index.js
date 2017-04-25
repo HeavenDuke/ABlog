@@ -8,16 +8,16 @@ let path = require('path');
 let config = require('../../../config/config')();
 let transporter = Promise.promisifyAll(nodemailer.createTransport(config.smtp));
 
-exports.init = function *(next) {
-    this.render('./guests/sms/new', {
+exports.init = async (ctx, next) => {
+    ctx.render('./guests/sms/new', {
         title: "发送验证码",
-        error: this.flash.error,
-        info: this.flash.info,
-        current_guest: this.session.guest
+        error: ctx.flash.error,
+        info: ctx.flash.info,
+        current_guest: ctx.session.guest
     }, true);
 };
 
-exports.create = function *(next) {
+exports.create = async (ctx, next) => {
     let generate_otp_code = function (len) {
         let alphabet = '1234567890';
         let result = '';
@@ -27,7 +27,7 @@ exports.create = function *(next) {
         return result;
     };
     let otp_code = generate_otp_code(6);
-    let email = this.request.query.email;
+    let email = ctx.request.query.email;
     let mailOptions = {
         from: '"heavenduke" <heavenduke@heavenduke.com>',
         to: email,
@@ -35,17 +35,17 @@ exports.create = function *(next) {
         html: '<p>重置密码所需要的6位验证码为：<strong>' + otp_code + '</strong></p>' // html body
     };
 
-    let send_result = yield transporter.sendMail(mailOptions);
-    this.session.otp_code = otp_code;
-    this.session.email = email;
-    this.body = {
+    let send_result = await transporter.sendMail(mailOptions);
+    ctx.session.otp_code = otp_code;
+    ctx.session.email = email;
+    ctx.body = {
         message: "success"
     };
 };
 
-exports.update = function *(next) {
+exports.update = async (ctx, next) => {
     let Guest = global.database.models.guest;
-    let guest = yield Guest.findOne({email: this.request.body.email});
+    let guest = await Guest.findOne({email: ctx.request.body.email});
     if (guest) {
         let generate_confirmation_toksn = function (len) {
             let alphabet = '1234567890qpwoeirutyalskdjfhgzmxncbvQPWOEIRUTYALSKDJFHGZMXNCBV';
@@ -55,20 +55,20 @@ exports.update = function *(next) {
             }
             return result;
         };
-        if (this.session.email == this.request.body.email && this.session.otp_code == this.request.body.otp_code) {
+        if (ctx.session.email == ctx.request.body.email && ctx.session.otp_code == ctx.request.body.otp_code) {
             let confirmation_token = generate_confirmation_toksn(64);
-            this.session.confirmation_token = confirmation_token;
+            ctx.session.confirmation_token = confirmation_token;
             guest.confirmation_token = confirmation_token;
             guest.save();
-            this.redirect(this.app.url("guests-passwords-new"));
+            ctx.redirect(ctx.app.url("guests-passwords-new"));
         }
         else {
-            this.flash = {error: "验证码错误，请重新输入"};
-            this.redirect(this.app.url("guests-sms-new"));
+            ctx.flash = {error: "验证码错误，请重新输入"};
+            ctx.redirect(ctx.app.url("guests-sms-new"));
         }
     }
     else {
-        this.flash = {error: "用户不存在，请重新输入"};
-        this.redirect(this.app.url("guests-sms-new"));
+        ctx.flash = {error: "用户不存在，请重新输入"};
+        ctx.redirect(ctx.app.url("guests-sms-new"));
     }
 };

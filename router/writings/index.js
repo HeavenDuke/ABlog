@@ -7,18 +7,18 @@ let writings_controller = require('../../controller').writings;
 let authentication = require('../../middlewares/authentication');
 let set_redirection = require('../../middlewares/set_redirection');
 let visit_recorder = require('../../middlewares/visit_recorder');
+let module_naming = require('../../middlewares/module_naming');
+let Router = require('koa-router');
+let router = new Router({
+    prefix: "/writings"
+});
 
-module.exports = function(app) {
+router.use(module_naming("writing"));
 
-    let current_module = function *(next) {
-        this.current_module = "writing";
-        yield next;
-    };
-    
-    app.get('writings-index', '/writings', visit_recorder, set_redirection, authentication.admin_only, current_module, writings_controller.index);
+router.get('writings-index', '/', visit_recorder, set_redirection, authentication.admin_only, writings_controller.index);
 
-    app.get('writings-show', '/writings/:date', visit_recorder, authentication.admin_only, current_module, writings_controller.show);
-    
-    app.put('writings-update', '/writings', visit_recorder, authentication.admin_only, current_module, writings_controller.update);
-    
-};
+router.get('writings-show', '/:date', visit_recorder, authentication.admin_only, writings_controller.show);
+
+router.put('writings-update', '/', visit_recorder, authentication.admin_only, writings_controller.update);
+
+module.exports = router;

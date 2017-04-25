@@ -6,9 +6,11 @@
 let notifications_controller = require('../../controller').notifications;
 let authentication = require('../../middlewares/authentication');
 let visit_recorder = require('../../middlewares/visit_recorder');
+let Router = require('koa-router');
+let router = new Router({
+    prefix: "/notifications"
+});
 
-module.exports = function (app) {
+router.get('notifications-index', '/', visit_recorder, authentication.cross_auth, notifications_controller.index);
 
-    app.get('notifications-index', '/notifications', visit_recorder, authentication.cross_auth, notifications_controller.index);
-
-};
+module.exports = router;

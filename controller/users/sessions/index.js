@@ -3,18 +3,18 @@
  * Created by Obscurity on 2016/7/12.
  */
 
-exports.init = function *(next) {
-    this.render('./users/sessions/new', {
+exports.init = async (ctx, next) => {
+    ctx.render('./users/sessions/new', {
         "title": "管理员登录",
-        error: this.flash.error,
-        info: this.flash.info,
-        current_guest: this.session.guest,
-        current_user: this.session.user,
-        redirect_url_after_login: this.request.query.redirect_url
+        error: ctx.flash.error,
+        info: ctx.flash.info,
+        current_guest: ctx.session.guest,
+        current_user: ctx.session.user,
+        redirect_url_after_login: ctx.request.query.redirect_url
     }, true);
 };
 
-exports.create = function *(next) {
+exports.create = async (ctx, next) => {
     let writeUserInfo = function (session, user) {
         session.user = {
             _id: user._id,
@@ -23,24 +23,24 @@ exports.create = function *(next) {
     };
     let User = global.database.models.user;
     let userQuery = {
-        username: this.request.body.username
+        username: ctx.request.body.username
     };
-    let user = yield User.findOne(userQuery);
-    if (!user || !user.validatePassword(this.request.body.password)) {
-        this.flash = {error: "您输入的用户名或密码有误，请重新输入"};
-        this.redirect(this.app.url("users-sessions-new"));
+    let user = await User.findOne(userQuery);
+    if (!user || !user.validatePassword(ctx.request.body.password)) {
+        ctx.flash = {error: "您输入的用户名或密码有误，请重新输入"};
+        ctx.redirect(ctx.app.url("users-sessions-new"));
     }
     else {
-        writeUserInfo(this.session, user);
-        this.flash = {info: "登录成功"};
-        this.redirect(this.asb);
+        writeUserInfo(ctx.session, user);
+        ctx.flash = {info: "登录成功"};
+        ctx.redirect(ctx.asb);
     }
 };
 
-exports.destroy = function *(next) {
+exports.destroy = async (ctx, next) => {
     let eraseUserInfo = function (session) {
         delete session.user;
     };
-    eraseUserInfo(this.session);
-    this.redirect(this.asb);
+    eraseUserInfo(ctx.session);
+    ctx.redirect(ctx.asb);
 };

@@ -8,11 +8,13 @@ let authentication = require('../../../middlewares/authentication');
 let koa_body = require('koa-body');
 let path = require('path');
 let config = require('../../../config/config')();
+let Router = require('koa-router');
+let router = new Router({
+    prefix: "/heads"
+});
 
-module.exports = function (app) {
+let uploader = koa_body({multipart: true, formidable: {uploadDir: path.join(config.staticDir, 'uploads'), keepExtensions: true, hash: "sha1"}});
 
-    let uploader = koa_body({multipart: true, formidable: {uploadDir: path.join(config.staticDir, 'uploads'), keepExtensions: true, hash: "sha1"}});
+router.post('guests-heads-create', '/', authentication.cross_auth, uploader, heads_controller.create);
 
-    app.post('guests-heads-create', '/guests/heads', authentication.cross_auth, uploader, heads_controller.create);
-
-};
+module.exports = router;

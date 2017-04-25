@@ -5,14 +5,18 @@
 let users_controller = require('../../controller').users;
 let authentication = require('../../middlewares/authentication');
 let visit_recorder = require('../../middlewares/visit_recorder');
-
 let session_router = require('./sessions');
 
-module.exports = function(app) {
+let Router = require('koa-router');
+let router = new Router({
+    prefix: "/users"
+});
+let routerUtils = require('../../libs/routerUtil');
 
-    app.get('users-edit', '/users/edit', visit_recorder, authentication.admin_only, users_controller.edit);
+routerUtils.mount(router, session_router);
 
-    app.put('users-update', '/users', visit_recorder, authentication.admin_only, users_controller.update);
+router.get('users-edit', '/edit', visit_recorder, authentication.admin_only, users_controller.edit);
 
-    session_router(app);
-};
+router.put('users-update', '/', visit_recorder, authentication.admin_only, users_controller.update);
+
+module.exports = router;

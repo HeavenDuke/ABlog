@@ -6,9 +6,11 @@
 let likes_controller = require("../../../../controller").columns.articles.likes;
 let authentication = require('../../../../middlewares/authentication');
 let visit_recorder = require('../../../../middlewares/visit_recorder');
+let Router = require('koa-router');
+let router = new Router({
+    prefix: "/likes"
+});
 
-module.exports = function (app) {
+router.post('columns-articles-likes-create', '/likes', visit_recorder, authentication.guest_only, likes_controller.create);
 
-    app.post('columns-articles-likes-create', '/columns/:column_id/articles/:article_id/likes', visit_recorder, authentication.guest_only, likes_controller.create);
-
-};
+module.exports = router;

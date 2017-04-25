@@ -12,35 +12,35 @@ let writeGuestInfo = function (session, guest) {
     };
 };
 
-exports.init = function *(next) {
-    this.render('./guests/sessions/new', {
+exports.init = async (ctx, next) => {
+    ctx.render('./guests/sessions/new', {
         title: "用户登录",
-        error: this.flash.error,
-        info: this.flash.info,
-        current_guest: this.session.guest
+        error: ctx.flash.error,
+        info: ctx.flash.info,
+        current_guest: ctx.session.guest
     }, true);
 };
 
-exports.create = function *(next) {
+exports.create = async (ctx, next) => {
     let Guest = global.database.models.guest;
     let guest_query = {
-        email: this.request.body.email
+        email: ctx.request.body.email
     };
-    let guest = yield Guest.findOne(guest_query);
-    if (!guest || !guest.validatePassword(this.request.body.password)) {
-        this.flash = {error: "用户不存在或密码错误，请重新输入"};
-        this.redirect(this.app.url("guests-sessions-new"));
+    let guest = await Guest.findOne(guest_query);
+    if (!guest || !guest.validatePassword(ctx.request.body.password)) {
+        ctx.flash = {error: "用户不存在或密码错误，请重新输入"};
+        ctx.redirect(ctx.app.url("guests-sessions-new"));
     }
     else {
-        writeGuestInfo(this.session, guest);
-        this.redirect(this.asb);
+        writeGuestInfo(ctx.session, guest);
+        ctx.redirect(ctx.asb);
     }
 };
 
-exports.destroy = function *(next) {
+exports.destroy = async (ctx, next) => {
     let eraseUserInfo = function (session) {
         delete session.guest;
     };
-    eraseUserInfo(this.session);
-    this.redirect(this.asb);
+    eraseUserInfo(ctx.session);
+    ctx.redirect(ctx.asb);
 };

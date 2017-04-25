@@ -3,20 +3,20 @@
  * Created by Obscurity on 2016/5/11.
  */
 
-exports.create = function *() {
+exports.create = async (ctx, next) => {
     let Article = global.database.models.article;
     let Attitude = global.database.models.attitude;
-    let article = yield Article.findById(this.params.article_id);
+    let article = await Article.findById(ctx.params.article_id);
     if (article) {
-        let attitude = yield Attitude.findOne({guest_id: this.session.guest._id, article_id: this.params.article_id});
-        let action = this.request.query.action;
+        let attitude = await Attitude.findOne({guest_id: ctx.session.guest._id, article_id: ctx.params.article_id});
+        let action = ctx.request.query.action;
         if (action == 'post') {
             if (!attitude) {
                 attitude = new Attitude();
             }
-            attitude.like = (this.request.query.attitude == "like");
-            attitude.guest_id = this.session.guest._id;
-            attitude.article_id = this.params.article_id;
+            attitude.like = (ctx.request.query.attitude == "like");
+            attitude.guest_id = ctx.session.guest._id;
+            attitude.article_id = ctx.params.article_id;
             attitude.save();
         }
         else {
@@ -25,8 +25,8 @@ exports.create = function *() {
             }
         }
     }
-    this.redirect(this.app.url("columns-articles-show", {
-        column_id: this.params.column_id,
-        article_id: this.params.article_id
+    ctx.redirect(ctx.app.url("columns-articles-show", {
+        column_id: ctx.params.column_id,
+        article_id: ctx.params.article_id
     }));
 };

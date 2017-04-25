@@ -80,8 +80,9 @@
 
     var prepare_diary_image_uploader = function () {
         $('#image_creation_uploader').fileupload({
-            url: "/images?_method=POST",
+            url: "/images",
             dataType: 'json',
+            type: "post",
             done: function (e, data) {
                 $.each(data.result.files, function (index, file) {
                     var container = $("#image_creation_specifier");
@@ -107,8 +108,9 @@
         });
 
         $('#image_update_uploader').fileupload({
-            url: "/images?_method=POST",
+            url: "/images",
             dataType: 'json',
+            type: "post",
             done: function (e, data) {
                 $.each(data.result.files, function (index, file) {
                     var container = $("#image_update_specifier");

@@ -23,6 +23,7 @@ let marked = require('marked');
 let astepback = require('astepback');
 //路由
 let validator = require('koa-validator');
+let converter = require('koa-convert');
 
 let routers = require('../router');
 let routerUtils = require('../libs/routerUtil');
@@ -58,12 +59,12 @@ Server.prototype.start = function () {
 
     let port = this.opts.port || 3000;
 
-    this.use(session({
+    this.use(converter(session({
         store: redisStore({})
-    }));
+    })));
     this.keys = ['heavenduke'];
-    this.use(astepback());
-    this.use(flash({}));
+    this.use(converter(astepback()));
+    this.use(converter(flash({})));
 
     this.context.logger = logger;
 
@@ -77,39 +78,39 @@ Server.prototype.start = function () {
         app: this
     });
 
-    this.use(bodyParser({
+    this.use(converter(bodyParser({
         formLimit: "100mb",
         jsonLimit: "100mb",
         textLimit: "100mb"
-    }));
-    this.use(override());
+    })));
+    this.use(converter(override()));
 
-    this.use(validator());
+    this.use(converter(validator()));
 
     //静态文件cache
     let staticDir = config.staticDir;
 
-    this.use(koaStatic(path.join(staticDir, 'uploads')));
+    this.use(converter(koaStatic(path.join(staticDir, 'uploads'))));
 
-    this.use(staticCache(staticDir));
-    this.use(staticCache(path.join(staticDir, 'vendors')));
-    this.use(staticCache(path.join(staticDir, 'uploads')));
-    this.use(staticCache(path.join(staticDir, 'js')));
-    this.use(staticCache(path.join(staticDir, 'img')));
-    this.use(staticCache(path.join(staticDir, 'css')));
-    this.use(staticCache(path.join(staticDir, 'fonts')));
-    this.use(staticCache(path.join(staticDir, 'bower_components')));
+    this.use(converter(staticCache(staticDir)));
+    this.use(converter(staticCache(path.join(staticDir, 'vendors'))));
+    this.use(converter(staticCache(path.join(staticDir, 'uploads'))));
+    this.use(converter(staticCache(path.join(staticDir, 'js'))));
+    this.use(converter(staticCache(path.join(staticDir, 'img'))));
+    this.use(converter(staticCache(path.join(staticDir, 'css'))));
+    this.use(converter(staticCache(path.join(staticDir, 'fonts'))));
+    this.use(converter(staticCache(path.join(staticDir, 'bower_components'))));
 
-    this.use(function *(next) {
+    this.use(async (ctx, next) => {
         try{
-            yield* next;
+            await next();
         } catch(e) {
             if (process.env.NODE_ENV != 'test') {
                 console.log(e.message);
                 console.log(e);
                 logger.error(e);
             }
-            this.render('./error');
+            ctx.render('./error');
         }
     });
 

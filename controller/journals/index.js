@@ -3,7 +3,7 @@
  */
 "use strict";
 
-exports.index = function *(next) {
+exports.index = async (ctx, next) => {
     let Journal = global.database.models.journal;
     let Stat = global.database.models.stat;
     let journal_per_page = global.conf.pagination.journal;
@@ -14,24 +14,24 @@ exports.index = function *(next) {
     let offset = null;
     let journals = null;
     let journals_not_topped = null;
-    let tag = this.request.query.tag;
-    let stat = yield Stat.findOne({});
+    let tag = ctx.request.query.tag;
+    let stat = await Stat.findOne({});
     if (!stat) {
-        stat = yield Stat.create({tags: []});
+        stat = await Stat.create({tags: []});
     }
     let tags = stat.tags;
-    if (this.session.user) {
-        total_journal_count = yield Journal.count(tag ? {"tags.name": tag} : {});
-        topped_journal_count = yield Journal.count(tag ? {"placed_top": true, "tags.name": tag} : {"placed_top": true});
+    if (ctx.session.user) {
+        total_journal_count = await Journal.count(tag ? {"tags.name": tag} : {});
+        topped_journal_count = await Journal.count(tag ? {"placed_top": true, "tags.name": tag} : {"placed_top": true});
         total_page = Math.ceil(total_journal_count / journal_per_page);
-        current_page_index = parseInt(this.request.query.page) == 0 || isNaN(parseInt(this.request.query.page)) ? 1 : parseInt(this.request.query.page);
+        current_page_index = parseInt(ctx.request.query.page) == 0 || isNaN(parseInt(ctx.request.query.page)) ? 1 : parseInt(ctx.request.query.page);
         offset = (current_page_index - 1) * global.conf.pagination.journal;
-        journals = yield Journal.find(tag ? {
+        journals = await Journal.find(tag ? {
             "placed_top": true,
             "tags.name": tag
         } : {"placed_top": true}).sort({updated_at: -1}).skip(offset).limit(journal_per_page);
         if (journals.length < journal_per_page) {
-            journals_not_topped = yield Journal.find(tag ? {
+            journals_not_topped = await Journal.find(tag ? {
                 "placed_top": false,
                 "tags.name": tag
             } : {"placed_top": false}).sort({updated_at: -1}).skip(offset > topped_journal_count ? offset - topped_journal_count : 0).limit(journal_per_page - journals.length);
@@ -39,16 +39,16 @@ exports.index = function *(next) {
         }
     }
     else {
-        total_journal_count = yield Journal.count(tag ? {is_public: true, "tags.name": tag} : {is_public: true});
-        topped_journal_count = yield Journal.count(tag ? {
+        total_journal_count = await Journal.count(tag ? {is_public: true, "tags.name": tag} : {is_public: true});
+        topped_journal_count = await Journal.count(tag ? {
             "placed_top": true,
             is_public: true,
             "tags.name": tag
         } : {"placed_top": true, is_public: true});
         total_page = Math.ceil(total_journal_count / journal_per_page);
-        current_page_index = parseInt(this.request.query.page) == 0 || isNaN(parseInt(this.request.query.page)) ? 1 : parseInt(this.request.query.page);
+        current_page_index = parseInt(ctx.request.query.page) == 0 || isNaN(parseInt(ctx.request.query.page)) ? 1 : parseInt(ctx.request.query.page);
         offset = (current_page_index - 1) * global.conf.pagination.journal;
-        journals = yield Journal.find(tag ? {
+        journals = await Journal.find(tag ? {
             placed_top: true,
             is_public: true,
             "tags.name": tag
@@ -57,7 +57,7 @@ exports.index = function *(next) {
             is_public: true
         }).sort({updated_at: -1}).skip(offset).limit(journal_per_page);
         if (journals.length < journal_per_page) {
-            journals_not_topped = yield Journal.find(tag ? {
+            journals_not_topped = await Journal.find(tag ? {
                 placed_top: false,
                 is_public: true,
                 "tags.name": tag
@@ -75,20 +75,20 @@ exports.index = function *(next) {
     tags.sort(function (tag1, tag2) {
         return tag1.journal_count > tag2.journal_count;
     });
-    this.render('./journals/index', {
+    ctx.render('./journals/index', {
         "title": "博客列表",
-        current_guest: this.session.guest,
-        current_user: this.session.user,
+        current_guest: ctx.session.guest,
+        current_user: ctx.session.user,
         journals: journals,
         pagination: pagination,
-        current_module: this.current_module,
+        current_module: ctx.current_module,
         tag: tag,
         tags: tags,
-        redirect_url: this.request.url
+        redirect_url: ctx.request.url
     }, true);
 };
 
-exports.show = function *(next) {
+exports.show = async (ctx, next) => {
     let Journal = global.database.models.journal;
     let Comment = global.database.models.comment;
     let Attitude = global.database.models.attitude;
@@ -102,21 +102,20 @@ exports.show = function *(next) {
         journal.save();
         session.read_history[journal_id] = true;
     };
-    let journal = yield Journal.findById(this.params.journal_id);
-    let attitude = this.session.guest ? yield Attitude.findOne({
-        guest_id: this.session.guest._id,
-        journal_id: this.params.journal_id
+    let journal = await Journal.findById(ctx.params.journal_id);
+    let attitude = ctx.session.guest ? await Attitude.findOne({
+        guest_id: ctx.session.guest._id,
+        journal_id: ctx.params.journal_id
     }) : null;
-    let likes = yield Attitude.count({like: true, journal_id: this.params.journal_id});
-    let dislikes = yield Attitude.count({like: false, journal_id: this.params.journal_id});
-    if (journal.is_public || this.session.user) {
-        if (!this.session.read_history || !this.session.read_history[journal._id]) {
-            setReadSession(this.session, journal._id);
+    let likes = await Attitude.count({like: true, journal_id: ctx.params.journal_id});
+    let dislikes = await Attitude.count({like: false, journal_id: ctx.params.journal_id});
+    if (journal.is_public || ctx.session.user) {
+        if (!ctx.session.read_history || !ctx.session.read_history[journal._id]) {
+            setReadSession(ctx.session, journal._id);
         }
-        let comments = yield Comment.find({journal_id: journal._id}).sort({created_at: 1});
+        let comments = await Comment.find({journal_id: journal._id}).sort({created_at: 1});
         let user_id = null;
         let guest_ids = [];
-        let ctx = this;
         comments.forEach(function (comment) {
             if (ctx.session.user) {
                 comment.is_checked = true;
@@ -140,7 +139,7 @@ exports.show = function *(next) {
             }
             comment.save();
         });
-        let guests = yield Guest.find({_id: {"$in": guest_ids}});
+        let guests = await Guest.find({_id: {"$in": guest_ids}});
         let json_guests = {}, user = null;
         guests.forEach(function (guest) {
             json_guests[guest._id] = {
@@ -150,7 +149,7 @@ exports.show = function *(next) {
             };
         });
         if (user_id) {
-            user = yield User.findById(user_id);
+            user = await User.findById(user_id);
         }
         let json_comments = [];
         comments.forEach(function (comment) {
@@ -183,7 +182,7 @@ exports.show = function *(next) {
             }
             json_comments.push(json_comment);
         });
-        this.render('./journals/show', {
+        ctx.render('./journals/show', {
             "title": journal.title,
             likes: likes,
             dislikes: dislikes,
@@ -192,39 +191,39 @@ exports.show = function *(next) {
             comments: json_comments,
             keywords: journal.keywords().join(','),
             description: journal.keywords().join(','),
-            current_guest: this.session.guest,
-            current_user: this.session.user,
-            current_module: this.current_module,
-            redirect_url: this.request.url
+            current_guest: ctx.session.guest,
+            current_user: ctx.session.user,
+            current_module: ctx.current_module,
+            redirect_url: ctx.request.url
         }, true);
     }
     else {
-        this.redirect(this.app.url('journals-index'));
+        ctx.redirect(ctx.app.url('journals-index'));
     }
 };
 
-exports.init = function *(next) {
-    this.render('./journals/new', {
+exports.init = async (ctx, next) => {
+    ctx.render('./journals/new', {
         "title": "写博客",
-        current_guest: this.session.guest,
-        current_user: this.session.user,
-        redirect_url: this.request.url
+        current_guest: ctx.session.guest,
+        current_user: ctx.session.user,
+        redirect_url: ctx.request.url
     }, true);
 };
 
-exports.create = function *(next) {
+exports.create = async (ctx, next) => {
     let Journal = global.database.models.journal;
     let Stat = global.database.models.stat;
     let journal = new Journal();
-    let tags = JSON.parse(this.request.body.tags);
-    let stat = yield Stat.findOne({});
+    let tags = JSON.parse(ctx.request.body.tags);
+    let stat = await Stat.findOne({});
     if (!stat) {
         stat = new Stat();
     }
-    journal.title = this.request.body.title;
-    journal.content = !this.request.body.content ? "" : this.request.body.content;
-    journal.placed_top = !!this.request.body.placed_top;
-    journal.is_public = !!this.request.body.is_public;
+    journal.title = ctx.request.body.title;
+    journal.content = !ctx.request.body.content ? "" : ctx.request.body.content;
+    journal.placed_top = !!ctx.request.body.placed_top;
+    journal.is_public = !!ctx.request.body.is_public;
     journal.tags = [];
     tags.forEach(function (tag) {
         journal.tags.push({name: tag});
@@ -240,37 +239,38 @@ exports.create = function *(next) {
             stat.tags.push({name: tag, journal_count: 1});
         }
     });
-    yield journal.save();
-    yield stat.save();
-    this.redirect(this.app.url("journals-show", {journal_id: journal._id}));
+    await journal.save();
+    await stat.save();
+    console.log(ctx);
+    ctx.redirect(ctx.app.url("journals-show", {journal_id: journal._id}));
 };
 
-exports.edit = function *(next) {
+exports.edit = async (ctx, next) => {
     let Journal = global.database.models.journal;
-    let journal = yield Journal.findById(this.params.journal_id);
-    this.render('./journals/edit', {
+    let journal = await Journal.findById(ctx.params.journal_id);
+    ctx.render('./journals/edit', {
         "title": "编辑博客",
         journal: journal,
-        current_guest: this.session.guest,
-        current_user: this.session.user,
-        current_module: this.current_module,
-        redirect_url: this.request.url
+        current_guest: ctx.session.guest,
+        current_user: ctx.session.user,
+        current_module: ctx.current_module,
+        redirect_url: ctx.request.url
     }, true);
 };
 
-exports.update = function *(next) {
+exports.update = async (ctx, next) => {
     let Journal = global.database.models.journal;
     let Stat = global.database.models.stat;
-    let journal = yield Journal.findById(this.params.journal_id);
-    let stat = yield Stat.findOne({});
+    let journal = await Journal.findById(ctx.params.journal_id);
+    let stat = await Stat.findOne({});
     if (!stat) {
         stat = new Stat();
     }
-    let tags = JSON.parse(this.request.body.tags);
-    journal.title = this.request.body.title;
-    journal.content = !this.request.body.content ? "" : this.request.body.content;
-    journal.placed_top = !(!this.request.body.placed_top);
-    journal.is_public = !!this.request.body.is_public;
+    let tags = JSON.parse(ctx.request.body.tags);
+    journal.title = ctx.request.body.title;
+    journal.content = !ctx.request.body.content ? "" : ctx.request.body.content;
+    journal.placed_top = !(!ctx.request.body.placed_top);
+    journal.is_public = !!ctx.request.body.is_public;
     journal.updated_at = Date.now();
     journal.tags.forEach(function (tag) {
         for (var i = 0; i < stat.tags.length; i++) {
@@ -298,18 +298,18 @@ exports.update = function *(next) {
             stat.tags.push({name: tag, journal_count: 1});
         }
     });
-    yield journal.save();
-    yield stat.save();
-    this.redirect(this.app.url('journals-update', {journal_id: journal._id}));
+    await journal.save();
+    await stat.save();
+    ctx.redirect(ctx.app.url('journals-update', {journal_id: journal._id}));
 };
 
-exports.destroy = function *(next) {
+exports.destroy = async (ctx, next) => {
     let Journal = global.database.models.journal;
     let Comment = global.database.models.comment;
-    let journal = yield Journal.findById(this.params.journal_id);
-    yield Comment.remove({journal_id: journal._id});
+    let journal = await Journal.findById(ctx.params.journal_id);
+    await Comment.remove({journal_id: journal._id});
     journal.remove();
-    this.redirect(this.app.url('journals-index'));
+    ctx.redirect(ctx.app.url('journals-index'));
 };
 
 exports.comments = require('./comments');

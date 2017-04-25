@@ -6,7 +6,11 @@
 let likes_controller = require("../../../controller").journals.likes;
 let authentication = require('../../../middlewares/authentication');
 let visit_recorder = require('../../../middlewares/visit_recorder');
+let Router = require('koa-router');
+let router = new Router({
+    prefix: "/likes"
+});
 
-module.exports = function (app) {
-    app.post('journals-likes', '/journals/:journal_id/likes', visit_recorder, authentication.guest_only, likes_controller.create);
-};
+router.post('journals-likes', '/', visit_recorder, authentication.guest_only, likes_controller.create);
+
+module.exports = router;

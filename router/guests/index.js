@@ -14,20 +14,27 @@ let sms_router = require('./sms');
 let head_router = require('./heads');
 let path = require('path');
 let config = require('../../config/config')();
+let routerUtils = require('../../libs/routerUtil');
 
-module.exports = function (app) {
+let Router = require('koa-router');
+let router = new Router({
+    prefix: "/guests"
+});
 
-    app.get('guests-new', '/guests/new', visit_recorder, authentication.auth_none, guests_controller.init);
+router.get('guests-new', '/new', visit_recorder, authentication.auth_none, guests_controller.init);
 
-    app.post('guests-create', '/guests', visit_recorder, authentication.auth_none, guests_controller.create);
+router.post('guests-create', '/', visit_recorder, authentication.auth_none, guests_controller.create);
 
-    app.get('guests-edit', '/guests/edit', visit_recorder, authentication.guest_only, guests_controller.edit);
+router.get('guests-edit', '/edit', visit_recorder, authentication.guest_only, guests_controller.edit);
 
-    app.put('guests-update', '/guests', visit_recorder, authentication.guest_only, guests_controller.update);
+router.put('guests-update', '/', visit_recorder, authentication.guest_only, guests_controller.update);
 
-    password_router(app);
-    session_router(app);
-    sms_router(app);
-    head_router(app);
+routerUtils.mount(router, password_router);
 
-};
+routerUtils.mount(router, session_router);
+
+routerUtils.mount(router, sms_router);
+
+routerUtils.mount(router, head_router);
+
+module.exports = router;

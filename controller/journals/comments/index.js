@@ -3,34 +3,34 @@
  * Created by heavenduke on 16-5-8.
  */
 
-exports.create = function *(next) {
+exports.create = async (ctx, next) => {
     let Journal = global.database.models.journal;
     let Comment = global.database.models.comment;
     let comment = new Comment();
-    let journal = yield Journal.findById(this.params.journal_id);
-    comment.content = this.request.body.content;
-    if (this.session.guest) {
-        comment.guest_id = this.session.guest._id;
+    let journal = await Journal.findById(ctx.params.journal_id);
+    comment.content = ctx.request.body.content;
+    if (ctx.session.guest) {
+        comment.guest_id = ctx.session.guest._id;
     }
     else {
-        comment.user_id = this.session.user._id;
+        comment.user_id = ctx.session.user._id;
     }
-    comment.journal_id = this.params.journal_id;
+    comment.journal_id = ctx.params.journal_id;
     comment.save();
     journal.comment_count += 1;
     journal.save();
-    this.redirect(this.app.url('journals-show', {journal_id: this.params.journal_id}));
+    ctx.redirect(ctx.app.url('journals-show', {journal_id: ctx.params.journal_id}));
 };
 
-exports.destroy = function *(next) {
+exports.destroy = async (ctx, next) => {
     let Journal = global.database.models.journal;
     let Comment = global.database.models.comment;
-    let comment = yield Comment.findById(this.params.comment_id);
-    let journal = yield Journal.findById(comment.journal_id);
+    let comment = await Comment.findById(ctx.params.comment_id);
+    let journal = await Journal.findById(comment.journal_id);
     comment.remove();
     journal.comment_count -= 1;
     journal.save();
-    this.redirect(this.app.url('journals-show', {journal_id: comment.journal_id}));
+    ctx.redirect(ctx.app.url('journals-show', {journal_id: comment.journal_id}));
 };
 
 exports.replies = require('./replies');

@@ -7,15 +7,17 @@ let passwords_controller = require('../../../controller').guests.passwords;
 
 let authentication = require('../../../middlewares/authentication');
 let visit_recorder = require('../../../middlewares/visit_recorder');
+let Router = require('koa-router');
+let router = new Router({
+    prefix: "/passwords"
+});
 
-module.exports = function (app) {
+router.get('guests-passwords-new', '/new', visit_recorder, authentication.auth_confirmation_token, passwords_controller.init);
 
-    app.get('guests-passwords-new', '/guests/passwords/new', visit_recorder, authentication.auth_confirmation_token, passwords_controller.init);
+router.post('guests-passwords-create', '/', visit_recorder, passwords_controller.create);
 
-    app.post('guests-passwords-create', '/guests/passwords', visit_recorder, passwords_controller.create);
+router.get('guests-passwords-edit', '/edit', visit_recorder, authentication.guest_only, passwords_controller.edit);
 
-    app.get('guests-passwords-edit', '/guests/passwords/edit', visit_recorder, authentication.guest_only, passwords_controller.edit);
+router.put('guests-passwords-update', '/', visit_recorder, authentication.guest_only, passwords_controller.update);
 
-    app.put('guests-passwords-update', '/guests/passwords', visit_recorder, authentication.guest_only, passwords_controller.update);
-    
-};
+module.exports = router;

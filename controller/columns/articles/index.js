@@ -3,7 +3,7 @@
  * Created by Obscurity on 2016/5/28.
  */
 
-exports.show = function *(next) {
+exports.show = async (ctx, next) => {
     let Article = global.database.models.article;
     let Comment = global.database.models.comment;
     let Attitude = global.database.models.attitude;
@@ -18,22 +18,21 @@ exports.show = function *(next) {
         article.save();
         session.read_history[article._id] = true;
     };
-    let article = yield Article.findById(this.params.article_id);
-    let articles = yield Article.find({column_id: this.params.column_id}).sort({order: 1});
-    let column = yield Column.findById(this.params.column_id);
-    if (!this.session.read_history || !this.session.read_history[article._id]) {
-        setReadSession(this.session, article);
+    let article = await Article.findById(ctx.params.article_id);
+    let articles = await Article.find({column_id: ctx.params.column_id}).sort({order: 1});
+    let column = await Column.findById(ctx.params.column_id);
+    if (!ctx.session.read_history || !ctx.session.read_history[article._id]) {
+        setReadSession(ctx.session, article);
     }
-    let attitude = this.session.guest ? yield Attitude.findOne({
-        guest_id: this.session.guest._id,
-        journal_id: this.params.journal_id
+    let attitude = ctx.session.guest ? await Attitude.findOne({
+        guest_id: ctx.session.guest._id,
+        journal_id: ctx.params.journal_id
     }) : null;
-    let likes = yield Attitude.count({like: true, journal_id: this.params.journal_id});
-    let dislikes = yield Attitude.count({like: false, journal_id: this.params.journal_id});
-    let comments = yield Comment.find({article_id: article._id}).sort({created_at: 1});
+    let likes = await Attitude.count({like: true, journal_id: ctx.params.journal_id});
+    let dislikes = await Attitude.count({like: false, journal_id: ctx.params.journal_id});
+    let comments = await Comment.find({article_id: article._id}).sort({created_at: 1});
     let user_id = null;
     let guest_ids = [];
-    let ctx = this;
     comments.forEach(function (comment) {
         if (ctx.session.user) {
             comment.is_checked = true;
@@ -57,7 +56,7 @@ exports.show = function *(next) {
         }
         comment.save();
     });
-    let guests = yield Guest.find({_id: {"$in": guest_ids}}), user = null;
+    let guests = await Guest.find({_id: {"$in": guest_ids}}), user = null;
     let json_guests = {};
     guests.forEach(function (guest) {
         json_guests[guest._id] = {
@@ -67,7 +66,7 @@ exports.show = function *(next) {
         };
     });
     if (user_id) {
-        user = yield User.findById(user_id);
+        user = await User.findById(user_id);
     }
     let json_comments = [];
     comments.forEach(function (comment) {
@@ -100,88 +99,88 @@ exports.show = function *(next) {
         }
         json_comments.push(json_comment);
     });
-    this.render('./columns/articles/show', {
+    ctx.render('./columns/articles/show', {
         title: article.title,
         likes: likes,
         dislikes: dislikes,
         attitude: attitude,
-        column_id: this.params.column_id,
+        column_id: ctx.params.column_id,
         article: article,
         articles: articles,
         comments: json_comments,
         keywords: column.keywords().join(','),
         description: column.keywords().join(','),
-        current_guest: this.session.guest,
-        current_user: this.session.user,
-        current_module: this.current_module,
-        redirect_url: this.request.url
+        current_guest: ctx.session.guest,
+        current_user: ctx.session.user,
+        current_module: ctx.current_module,
+        redirect_url: ctx.request.url
     }, true);
 };
 
-exports.init = function *(next) {
+exports.init = async (ctx, next) => {
     let Column = global.database.models.column;
-    let column = yield Column.findById(this.params.column_id);
-    this.render('./columns/articles/new', {
+    let column = await Column.findById(ctx.params.column_id);
+    ctx.render('./columns/articles/new', {
         "title": "写专栏文章",
-        current_module: this.current_module,
-        current_guest: this.session.guest,
-        current_user: this.session.user,
+        current_module: ctx.current_module,
+        current_guest: ctx.session.guest,
+        current_user: ctx.session.user,
         column: column,
-        redirect_url: this.request.url
+        redirect_url: ctx.request.url
     }, true);
 };
 
-exports.create = function *(next) {
+exports.create = async (ctx, next) => {
     let Article = global.database.models.article;
     let Column = global.database.models.column;
     let article = new Article();
-    let column = yield Column.findById(this.params.column_id);
-    article.title = this.request.body.title;
-    article.order = this.request.body.order;
-    article.column_id = this.params.column_id;
-    article.content = !this.request.body.content ? "" : this.request.body.content;
+    let column = await Column.findById(ctx.params.column_id);
+    article.title = ctx.request.body.title;
+    article.order = ctx.request.body.order;
+    article.column_id = ctx.params.column_id;
+    article.content = !ctx.request.body.content ? "" : ctx.request.body.content;
     article.save();
     column.updated_at = Date.now();
     column.save();
-    this.redirect(this.app.url("columns-articles-show", {column_id: this.params.column_id, article_id: article._id}));
+    ctx.redirect(ctx.app.url("columns-articles-show", {column_id: ctx.params.column_id, article_id: article._id}));
 };
 
-exports.edit = function *(next) {
+exports.edit = async (ctx, next) => {
     let Article = global.database.models.article;
-    let article = yield Article.findById(this.params.article_id);
-    this.render('./columns/articles/edit', {
+    let article = await Article.findById(ctx.params.article_id);
+    ctx.render('./columns/articles/edit', {
         "title": "编辑博客",
         article: article,
-        current_guest: this.session.guest,
-        current_user: this.session.user,
-        current_module: this.current_module,
-        redirect_url: this.request.url
+        current_guest: ctx.session.guest,
+        current_user: ctx.session.user,
+        current_module: ctx.current_module,
+        redirect_url: ctx.request.url
     }, true);
 };
 
-exports.update = function *(next) {
+exports.update = async (ctx, next) => {
     let Article = global.database.models.article;
     let Column = global.database.models.column;
-    let article = yield Article.findById(this.params.article_id);
-    let column = yield Column.findById(this.params.column_id);
-    article.title = this.request.body.title;
-    article.content = !this.request.body.content ? "" : this.request.body.content;
-    article.order = this.request.body.order;
-    article.column_id = this.params.column_id;
+    let article = await Article.findById(ctx.params.article_id);
+    let column = await Column.findById(ctx.params.column_id);
+    article.title = ctx.request.body.title;
+    article.content = !ctx.request.body.content ? "" : ctx.request.body.content;
+    article.order = ctx.request.body.order;
+    article.column_id = ctx.params.column_id;
     article.updated_at = Date.now();
     article.save();
     column.updated_at = Date.now();
     column.save();
-    this.redirect(this.app.url('columns-articles-show', {column_id: this.params.column_id, article_id: article._id}));
+    ctx.redirect(ctx.app.url('columns-articles-show', {column_id: ctx.params.column_id, article_id: article._id}));
 };
 
-exports.destroy = function *(next) {
+exports.destroy = async (ctx, next) => {
     let Article = global.database.models.article;
     let Comment = global.database.models.comment;
-    let article = yield Article.findById(this.params.article_id);
-    yield Comment.remove({journal_id: article._id});
+    let article = await Article.findById(ctx.params.article_id);
+    await Comment.remove({journal_id: article._id});
     article.remove();
-    this.redirect(this.app.url('columns-show', {column_id: this.params.column_id}));
+    ctx.redirect(ctx.app.url('columns-show', {column_id: ctx.params.column_id}));
 };
 
 exports.comments = require('./comments');

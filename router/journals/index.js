@@ -9,30 +9,32 @@ let likes_router = require('./likes');
 let authentication = require('../../middlewares/authentication');
 let set_redirection = require('../../middlewares/set_redirection');
 let visit_recorder = require('../../middlewares/visit_recorder');
+let module_naming = require('../../middlewares/module_naming');
+let routerUtils = require('../../libs/routerUtil');
 
-module.exports = function(app) {
+let Router = require('koa-router');
+let router = new Router({
+    prefix: "/journals"
+});
 
-    let current_module = function *(next) {
-        this.current_module = "journal";
-        yield next;
-    };
+router.use(module_naming("journal"));
 
-    app.get('journals-index', '/journals', visit_recorder, set_redirection, current_module, journals_controller.index);
+router.get('journals-index', '/', visit_recorder, set_redirection, journals_controller.index);
 
-    app.get('journals-new', '/journals/new', visit_recorder, set_redirection, current_module, authentication.admin_only, journals_controller.init);
+router.get('journals-new', '/new', visit_recorder, set_redirection, authentication.admin_only, journals_controller.init);
 
-    app.get('journals-show', '/journals/:journal_id', visit_recorder, set_redirection, current_module, journals_controller.show);
+router.get('journals-show', '/:journal_id', visit_recorder, set_redirection, journals_controller.show);
 
-    app.get('journals-edit', '/journals/:journal_id/edit', visit_recorder, set_redirection, current_module, authentication.admin_only, journals_controller.edit);
+router.get('journals-edit', '/:journal_id/edit', visit_recorder, set_redirection, authentication.admin_only, journals_controller.edit);
 
-    app.post('journals-create', '/journals', visit_recorder, current_module, authentication.admin_only, journals_controller.create);
+router.post('journals-create', '/', visit_recorder, authentication.admin_only, journals_controller.create);
 
-    app.put('journals-update', '/journals/:journal_id', visit_recorder, current_module, authentication.admin_only, journals_controller.update);
+router.put('journals-update', '/:journal_id', visit_recorder, authentication.admin_only, journals_controller.update);
 
-    app.del('journals-destroy', '/journals/:journal_id', visit_recorder, current_module, authentication.admin_only, journals_controller.destroy);
+router.del('journals-destroy', '/:journal_id', visit_recorder, authentication.admin_only, journals_controller.destroy);
 
-    comment_router(app);
+routerUtils.mount(router, comment_router);
 
-    likes_router(app);
+routerUtils.mount(router, likes_router);
 
-};
+module.exports = router;

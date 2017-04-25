@@ -7,26 +7,27 @@ let projects_controller = require('../../controller').projects;
 let authentication = require('../../middlewares/authentication');
 let set_redirection = require('../../middlewares/set_redirection');
 let visit_recorder = require('../../middlewares/visit_recorder');
+let module_naming = require('../../middlewares/module_naming');
 
-module.exports = function(app) {
+let Router = require('koa-router');
+let router = new Router({
+    prefix: "/projects"
+});
 
-    let current_module = function *(next) {
-        this.current_module = "project";
-        yield next;
-    };
+router.use(module_naming("project"));
 
-    app.get("projects-index", '/projects', visit_recorder, set_redirection, current_module, projects_controller.index);
+router.get("projects-index", '/', visit_recorder, set_redirection, projects_controller.index);
 
-    app.get("projects-new", '/projects/new', visit_recorder, set_redirection, authentication.admin_only, current_module, projects_controller.init);
+router.get("projects-new", '/new', visit_recorder, set_redirection, authentication.admin_only, projects_controller.init);
 
-    app.get("projects-show", '/projects/:project_id', visit_recorder, set_redirection, current_module, projects_controller.show);
+router.get("projects-show", '/:project_id', visit_recorder, set_redirection, projects_controller.show);
 
-    app.get("projects-edit", '/projects/:project_id/edit', visit_recorder, set_redirection, authentication.admin_only, current_module, projects_controller.edit);
+router.get("projects-edit", '/:project_id/edit', visit_recorder, set_redirection, authentication.admin_only, projects_controller.edit);
 
-    app.post("projects-create", '/projects', visit_recorder, authentication.admin_only, current_module, projects_controller.create);
+router.post("projects-create", '/', visit_recorder, authentication.admin_only, projects_controller.create);
 
-    app.put("projects-update", '/projects/:project_id', visit_recorder, authentication.admin_only, current_module, projects_controller.update);
+router.put("projects-update", '/:project_id', visit_recorder, authentication.admin_only, projects_controller.update);
 
-    app.del("projects-destroy", '/projects/:project_id', visit_recorder, authentication.admin_only, current_module, projects_controller.destroy);
+router.del("projects-destroy", '/:project_id', visit_recorder, authentication.admin_only, projects_controller.destroy);
 
-};
+module.exports = router;

@@ -6,10 +6,9 @@
 let diaries_controller = require('../../controller').diaries;
 let authentication = require('../../middlewares/authentication');
 let path = require('path');
-let config = require('../../config/config')();
 let visit_recorder = require('../../middlewares/visit_recorder');
 let set_redirection = require('../../middlewares/set_redirection');
-var module_naming = require('../../middlewares/module_naming');
+let module_naming = require('../../middlewares/module_naming');
 
 let Router = require('koa-router');
 let router = new Router({

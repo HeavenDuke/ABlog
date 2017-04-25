@@ -13,38 +13,38 @@ let photo_router = require('./photos');
 let link_router = require('./links');
 let share_router = require('./share');
 let profile_router = require('./profile');
-let config_router = require('./config');
+let routerUtils = require('../libs/routerUtil');
 
 let visit_recorder = require('../middlewares/visit_recorder');
 let set_redirection = require('../middlewares/set_redirection');
 
-module.exports = function(app){
-    //首页
-    app.get('home', '/', visit_recorder, set_redirection, home_controller.index);
+let Router = require('koa-router');
+let router = new Router();
 
-    app.post('updataHshare', "/hshare", function *(next) {
-        this.response.set("Access-Control-Allow-Origin", "*");
-        this.body = {message: "success"};
-    });
+router.get('home', '/', visit_recorder, set_redirection, home_controller.index);
 
-    app.get('loadHshare', "/hshare", function *(next) {
-        this.response.set("Access-Control-Allow-Origin", "*");
-        this.body = {stat: 1000};
-    });
+router.post('updataHshare', "/hshare", function *(next) {
+    this.response.set("Access-Control-Allow-Origin", "*");
+    this.body = {message: "success"};
+});
 
-    user_router(app);
-    guest_router(app);
-    project_router(app);
-    journal_router(app);
-    diary_router(app);
-    column_router(app);
-    image_router(app);
-    writing_router(app);
-    notification_router(app);
-    photo_router(app);
-    link_router(app);
-    share_router(app);
-    profile_router(app);
-    config_router(app);
-    
-};
+router.get('loadHshare', "/hshare", function *(next) {
+    this.response.set("Access-Control-Allow-Origin", "*");
+    this.body = {stat: 1000};
+});
+
+// routerUtils.mount(app, user_router);
+// routerUtils.mount(app, guest_router);
+// routerUtils.mount(app, project_router);
+// routerUtils.mount(app, journal_router);
+routerUtils.mount(router, diary_router);
+// routerUtils.mount(app, column_router);
+// routerUtils.mount(app, image_router);
+// routerUtils.mount(app, writing_router);
+// routerUtils.mount(app, notification_router);
+// routerUtils.mount(app, photo_router);
+// routerUtils.mount(app, link_router);
+// routerUtils.mount(app, share_router);
+routerUtils.mount(router, profile_router);
+
+module.exports = router;

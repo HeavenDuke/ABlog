@@ -3,31 +3,31 @@
  */
 "use strict";
 
-exports.index = function *(next) {
+exports.index = async (ctx, next) => {
     let Journal = global.database.models.journal;
     let Diary = global.database.models.diary;
     let Photo = global.database.models.photo;
     let Link = global.database.models.link;
     let User = global.database.models.user;
     let Article = global.database.models.article;
-    let articles = yield Article.find({}).sort({updated_at: -1}).limit(global.conf.pagination.column);
+    let articles = await Article.find({}).sort({updated_at: -1}).limit(global.conf.pagination.column);
     let journals = {}, diary = {}, photos = {}, links = {}, user = {};
-    user = yield User.findOne({});
-    if (this.session.user) {
-        journals = yield Journal.find({}).sort({updated_at: -1}).limit(global.conf.homepage.pagination.journal);
-        diary = yield Diary.find({}).sort({recorded_date: -1}).limit(1).findOne({});
+    user = await User.findOne({});
+    if (ctx.session.user) {
+        journals = await Journal.find({}).sort({updated_at: -1}).limit(global.conf.homepage.pagination.journal);
+        diary = await Diary.find({}).sort({recorded_date: -1}).limit(1).findOne({});
     }
     else {
-        journals = yield Journal.find({is_public: true}).sort({updated_at: -1}).limit(global.conf.homepage.pagination.journal);
-        diary = yield Diary.find({is_public: true}).sort({recorded_date: -1}).limit(1).findOne({});
+        journals = await Journal.find({is_public: true}).sort({updated_at: -1}).limit(global.conf.homepage.pagination.journal);
+        diary = await Diary.find({is_public: true}).sort({recorded_date: -1}).limit(1).findOne({});
     }
-    photos = yield Photo.find({}).sort({created_at: -1}).limit(global.conf.homepage.pagination.photo);
-    links = yield Link.find({}).sort({name: 1});
-    this.render('index', {
+    photos = await Photo.find({}).sort({created_at: -1}).limit(global.conf.homepage.pagination.photo);
+    links = await Link.find({}).sort({name: 1});
+    ctx.render('index', {
         title: "HeavenDuke的博客",
-        current_user: this.session.user,
-        current_guest: this.session.guest,
-        redirect_url: this.request.url,
+        current_user: ctx.session.user,
+        current_guest: ctx.session.guest,
+        redirect_url: ctx.request.url,
         photos: photos,
         journals: journals,
         diary: diary,

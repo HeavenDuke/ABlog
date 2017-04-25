@@ -3,36 +3,36 @@
  * Created by Obscurity on 2017/2/17.
  */
 
-exports.show = function *(next) {
+exports.show = async (ctx, next) => {
     let User = global.database.models.user;
-    let user = yield User.findOne({});
-    this.render('./profiles/show', {
+    let user = await User.findOne({});
+    ctx.render('./profiles/show', {
         title: "个人简历",
         user: user,
-        current_guest: this.session.guest,
-        current_user: this.session.user,
-        current_module: this.current_module,
-        redirect_url: this.request.url
+        current_guest: ctx.session.guest,
+        current_user: ctx.session.user,
+        current_module: ctx.current_module,
+        redirect_url: ctx.request.url
     }, true);
 };
 
-exports.edit = function *(next) {
+exports.edit = async (ctx, next) => {
     let User = global.database.models.user;
-    let user = yield User.findById(this.session.user._id);
+    let user = await User.findById(ctx.session.user._id);
     this.render('./profiles/edit', {
         "title": "编辑简历",
         user: user,
-        current_guest: this.session.guest,
-        current_user: this.session.user,
-        current_module: this.current_module,
-        redirect_url: this.request.url
+        current_guest: ctx.session.guest,
+        current_user: ctx.session.user,
+        current_module: ctx.current_module,
+        redirect_url: ctx.request.url
     }, true);
 };
 
-exports.update = function *(next) {
+exports.update = async (ctx, next) => {
     let User = global.database.models.user;
-    let user = yield User.findById(this.session.user._id);
-    user.profile = !this.request.body.profile ? "" : this.request.body.profile;
+    let user = await User.findById(ctx.session.user._id);
+    user.profile = !ctx.request.body.profile ? "" : ctx.request.body.profile;
     user.save();
-    this.redirect(this.app.url('profiles-show'));
+    ctx.redirect(ctx.app.url('profiles-show'));
 };

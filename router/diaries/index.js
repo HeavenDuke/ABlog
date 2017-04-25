@@ -9,20 +9,21 @@ let path = require('path');
 let config = require('../../config/config')();
 let visit_recorder = require('../../middlewares/visit_recorder');
 let set_redirection = require('../../middlewares/set_redirection');
+var module_naming = require('../../middlewares/module_naming');
 
-module.exports = function(app) {
+let Router = require('koa-router');
+let router = new Router({
+    prefix: "/diaries"
+});
 
-    let current_module = function *(next) {
-        this.current_module = "diary";
-        yield next;
-    };
+router.use(module_naming("diary"));
 
-    app.get('diaries-index', '/diaries', visit_recorder, set_redirection, current_module, diaries_controller.index);
+router.get('diaries-index', '/', visit_recorder, set_redirection, diaries_controller.index);
 
-    app.post('diaries-create', '/diaries', visit_recorder, current_module, authentication.admin_only, diaries_controller.create);
+router.post('diaries-create', '/', visit_recorder, authentication.admin_only, diaries_controller.create);
 
-    app.put('diaries-update', '/diaries/:diary_id', visit_recorder, current_module, authentication.admin_only, diaries_controller.update);
+router.put('diaries-update', '/:diary_id', visit_recorder, authentication.admin_only, diaries_controller.update);
 
-    app.del('diaries-destroy', '/diaries/:diary_id', visit_recorder, current_module, authentication.admin_only, diaries_controller.destroy);
+router.del('diaries-destroy', '/:diary_id', visit_recorder, authentication.admin_only, diaries_controller.destroy);
 
-};
+module.exports = router;

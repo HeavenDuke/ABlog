@@ -12,33 +12,33 @@ function get_thumb_path(image_path) {
     return path.join(dirname, path.basename(image_path, extname) + "_thumb" + extname);
 }
 
-exports.index = function *() {
+exports.index = async (ctx, next) => {
     let Diary = global.database.models.diary;
-    let offset = this.request.query.offset ? parseInt(this.request.query.offset) : 0;
-    let render_page = this.request.query.render != 'false';
-    let diaries = yield Diary.find({}).sort({
+    let offset = ctx.request.query.offset ? parseInt(ctx.request.query.offset) : 0;
+    let render_page = ctx.request.query.render != 'false';
+    let diaries = await Diary.find({}).sort({
         recorded_date: -1,
         recorded_at: -1
     }).skip(offset).limit(global.conf.pagination.diary);
-    let render_loader = (yield Diary.count({})) > offset + global.conf.pagination.diary;
+    let render_loader = (await Diary.count({})) > offset + global.conf.pagination.diary;
     if (render_page) {
-        this.render('diaries/index', {
+        ctx.render('diaries/index', {
             title: "每日小记",
-            current_guest: this.session.guest,
-            current_user: this.session.user,
+            current_guest: ctx.session.guest,
+            current_user: ctx.session.user,
             diaries: diaries,
             Diary: Diary,
             render_loader: render_loader,
-            current_module: this.current_module,
+            current_module: ctx.current_module,
             mood_list: Diary.mood_list(),
             tag_list: Diary.tag_list(),
-            redirect_url: this.request.url
+            redirect_url: ctx.request.url
         });
     }
     else {
         let result = "";
         for (let i = 0; i < diaries.length; i++) {
-            result += diaries[i].get_diary_container(!!this.session.user);
+            result += diaries[i].get_diary_container(!!ctx.session.user);
         }
         if (render_loader) {
             result += "<a id='scroller' href='/diaries?render=false&offset=" + (offset + global.conf.pagination.diary) + "'></a>";
@@ -51,14 +51,14 @@ exports.index = function *() {
             result += "</div>";
             result += "</li>";
         }
-        this.body = result;
+        ctx.body = result;
     }
 };
 
-exports.create = function *(next) {
+exports.create = async (ctx, next) => {
     let Diary = global.database.models.diary;
     let diary = new Diary();
-    let fields = this.request.body;
+    let fields = ctx.request.body;
     diary.brief = fields.brief;
     diary.mood = fields.mood;
     diary.tag = fields.tag;
@@ -67,13 +67,13 @@ exports.create = function *(next) {
     diary.recorded_date = new Date(fields.recorded_date);
     diary.images = JSON.parse(fields.image_ids);
     diary.save();
-    this.redirect(this.app.url("diaries-index"));
+    ctx.redirect(ctx.app.url("diaries-index"));
 };
 
-exports.update = function *(next) {
+exports.update = async (ctx, next) => {
     let Diary = global.database.models.diary;
-    let diary = yield Diary.findById(this.params.diary_id);
-    let fields = this.request.body;
+    let diary = await Diary.findById(ctx.params.diary_id);
+    let fields = ctx.request.body;
     diary.brief = fields.brief;
     diary.content = fields.content;
     diary.mood = fields.mood;
@@ -82,18 +82,18 @@ exports.update = function *(next) {
     diary.recorded_date = new Date(fields.recorded_date);
     diary.images = JSON.parse(fields.image_ids);
     diary.save();
-    this.redirect(this.app.url("diaries-index"));
+    ctx.redirect(ctx.app.url("diaries-index"));
 };
 
-exports.destroy = function *() {
+exports.destroy = async (ctx, next) => {
     let Diary = global.database.models.diary;
-    let diary = yield Diary.findById(this.params.diary_id);
+    let diary = await Diary.findById(ctx.params.diary_id);
     let static_paths = diary.images;
     for (let i = 0; i < static_paths.length; i++) {
         let image_path = static_paths[i];
-        yield fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", image_path));
-        yield fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", get_thumb_path(image_path)));
+        await fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", image_path));
+        await fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", get_thumb_path(image_path)));
     }
     diary.remove();
-    this.redirect(this.app.url("diaries-index"));
+    ctx.redirect(ctx.app.url("diaries-index"));
 };

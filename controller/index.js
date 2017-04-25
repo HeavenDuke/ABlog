@@ -14,6 +14,5 @@ module.exports = {
     links: require('./links'),
     home: require('./home'),
     shares: require('./shares'),
-    profiles: require('./profiles'),
-    config: require('./config')
+    profiles: require('./profiles')
 };

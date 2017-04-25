@@ -33,7 +33,6 @@
     "imagesloaded": "^4.1.1",
     "jscroll": "^2.3.5",
     "hshare": "^1.1.6",
-    "iCheck": "^1.0.2",
-    "qiniu": "^1.0.19"
+    "iCheck": "^1.0.2"
   }
 }

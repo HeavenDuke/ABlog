@@ -5,7 +5,7 @@
 
 global.Promise = require('bluebird');
 let debug = require('debug')('ablog');
-let koa = require('koa');
+let Koa = require('koa');
 let flash = require('koa-flash');
 //配置文件
 let config = require('../config/config')(__dirname);
@@ -22,10 +22,10 @@ let koaStatic = require('koa-static');
 let marked = require('marked');
 let astepback = require('astepback');
 //路由
-let router = require('koa-router');
 let validator = require('koa-validator');
 
-let appRouter = require('../router');
+let routers = require('../router');
+let routerUtils = require('../libs/routerUtil');
 let path = require('path');
 let fs = require('fs');
 let mongoose = require('mongoose');
@@ -34,7 +34,7 @@ function Server(option) {
     this.opts = option || {};
 }
 
-Server.prototype = koa();
+Server.prototype = new Koa();
 
 Server.prototype.create_folders = function () {
     if (!fs.existsSync(path.join(config.baseDir, "backups"))) {
@@ -113,15 +113,9 @@ Server.prototype.start = function () {
         }
     });
 
-    this.use(router(this));
-
-    appRouter(this);
+    routerUtils.mount(this, routers);
 
     this.listen(port);
-
-    this.on('error', function (err, ctx) {
-
-    });
     
     console.log('listening on port %s',config.port);
 };

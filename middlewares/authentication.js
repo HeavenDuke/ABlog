@@ -3,50 +3,48 @@
  * Created by heavenduke on 16-5-6.
  */
 
-exports.admin_only = function *(next) {
-    if (this.session.user) {
-        yield next;
-    }
-    else {
-        this.flash = { error: "请先登录"};
-        this.redirect(this.app.url("users-sessions-new"));
-    }
-};
-
-exports.guest_only = function *(next) {
-    if (this.session.guest) {
-        yield next;
-    }
-    else {
-        this.flash = { error: "请先登录"};
-        this.redirect(this.app.url("guests-sessions-new"));
-    }
-};
-
-exports.cross_auth = function *(next) {
-    if (this.session.guest || this.session.user) {
-        yield next;
-    }
-    else {
-        this.flash = { error: "请先登录"};
-        this.redirect(this.app.url("guests-sessions-new"));
-    }
-};
-
-exports.auth_none = function *(next) {
-    if (this.session.guest || this.session.user) {
-        this.redirect('/');
-    }
-    else {
-        yield next;
-    }
-};
-
-exports.auth_confirmation_token = function *(next) {
-    if (this.session.confirmation_token) {
-        yield next;
-    }
-    else {
-        this.redirect('/');
+module.exports = {
+    admin_only: async (ctx, next) => {
+        if (ctx.session.user) {
+            await next();
+        }
+        else {
+            ctx.flash = { error: "请先登录"};
+            ctx.redirect(ctx.app.url("users-sessions-new"));
+        }
+    },
+    guest_only: async (ctx, next) => {
+        if (ctx.session.guest) {
+            await next();
+        }
+        else {
+            ctx.flash = { error: "请先登录"};
+            ctx.redirect(ctx.app.url("guests-sessions-new"));
+        }
+    },
+    cross_auth: async (ctx, next) => {
+        if (ctx.session.guest || ctx.session.user) {
+            await next();
+        }
+        else {
+            ctx.flash = { error: "请先登录"};
+            ctx.redirect(ctx.app.url("guests-sessions-new"));
+        }
+    },
+    auth_none: async (ctx, next) => {
+        if (ctx.session.guest || ctx.session.user) {
+            ctx.redirect('/');
+        }
+        else {
+            await next();
+        }
+    },
+    auth_confirmation_token: async (ctx, next) => {
+        if (ctx.session.confirmation_token) {
+            await next();
+        }
+        else {
+            ctx.redirect('/');
+        }
     }
 };

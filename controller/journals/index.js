@@ -198,7 +198,7 @@ exports.show = async (ctx, next) => {
         }, true);
     }
     else {
-        ctx.redirect(ctx.app.url('journals-index'));
+        ctx.redirect("/journals");
     }
 };
 
@@ -241,8 +241,7 @@ exports.create = async (ctx, next) => {
     });
     await journal.save();
     await stat.save();
-    console.log(ctx);
-    ctx.redirect(ctx.app.url("journals-show", {journal_id: journal._id}));
+    ctx.redirect("/journals/" + journal._id);
 };
 
 exports.edit = async (ctx, next) => {
@@ -300,7 +299,7 @@ exports.update = async (ctx, next) => {
     });
     await journal.save();
     await stat.save();
-    ctx.redirect(ctx.app.url('journals-update', {journal_id: journal._id}));
+    ctx.redirect("/journals/" + journal._id);
 };
 
 exports.destroy = async (ctx, next) => {
@@ -309,7 +308,7 @@ exports.destroy = async (ctx, next) => {
     let journal = await Journal.findById(ctx.params.journal_id);
     await Comment.remove({journal_id: journal._id});
     journal.remove();
-    ctx.redirect(ctx.app.url('journals-index'));
+    ctx.redirect("/journals");
 };
 
 exports.comments = require('./comments');

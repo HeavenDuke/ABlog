@@ -149,6 +149,7 @@ Server.prototype.initGlobalVariables = function() {
         journalPreview: require('../libs/journalPreview'),
         urlEncoder: require('../libs/urlEncoder')
     };
+    global.router = routers;
     global.utils.markdown.setOptions({
         renderer: (function () {
             let renderer = new marked.Renderer();

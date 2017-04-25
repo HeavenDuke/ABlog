@@ -34,5 +34,5 @@ exports.update = async (ctx, next) => {
     let user = await User.findById(ctx.session.user._id);
     user.profile = !ctx.request.body.profile ? "" : ctx.request.body.profile;
     user.save();
-    ctx.redirect(ctx.app.url('profiles-show'));
+    ctx.redirect("/profile");
 };

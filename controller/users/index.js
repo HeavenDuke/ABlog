@@ -25,7 +25,7 @@ exports.update = async (ctx, next) => {
         user.password = user.encasePassword(passwordSet.new);
         user.save();
         ctx.flash = {info: "修改成功"};
-        ctx.redirect(ctx.app.url("users-edit"));
+        ctx.redirect("/users/edit");
     }
     else {
         if (!user.validatePassword(passwordSet.previous)) {
@@ -34,7 +34,7 @@ exports.update = async (ctx, next) => {
         else {
             ctx.flash = {error: "两次密码不一致，请重新输入"};
         }
-        ctx.redirect(ctx.app.url("users-edit"));
+        ctx.redirect("/users/edit");
     }
 };
 

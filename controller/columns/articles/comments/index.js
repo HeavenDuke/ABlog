@@ -20,10 +20,7 @@ exports.create = async (ctx, next) => {
     comment.save();
     article.comment_count += 1;
     article.save();
-    ctx.redirect(ctx.app.url("columns-articles-show", {
-        column_id: ctx.params.column_id,
-        article_id: ctx.params.article_id
-    }));
+    ctx.redirect("/columns/" + ctx.params.column_id + "/articles/" + ctx.params.article_id);
 };
 
 exports.destroy = async (ctx, next) => {
@@ -35,10 +32,7 @@ exports.destroy = async (ctx, next) => {
     comment.remove();
     article.comment_count -= 1;
     article.save();
-    ctx.redirect(ctx.app.url("columns-articles-show", {
-        column_id: ctx.params.column_id,
-        article_id: ctx.params.article_id
-    }));
+    ctx.redirect("/columns/" + ctx.params.column_id + "/articles/" + ctx.params.article_id);
 };
 
 exports.replies = require('./replies');

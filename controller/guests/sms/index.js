@@ -60,15 +60,15 @@ exports.update = async (ctx, next) => {
             ctx.session.confirmation_token = confirmation_token;
             guest.confirmation_token = confirmation_token;
             guest.save();
-            ctx.redirect(ctx.app.url("guests-passwords-new"));
+            ctx.redirect("/guests/passwords/new");
         }
         else {
             ctx.flash = {error: "验证码错误，请重新输入"};
-            ctx.redirect(ctx.app.url("guests-sms-new"));
+            ctx.redirect("/guests/sms/new");
         }
     }
     else {
         ctx.flash = {error: "用户不存在，请重新输入"};
-        ctx.redirect(ctx.app.url("guests-sms-new"));
+        ctx.redirect("/guests/sms/new");
     }
 };

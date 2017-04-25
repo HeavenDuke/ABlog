@@ -41,16 +41,16 @@ exports.create = async (ctx, next) => {
         }
         else if (!Guest.validateConfirmPassword(ctx.request.body.password, ctx.request.body.confirm_password)) {
             ctx.flash = {error: "两次输入密码不一致，请重新输入"};
-            ctx.redirect(ctx.app.url('guests-init'));
+            ctx.redirect("/guests/new");
         }
         else {
             ctx.flash = {error: "密码长度在6-16位之间"};
-            ctx.redirect(ctx.app.url('guests-init'));
+            ctx.redirect("/guests/new");
         }
     }
     else {
         ctx.flash = {error: "邮箱已被注册，请重新输入"};
-        ctx.redirect(ctx.app.url('guests-new'));
+        ctx.redirect("/guests/new");
     }
 };
 
@@ -106,7 +106,7 @@ exports.update = async (ctx, next) => {
     }
     guest.save();
     writeGuestInfo(ctx.session, guest);
-    ctx.redirect(ctx.app.url("guests-edit"));
+    ctx.redirect("/guests/edit");
 };
 
 exports.sessions = require('./sessions');

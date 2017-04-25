@@ -28,7 +28,7 @@ exports.create = async (ctx, next) => {
     let user = await User.findOne(userQuery);
     if (!user || !user.validatePassword(ctx.request.body.password)) {
         ctx.flash = {error: "您输入的用户名或密码有误，请重新输入"};
-        ctx.redirect(ctx.app.url("users-sessions-new"));
+        ctx.redirect("/users/sessions/new");
     }
     else {
         writeUserInfo(ctx.session, user);

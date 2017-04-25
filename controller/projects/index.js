@@ -47,7 +47,7 @@ exports.create = async (ctx, next) => {
     project.started_at = new Date(ctx.request.body.started_at);
     project.closed_at = ctx.request.body.closed_at ? new Date(ctx.request.body.closed_at) : null;
     project.save();
-    ctx.redirect(ctx.app.url("projects-index"));
+    ctx.redirect("/projects");
 };
 
 exports.edit = async (ctx, next) => {
@@ -71,12 +71,12 @@ exports.update = async (ctx, next) => {
     project.started_at = new Date(ctx.request.body.started_at);
     project.closed_at = ctx.request.body.closed_at ? new Date(ctx.request.body.closed_at) : null;
     project.save();
-    ctx.redirect(ctx.app.url("projects-index"));
+    ctx.redirect("/projects");
 };
 
 exports.destroy = async (ctx, next) => {
     let Project = global.database.models.project;
     let project = await Project.findById(ctx.params.project_id);
     project.remove();
-    ctx.redirect(ctx.app.url("projects-index"));
+    ctx.redirect("/projects");
 };

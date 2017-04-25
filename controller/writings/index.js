@@ -31,5 +31,5 @@ exports.update = async (ctx, next) => {
     }
     writing.count = parseInt(ctx.request.body.count);
     writing.save();
-    ctx.redirect(ctx.app.url('writings-index'));
+    ctx.redirect("/writings");
 };

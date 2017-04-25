@@ -142,7 +142,7 @@ exports.create = async (ctx, next) => {
     article.save();
     column.updated_at = Date.now();
     column.save();
-    ctx.redirect(ctx.app.url("columns-articles-show", {column_id: ctx.params.column_id, article_id: article._id}));
+    ctx.redirect("/columns/" + ctx.params.column_id + "/articles/" + article._id);
 };
 
 exports.edit = async (ctx, next) => {
@@ -171,7 +171,7 @@ exports.update = async (ctx, next) => {
     article.save();
     column.updated_at = Date.now();
     column.save();
-    ctx.redirect(ctx.app.url('columns-articles-show', {column_id: ctx.params.column_id, article_id: article._id}));
+    ctx.redirect("/columns/" + ctx.params.column_id + "/articles/" + article._id);
 };
 
 exports.destroy = async (ctx, next) => {
@@ -180,7 +180,7 @@ exports.destroy = async (ctx, next) => {
     let article = await Article.findById(ctx.params.article_id);
     await Comment.remove({journal_id: article._id});
     article.remove();
-    ctx.redirect(ctx.app.url('columns-show', {column_id: ctx.params.column_id}));
+    ctx.redirect("/columns/" + ctx.params.column_id);
 };
 
 exports.comments = require('./comments');

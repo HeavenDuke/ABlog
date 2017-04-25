@@ -58,7 +58,7 @@ exports.create = async (ctx, next) => {
         introduction: ctx.request.body.introduction,
         tags: tags
     });
-    ctx.redirect(ctx.app.url("columns-show", {"column_id": column._id}));
+    ctx.redirect("/columns/" + column._id);
 };
 
 exports.edit = async (ctx, next) => {
@@ -86,7 +86,8 @@ exports.update = async (ctx, next) => {
         column.tags.push({name: tag});
     });
     await column.save();
-    ctx.redirect(ctx.app.url("columns-show", {"column_id": column._id}));
+
+    ctx.redirect("/columns/" + column._id);
 };
 
 exports.destroy = async (ctx, next) => {
@@ -94,7 +95,7 @@ exports.destroy = async (ctx, next) => {
     let Article = global.database.models.article;
     await Column.findByIdAndRemove(ctx.params.column_id);
     await Article.remove({column_id: ctx.params.column_id});
-    ctx.redirect(ctx.app.url("columns-index"));
+    ctx.redirect("/columns");
 };
 
 exports.articles = require('./articles');

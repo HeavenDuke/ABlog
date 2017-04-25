@@ -25,8 +25,5 @@ exports.create = async (ctx, next) => {
             }
         }
     }
-    ctx.redirect(ctx.app.url("columns-articles-show", {
-        column_id: ctx.params.column_id,
-        article_id: ctx.params.article_id
-    }));
+    ctx.redirect("/columns/" + ctx.params.column_id + "/articles/" + ctx.params.article_id);
 };

@@ -26,5 +26,5 @@ exports.create = async (ctx, next) => {
             }
         }
     }
-    ctx.redirect(ctx.app.url("journals-show", {journal_id: ctx.params.journal_id}));
+    ctx.redirect("/journals/" + ctx.params.journal_id);
 };

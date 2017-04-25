@@ -19,7 +19,7 @@ exports.create = async (ctx, next) => {
     comment.save();
     journal.comment_count += 1;
     journal.save();
-    ctx.redirect(ctx.app.url('journals-show', {journal_id: ctx.params.journal_id}));
+    ctx.redirect("/journals/" + ctx.params.journal_id);
 };
 
 exports.destroy = async (ctx, next) => {
@@ -30,7 +30,7 @@ exports.destroy = async (ctx, next) => {
     comment.remove();
     journal.comment_count -= 1;
     journal.save();
-    ctx.redirect(ctx.app.url('journals-show', {journal_id: comment.journal_id}));
+    ctx.redirect("/journals/" + comment.journal_id);
 };
 
 exports.replies = require('./replies');

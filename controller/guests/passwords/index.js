@@ -18,7 +18,7 @@ exports.create = async (ctx, next) => {
             if (ctx.request.body.password.length >= 6 && ctx.request.body.password.length <= 16 && Guest.validateConfirmPassword(ctx.request.body.password, ctx.request.body.confirm_password)) {
                 guest.password = guest.encasePassword(ctx.request.body.password);
                 guest.save();
-                ctx.redirect(ctx.app.url("guests-sessions-new"));
+                ctx.redirect("/guests/sessions");
             }
         }
         else {

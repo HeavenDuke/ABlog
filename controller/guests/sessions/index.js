@@ -29,7 +29,7 @@ exports.create = async (ctx, next) => {
     let guest = await Guest.findOne(guest_query);
     if (!guest || !guest.validatePassword(ctx.request.body.password)) {
         ctx.flash = {error: "用户不存在或密码错误，请重新输入"};
-        ctx.redirect(ctx.app.url("guests-sessions-new"));
+        ctx.redirect("/guests/sessions/new");
     }
     else {
         writeGuestInfo(ctx.session, guest);

@@ -9,12 +9,12 @@ exports.create = async (ctx, next) => {
     link.name = ctx.request.body.name;
     link.url = ctx.request.body.url;
     link.save();
-    ctx.redirect(ctx.app.url("home"));
+    ctx.redirect("/");
 };
 
 exports.destroy = async (ctx, next) => {
     let Link = global.database.models.link;
     let link = await Link.findById(ctx.params.link_id);
     link.remove();
-    ctx.redirect(ctx.app.url("home"));
+    ctx.redirect("/");
 };

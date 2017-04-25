@@ -67,7 +67,7 @@ exports.create = async (ctx, next) => {
     diary.recorded_date = new Date(fields.recorded_date);
     diary.images = JSON.parse(fields.image_ids);
     diary.save();
-    ctx.redirect(ctx.app.url("diaries-index"));
+    ctx.redirect("/diaries");
 };
 
 exports.update = async (ctx, next) => {
@@ -82,7 +82,7 @@ exports.update = async (ctx, next) => {
     diary.recorded_date = new Date(fields.recorded_date);
     diary.images = JSON.parse(fields.image_ids);
     diary.save();
-    ctx.redirect(ctx.app.url("diaries-index"));
+    ctx.redirect("/diaries");
 };
 
 exports.destroy = async (ctx, next) => {
@@ -95,5 +95,5 @@ exports.destroy = async (ctx, next) => {
         await fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", get_thumb_path(image_path)));
     }
     diary.remove();
-    ctx.redirect(ctx.app.url("diaries-index"));
+    ctx.redirect("/diaries");
 };

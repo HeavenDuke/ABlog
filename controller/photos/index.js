@@ -71,7 +71,7 @@ exports.create = async (ctx, next) => {
     photo.created_at = new Date(ctx.request.body.fields.created_at);
     photo.path = image_path;
     photo.save();
-    ctx.redirect(ctx.app.url("photos-index"));
+    ctx.redirect("/photos");
 };
 
 exports.destroy = async (ctx, next) => {
@@ -82,5 +82,5 @@ exports.destroy = async (ctx, next) => {
     await fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", image_tools.get_thumb_path(static_photo)));
     await fs.unlinkAsync(path.join(global.conf.staticDir, "uploads", image_tools.get_preview_path(static_photo)));
     photo.remove();
-    ctx.redirect(ctx.app.url('photos-index'));
+    ctx.redirect("/photos");
 };

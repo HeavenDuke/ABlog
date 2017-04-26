@@ -29,16 +29,15 @@
     };
 
     var prepare_profile_detail = function () {
-        var profile_content_container = $("#profile-content");
-        profile_content_container.html(profile_content_container.text());
         MathJax.Hub.Config({
             tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
         });
-        setTimeout(function () {
-            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-        }, 1000);
-        $('pre code').each(function () {
-            hljs.highlightBlock(this);
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub], function () {
+            var profile_content_container = $("#profile-content");
+            profile_content_container.html(marked(profile_content_container.text()));
+            $('pre code').each(function () {
+                hljs.highlightBlock(this);
+            });
         });
         prepare_profile_share();
     };

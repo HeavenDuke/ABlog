@@ -10,7 +10,7 @@ module.exports = {
         }
         else {
             ctx.flash = { error: "请先登录"};
-            ctx.redirect(ctx.app.url("users-sessions-new"));
+            ctx.redirect("/users/sessions/new");
         }
     },
     guest_only: async (ctx, next) => {
@@ -19,7 +19,7 @@ module.exports = {
         }
         else {
             ctx.flash = { error: "请先登录"};
-            ctx.redirect(ctx.app.url("guests-sessions-new"));
+            ctx.redirect("/guests/sessions/new");
         }
     },
     cross_auth: async (ctx, next) => {
@@ -28,7 +28,7 @@ module.exports = {
         }
         else {
             ctx.flash = { error: "请先登录"};
-            ctx.redirect(ctx.app.url("guests-sessions-new"));
+            ctx.redirect("/guests/sessions/new");
         }
     },
     auth_none: async (ctx, next) => {

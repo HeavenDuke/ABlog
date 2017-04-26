@@ -19,7 +19,7 @@ exports.show = async (ctx, next) => {
 exports.edit = async (ctx, next) => {
     let User = global.database.models.user;
     let user = await User.findById(ctx.session.user._id);
-    this.render('./profiles/edit', {
+    ctx.render('./profiles/edit', {
         "title": "编辑简历",
         user: user,
         current_guest: ctx.session.guest,

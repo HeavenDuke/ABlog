@@ -66,7 +66,7 @@ exports.create = async (ctx, next) => {
     diary.is_public = !!fields.is_public;
     diary.recorded_date = new Date(fields.recorded_date);
     diary.images = JSON.parse(fields.image_ids);
-    diary.save();
+    await diary.save();
     ctx.redirect("/diaries");
 };
 

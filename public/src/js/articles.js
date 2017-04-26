@@ -3,7 +3,6 @@
  */
 
 (function() {
-
     MathJax.Hub.Config({
         tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
     });
@@ -54,7 +53,7 @@
                     container: owos[i],
                     target: document.getElementById(comment_id + "_comment_reply"),
                     position: 'down',
-                    api: "/OwO/OwO.json",
+                    api: "/data/OwO.json",
                     width: '100%',
                     maxHeight: '250px'
                 });
@@ -65,7 +64,7 @@
                     container: owos[i],
                     target: document.getElementById('comment_input'),
                     position: 'down',
-                    api: "/OwO/OwO.json",
+                    api: "/data/OwO.json",
                     width: '100%',
                     maxHeight: '250px'
                 });

@@ -93,13 +93,10 @@ Server.prototype.start = function () {
     this.use(converter(koaStatic(path.join(staticDir, 'uploads'))));
 
     this.use(converter(staticCache(staticDir)));
-    this.use(converter(staticCache(path.join(staticDir, 'vendors'))));
     this.use(converter(staticCache(path.join(staticDir, 'uploads'))));
-    this.use(converter(staticCache(path.join(staticDir, 'js'))));
+    this.use(converter(staticCache(path.join(staticDir, 'dist'))));
     this.use(converter(staticCache(path.join(staticDir, 'img'))));
-    this.use(converter(staticCache(path.join(staticDir, 'css'))));
     this.use(converter(staticCache(path.join(staticDir, 'fonts'))));
-    this.use(converter(staticCache(path.join(staticDir, 'bower_components'))));
 
     this.use(async (ctx, next) => {
         try{

@@ -35,6 +35,8 @@ npm install
 bower install
 ```
 
+
+
 安装nginx与passenger，按照fusion-passenger官网指引配置相关参数
 
 用域名或ip访问博客即可。

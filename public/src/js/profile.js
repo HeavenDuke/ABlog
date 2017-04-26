@@ -59,6 +59,7 @@
             smartIndent: true,
             showCursorWhenSelecting: true
         });
+        $.richText(myCodeMirror);
         var profile_previewer_entry = $("#profile_previewer_entry");
         profile_previewer_entry.on("click", function () {
             var profile_previewer = $("#profile_previewer");

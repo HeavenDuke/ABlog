@@ -182,6 +182,7 @@ exports.show = async (ctx, next) => {
             }
             json_comments.push(json_comment);
         });
+        console.log(json_comments);
         ctx.render('./journals/show', {
             "title": journal.title,
             likes: likes,

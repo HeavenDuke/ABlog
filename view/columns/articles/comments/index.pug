@@ -66,6 +66,6 @@
                         form(action="/columns/" + article.column_id + "/articles/" + article._id + "/comments/" + comment._id + "/replies" method="POST").margin
                             .form-group
                                 label 回复
-                                .OwO(comment_id=comment.id)
-                                textarea.form-control(name="content" id=comment.id + "_comment_reply" placeholder="请输入您的回复~")
+                                .OwO(comment_id=comment._id)
+                                textarea.form-control(name="content" id=comment._id + "_comment_reply" placeholder="请输入您的回复~")
                             button.button.button-block.button-small.button-primary 提交

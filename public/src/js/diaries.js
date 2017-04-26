@@ -180,9 +180,9 @@
                 if (item_loader.length == 0) {
                     var end_marker = added_container.children("#end_marker");
                     last_index.after(end_marker);
+                    last_index.remove();
+                    added_container.remove();
                 }
-                last_index.remove();
-                added_container.remove();
             }
         });
     };

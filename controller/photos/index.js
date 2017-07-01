@@ -59,8 +59,10 @@ exports.create = async (ctx, next) => {
         data.resize(raw_width, raw_height).write(image.path);
         data.resize(thumb_width, thumb_height).write(image_tools.get_thumb_path(image.path));
         data.resize(preview_width, preview_height).crop((preview_width - preview_size) / 2, (preview_height - preview_size) / 2, preview_size, preview_size).write(image_tools.get_preview_path(image.path));
+        console.log("success");
     }
     else {
+        console.log("2333");
         await fs.unlinkAsync(image.path);
     }
     let Photo = global.database.models.photo;
@@ -70,7 +72,8 @@ exports.create = async (ctx, next) => {
     photo.location = ctx.request.body.fields.location;
     photo.created_at = new Date(ctx.request.body.fields.created_at);
     photo.path = image_path;
-    photo.save();
+    await photo.save();
+    console.log("finished");
     ctx.redirect("/photos");
 };
 

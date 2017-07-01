@@ -45,7 +45,9 @@ exports.create = async (ctx, next) => {
     let image = ctx.request.body.files.photo;
     let image_path = path.basename(image.path);
     let allowed_mimes = ["image/jpeg", "image/bmp", "image/gif", "image/png"];
+    console.log("started");
     if (allowed_mimes.indexOf(image.type) != -1) {
+        console.log(image.path);
         let data = await Jimp.read(image.path);
         let thumb_height = 400;
         let thumb_scale = data.bitmap.height / thumb_height;

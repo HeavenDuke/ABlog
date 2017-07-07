@@ -8,6 +8,9 @@ minifycss = require('gulp-minify-css'),   //css压缩
     rename = require('gulp-rename'),   //文件重命名
     notify = require('gulp-notify');   //提示
 
+
+var $ = require('gulp-load-plugins')();
+
 gulp.task('default', [
     'shared',
     'home',
@@ -34,6 +37,9 @@ gulp.task('shared', function () {
         .pipe(notify({message: 'finish building shared css'}));
 
     gulp.src('public/src/js/shared.js')
+        .pipe($.babel({
+            presets: ["es2015"]
+        }))
         .pipe(uglify())
         .pipe(concat('shared.min.js'))
         .pipe(gulp.dest('public/dist/js'))
@@ -61,6 +67,9 @@ gulp.task('journals', function () {
               'public/bower_components/hshare/hshare.min.js',
               'public/src/js/richtext.js',
               'public/src/js/journals.js'])
+        .pipe($.babel({
+            presets: ["es2015"]
+        }))
         .pipe(uglify())
         .pipe(concat('journals.min.js'))
         .pipe(gulp.dest('public/dist/js'))
@@ -80,6 +89,9 @@ gulp.task('diaries', function () {
         .pipe(notify({message: 'finish building stylesheets for diary module'}));
 
     gulp.src('public/src/js/diaries.js')
+        .pipe($.babel({
+            presets: ["es2015"]
+        }))
         .pipe(uglify())
         .pipe(concat('diaries.min.js'))
         .pipe(gulp.dest('public/dist/js'))
@@ -99,6 +111,9 @@ gulp.task('columns', function () {
         'public/bower_components/hshare/hshare.min.js',
         'public/src/js/richtext.js',
         'public/src/js/columns.js'])
+        .pipe($.babel({
+            presets: ["es2015"]
+        }))
         .pipe(uglify())
         .pipe(concat('columns.min.js'))
         .pipe(gulp.dest('public/dist/js'))
@@ -118,6 +133,9 @@ gulp.task('articles', function () {
         'public/bower_components/hshare/hshare.min.js',
         'public/src/js/richtext.js',
         'public/src/js/articles.js'])
+        .pipe($.babel({
+            presets: ["es2015"]
+        }))
         .pipe(uglify())
         .pipe(concat('articles.min.js'))
         .pipe(gulp.dest('public/dist/js'))
@@ -137,6 +155,9 @@ gulp.task('projects', function () {
         .pipe(notify({message: 'finish building stylesheets for project module'}));
 
     gulp.src('public/src/js/projects.js')
+        .pipe($.babel({
+            presets: ["es2015"]
+        }))
         .pipe(uglify())
         .pipe(concat('projects.min.js'))
         .pipe(gulp.dest('public/dist/js'))
@@ -154,6 +175,9 @@ gulp.task('profiles', function () {
     gulp.src(['public/bower_components/hshare/hshare.min.js',
               'public/src/js/richtext.js',
               'public/src/js/profile.js'])
+        .pipe($.babel({
+            presets: ["es2015"]
+        }))
         .pipe(uglify())
         .pipe(concat('profile.min.js'))
         .pipe(gulp.dest('public/dist/js'))
@@ -168,6 +192,9 @@ gulp.task('writings', function () {
         .pipe(notify({message: 'finish building stylesheets for project module'}));
 
     gulp.src('public/src/js/writings.js')
+        .pipe($.babel({
+            presets: ["es2015"]
+        }))
         .pipe(uglify())
         .pipe(concat('writings.min.js'))
         .pipe(gulp.dest('public/dist/js'))
@@ -182,6 +209,9 @@ gulp.task('photos', function () {
         .pipe(notify({message: 'finish building stylesheets for project module'}));
 
     gulp.src('public/src/js/photos.js')
+        .pipe($.babel({
+            presets: ["es2015"]
+        }))
         .pipe(uglify())
         .pipe(concat('photos.min.js'))
         .pipe(gulp.dest('public/dist/js'))

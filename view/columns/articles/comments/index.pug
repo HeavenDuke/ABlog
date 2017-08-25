@@ -22,11 +22,13 @@
             .comment-text
                 if comment.user
                     .username= comment.user.username
+                        span.text-muted(style="margin-left: 5px;")= comment.created_at.format("yyyy年MM月dd日 hh:mm:ss")
                 else if comment.guest
                     .username= comment.guest.username
+                        span.text-muted(style="margin-left: 5px;")= comment.created_at.format("yyyy年MM月dd日 hh:mm:ss")
                 else
                     .username 匿名用户
-                span.text-muted.pull-right= comment.created_at.format("yyyy年MM月dd日 hh:mm:ss")
+                        span.text-muted(style="margin-left: 5px;")= comment.created_at.format("yyyy年MM月dd日 hh:mm:ss")
                 = comment.content
         - var replies = comment.replies;
         if replies.length != 0

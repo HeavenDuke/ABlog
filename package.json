@@ -40,7 +40,7 @@
     "lru-cache": "2.5.0",
     "marked": "^0.3.5",
     "mini-logger": "1.0.0",
-    "mongoose": "^4.4.14",
+    "mongoose": "^5.8.1",
     "node-qiniu": "latest",
     "node-schedule": "^1.1.1",
     "nodemailer": "^2.5.0",

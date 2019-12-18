@@ -183,7 +183,7 @@ Server.prototype.launchTasks = function () {
         });
     });
 
-    schedule.scheduleJob('0 0 * * *', function () {
+    /*schedule.scheduleJob('0 0 * * *', function () {
         require('../jobs').BackupDatabaseJob(function (err, reply) {
             if (err) {
                 console.log(err);
@@ -192,7 +192,7 @@ Server.prototype.launchTasks = function () {
                 console.log("database backup uploaded");
             }
         });
-    });
+    });*/
 };
 
 module.exports = Server;
